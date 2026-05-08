@@ -6,7 +6,11 @@ type SupabaseLike = SupabaseClient<Database>;
 
 export function toStringList(value: unknown): string[] {
   if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
-  if (typeof value === "string") return value.split(/\n+/).map((item) => item.replace(/^[-*\d.\s]+/, "").trim()).filter(Boolean);
+  if (typeof value === "string")
+    return value
+      .split(/\n+/)
+      .map((item) => item.replace(/^[-*\d.\s]+/, "").trim())
+      .filter(Boolean);
   return [];
 }
 
@@ -15,12 +19,20 @@ export function readString(value: unknown, fallback = ""): string {
 }
 
 export async function getCtx(supabase: SupabaseLike, userId: string) {
-  const { data } = await supabase.from("creator_profile").select("*").eq("user_id", userId).maybeSingle();
+  const { data } = await supabase
+    .from("creator_profile")
+    .select("*")
+    .eq("user_id", userId)
+    .maybeSingle();
   return buildCreatorContext(data ?? {});
 }
 
 export async function requirePremium(supabase: SupabaseLike, userId: string) {
-  const { data: profile } = await supabase.from("profiles").select("tier").eq("id", userId).maybeSingle();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("tier")
+    .eq("id", userId)
+    .maybeSingle();
   let entitled = (profile?.tier ?? "free") !== "free";
   if (!entitled) {
     const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";

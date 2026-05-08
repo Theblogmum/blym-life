@@ -25,10 +25,15 @@ function ViralLab() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-secondary p-2 text-primary"><Flame className="h-5 w-5" /></div>
+        <div className="rounded-2xl bg-secondary p-2 text-primary">
+          <Flame className="h-5 w-5" />
+        </div>
         <div>
           <h1 className="font-display text-3xl font-black">Viral Content Lab</h1>
-          <p className="text-sm text-muted-foreground">Paste a trending video link, caption, or describe it. We'll show you what makes it work — and how to remix it for YOU.</p>
+          <p className="text-sm text-muted-foreground">
+            Paste a trending video link, caption, or describe it. We'll show you what makes it work
+            — and how to remix it for YOU.
+          </p>
         </div>
       </div>
 
@@ -55,10 +60,15 @@ function ViralLab() {
           <Section title="Structure">{m.data.structure}</Section>
           <Section title="Why it works">{m.data.why_it_works}</Section>
           <Card className="rounded-3xl p-5">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Remix for you</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Remix for you
+            </p>
             <ul className="mt-2 space-y-2 text-sm">
               {remixes.map((r, i) => (
-                <li key={i} className="flex gap-2"><span className="text-primary">•</span>{r}</li>
+                <li key={i} className="flex gap-2">
+                  <span className="text-primary">•</span>
+                  {r}
+                </li>
               ))}
             </ul>
           </Card>
@@ -71,7 +81,9 @@ function ViralLab() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Card className="rounded-3xl p-5">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">{title}</p>
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {title}
+      </p>
       <p className="mt-2 text-sm leading-relaxed">{children}</p>
     </Card>
   );

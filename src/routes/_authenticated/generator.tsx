@@ -36,10 +36,14 @@ function GeneratorPage() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-secondary p-2 text-primary"><Camera className="h-5 w-5" /></div>
+        <div className="rounded-2xl bg-secondary p-2 text-primary">
+          <Camera className="h-5 w-5" />
+        </div>
         <div>
           <h1 className="font-display text-3xl font-black">Content Generator</h1>
-          <p className="text-sm text-muted-foreground">Hooks, captions, scripts — written for your vibe.</p>
+          <p className="text-sm text-muted-foreground">
+            Hooks, captions, scripts — written for your vibe.
+          </p>
         </div>
       </div>
 
@@ -51,9 +55,13 @@ function GeneratorPage() {
               onClick={() => setKind(k.v)}
               className={cn(
                 "rounded-full px-4 py-1.5 text-sm transition-colors",
-                kind === k.v ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground/70",
+                kind === k.v
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-foreground/70",
               )}
-            >{k.l}</button>
+            >
+              {k.l}
+            </button>
           ))}
         </div>
         <Input

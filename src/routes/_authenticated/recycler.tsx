@@ -25,10 +25,14 @@ function RecyclerPage() {
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-secondary p-2 text-primary"><Folder className="h-5 w-5" /></div>
+        <div className="rounded-2xl bg-secondary p-2 text-primary">
+          <Folder className="h-5 w-5" />
+        </div>
         <div>
           <h1 className="font-display text-3xl font-black">Clip Recycler</h1>
-          <p className="text-sm text-muted-foreground">Describe a clip you've already filmed — get 5 fresh ways to use it.</p>
+          <p className="text-sm text-muted-foreground">
+            Describe a clip you've already filmed — get 5 fresh ways to use it.
+          </p>
         </div>
       </div>
 
@@ -40,7 +44,11 @@ function RecyclerPage() {
           onChange={(e) => setDesc(e.target.value)}
           className="rounded-2xl"
         />
-        <Button className="mt-4 rounded-full" disabled={!desc.trim() || m.isPending} onClick={() => m.mutate()}>
+        <Button
+          className="mt-4 rounded-full"
+          disabled={!desc.trim() || m.isPending}
+          onClick={() => m.mutate()}
+        >
           {m.isPending ? "Thinking…" : "Get 5 ideas"}
         </Button>
       </Card>
@@ -49,7 +57,9 @@ function RecyclerPage() {
         <div className="mt-6 space-y-3">
           {ideas.map((i, idx) => (
             <Card key={idx} className="rounded-2xl p-4">
-              <p className="font-semibold">{idx + 1}. {i.title}</p>
+              <p className="font-semibold">
+                {idx + 1}. {i.title}
+              </p>
               <p className="mt-1 text-sm text-muted-foreground">Hook: "{i.hook}"</p>
               <p className="mt-1 text-sm">{i.angle}</p>
             </Card>
