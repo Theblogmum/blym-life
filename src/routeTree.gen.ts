@@ -26,6 +26,7 @@ import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -114,6 +115,11 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedBrandHubRoute = AuthenticatedBrandHubRouteImport.update({
+  id: '/brand-hub',
+  path: '/brand-hub',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -141,6 +147,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
+  '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -162,6 +169,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
+  '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -185,6 +193,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
+  '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
@@ -208,6 +217,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
+    | '/brand-hub'
     | '/film-this'
     | '/generator'
     | '/insights'
@@ -229,6 +239,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
+    | '/brand-hub'
     | '/film-this'
     | '/generator'
     | '/insights'
@@ -251,6 +262,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/app'
+    | '/_authenticated/brand-hub'
     | '/_authenticated/film-this'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
@@ -398,6 +410,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/brand-hub': {
+      id: '/_authenticated/brand-hub'
+      path: '/brand-hub'
+      fullPath: '/brand-hub'
+      preLoaderRoute: typeof AuthenticatedBrandHubRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/app': {
       id: '/_authenticated/app'
       path: '/app'
@@ -424,6 +443,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
+  AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
@@ -437,6 +457,7 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
+  AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,

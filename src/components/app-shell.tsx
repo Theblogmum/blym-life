@@ -15,6 +15,7 @@ import {
   X,
   Sparkles,
   Wand2,
+  Building2,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,8 @@ const groups: { label: string; items: Item[] }[] = [
     label: "Grow",
     items: [
       { to: "/insights", label: "Insights", icon: TrendingUp, desc: "Spot what works" },
-      { to: "/ugc-hub", label: "UGC Hub", icon: Wallet, desc: "Pitch & price brands" },
+      { to: "/brand-hub", label: "Brand Hub", icon: Building2, desc: "Directory + outreach tracking" },
+      { to: "/ugc-hub", label: "Pricing & Pitch", icon: Wallet, desc: "Quick pitch + UK rates" },
     ],
   },
 ];
