@@ -60,7 +60,7 @@ export const recycleClip = createServerFn({ method: "POST" })
   .inputValidator((d: { description: string }) => d)
   .handler(async ({ data, context }) => {
     await requirePremium(context.supabase, context.userId);
-    return await callAITool<{ ideas: { title: string; hook: string; angle: string }[] }>({
+    const result = await callAITool<{ ideas?: unknown }>({
       toolName: "clip_ideas", toolDescription: "5 post ideas using one clip.",
       parameters: {
         type: "object",
@@ -82,6 +82,14 @@ export const recycleClip = createServerFn({ method: "POST" })
         { role: "user", content: `Clip: ${data.description}` },
       ],
     });
+    const ideas = Array.isArray(result.ideas) ? result.ideas : [];
+    return {
+      ideas: ideas.map((idea: any) => ({
+        title: readString(idea?.title, "Untitled idea"),
+        hook: readString(idea?.hook),
+        angle: readString(idea?.angle),
+      })).filter((idea) => idea.hook || idea.angle),
+    };
   });
 
 export const generatePitch = createServerFn({ method: "POST" })
@@ -90,7 +98,7 @@ export const generatePitch = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requirePremium(context.supabase, context.userId);
     const ctx = await getCtx(context.supabase, context.userId);
-    return await callAITool<{ subject: string; body: string; suggested_price_gbp: number }>({
+    const result = await callAITool<{ subject?: unknown; body?: unknown; suggested_price_gbp?: unknown }>({
       toolName: "brand_pitch", toolDescription: "Brand pitch email + UK GBP price.",
       parameters: {
         type: "object",
@@ -104,4 +112,9 @@ export const generatePitch = createServerFn({ method: "POST" })
         { role: "user", content: `Creator:\n${ctx}\nFollowers: ${data.followers ?? "unknown"}\nBrand: ${data.brand}\nDeliverables: ${data.deliverables}` },
       ],
     });
+    return {
+      subject: readString(result.subject, `Collaboration idea for ${data.brand}`),
+      body: readString(result.body),
+      suggested_price_gbp: typeof result.suggested_price_gbp === "number" ? result.suggested_price_gbp : 0,
+    };
   });
