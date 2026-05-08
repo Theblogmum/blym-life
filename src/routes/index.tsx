@@ -329,8 +329,8 @@ function PricingPlans() {
         <PriceCard
           name="Free"
           price="£0"
-          tagline="Find your rhythm."
-          features={["3 daily briefs / day", "Caption + hook generator", "Read-only weekly planner"]}
+          tagline="Captions free, forever."
+          features={["Basic caption generator", "3-day full trial of everything", "No card required"]}
           cta={
             isActive
               ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
