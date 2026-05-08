@@ -39,8 +39,8 @@ export async function callAITool<T>(opts: {
   });
 
   if (!res.ok) {
-    if (res.status === 429) throw new Response("Rate limited — try again in a moment", { status: 429 });
-    if (res.status === 402) throw new Response("AI credits exhausted — please top up workspace usage", { status: 402 });
+    if (res.status === 429) throw new Error("Rate limited — try again in a moment");
+    if (res.status === 402) throw new Error("AI credits exhausted — please top up workspace usage");
     const text = await res.text();
     console.error("AI gateway error", res.status, text);
     throw new Error("AI gateway error");
@@ -69,8 +69,8 @@ export async function callAIText(opts: { messages: ChatMessage[]; model?: string
     }),
   });
   if (!res.ok) {
-    if (res.status === 429) throw new Response("Rate limited — try again in a moment", { status: 429 });
-    if (res.status === 402) throw new Response("AI credits exhausted", { status: 402 });
+    if (res.status === 429) throw new Error("Rate limited — try again in a moment");
+    if (res.status === 402) throw new Error("AI credits exhausted");
     throw new Error("AI gateway error");
   }
   const json = await res.json();
