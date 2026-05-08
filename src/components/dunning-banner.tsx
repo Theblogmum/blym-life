@@ -4,7 +4,6 @@ import { AlertTriangle, ExternalLink } from "lucide-react";
 import { useSubscription } from "@/hooks/use-subscription";
 import { useAuth } from "@/hooks/use-auth";
 import { createPortalSession } from "@/utils/payments.functions";
-import { getPaddleEnvironment } from "@/lib/paddle";
 import { toast } from "sonner";
 
 export function DunningBanner() {
@@ -18,7 +17,7 @@ export function DunningBanner() {
   const handle = async () => {
     setLoading(true);
     try {
-      const { url } = await openPortal({ data: { userId: user.id, environment: getPaddleEnvironment() } });
+      const { url } = await openPortal({ data: {} });
       window.open(url, "_blank");
     } catch (e: any) {
       toast.error(e?.message ?? "Couldn't open billing portal");

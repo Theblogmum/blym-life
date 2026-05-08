@@ -8,9 +8,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
 import { useSubscription } from "@/hooks/use-subscription";
-import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
+import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { createPortalSession } from "@/utils/payments.functions";
-import { getPaddleEnvironment } from "@/lib/paddle";
 import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/settings")({
@@ -24,7 +23,7 @@ function SettingsPage() {
   const me = useQuery({ queryKey: ["me"], queryFn: () => fetchMe() });
   const tier = me.data?.profile?.tier ?? "free";
   const { subscription, hasLifetime, isActive } = useSubscription();
-  const { openCheckout, loading: checkoutLoading } = usePaddleCheckout();
+  const { openCheckout, loading: checkoutLoading } = useStripeCheckout();
   const openPortal = useServerFn(createPortalSession);
   const [portalLoading, setPortalLoading] = useState(false);
 
@@ -32,9 +31,8 @@ function SettingsPage() {
     if (!user) return;
     openCheckout({
       priceId,
-      userId: user.id,
-      customerEmail: user.email ?? undefined,
       successUrl: `${window.location.origin}/settings?checkout=success`,
+      cancelUrl: `${window.location.origin}/settings`,
     });
   };
 
@@ -42,7 +40,7 @@ function SettingsPage() {
     if (!user) return;
     setPortalLoading(true);
     try {
-      const { url } = await openPortal({ data: { userId: user.id, environment: getPaddleEnvironment() } });
+      const { url } = await openPortal({ data: { returnUrl: `${window.location.origin}/settings` } });
       window.open(url, "_blank");
     } catch (e: any) {
       toast.error(e?.message ?? "Couldn't open billing portal");

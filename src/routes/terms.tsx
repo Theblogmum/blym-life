@@ -87,11 +87,9 @@ function TermsPage() {
       <h2 className="mt-6 font-display text-xl font-bold">7. Plans, payments, and refunds</h2>
       <p className="mt-2">
         We offer a free tier and paid plans (monthly subscription, yearly subscription, and a one-off lifetime purchase).
-        Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our
-        orders. Paddle provides all customer service inquiries and handles returns. Payment, billing, taxes, cancellation,
-        and refund mechanics are governed by Paddle's{" "}
-        <a className="underline" href="https://www.paddle.com/legal/checkout-buyer-terms" target="_blank" rel="noopener noreferrer">Buyer Terms</a>.
-        For our refund policy see <Link to="/refund" className="underline">our Refund Policy</Link>.
+        Payments are processed securely by Stripe; we do not store your card details. Where applicable, prices are shown
+        inclusive of VAT or sales tax. For our refund policy see <Link to="/refund" className="underline">our Refund Policy</Link>.
+        You can cancel paid subscriptions at any time from the customer portal.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">8. Service level</h2>

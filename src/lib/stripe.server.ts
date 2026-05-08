@@ -1,0 +1,32 @@
+import Stripe from "stripe";
+
+let _stripe: Stripe | null = null;
+
+export function getStripe(): Stripe {
+  if (_stripe) return _stripe;
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
+  _stripe = new Stripe(key, { apiVersion: "2025-08-27.basil" as any });
+  return _stripe;
+}
+
+// Single source of truth for env; Stripe BYOK key prefix tells us which mode
+// the connected account is in.
+export type StripeEnv = "sandbox" | "live";
+export function getStripeEnv(): StripeEnv {
+  return process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
+}
+
+// Human-readable price IDs map → Stripe price IDs.
+// Update these if you create new prices in your Stripe dashboard.
+export const PRICE_MAP: Record<string, { stripePriceId: string; mode: "subscription" | "payment" }> = {
+  premium_monthly: { stripePriceId: "price_1TUs2iLG4ux3wieXNocpahux", mode: "subscription" },
+  premium_yearly:  { stripePriceId: "price_1TUs3RLG4ux3wieXJoxUaWyE", mode: "subscription" },
+  lifetime_oneoff: { stripePriceId: "price_1TUs4oLG4ux3wieXM0IbSxDW", mode: "payment" },
+};
+
+export const PRODUCT_BY_PRICE: Record<string, string> = {
+  price_1TUs2iLG4ux3wieXNocpahux: "premium_monthly",
+  price_1TUs3RLG4ux3wieXJoxUaWyE: "premium_yearly",
+  price_1TUs4oLG4ux3wieXM0IbSxDW: "lifetime_oneoff",
+};

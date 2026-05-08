@@ -6,7 +6,7 @@ import {
   Check, Clock, Wand2, Send,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
+import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
 
@@ -215,7 +215,7 @@ function Landing() {
 function PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const { openCheckout, loading } = usePaddleCheckout();
+  const { openCheckout, loading } = useStripeCheckout();
   const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
   const { isActive, hasLifetime } = useSubscription();
 
@@ -226,9 +226,8 @@ function PricingPlans() {
     }
     await openCheckout({
       priceId,
-      userId: user.id,
-      customerEmail: user.email ?? undefined,
       successUrl: `${window.location.origin}/app?checkout=success`,
+      cancelUrl: window.location.href,
     });
   };
 

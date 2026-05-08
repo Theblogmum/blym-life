@@ -41,7 +41,7 @@ export const generateBrief = createServerFn({ method: "POST" })
     // against a missed/late webhook leaving profiles.tier='free' for a paying user.
     let entitled = (profile?.tier ?? "free") !== "free";
     if (!entitled) {
-      const env = (process.env.PADDLE_LIVE_API_KEY ? "live" : "sandbox");
+      const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
       const { data: hasSub } = await supabase.rpc("has_active_subscription", {
         user_uuid: userId,
         check_env: env,
