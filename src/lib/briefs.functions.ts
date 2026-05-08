@@ -36,7 +36,20 @@ export const generateBrief = createServerFn({ method: "POST" })
     const { data: profile } = await supabase.from("profiles").select("tier").eq("id", userId).maybeSingle();
     const today = new Date().toISOString().slice(0, 10);
 
-    if ((profile?.tier ?? "free") === "free") {
+    // Belt-and-braces entitlement check: tier on profile OR a live entitlement
+    // (active sub / lifetime) via the has_active_subscription RPC. This protects
+    // against a missed/late webhook leaving profiles.tier='free' for a paying user.
+    let entitled = (profile?.tier ?? "free") !== "free";
+    if (!entitled) {
+      const env = (process.env.PADDLE_LIVE_API_KEY ? "live" : "sandbox");
+      const { data: hasSub } = await supabase.rpc("has_active_subscription", {
+        user_uuid: userId,
+        check_env: env,
+      });
+      entitled = !!hasSub;
+    }
+
+    if (!entitled) {
       const { count } = await supabase
         .from("daily_briefs")
         .select("*", { count: "exact", head: true })
