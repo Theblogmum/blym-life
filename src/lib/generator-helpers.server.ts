@@ -16,5 +16,5 @@ export async function requirePremium(supabase: any, userId: string) {
     });
     entitled = !!hasSub;
   }
-  if (!entitled) throw new Response("Upgrade to Premium to use this feature.", { status: 402 });
+  if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
