@@ -8,6 +8,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
+import { useSubscription } from "@/hooks/use-subscription";
 
 export const Route = createFileRoute("/")({
   head: () => ({
