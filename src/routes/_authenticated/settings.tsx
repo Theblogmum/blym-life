@@ -3,10 +3,15 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Settings as SettingsIcon, LogOut, Sparkles, Check } from "lucide-react";
+import { Settings as SettingsIcon, LogOut, Sparkles, Check, ExternalLink } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
+import { useSubscription } from "@/hooks/use-subscription";
+import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
+import { createPortalSession } from "@/utils/payments.functions";
+import { getPaddleEnvironment } from "@/lib/paddle";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   component: SettingsPage,
@@ -18,6 +23,33 @@ function SettingsPage() {
   const fetchMe = useServerFn(getMe);
   const me = useQuery({ queryKey: ["me"], queryFn: () => fetchMe() });
   const tier = me.data?.profile?.tier ?? "free";
+  const { subscription, hasLifetime, isActive } = useSubscription();
+  const { openCheckout, loading: checkoutLoading } = usePaddleCheckout();
+  const openPortal = useServerFn(createPortalSession);
+  const [portalLoading, setPortalLoading] = useState(false);
+
+  const buy = (priceId: string) => {
+    if (!user) return;
+    openCheckout({
+      priceId,
+      userId: user.id,
+      customerEmail: user.email ?? undefined,
+      successUrl: `${window.location.origin}/settings?checkout=success`,
+    });
+  };
+
+  const handlePortal = async () => {
+    if (!user) return;
+    setPortalLoading(true);
+    try {
+      const { url } = await openPortal({ data: { userId: user.id, environment: getPaddleEnvironment() } });
+      window.open(url, "_blank");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Couldn't open billing portal");
+    } finally {
+      setPortalLoading(false);
+    }
+  };
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-8">
@@ -38,12 +70,34 @@ function SettingsPage() {
         </div>
       </Card>
 
-      {tier === "free" && (
+      {isActive && subscription && !hasLifetime && (
+        <Card className="mt-5 rounded-3xl p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Subscription</p>
+          <p className="mt-1 font-medium capitalize">{subscription.status}{subscription.cancel_at_period_end ? " · cancels at period end" : ""}</p>
+          {subscription.current_period_end && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              {subscription.cancel_at_period_end ? "Access until" : "Renews"}: {new Date(subscription.current_period_end).toLocaleDateString()}
+            </p>
+          )}
+          <Button variant="outline" className="mt-4 rounded-full" onClick={handlePortal} disabled={portalLoading}>
+            <ExternalLink className="mr-2 h-4 w-4" /> {portalLoading ? "Opening…" : "Manage billing"}
+          </Button>
+        </Card>
+      )}
+
+      {hasLifetime && (
+        <Card className="mt-5 rounded-3xl p-5">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Lifetime member</p>
+          <p className="mt-1 font-medium">You have permanent Premium access. Thank you 💛</p>
+        </Card>
+      )}
+
+      {!isActive && (
         <Card className="mt-5 rounded-3xl border-0 bg-[image:var(--gradient-warm)] p-[2px]">
           <div className="rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-5">
             <div className="flex items-center gap-2 text-primary">
               <Sparkles className="h-4 w-4" />
-              <p className="text-[11px] font-semibold uppercase tracking-wider">Premium — £19/mo</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wider">Go Premium</p>
             </div>
             <p className="mt-2 font-display text-2xl font-black">Unlimited briefs, deeper insights.</p>
             <ul className="mt-3 space-y-1.5 text-sm">
@@ -57,9 +111,11 @@ function SettingsPage() {
                 <li key={p} className="flex gap-2"><Check className="h-4 w-4 text-primary" />{p}</li>
               ))}
             </ul>
-            <Button className="mt-4 rounded-full" onClick={() => toast("Payments coming soon — get early access at hello@theblogmum.studio")}>
-              Upgrade
-            </Button>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button className="rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_monthly")}>£19/month</Button>
+              <Button className="rounded-full" variant="secondary" disabled={checkoutLoading} onClick={() => buy("premium_yearly")}>£170/year · save ~25%</Button>
+              <Button className="rounded-full" variant="outline" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
+            </div>
           </div>
         </Card>
       )}
