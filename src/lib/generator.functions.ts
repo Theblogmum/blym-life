@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { callAITool } from "@/lib/ai.server";
-import { getCtx, requirePremium } from "@/lib/generator-helpers.server";
+import { getCtx, readString, requirePremium, toStringList } from "@/lib/generator-helpers.server";
 
 export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -9,7 +9,7 @@ export const generateContent = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requirePremium(context.supabase, context.userId);
     const ctx = await getCtx(context.supabase, context.userId);
-    return await callAITool<{ options: string[] }>({
+    const result = await callAITool<{ options?: unknown }>({
       toolName: "generate",
       toolDescription: `5 ${data.kind} options.`,
       parameters: {
@@ -22,6 +22,7 @@ export const generateContent = createServerFn({ method: "POST" })
         { role: "user", content: `Profile:\n${ctx}\n\n5 ${data.kind} options for: ${data.topic}` },
       ],
     });
+    return { options: toStringList(result.options) };
   });
 
 export const analyseTrend = createServerFn({ method: "POST" })
@@ -30,7 +31,7 @@ export const analyseTrend = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await requirePremium(context.supabase, context.userId);
     const ctx = await getCtx(context.supabase, context.userId);
-    return await callAITool<{ hook_breakdown: string; structure: string; why_it_works: string; remix_for_you: string[] }>({
+    const result = await callAITool<{ hook_breakdown?: unknown; structure?: unknown; why_it_works?: unknown; remix_for_you?: unknown }>({
       toolName: "analyse_trend", toolDescription: "Break down a viral trend and propose remixes.",
       parameters: {
         type: "object",
@@ -46,6 +47,12 @@ export const analyseTrend = createServerFn({ method: "POST" })
         { role: "user", content: `Profile:\n${ctx}\n\nAnalyse:\n${data.input}` },
       ],
     });
+    return {
+      hook_breakdown: readString(result.hook_breakdown),
+      structure: readString(result.structure),
+      why_it_works: readString(result.why_it_works),
+      remix_for_you: toStringList(result.remix_for_you),
+    };
   });
 
 export const recycleClip = createServerFn({ method: "POST" })
