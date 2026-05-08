@@ -207,6 +207,7 @@ function PricingPlans() {
   const navigate = useNavigate();
   const { openCheckout, loading } = usePaddleCheckout();
   const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
+  const { isActive, hasLifetime } = useSubscription();
 
   const buy = async (priceId: string) => {
     if (!user) {
@@ -228,6 +229,13 @@ function PricingPlans() {
 
   return (
     <>
+      {isActive && (
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-medium text-secondary-foreground">
+          <Check className="h-4 w-4 text-primary" />
+          {hasLifetime ? "You're a Lifetime member 💛" : "You're on Premium"}
+        </div>
+      )}
+      {!isActive && (
       <div className="mt-6 inline-flex rounded-full border border-border bg-card p-1 text-sm">
         <button
           type="button"
@@ -240,13 +248,18 @@ function PricingPlans() {
           className={`rounded-full px-4 py-1.5 transition ${interval === "yearly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
         >Yearly · save ~25%</button>
       </div>
+      )}
       <div className="mt-8 grid gap-4 sm:grid-cols-3">
         <PriceCard
           name="Free"
           price="£0"
           tagline="Find your rhythm."
           features={["3 daily briefs / day", "Caption + hook generator", "Read-only weekly planner"]}
-          cta={{ label: user ? "Open studio" : "Start free", onClick: () => navigate({ to: user ? "/app" : "/signup" }) }}
+          cta={
+            isActive
+              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: user ? "Open studio" : "Start free", onClick: () => navigate({ to: user ? "/app" : "/signup" }) }
+          }
         />
         <PriceCard
           highlighted
@@ -255,14 +268,22 @@ function PricingPlans() {
           priceSuffix={premiumSuffix}
           tagline={premiumNote}
           features={["Unlimited daily briefs", "Viral Content Lab", "Clip Recycler", "Growth Insights", "UGC pitches & pricing"]}
-          cta={{ label: loading ? "Opening…" : user ? "Upgrade now" : "Start free, then upgrade", onClick: () => buy(premiumPriceId), disabled: loading }}
+          cta={
+            isActive
+              ? { label: hasLifetime ? "Included in Lifetime" : "Current plan", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : user ? "Upgrade now" : "Start free, then upgrade", onClick: () => buy(premiumPriceId), disabled: loading }
+          }
         />
         <PriceCard
           name="Lifetime"
           price="£299"
           tagline="One payment. Forever yours."
           features={["Everything in Premium", "Pay once, never again", "All future features included"]}
-          cta={{ label: loading ? "Opening…" : user ? "Get lifetime" : "Sign up to buy", onClick: () => buy("lifetime_oneoff"), disabled: loading }}
+          cta={
+            hasLifetime
+              ? { label: "You own this 💛", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : user ? "Get lifetime" : "Sign up to buy", onClick: () => buy("lifetime_oneoff"), disabled: loading }
+          }
         />
       </div>
     </>
