@@ -2,6 +2,35 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
+// Attach the current Supabase session token to TanStack server-fn requests.
+// Server functions use plain fetch() to /_serverFn/* and don't carry auth by default.
+if (typeof window !== "undefined" && !(window as any).__lovableServerFnFetchPatched) {
+  (window as any).__lovableServerFnFetchPatched = true;
+  const originalFetch = window.fetch.bind(window);
+  window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+    try {
+      const url =
+        typeof input === "string"
+          ? input
+          : input instanceof URL
+          ? input.toString()
+          : input.url;
+      if (url && url.includes("/_serverFn/")) {
+        const headers = new Headers(init?.headers || (input instanceof Request ? input.headers : undefined));
+        if (!headers.has("authorization")) {
+          const { data } = await supabase.auth.getSession();
+          const token = data.session?.access_token;
+          if (token) headers.set("authorization", `Bearer ${token}`);
+        }
+        return originalFetch(input, { ...init, headers });
+      }
+    } catch {
+      // fall through to default fetch
+    }
+    return originalFetch(input, init);
+  };
+}
+
 type AuthCtx = {
   user: User | null;
   session: Session | null;
