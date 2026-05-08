@@ -1,121 +1,114 @@
-## The Blog Mum Studio — MVP Plan
 
-A playful, modern web app that tells mum content creators *exactly* what to film today, generates content, analyses viral trends, and tracks growth. Built with personalised AI, accounts, and a £19/mo freemium paywall.
+This is a big scope so I'm staging it across two database migrations and four feature areas. Everything here will go in one delivery unless you'd rather split it.
 
-### Core principle
-Feel SIMPLE. One big "Today, film this →" card on the dashboard. Everything else is one tap away. No dashboards full of charts on day one — clean, friendly, encouraging.
+## 1. Free model → strict 3-day trial
 
----
+Today the system gives free users 3 runs/day forever on every premium tool. I'll change it to:
 
-### 1. Look & feel (Playful & modern)
-- **Palette**: warm off-white background, soft coral/peach primary, plum accent, mint success. All tokens in `src/styles.css` using `oklch`.
-- **Type**: bold rounded display font for headings (e.g. Fraunces or Söhne fallback), Inter for body.
-- **Vibe**: rounded-2xl cards, soft shadows, generous spacing, emoji used purposefully, micro-animations on key actions.
-- Mobile-first (most mums will use it on their phone). Bottom nav on mobile, sidebar on desktop.
+- **Day 0–3 from signup** (`profiles.trial_started_at`): full unlimited access to generator, viral lab, recycler, UGC pitch, templates, brand outreach.
+- **Day 4+** (free, no subscription): only **basic captions** in the Content Generator. Every other tool, plus hooks/scripts/hashtags inside the generator, shows a hard upgrade card.
+- Premium subscribers (monthly / yearly / lifetime): unchanged, unlimited everything.
+- A trial countdown chip ("2 days left of your trial") appears in the top nav while active; switches to "Captions free · upgrade for the rest" once expired.
 
-### 2. Auth & accounts
-- Lovable Cloud enabled.
-- Email/password + Google sign-in.
-- `profiles` table (display name, avatar, subscription tier).
-- `user_roles` table (separate, with `has_role` security-definer function) — for future admin.
-- Protected `_authenticated` layout for the app shell.
+I'll add a `trialStatus()` server helper used by every feature gate, replacing the current `enforceQuota` per-day counter. The `usage_events` table stays for analytics but no longer blocks.
 
-### 3. Personalisation onboarding (3-step, friendly)
-Captured once after signup, editable later:
-1. **Your niche & vibe** — relatable mum / aesthetic mum / working mum / fitness mum / etc. (multi-select)
-2. **Your life right now** — kids' ages, location, job/SAHM, posting platforms (TikTok/IG/both)
-3. **Your goals** — followers target, posting frequency, what you want to be known for
+## 2. Landing page — visual, not text-heavy
 
-Stored in `creator_profile` table → fed into every AI prompt.
+Rework `src/routes/index.tsx`:
+- Big hero with a generated lifestyle image (mum filming on phone) + bold headline, sub-line, two CTAs.
+- Three feature tiles with icons + 1 sentence each (no paragraphs).
+- "How it works" — 3 steps as illustrated cards.
+- Social-proof strip (placeholder testimonials you can edit).
+- Pricing teaser → links to /settings.
+- FAQ accordion at the bottom (collapsed = visually light).
+- Generated supporting images via the image tool, kept in `src/assets/`.
 
-### 4. Freemium model (Stripe via Lovable's built-in payments)
-- **Free**: 3 "Tell Me What To Film" plans/day, basic captions, simple weekly planner (read-only).
-- **Premium £19/mo**: unlimited plans, full viral breakdowns, clip recycler, growth insights, UGC hub, personalised growth plan.
-- Usage limits enforced server-side in server functions.
+App pages also get more breathing room: wider max-width on desktop, more vertical rhythm, a sticky "secondary nav" strip on tool pages with anchors (Generate / Tips / Saved).
 
-### 5. App structure (routes)
+## 3. New: Template Studio (smart templates)
 
-```
-/                          → marketing landing
-/login, /signup            → auth
-/onboarding                → 3-step personalisation
-/_authenticated/
-  app                      → 🏠 Dashboard ("Today's content plan" — the killer card)
-  film-this                → 🚀 Tell Me What To Film (full daily brief)
-  viral-lab                → 🔥 Viral Content Lab
-  generator                → 🎥 Content Generator (hooks/scripts/captions/hashtags/shotlist)
-  recycler                 → 📂 Clip Recycler (upload → ideas)
-  insights                 → 📈 Growth Insights
-  planner                  → 📅 Weekly Planner
-  ugc-hub                  → 💰 UGC Creator Hub
-  settings                 → profile, subscription, niche
-```
+New route `/_authenticated/templates` + nav entry under "Create".
 
-### 6. The killer feature — "Tell Me What To Film"
-The dashboard headline card every morning shows ONE concrete brief:
+- One textarea: "What do you need?" (e.g. *"reply to a brand offering free product"* or *"promo my new sleep guide"*).
+- AI classifies intent → returns 3–5 ready-to-use options.
+- Each option shows: title, full body (post script OR email/DM), 1-line "why this works", copy/save buttons.
+- Server fn: `generateTemplates` in `src/lib/templates.functions.ts`.
+- Gated behind 3-day trial; basic captions remain the free fallback.
 
-```
-🎥 TODAY · Tuesday
-Film: making coffee → toddler interrupts → your reaction
-HOOK: "I just sat down…"
-CAPTION: [prewritten, copy button]
-SHOT LIST: 3 clips, 8 sec each
-WHY IT WORKS: high relatability + chaos hook
-POST AT: 7 PM
-```
+## 4. New: Brand Hub — directory + Gmail outreach + tracking
 
-Buttons: **Generate another · Save to planner · Mark as filmed**
+New route `/_authenticated/brand-hub` with three tabs: **Discover**, **My Outreach**, **Inbox status**.
 
-Generated by AI server function using creator profile + day of week + (premium) past performance. Free users get 3/day, premium unlimited.
+### Database (migration 1)
+- `brands` (public read, admin write): name, website, category, hq_country, description, logo_url, contact_email, instagram, notes, is_seeded.
+- `user_brands` (private add): user_id, name, website, contact_email, notes — a creator's own additions.
+- `brand_pitches`: id, user_id, brand_id (nullable), user_brand_id (nullable), recipient_email, subject, body, status (`draft|sent|followed_up|replied|bounced|cancelled`), gmail_message_id, gmail_thread_id, sent_at, follow_up_due_at, follow_up_sent_at, replied_at, created_at.
+- Unique partial index on `(user_id, lower(recipient_email))` where status in (`sent`,`followed_up`) → prevents double-sending.
+- RLS: `brands` public-readable; `user_brands` & `brand_pitches` owner-only.
 
-### 7. The other features (MVP-functional, not stubs)
-- **Viral Content Lab**: paste a TikTok/IG link or describe a trend → AI breaks down hook, structure, why it works, how YOU could remix it for your niche.
-- **Content Generator**: pick output type (hook / script / caption / hashtags / shot list) + topic → AI returns 5 options. Save favourites.
-- **Clip Recycler**: upload clip thumbnails or describe footage → AI returns 5 post ideas using that clip. (No video processing in MVP — text descriptions only; we set expectations clearly.)
-- **Growth Insights**: log what you posted + how it performed (views/likes/saves). AI analyses patterns weekly: "Your reels with toddler chaos hooks get 3× more saves."
-- **Weekly Planner**: 7-day grid, drag saved ideas into slots, AI auto-fills empty days based on profile.
-- **UGC Creator Hub**: pricing calculator (followers × niche × deliverable), AI brand-pitch generator, UGC script generator, portfolio tips checklist.
+### Seed data
+~50 UK mum-friendly brands (baby/toddler/beauty/home/food) inserted with public PR/marketing emails. You'll get an admin "Add brand" form that uses the `admin` role (already in `app_role`) for adding more.
 
-### 8. AI layer (Lovable AI Gateway)
-All AI behind server functions, never client-side. One server fn per feature, each with its own carefully-tuned prompt that injects creator profile.
-- Default model: `google/gemini-3-flash-preview` (fast, cheap, great for this).
-- Use structured output (tool calling) for briefs/plans so UI can render reliably.
-- Surface 429 / 402 errors to users with friendly toasts.
+### Gmail OAuth (per creator)
 
-### 9. Database (Lovable Cloud)
-Tables (all RLS-protected, user-scoped):
-- `profiles` — display name, avatar, tier, stripe_customer_id
-- `user_roles` — separate roles table + `has_role()` function
-- `creator_profile` — niche, vibe, kids ages, platforms, goals
-- `daily_briefs` — generated film-this plans (for history + 3/day limit)
-- `saved_content` — saved hooks/captions/scripts/ideas
-- `posts_logged` — what user posted + performance numbers
-- `weekly_plans` — week → 7 day slots → content references
-- `subscriptions` — synced from Stripe webhook
+This is the **biggest external dependency** — and I need to be transparent: the Lovable "Gmail" connector links **your** Gmail, not each creator's. To send pitches from each creator's own address, we need a custom Google OAuth app that each user authorises.
 
-### 10. Build order
-1. Enable Lovable Cloud, set up auth + profiles + roles.
-2. Design tokens, layout shell (sidebar desktop / bottom nav mobile), landing page.
-3. Onboarding flow + creator_profile.
-4. Dashboard + "Tell Me What To Film" (the hero feature) end-to-end with AI.
-5. Content Generator + Viral Lab.
-6. Weekly Planner + Saved Content.
-7. Clip Recycler + Growth Insights + UGC Hub.
-8. Stripe payments + freemium gating + subscription webhook.
-9. Polish, empty states, encouragement copy, mobile pass.
+That means **before I can build the send/reply path**, you'll need to:
+1. Create a Google Cloud project (free).
+2. Enable the Gmail API.
+3. Create OAuth 2.0 Web credentials with redirect URI `https://theblogmumstudio.com/api/public/google/callback`.
+4. Submit the consent screen for verification with the `gmail.send` and `gmail.readonly` scopes (Google review takes ~1–4 weeks; in test mode you can add up to 100 testers immediately).
+5. Add `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` as secrets.
 
----
+I'll build everything around it now. Until those secrets are added, the "Connect Gmail" button will show a friendly "Coming soon — admin setup needed" state, and pitches save as **drafts** (subject + body + recipient) so creators can copy/paste in the meantime.
 
-### Technical notes (for the curious)
-- TanStack Start, React 19, Tailwind v4, shadcn/ui.
-- Server functions (`createServerFn`) for all DB/AI work, protected by `requireSupabaseAuth`.
-- Stripe via `enable_stripe_payments` (no account setup needed); webhook in `/api/public/stripe-webhook` syncs `subscriptions` table.
-- Usage limits enforced in server fns by counting today's `daily_briefs` rows for free users.
+### Once Gmail is wired
+- `/api/public/google/callback` — OAuth handler, stores refresh token in new `google_tokens` table (RLS owner-only, encrypted column).
+- `sendPitch` server fn → uses creator's refresh token to send via Gmail API → records `gmail_message_id`, `gmail_thread_id`, sets `follow_up_due_at = now() + 4 days`, status `sent`.
+- `checkReplies` cron (pg_cron + new public route, runs every 6h) → for each `sent`/`followed_up` pitch, hits Gmail `users.messages.list?q=rfc822msgid:<id>` on its thread; if any inbound message exists, marks `replied`.
+- `sendFollowUps` cron (daily 9am) → for each pitch where `status='sent'` AND `follow_up_due_at <= now()` AND `replied_at IS NULL`, sends the follow-up template, sets `status='followed_up'` and `follow_up_sent_at`.
+- Double-send guard: before insert/send, query existing pitch to same `(user_id, lower(email))` not in `cancelled`/`replied` → blocks with toast "You've already pitched this brand."
 
-### What's NOT in MVP (deliberately)
-- Real video upload/processing in Clip Recycler (text-described clips only).
-- Auto-posting to TikTok/IG (huge API/approval overhead).
-- Mobile native app (web is mobile-optimised).
-- Team accounts, agencies.
+### UI
+- **Discover**: searchable grid of brand cards with "Pitch" button. Opens a side-panel with AI-generated pitch (existing `generatePitch` fn) prefilled, editable, with "Send" or "Save draft".
+- **My Outreach**: table of all pitches with status badges, sent/follow-up dates, brand name, subject preview, "View thread" link.
+- **Inbox status**: simple counters — sent / awaiting reply / replied / follow-ups due.
 
-Ready to build whenever you say go.
+## 5. Top-nav additions
+
+Adds two items to the "Create" dropdown: **Template Studio**, **Brand Hub**. Trial countdown chip top-right. Mobile menu mirrors.
+
+## Files (new + edited)
+
+**New**
+- `src/routes/_authenticated/templates.tsx`
+- `src/routes/_authenticated/brand-hub.tsx`
+- `src/routes/api/public/google/callback.ts`
+- `src/routes/api/public/cron/follow-ups.ts`
+- `src/routes/api/public/cron/check-replies.ts`
+- `src/lib/templates.functions.ts`
+- `src/lib/brands.functions.ts`
+- `src/lib/pitches.functions.ts`
+- `src/lib/gmail.server.ts`
+- `src/lib/trial.server.ts`
+- `src/components/trial-chip.tsx`
+- `src/components/brand-card.tsx`
+- `src/components/pitch-composer.tsx`
+- `src/assets/landing-hero.jpg` (generated)
+- `src/assets/landing-step-*.jpg` (generated)
+
+**Edited**
+- `src/routes/index.tsx` (full landing rewrite)
+- `src/components/app-shell.tsx` (nav + trial chip)
+- `src/lib/generator-helpers.server.ts` (replace quota with trial)
+- `src/lib/generator.functions.ts`, `viral-lab`, `recycler`, `ugc-hub` routes (gate change)
+- `src/lib/usage.functions.ts` → `src/lib/trial.functions.ts`
+
+**Migrations**
+1. Add `trial_started_at` to `profiles` (default `now()`, backfill existing users), then enable on signup trigger.
+2. Create `brands`, `user_brands`, `brand_pitches`, `google_tokens` with RLS, indexes, and seed insert for ~50 brands.
+
+## What I need from you to start
+
+- **Confirm the plan** as a whole.
+- **Confirm**: do I proceed building the Brand Hub UI + drafts flow now, with the Gmail connect button stubbed until you complete the Google Cloud OAuth setup? Or wait on everything until you have the OAuth credentials?
