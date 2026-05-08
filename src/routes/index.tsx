@@ -201,11 +201,78 @@ function Landing() {
   );
 }
 
+function PricingPlans() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { openCheckout, loading } = usePaddleCheckout();
+  const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
+
+  const buy = async (priceId: string) => {
+    if (!user) {
+      navigate({ to: "/signup" });
+      return;
+    }
+    await openCheckout({
+      priceId,
+      userId: user.id,
+      customerEmail: user.email ?? undefined,
+      successUrl: `${window.location.origin}/app?checkout=success`,
+    });
+  };
+
+  const premiumPriceId = interval === "monthly" ? "premium_monthly" : "premium_yearly";
+  const premiumPrice = interval === "monthly" ? "£19" : "£170";
+  const premiumSuffix = interval === "monthly" ? "/mo" : "/yr";
+  const premiumNote = interval === "yearly" ? "Save ~25% vs monthly" : "Cancel anytime";
+
+  return (
+    <>
+      <div className="mt-6 inline-flex rounded-full border border-border bg-card p-1 text-sm">
+        <button
+          type="button"
+          onClick={() => setInterval("monthly")}
+          className={`rounded-full px-4 py-1.5 transition ${interval === "monthly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+        >Monthly</button>
+        <button
+          type="button"
+          onClick={() => setInterval("yearly")}
+          className={`rounded-full px-4 py-1.5 transition ${interval === "yearly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+        >Yearly · save ~25%</button>
+      </div>
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <PriceCard
+          name="Free"
+          price="£0"
+          tagline="Find your rhythm."
+          features={["3 daily briefs / day", "Caption + hook generator", "Read-only weekly planner"]}
+          cta={{ label: user ? "Open studio" : "Start free", onClick: () => navigate({ to: user ? "/app" : "/signup" }) }}
+        />
+        <PriceCard
+          highlighted
+          name="Premium"
+          price={premiumPrice}
+          priceSuffix={premiumSuffix}
+          tagline={premiumNote}
+          features={["Unlimited daily briefs", "Viral Content Lab", "Clip Recycler", "Growth Insights", "UGC pitches & pricing"]}
+          cta={{ label: loading ? "Opening…" : user ? "Upgrade now" : "Start free, then upgrade", onClick: () => buy(premiumPriceId), disabled: loading }}
+        />
+        <PriceCard
+          name="Lifetime"
+          price="£299"
+          tagline="One payment. Forever yours."
+          features={["Everything in Premium", "Pay once, never again", "All future features included"]}
+          cta={{ label: loading ? "Opening…" : user ? "Get lifetime" : "Sign up to buy", onClick: () => buy("lifetime_oneoff"), disabled: loading }}
+        />
+      </div>
+    </>
+  );
+}
+
 function PriceCard({
   name, price, priceSuffix, tagline, features, cta, highlighted,
 }: {
   name: string; price: string; priceSuffix?: string; tagline: string;
-  features: string[]; cta: { to: string; label: string }; highlighted?: boolean;
+  features: string[]; cta: { label: string; onClick: () => void; disabled?: boolean }; highlighted?: boolean;
 }) {
   return (
     <div className={highlighted
@@ -222,9 +289,9 @@ function PriceCard({
             <li key={f} className="flex gap-2"><Check className="h-4 w-4 shrink-0 text-primary" />{f}</li>
           ))}
         </ul>
-        <Link to={cta.to as any} className="mt-5 block">
-          <Button className="w-full rounded-full" variant={highlighted ? "default" : "outline"}>{cta.label}</Button>
-        </Link>
+        <Button onClick={cta.onClick} disabled={cta.disabled} className="mt-5 w-full rounded-full" variant={highlighted ? "default" : "outline"}>
+          {cta.label}
+        </Button>
       </div>
     </div>
   );
