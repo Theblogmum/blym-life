@@ -1,0 +1,71 @@
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+
+export const Route = createFileRoute("/login")({
+  head: () => ({ meta: [{ title: "Log in — The Blog Mum Studio" }] }),
+  component: LoginPage,
+});
+
+function LoginPage() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(false);
+    if (error) return toast.error(error.message);
+    navigate({ to: "/app" });
+  };
+
+  const handleGoogle = async () => {
+    const { lovable } = await import("@/integrations/lovable/index");
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin + "/app",
+    });
+    if (result.error) return toast.error("Google sign in failed");
+    if (result.redirected) return;
+    navigate({ to: "/app" });
+  };
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
+        <Link to="/" className="text-sm text-muted-foreground">← back</Link>
+        <h1 className="mt-2 font-display text-3xl font-black">Welcome back</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Let's get your brief.</p>
+
+        <Button onClick={handleGoogle} variant="outline" className="mt-6 w-full rounded-full">
+          Continue with Google
+        </Button>
+        <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
+          <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
+        </div>
+        <form onSubmit={handleEmailLogin} className="space-y-3">
+          <div>
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div>
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <Button type="submit" disabled={loading} className="w-full rounded-full">
+            {loading ? "Signing in…" : "Log in"}
+          </Button>
+        </form>
+        <p className="mt-4 text-center text-sm text-muted-foreground">
+          New here? <Link to="/signup" className="font-semibold text-foreground underline-offset-4 hover:underline">Create account</Link>
+        </p>
+      </div>
+    </div>
+  );
+}
