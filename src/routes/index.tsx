@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
@@ -416,7 +416,7 @@ function BigFeature({
 
 function MiniFeature({
   icon: Icon, title, body,
-}: { icon: React.ComponentType<{ className?: string }>; title: string; body: string }) {
+}: { icon: ComponentType<{ className?: string }>; title: string; body: string }) {
   return (
     <div className="rounded-3xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
       <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary text-primary">
