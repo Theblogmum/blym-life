@@ -15,6 +15,7 @@ import { type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
+import { DunningBanner } from "@/components/dunning-banner";
 
 const nav = [
   { to: "/app", label: "Today", icon: Home },
@@ -73,7 +74,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 overflow-x-hidden pb-24 lg:pb-0">{children}</main>
+      <main className="flex-1 overflow-x-hidden pb-24 lg:pb-0">
+        <DunningBanner />
+        {children}
+      </main>
 
       {/* Bottom nav (mobile) */}
       <nav className="fixed bottom-0 left-0 right-0 z-30 flex justify-around border-t border-border bg-card/95 px-2 py-2 backdrop-blur lg:hidden">
