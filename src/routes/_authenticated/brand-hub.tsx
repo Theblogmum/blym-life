@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { PageHero, UsageChip } from "@/components/page-hero";
-import { getTrialStatus } from "@/lib/trial.functions";
+import { getTrialStatus } from "@/lib/usage.functions";
 import {
   listBrands,
   addUserBrand,
