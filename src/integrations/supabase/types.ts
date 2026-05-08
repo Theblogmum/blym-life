@@ -14,16 +14,276 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      creator_profile: {
+        Row: {
+          created_at: string
+          follower_goal: number | null
+          kids_ages: string | null
+          known_for: string | null
+          location: string | null
+          niches: string[]
+          platforms: string[]
+          posting_frequency: string | null
+          updated_at: string
+          user_id: string
+          vibe: string | null
+          work_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          follower_goal?: number | null
+          kids_ages?: string | null
+          known_for?: string | null
+          location?: string | null
+          niches?: string[]
+          platforms?: string[]
+          posting_frequency?: string | null
+          updated_at?: string
+          user_id: string
+          vibe?: string | null
+          work_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          follower_goal?: number | null
+          kids_ages?: string | null
+          known_for?: string | null
+          location?: string | null
+          niches?: string[]
+          platforms?: string[]
+          posting_frequency?: string | null
+          updated_at?: string
+          user_id?: string
+          vibe?: string | null
+          work_status?: string | null
+        }
+        Relationships: []
+      }
+      daily_briefs: {
+        Row: {
+          brief_date: string
+          caption: string
+          created_at: string
+          film: string
+          filmed: boolean
+          hook: string
+          id: string
+          post_at: string | null
+          saved: boolean
+          shot_list: Json
+          user_id: string
+          why_it_works: string | null
+        }
+        Insert: {
+          brief_date?: string
+          caption: string
+          created_at?: string
+          film: string
+          filmed?: boolean
+          hook: string
+          id?: string
+          post_at?: string | null
+          saved?: boolean
+          shot_list?: Json
+          user_id: string
+          why_it_works?: string | null
+        }
+        Update: {
+          brief_date?: string
+          caption?: string
+          created_at?: string
+          film?: string
+          filmed?: boolean
+          hook?: string
+          id?: string
+          post_at?: string | null
+          saved?: boolean
+          shot_list?: Json
+          user_id?: string
+          why_it_works?: string | null
+        }
+        Relationships: []
+      }
+      posts_logged: {
+        Row: {
+          comments: number | null
+          created_at: string
+          description: string
+          hook: string | null
+          id: string
+          likes: number | null
+          platform: string
+          posted_at: string
+          saves: number | null
+          shares: number | null
+          user_id: string
+          views: number | null
+        }
+        Insert: {
+          comments?: number | null
+          created_at?: string
+          description: string
+          hook?: string | null
+          id?: string
+          likes?: number | null
+          platform: string
+          posted_at?: string
+          saves?: number | null
+          shares?: number | null
+          user_id: string
+          views?: number | null
+        }
+        Update: {
+          comments?: number | null
+          created_at?: string
+          description?: string
+          hook?: string | null
+          id?: string
+          likes?: number | null
+          platform?: string
+          posted_at?: string
+          saves?: number | null
+          shares?: number | null
+          user_id?: string
+          views?: number | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          onboarded: boolean
+          tier: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id: string
+          onboarded?: boolean
+          tier?: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          onboarded?: boolean
+          tier?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      saved_content: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          kind: string
+          meta: Json | null
+          title: string | null
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          kind: string
+          meta?: Json | null
+          title?: string | null
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          kind?: string
+          meta?: Json | null
+          title?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      weekly_plans: {
+        Row: {
+          caption: string | null
+          created_at: string
+          done: boolean
+          hook: string | null
+          id: string
+          idea: string
+          notes: string | null
+          plan_date: string
+          slot_label: string | null
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          done?: boolean
+          hook?: string | null
+          id?: string
+          idea: string
+          notes?: string | null
+          plan_date: string
+          slot_label?: string | null
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          done?: boolean
+          hook?: string | null
+          id?: string
+          idea?: string
+          notes?: string | null
+          plan_date?: string
+          slot_label?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +410,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
