@@ -1,11 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Camera, Calendar, TrendingUp, HeartHandshake,
   Check, Clock, Wand2, Send,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { usePaddleCheckout } from "@/hooks/use-paddle-checkout";
+import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,6 +56,7 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PaymentTestModeBanner />
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link to="/" className="text-lg font-semibold tracking-tight">
