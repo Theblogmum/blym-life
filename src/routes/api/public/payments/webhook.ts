@@ -13,7 +13,18 @@ function getSupabase(): any {
   return _supabase;
 }
 
-async function setProfileTier(userId: string, tier: 'free' | 'premium') {
+async function setProfileTier(userId: string, tier: 'free' | 'premium', env: PaddleEnv) {
+  // Never demote a lifetime owner to free.
+  if (tier === 'free') {
+    const { data: lifetime } = await getSupabase()
+      .from('lifetime_purchases')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('environment', env)
+      .limit(1)
+      .maybeSingle();
+    if (lifetime) return;
+  }
   await getSupabase().from('profiles').update({ tier, updated_at: new Date().toISOString() }).eq('id', userId);
 }
 
@@ -70,7 +81,7 @@ async function handleSubscriptionCreated(data: any, env: PaddleEnv) {
     },
     { onConflict: 'paddle_subscription_id' }
   );
-  await setProfileTier(userId, 'premium');
+  await setProfileTier(userId, 'premium', env);
   await maybeSendWelcomeEmail(userId);
 }
 
@@ -98,7 +109,7 @@ async function handleSubscriptionUpdated(data: any, env: PaddleEnv) {
     const periodEnd = currentBillingPeriod?.endsAt ? new Date(currentBillingPeriod.endsAt).getTime() : 0;
     const stillEntitled = ['active', 'trialing', 'past_due'].includes(status) ||
       (status === 'canceled' && periodEnd > Date.now());
-    await setProfileTier(customData.userId, stillEntitled ? 'premium' : 'free');
+    await setProfileTier(customData.userId, stillEntitled ? 'premium' : 'free', env);
   }
 }
 
@@ -112,7 +123,7 @@ async function handleSubscriptionCanceled(data: any, env: PaddleEnv) {
   // Keep tier=premium until current_period_end passes; a separate check on app load handles expiry.
   if (customData?.userId) {
     const periodEnd = currentBillingPeriod?.endsAt ? new Date(currentBillingPeriod.endsAt).getTime() : 0;
-    if (periodEnd <= Date.now()) await setProfileTier(customData.userId, 'free');
+    if (periodEnd <= Date.now()) await setProfileTier(customData.userId, 'free', env);
   }
 }
 
@@ -137,7 +148,7 @@ async function handleTransactionCompleted(data: any, env: PaddleEnv) {
     },
     { onConflict: 'paddle_transaction_id' }
   );
-  await setProfileTier(userId, 'premium');
+  await setProfileTier(userId, 'premium', env);
   await maybeSendWelcomeEmail(userId);
 }
 
