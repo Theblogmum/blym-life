@@ -14,6 +14,7 @@ import {
   Menu,
   X,
   Sparkles,
+  Wand2,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,7 @@ const groups: { label: string; items: Item[] }[] = [
     label: "Create",
     items: [
       { to: "/generator", label: "Generator", icon: Camera, desc: "Hooks, captions, scripts" },
+      { to: "/templates", label: "Template Studio", icon: Wand2, desc: "Posts, emails & DMs in 4 picks" },
       { to: "/viral-lab", label: "Viral Lab", icon: Flame, desc: "Break down trends" },
       { to: "/recycler", label: "Recycler", icon: Folder, desc: "5 ideas from one clip" },
     ],
