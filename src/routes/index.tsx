@@ -86,7 +86,6 @@ function Landing() {
       </div>
       </header>
 
-      <section className="mx-auto max-w-4xl px-6 pt-10 pb-20 text-center sm:pt-20">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[image:var(--gradient-sunrise)] opacity-40" aria-hidden />
         <div className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-white/40 blur-3xl" aria-hidden />
