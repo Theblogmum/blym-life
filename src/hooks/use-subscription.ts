@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { getPaddleEnvironment } from "@/lib/paddle";
 import { useAuth } from "@/hooks/use-auth";
 
 export type SubscriptionRow = {
@@ -18,8 +17,6 @@ export function useSubscription() {
   const [hasLifetime, setHasLifetime] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const env = getPaddleEnvironment();
-
   const refetch = async () => {
     if (!user) {
       setSubscription(null);
@@ -32,7 +29,6 @@ export function useSubscription() {
         .from("subscriptions")
         .select("id,status,product_id,price_id,current_period_end,cancel_at_period_end")
         .eq("user_id", user.id)
-        .eq("environment", env)
         .order("created_at", { ascending: false })
         .limit(1)
         .maybeSingle(),
@@ -40,7 +36,6 @@ export function useSubscription() {
         .from("lifetime_purchases")
         .select("id")
         .eq("user_id", user.id)
-        .eq("environment", env)
         .limit(1)
         .maybeSingle(),
     ]);

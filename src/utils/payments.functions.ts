@@ -1,42 +1,94 @@
 import { createServerFn } from "@tanstack/react-start";
-import { gatewayFetch, getPaddleClient, type PaddleEnv } from "@/lib/paddle.server";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { getStripe, getStripeEnv, PRICE_MAP } from "@/lib/stripe.server";
 
-export const resolvePaddlePrice = createServerFn({ method: "GET" })
-  .inputValidator((data: { priceId: string; environment: PaddleEnv }) => data)
-  .handler(async ({ data }) => {
-    const response = await gatewayFetch(
-      data.environment,
-      `/prices?external_id=${encodeURIComponent(data.priceId)}`
-    );
-    const result = await response.json();
-    if (!result.data?.length) throw new Error("Price not found");
-    return result.data[0].id as string;
+function getOrigin(fallback: string) {
+  return process.env.SITE_URL || fallback;
+}
+
+async function findOrCreateCustomerId(email: string, userId: string) {
+  const stripe = getStripe();
+  const existing = await stripe.customers.list({ email, limit: 1 });
+  if (existing.data.length) return existing.data[0].id;
+  const created = await stripe.customers.create({
+    email,
+    metadata: { userId },
+  });
+  return created.id;
+}
+
+export const createCheckoutSession = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { priceId: string; successUrl: string; cancelUrl: string }) => data)
+  .handler(async ({ data, context }) => {
+    const userId = context.userId as string;
+    const email = (context.claims as any)?.email as string | undefined;
+    if (!email) throw new Error("No email on user account");
+
+    const mapping = PRICE_MAP[data.priceId];
+    if (!mapping) throw new Error(`Unknown priceId: ${data.priceId}`);
+
+    const stripe = getStripe();
+    const customerId = await findOrCreateCustomerId(email, userId);
+
+    const session = await stripe.checkout.sessions.create({
+      customer: customerId,
+      mode: mapping.mode,
+      line_items: [{ price: mapping.stripePriceId, quantity: 1 }],
+      success_url: data.successUrl,
+      cancel_url: data.cancelUrl,
+      allow_promotion_codes: true,
+      client_reference_id: userId,
+      metadata: { userId, priceKey: data.priceId },
+      subscription_data:
+        mapping.mode === "subscription"
+          ? { metadata: { userId, priceKey: data.priceId } }
+          : undefined,
+      payment_intent_data:
+        mapping.mode === "payment"
+          ? { metadata: { userId, priceKey: data.priceId } }
+          : undefined,
+    });
+
+    return { url: session.url };
   });
 
 export const createPortalSession = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: { userId?: string; environment: PaddleEnv }) => data)
+  .inputValidator((data: { returnUrl?: string }) => data)
   .handler(async ({ data, context }) => {
-    const userId = context.userId;
+    const userId = context.userId as string;
+    const email = (context.claims as any)?.email as string | undefined;
+    if (!email) throw new Error("No email on user account");
+
+    const env = getStripeEnv();
     const supabase: any = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
     const { data: sub } = await supabase
       .from("subscriptions")
-      .select("paddle_customer_id, paddle_subscription_id")
+      .select("stripe_customer_id")
       .eq("user_id", userId)
-      .eq("environment", data.environment)
+      .eq("environment", env)
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
-    if (!sub) throw new Error("No subscription found");
-    const paddle = getPaddleClient(data.environment);
-    const portal = await paddle.customerPortalSessions.create(
-      sub.paddle_customer_id as string,
-      [sub.paddle_subscription_id as string]
-    );
-    return { url: portal.urls.general.overview };
+
+    let customerId: string | null = sub?.stripe_customer_id ?? null;
+    if (!customerId) {
+      // Fallback: lookup by email (lifetime-only customers won't have a sub row)
+      const stripe = getStripe();
+      const existing = await stripe.customers.list({ email, limit: 1 });
+      customerId = existing.data[0]?.id ?? null;
+    }
+    if (!customerId) throw new Error("No billing account found");
+
+    const stripe = getStripe();
+    const portal = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: data.returnUrl ?? process.env.SITE_URL ?? "https://theblogmumstudio.lovable.app/settings",
+    });
+    return { url: portal.url };
   });
