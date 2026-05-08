@@ -48,8 +48,10 @@ function GeneratorPage() {
   const premium = !!usage.data?.premium;
   const inTrial = !!usage.data?.inTrial;
   const daysLeft = usage.data?.daysLeft ?? null;
-  const isCaptionPage = true;
-  const outOfQuota = !premium && !inTrial && !isCaptionPage;
+  // Free users (after trial) can only run captions. Other kinds are locked.
+  const captionsAlwaysFree = true;
+  const isCaption = kind === "caption";
+  const lockedKind = !premium && !inTrial && !isCaption;
   const activeKind = KINDS.find((k) => k.v === kind);
 
   return (
@@ -61,7 +63,7 @@ function GeneratorPage() {
         description="Hooks, captions, scripts, hashtags & shot lists — written in your voice for your niche."
         variant="warm"
       >
-        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
+        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
@@ -125,22 +127,22 @@ function GeneratorPage() {
             <Button
               size="lg"
               className="h-12 w-full rounded-2xl text-base font-bold shadow-[var(--shadow-glow)] sm:w-auto"
-              disabled={!topic.trim() || m.isPending || outOfQuota}
+              disabled={!topic.trim() || m.isPending || lockedKind}
               onClick={() => m.mutate()}
             >
               <Sparkles className="mr-2 h-4 w-4" />
               {m.isPending ? "Writing your 5 options…" : "Generate 5 options"}
             </Button>
 
-            {outOfQuota && (
+            {lockedKind && (
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">
                 <p className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
-                  You've used your 3 free runs today.
+                  Trial ended — captions stay free, but {activeKind?.l.toLowerCase()} are premium.
                 </p>
                 <Link to="/settings">
                   <Button size="sm" className="rounded-full">
-                    Go unlimited
+                    Upgrade
                   </Button>
                 </Link>
               </div>
