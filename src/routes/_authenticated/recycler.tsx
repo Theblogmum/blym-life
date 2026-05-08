@@ -20,6 +20,7 @@ function RecyclerPage() {
     mutationFn: () => fn({ data: { description: desc } }),
     onError: (e: any) => toast.error(e.message || "Failed"),
   });
+  const ideas = Array.isArray(m.data?.ideas) ? m.data.ideas : [];
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
@@ -44,9 +45,9 @@ function RecyclerPage() {
         </Button>
       </Card>
 
-      {m.data && (
+      {ideas.length > 0 && (
         <div className="mt-6 space-y-3">
-          {m.data.ideas.map((i, idx) => (
+          {ideas.map((i, idx) => (
             <Card key={idx} className="rounded-2xl p-4">
               <p className="font-semibold">{idx + 1}. {i.title}</p>
               <p className="mt-1 text-sm text-muted-foreground">Hook: "{i.hook}"</p>
