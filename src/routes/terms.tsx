@@ -41,13 +41,32 @@ function TermsPage() {
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">4. Acceptable use</h2>
-      <p className="mt-2">You must not:</p>
+      <p className="mt-2">
+        You agree to use the service only for lawful purposes and in a way that does not infringe the rights of, restrict,
+        or inhibit anyone else's use of the service. The following uses are strictly prohibited. You must not:
+      </p>
       <ul className="mt-2 list-disc space-y-1 pl-5">
-        <li>use the service unlawfully or to infringe anyone's rights;</li>
-        <li>use it for fraud, spam, harassment, or to generate unlawful, deceptive, or harmful content;</li>
-        <li>attempt to interfere with the security or integrity of the service (malware, probing, scraping, reverse engineering);</li>
-        <li>resell, redistribute, or circumvent the technical limits of your plan.</li>
+        <li>break any applicable law, regulation, or third-party right (including intellectual property, privacy, publicity, and consumer-protection laws);</li>
+        <li>use the service to create, distribute, or promote content that is unlawful, fraudulent, deceptive, defamatory, obscene, sexually explicit, sexual content involving minors, hateful, harassing, threatening, or that incites violence or self-harm;</li>
+        <li>generate or distribute spam, bulk unsolicited messages, misleading endorsements, fake reviews, astroturfing, or content designed to manipulate platform algorithms in violation of those platforms' terms;</li>
+        <li>impersonate any person or entity, misrepresent your affiliation, or create deepfakes or synthetic media of real people without their explicit consent;</li>
+        <li>use the service to give regulated professional advice (medical, legal, financial, tax, or similar) without the appropriate qualifications and disclosures;</li>
+        <li>upload or input personal data of third parties without a lawful basis, or any data you do not have the right to share;</li>
+        <li>use outputs in connection with high-risk activities (including political campaigning, election interference, weapons, surveillance of individuals, or critical infrastructure) without our prior written consent;</li>
+        <li>interfere with the security, integrity, or performance of the service — including introducing malware, probing, scanning, scraping, automated extraction, denial-of-service activity, or attempts to bypass authentication, rate limits, or quotas;</li>
+        <li>reverse engineer, decompile, or attempt to derive the source code, models, prompts, or training data underlying the service, except to the extent this restriction is prohibited by law;</li>
+        <li>resell, sublicense, redistribute, or share access to the service or its outputs in a way that circumvents the technical limits, seat counts, or pricing of your plan;</li>
+        <li>use the service to build or train a competing product, or to benchmark it for the purpose of building a competing product.</li>
       </ul>
+      <p className="mt-2">
+        You are solely responsible for the prompts and inputs you submit, for reviewing outputs before publishing or relying
+        on them, and for ensuring your use complies with the terms of any third-party platform you publish to (for example
+        Instagram, TikTok, YouTube, or Pinterest). We may, at our discretion and without liability, investigate suspected
+        breaches, refuse or remove content, throttle usage, and suspend or terminate accounts that violate this section
+        (see Section 9). Repeated or serious infringement — including repeated copyright complaints — will result in
+        permanent termination. To report abuse, infringement, or a takedown request, email{" "}
+        <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a>.
+      </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">5. AI-generated content</h2>
       <p className="mt-2">
