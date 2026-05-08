@@ -99,7 +99,7 @@ export const markBrief = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string; filmed?: boolean; saved?: boolean }) => d)
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const patch: Record<string, unknown> = {};
+    const patch: { filmed?: boolean; saved?: boolean } = {};
     if (typeof data.filmed === "boolean") patch.filmed = data.filmed;
     if (typeof data.saved === "boolean") patch.saved = data.saved;
     const { error } = await supabase
