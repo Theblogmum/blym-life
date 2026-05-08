@@ -4,7 +4,7 @@ import type { Database } from "@/integrations/supabase/types";
 
 type SupabaseLike = SupabaseClient<Database>;
 
-export const FREE_DAILY_LIMIT = 3;
+export const TRIAL_DAYS = 3;
 
 export type Feature = "generator" | "viral_lab" | "recycler" | "ugc_pitch";
 
@@ -71,35 +71,51 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
   return !!hasSub;
 }
 
-function startOfTodayIso() {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d.toISOString();
+/**
+ * Returns trial info for a user. Trial = first 3 days from `trial_started_at`.
+ * Premium subscribers always pass.
+ */
+export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
+  const premium = await isPremium(supabase, userId);
+  if (premium) {
+    return { premium: true, inTrial: true, daysLeft: null as number | null, trialEndsAt: null as string | null };
+  }
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("trial_started_at")
+    .eq("id", userId)
+    .maybeSingle();
+  const start = profile?.trial_started_at ? new Date(profile.trial_started_at) : new Date();
+  const end = new Date(start.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
+  const now = Date.now();
+  const inTrial = now < end.getTime();
+  const msLeft = end.getTime() - now;
+  const daysLeft = inTrial ? Math.max(1, Math.ceil(msLeft / (24 * 60 * 60 * 1000))) : 0;
+  return { premium: false, inTrial, daysLeft, trialEndsAt: end.toISOString() };
 }
 
 /**
- * Enforces a per-feature daily quota for free users. Premium users are unlimited.
- * Logs the usage event AFTER the caller's work succeeds via the returned `record()` callback.
+ * Gates a premium-only feature. Allows premium users + users in their 3-day trial.
+ * Records a usage event for analytics (non-blocking).
+ * Pass `freeAllowed: true` to let everyone through (e.g. basic captions).
  */
-export async function enforceQuota(
+export async function enforceTrial(
   supabase: SupabaseLike,
   userId: string,
   feature: Feature,
+  opts?: { freeAllowed?: boolean },
 ) {
-  const premium = await isPremium(supabase, userId);
-  if (premium) {
-    return { record: async () => {} };
+  if (opts?.freeAllowed) {
+    return {
+      record: async () => {
+        await supabase.from("usage_events").insert({ user_id: userId, feature });
+      },
+    };
   }
-  const { count } = await supabase
-    .from("usage_events")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .eq("feature", feature)
-    .gte("created_at", startOfTodayIso());
-  const used = count ?? 0;
-  if (used >= FREE_DAILY_LIMIT) {
+  const info = await getTrialInfo(supabase, userId);
+  if (!info.premium && !info.inTrial) {
     throw new Error(
-      `You've used your ${FREE_DAILY_LIMIT} free ${FEATURE_LABELS[feature]} runs for today. Upgrade for unlimited access.`,
+      `Your 3-day trial of ${FEATURE_LABELS[feature]} has ended. Upgrade to Premium to keep using it — basic captions stay free.`,
     );
   }
   return {
