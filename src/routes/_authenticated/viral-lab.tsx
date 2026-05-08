@@ -20,6 +20,7 @@ function ViralLab() {
     mutationFn: (text: string) => fn({ data: { input: text } }),
     onError: (e: any) => toast.error(e.message || "Failed"),
   });
+  const remixes = Array.isArray(m.data?.remix_for_you) ? m.data.remix_for_you : [];
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
@@ -56,7 +57,7 @@ function ViralLab() {
           <Card className="rounded-3xl p-5">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Remix for you</p>
             <ul className="mt-2 space-y-2 text-sm">
-              {m.data.remix_for_you.map((r, i) => (
+              {remixes.map((r, i) => (
                 <li key={i} className="flex gap-2"><span className="text-primary">•</span>{r}</li>
               ))}
             </ul>
