@@ -9,13 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
+import { Route as AuthenticatedUgcHubRouteImport } from './routes/_authenticated/ugc-hub'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
+import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
+import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
+import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
@@ -35,6 +48,41 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
+  id: '/viral-lab',
+  path: '/viral-lab',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedUgcHubRoute = AuthenticatedUgcHubRouteImport.update({
+  id: '/ugc-hub',
+  path: '/ugc-hub',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
+  id: '/recycler',
+  path: '/recycler',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedGeneratorRoute = AuthenticatedGeneratorRouteImport.update({
+  id: '/generator',
+  path: '/generator',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   id: '/film-this',
   path: '/film-this',
@@ -50,15 +98,31 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/generator': typeof AuthenticatedGeneratorRoute
+  '/insights': typeof AuthenticatedInsightsRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/recycler': typeof AuthenticatedRecyclerRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/ugc-hub': typeof AuthenticatedUgcHubRoute
+  '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/generator': typeof AuthenticatedGeneratorRoute
+  '/insights': typeof AuthenticatedInsightsRoute
+  '/planner': typeof AuthenticatedPlannerRoute
+  '/recycler': typeof AuthenticatedRecyclerRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/ugc-hub': typeof AuthenticatedUgcHubRoute
+  '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -66,22 +130,64 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/signup': typeof SignupRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
+  '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
+  '/_authenticated/insights': typeof AuthenticatedInsightsRoute
+  '/_authenticated/planner': typeof AuthenticatedPlannerRoute
+  '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/ugc-hub': typeof AuthenticatedUgcHubRoute
+  '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/onboarding' | '/app' | '/film-this'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/signup'
+    | '/app'
+    | '/film-this'
+    | '/generator'
+    | '/insights'
+    | '/planner'
+    | '/recycler'
+    | '/settings'
+    | '/ugc-hub'
+    | '/viral-lab'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/onboarding' | '/app' | '/film-this'
+  to:
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/signup'
+    | '/app'
+    | '/film-this'
+    | '/generator'
+    | '/insights'
+    | '/planner'
+    | '/recycler'
+    | '/settings'
+    | '/ugc-hub'
+    | '/viral-lab'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/login'
     | '/onboarding'
+    | '/signup'
     | '/_authenticated/app'
     | '/_authenticated/film-this'
+    | '/_authenticated/generator'
+    | '/_authenticated/insights'
+    | '/_authenticated/planner'
+    | '/_authenticated/recycler'
+    | '/_authenticated/settings'
+    | '/_authenticated/ugc-hub'
+    | '/_authenticated/viral-lab'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -89,10 +195,18 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
+  SignupRoute: typeof SignupRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onboarding': {
       id: '/onboarding'
       path: '/onboarding'
@@ -121,6 +235,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/viral-lab': {
+      id: '/_authenticated/viral-lab'
+      path: '/viral-lab'
+      fullPath: '/viral-lab'
+      preLoaderRoute: typeof AuthenticatedViralLabRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/ugc-hub': {
+      id: '/_authenticated/ugc-hub'
+      path: '/ugc-hub'
+      fullPath: '/ugc-hub'
+      preLoaderRoute: typeof AuthenticatedUgcHubRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/recycler': {
+      id: '/_authenticated/recycler'
+      path: '/recycler'
+      fullPath: '/recycler'
+      preLoaderRoute: typeof AuthenticatedRecyclerRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/planner': {
+      id: '/_authenticated/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof AuthenticatedPlannerRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/insights': {
+      id: '/_authenticated/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof AuthenticatedInsightsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/generator': {
+      id: '/_authenticated/generator'
+      path: '/generator'
+      fullPath: '/generator'
+      preLoaderRoute: typeof AuthenticatedGeneratorRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/film-this': {
       id: '/_authenticated/film-this'
       path: '/film-this'
@@ -141,11 +304,25 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
+  AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
+  AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
+  AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
+  AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedUgcHubRoute: typeof AuthenticatedUgcHubRoute
+  AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
+  AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
+  AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
+  AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
+  AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedUgcHubRoute: AuthenticatedUgcHubRoute,
+  AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
@@ -157,6 +334,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
+  SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
