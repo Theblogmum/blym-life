@@ -24,7 +24,7 @@ export const listTodayBriefs = createServerFn({ method: "GET" })
       .eq("user_id", userId)
       .eq("brief_date", today)
       .order("created_at", { ascending: false });
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] listTodayBriefs", error); throw new Error("A database error occurred. Please try again."); }
     return { briefs: data ?? [] };
   });
 
@@ -103,7 +103,7 @@ export const generateBrief = createServerFn({ method: "POST" })
         shot_list: brief.shot_list, why_it_works: brief.why_it_works, post_at: brief.post_at,
       })
       .select().single();
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] generateBrief insert", error); throw new Error("A database error occurred. Please try again."); }
     return { brief: inserted };
   });
 
@@ -117,6 +117,6 @@ export const markBrief = createServerFn({ method: "POST" })
     if (typeof data.saved === "boolean") patch.saved = data.saved;
     const { error } = await supabase
       .from("daily_briefs").update(patch).eq("id", data.id).eq("user_id", userId);
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] markBrief", error); throw new Error("A database error occurred. Please try again."); }
     return { ok: true };
   });

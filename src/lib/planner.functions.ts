@@ -12,7 +12,7 @@ export const listWeek = createServerFn({ method: "POST" })
       .gte("plan_date", data.start)
       .lte("plan_date", data.end)
       .order("plan_date", { ascending: true });
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] listWeek", error); throw new Error("A database error occurred. Please try again."); }
     return { items: rows ?? [] };
   });
 
@@ -25,13 +25,13 @@ export const upsertPlan = createServerFn({ method: "POST" })
       const { error } = await supabase.from("weekly_plans").update({
         plan_date: data.plan_date, idea: data.idea, hook: data.hook, caption: data.caption, slot_label: data.slot_label,
       }).eq("id", data.id).eq("user_id", userId);
-      if (error) throw new Error(error.message);
+      if (error) { console.error("[db error] upsertPlan update", error); throw new Error("A database error occurred. Please try again."); }
       return { ok: true };
     }
     const { error } = await supabase.from("weekly_plans").insert({
       user_id: userId, plan_date: data.plan_date, idea: data.idea, hook: data.hook, caption: data.caption, slot_label: data.slot_label,
     });
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] upsertPlan insert", error); throw new Error("A database error occurred. Please try again."); }
     return { ok: true };
   });
 
@@ -41,7 +41,7 @@ export const togglePlanDone = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { error } = await supabase.from("weekly_plans").update({ done: data.done }).eq("id", data.id).eq("user_id", userId);
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] togglePlanDone", error); throw new Error("A database error occurred. Please try again."); }
     return { ok: true };
   });
 
@@ -51,6 +51,6 @@ export const deletePlan = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
     const { error } = await supabase.from("weekly_plans").delete().eq("id", data.id).eq("user_id", userId);
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] deletePlan", error); throw new Error("A database error occurred. Please try again."); }
     return { ok: true };
   });

@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { gatewayFetch, getPaddleClient, type PaddleEnv } from "@/lib/paddle.server";
 import { createClient } from "@supabase/supabase-js";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const resolvePaddlePrice = createServerFn({ method: "GET" })
   .inputValidator((data: { priceId: string; environment: PaddleEnv }) => data)
@@ -15,8 +16,10 @@ export const resolvePaddlePrice = createServerFn({ method: "GET" })
   });
 
 export const createPortalSession = createServerFn({ method: "POST" })
-  .inputValidator((data: { userId: string; environment: PaddleEnv }) => data)
-  .handler(async ({ data }) => {
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { userId?: string; environment: PaddleEnv }) => data)
+  .handler(async ({ data, context }) => {
+    const userId = context.userId;
     const supabase: any = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
@@ -24,7 +27,7 @@ export const createPortalSession = createServerFn({ method: "POST" })
     const { data: sub } = await supabase
       .from("subscriptions")
       .select("paddle_customer_id, paddle_subscription_id")
-      .eq("user_id", data.userId)
+      .eq("user_id", userId)
       .eq("environment", data.environment)
       .order("created_at", { ascending: false })
       .limit(1)

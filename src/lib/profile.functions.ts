@@ -30,7 +30,7 @@ export const saveCreatorProfile = createServerFn({ method: "POST" })
     const { error } = await supabase
       .from("creator_profile")
       .upsert({ user_id: userId, ...data, updated_at: new Date().toISOString() });
-    if (error) throw new Error(error.message);
+    if (error) { console.error("[db error] saveCreatorProfile", error); throw new Error("A database error occurred. Please try again."); }
     await supabase.from("profiles").update({ onboarded: true, updated_at: new Date().toISOString() }).eq("id", userId);
     return { ok: true };
   });
