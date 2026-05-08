@@ -114,7 +114,7 @@ export const recycleClip = createServerFn({ method: "POST" })
             hook: readString(item.hook),
             angle: readString(item.angle),
           };
-        }))
+        })
         .filter((idea) => idea.hook || idea.angle),
     };
   });
