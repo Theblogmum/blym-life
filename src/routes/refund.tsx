@@ -28,19 +28,10 @@ function RefundPage() {
 
       <h2 className="mt-6 font-display text-xl font-bold">How to request a refund</h2>
       <p className="mt-2">
-        Refunds are processed by our payment provider, Paddle, which acts as Merchant of Record for our orders. To request a
-        refund:
+        Email us at <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a> with the email
+        address you used at checkout and your order reference. We'll process the refund through our payment processor
+        (Stripe) within a few business days.
       </p>
-      <ul className="mt-2 list-disc space-y-1 pl-5">
-        <li>
-          Visit <a className="underline" href="https://paddle.net" target="_blank" rel="noopener noreferrer">paddle.net</a> and
-          look up your order using the email address you used at checkout, or
-        </li>
-        <li>
-          Email us at <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a> with your order
-          reference and we'll handle it for you.
-        </li>
-      </ul>
 
       <h2 className="mt-6 font-display text-xl font-bold">After 30 days</h2>
       <p className="mt-2">

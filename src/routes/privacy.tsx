@@ -38,14 +38,14 @@ function PrivacyPage() {
           <tr><td className="py-2 pr-4">Subscription / purchase status</td><td className="py-2 pr-4">Grant access to paid features and reflect entitlements</td><td className="py-2">Contract</td></tr>
         </tbody>
       </table>
-      <p className="mt-3">Payment card details are collected and processed by Paddle, not by us — see "Who we share data with" below.</p>
+      <p className="mt-3">Payment card details are collected and processed by Stripe, not by us — see "Who we share data with" below.</p>
 
       <h2 className="mt-6 font-display text-xl font-bold">3. Who we share data with</h2>
       <ul className="mt-2 list-disc space-y-1 pl-5">
         <li><strong>Hosting and database</strong>: Lovable Cloud (powered by Supabase) — stores your account, creator profile, and content.</li>
         <li><strong>AI generation</strong>: Lovable AI Gateway, which routes prompts to providers such as Google and OpenAI to generate briefs and captions. Inputs sent for generation are processed only to return a response.</li>
         <li><strong>Email</strong>: our email service provider, used to deliver transactional and account emails.</li>
-        <li><strong>Merchant of Record</strong>: Paddle.com Market Limited acts as Merchant of Record for all orders. Paddle handles payment, subscription management, tax compliance, invoicing, and customer service for purchases. See Paddle's privacy notice at <a className="underline" href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer">paddle.com/legal/privacy</a>.</li>
+        <li><strong>Payment processor</strong>: Stripe Payments Europe, Limited processes payments, subscription billing, and stores card details on our behalf. See Stripe's privacy notice at <a className="underline" href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">stripe.com/privacy</a>.</li>
         <li><strong>Professional advisers and authorities</strong>: where required by law or to protect our rights.</li>
       </ul>
 
