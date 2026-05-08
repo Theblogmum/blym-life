@@ -18,7 +18,7 @@ function ViralLab() {
   const [input, setInput] = useState("");
   const m = useMutation({
     mutationFn: (text: string) => fn({ data: { input: text } }),
-    onError: (e: any) => toast.error(e.message || "Failed"),
+    onError: (e: Error) => toast.error(e.message || "Failed"),
   });
   const remixes = Array.isArray(m.data?.remix_for_you) ? m.data.remix_for_you : [];
 

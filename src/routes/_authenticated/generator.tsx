@@ -29,7 +29,7 @@ function GeneratorPage() {
 
   const m = useMutation({
     mutationFn: () => fn({ data: { kind, topic } }),
-    onError: (e: any) => toast.error(e.message || "Failed"),
+    onError: (e: Error) => toast.error(e.message || "Failed"),
   });
   const options = Array.isArray(m.data?.options) ? m.data.options : [];
 

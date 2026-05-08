@@ -18,7 +18,7 @@ function RecyclerPage() {
   const [desc, setDesc] = useState("");
   const m = useMutation({
     mutationFn: () => fn({ data: { description: desc } }),
-    onError: (e: any) => toast.error(e.message || "Failed"),
+    onError: (e: Error) => toast.error(e.message || "Failed"),
   });
   const ideas = Array.isArray(m.data?.ideas) ? m.data.ideas : [];
 
