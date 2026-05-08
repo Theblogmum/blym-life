@@ -1,13 +1,17 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { callAITool } from "@/lib/ai.server";
-import { enforceQuota, getCtx, readString, toStringList } from "@/lib/generator-helpers.server";
+import { enforceTrial, getCtx, readString, toStringList } from "@/lib/generator-helpers.server";
 
 export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { kind: string; topic: string }) => d)
   .handler(async ({ data, context }) => {
-    const quota = await enforceQuota(context.supabase, context.userId, "generator");
+    // Captions are free forever; everything else needs trial or premium.
+    const isCaption = String(data.kind).toLowerCase().includes("caption");
+    const quota = await enforceTrial(context.supabase, context.userId, "generator", {
+      freeAllowed: isCaption,
+    });
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{ options?: unknown }>({
       toolName: "generate",
@@ -36,7 +40,7 @@ export const analyseTrend = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { input: string }) => d)
   .handler(async ({ data, context }) => {
-    const quota = await enforceQuota(context.supabase, context.userId, "viral_lab");
+    const quota = await enforceTrial(context.supabase, context.userId, "viral_lab");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
       hook_breakdown?: unknown;
@@ -75,7 +79,7 @@ export const recycleClip = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { description: string }) => d)
   .handler(async ({ data, context }) => {
-    const quota = await enforceQuota(context.supabase, context.userId, "recycler");
+    const quota = await enforceTrial(context.supabase, context.userId, "recycler");
     const result = await callAITool<{ ideas?: unknown }>({
       toolName: "clip_ideas",
       toolDescription: "5 post ideas using one clip.",
@@ -126,7 +130,7 @@ export const generatePitch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { brand: string; deliverables: string; followers?: number }) => d)
   .handler(async ({ data, context }) => {
-    const quota = await enforceQuota(context.supabase, context.userId, "ugc_pitch");
+    const quota = await enforceTrial(context.supabase, context.userId, "ugc_pitch");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
       subject?: unknown;
