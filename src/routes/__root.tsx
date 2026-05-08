@@ -76,10 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Blog Mum Studio — Tell me what to film today" },
       { name: "description", content: "AI content studio for mum creators. Get a full filming brief every morning — hook, caption, shot list, post time. Built for real life." },
-      { property: "og:title", content: "The Blog Mum Studio" },
-      { property: "og:description", content: "Finally, someone organised your content for you. Built for mum creators." },
+      { property: "og:title", content: "The Blog Mum Studio — Tell me what to film today" },
+      { property: "og:description", content: "AI content studio for mum creators. Get a full filming brief every morning — hook, caption, shot list, post time. Built for real life." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "The Blog Mum Studio — Tell me what to film today" },
+      { name: "twitter:description", content: "AI content studio for mum creators. Get a full filming brief every morning — hook, caption, shot list, post time. Built for real life." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/61ed3aea-44a2-4b15-8f67-dd3502f2280f" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/61ed3aea-44a2-4b15-8f67-dd3502f2280f" },
     ],
     links: [
       {
