@@ -28,14 +28,14 @@ async function setProfileTier(userId: string, tier: 'free' | 'premium', env: Pad
   await getSupabase().from('profiles').update({ tier, updated_at: new Date().toISOString() }).eq('id', userId);
 }
 
-async function maybeSendWelcomeEmail(userId: string) {
+async function maybeSendWelcomeEmail(userId: string, requestUrl: string) {
   // Best-effort welcome email. If the email infra isn't set up yet, just log and continue.
   try {
     const { data: userResp } = await getSupabase().auth.admin.getUserById(userId);
     const email = userResp?.user?.email;
     if (!email) return;
-    const baseUrl = process.env.SITE_URL || process.env.SUPABASE_URL || '';
-    // Try the project's published URL via env, else skip.
+    // Use the app's own origin (where this webhook is hosted) so the send route resolves.
+    const baseUrl = process.env.SITE_URL || new URL(requestUrl).origin;
     const resp = await fetch(`${baseUrl.replace(/\/$/, '')}/lovable/email/transactional/send`, {
       method: 'POST',
       headers: {
@@ -55,7 +55,7 @@ async function maybeSendWelcomeEmail(userId: string) {
   }
 }
 
-async function handleSubscriptionCreated(data: any, env: PaddleEnv) {
+async function handleSubscriptionCreated(data: any, env: PaddleEnv, requestUrl: string) {
   const { id, customerId, items, status, currentBillingPeriod, customData } = data;
   const userId = customData?.userId;
   if (!userId) { console.error('No userId in customData'); return; }
@@ -82,7 +82,7 @@ async function handleSubscriptionCreated(data: any, env: PaddleEnv) {
     { onConflict: 'paddle_subscription_id' }
   );
   await setProfileTier(userId, 'premium', env);
-  await maybeSendWelcomeEmail(userId);
+  await maybeSendWelcomeEmail(userId, requestUrl);
 }
 
 async function handleSubscriptionUpdated(data: any, env: PaddleEnv) {
@@ -127,7 +127,7 @@ async function handleSubscriptionCanceled(data: any, env: PaddleEnv) {
   }
 }
 
-async function handleTransactionCompleted(data: any, env: PaddleEnv) {
+async function handleTransactionCompleted(data: any, env: PaddleEnv, requestUrl: string) {
   const { id, customerId, items, customData } = data;
   const userId = customData?.userId;
   if (!userId) return;
@@ -149,20 +149,20 @@ async function handleTransactionCompleted(data: any, env: PaddleEnv) {
     { onConflict: 'paddle_transaction_id' }
   );
   await setProfileTier(userId, 'premium', env);
-  await maybeSendWelcomeEmail(userId);
+  await maybeSendWelcomeEmail(userId, requestUrl);
 }
 
 async function handleWebhook(req: Request, env: PaddleEnv) {
   const event = await verifyWebhook(req, env);
   switch (event.eventType) {
     case EventName.SubscriptionCreated:
-      await handleSubscriptionCreated(event.data, env); break;
+      await handleSubscriptionCreated(event.data, env, req.url); break;
     case EventName.SubscriptionUpdated:
       await handleSubscriptionUpdated(event.data, env); break;
     case EventName.SubscriptionCanceled:
       await handleSubscriptionCanceled(event.data, env); break;
     case EventName.TransactionCompleted:
-      await handleTransactionCompleted(event.data, env); break;
+      await handleTransactionCompleted(event.data, env, req.url); break;
     default:
       console.log('Unhandled event:', event.eventType);
   }
