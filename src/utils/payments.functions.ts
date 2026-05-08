@@ -2,21 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { getStripe, getStripeEnv, PRICE_MAP } from "@/lib/stripe.server";
-
-function getOrigin(fallback: string) {
-  return process.env.SITE_URL || fallback;
-}
-
-async function findOrCreateCustomerId(email: string, userId: string) {
-  const stripe = getStripe();
-  const existing = await stripe.customers.list({ email, limit: 1 });
-  if (existing.data.length) return existing.data[0].id;
-  const created = await stripe.customers.create({
-    email,
-    metadata: { userId },
-  });
-  return created.id;
-}
+import { findOrCreateCustomerId } from "@/lib/payments-helpers.server";
 
 export const createCheckoutSession = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

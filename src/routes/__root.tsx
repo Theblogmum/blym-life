@@ -47,9 +47,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
-        {error?.stack && (
+        {error?.message && (
           <pre className="mt-4 max-h-48 overflow-auto whitespace-pre-wrap rounded-md bg-muted p-3 text-left text-[11px] text-muted-foreground">
-            {error.stack}
+            {error.message}
           </pre>
         )}
         <div className="mt-6 flex flex-wrap justify-center gap-2">

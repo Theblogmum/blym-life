@@ -1,25 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { callAITool, buildCreatorContext } from "@/lib/ai.server";
-
-async function getCtx(supabase: any, userId: string) {
-  const { data } = await supabase.from("creator_profile").select("*").eq("user_id", userId).maybeSingle();
-  return buildCreatorContext(data ?? {});
-}
-
-async function requirePremium(supabase: any, userId: string) {
-  const { data: profile } = await supabase.from("profiles").select("tier").eq("id", userId).maybeSingle();
-  let entitled = (profile?.tier ?? "free") !== "free";
-  if (!entitled) {
-    const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
-    const { data: hasSub } = await supabase.rpc("has_active_subscription", {
-      user_uuid: userId,
-      check_env: env,
-    });
-    entitled = !!hasSub;
-  }
-  if (!entitled) throw new Response("Upgrade to Premium to use this feature.", { status: 402 });
-}
+import { callAITool } from "@/lib/ai.server";
+import { getCtx, requirePremium } from "@/lib/generator-helpers.server";
 
 export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
