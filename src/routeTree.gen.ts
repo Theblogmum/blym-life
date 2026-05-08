@@ -16,6 +16,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedUgcHubRouteImport } from './routes/_authenticated/ugc-hub'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
@@ -55,6 +56,11 @@ const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
 const AuthenticatedUgcHubRoute = AuthenticatedUgcHubRouteImport.update({
   id: '/ugc-hub',
   path: '/ugc-hub',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
@@ -99,6 +105,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof AuthenticatedInsightsRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/insights': typeof AuthenticatedInsightsRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
 }
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/planner'
     | '/recycler'
+    | '/settings'
     | '/ugc-hub'
     | '/viral-lab'
   fileRoutesByTo: FileRoutesByTo
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/planner'
     | '/recycler'
+    | '/settings'
     | '/ugc-hub'
     | '/viral-lab'
   id:
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/_authenticated/insights'
     | '/_authenticated/planner'
     | '/_authenticated/recycler'
+    | '/_authenticated/settings'
     | '/_authenticated/ugc-hub'
     | '/_authenticated/viral-lab'
   fileRoutesById: FileRoutesById
@@ -237,6 +249,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUgcHubRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/recycler': {
       id: '/_authenticated/recycler'
       path: '/recycler'
@@ -289,6 +308,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedUgcHubRoute: typeof AuthenticatedUgcHubRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
@@ -300,6 +320,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedUgcHubRoute: AuthenticatedUgcHubRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
