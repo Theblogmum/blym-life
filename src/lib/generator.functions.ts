@@ -1,13 +1,13 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { callAITool } from "@/lib/ai.server";
-import { getCtx, readString, requirePremium, toStringList } from "@/lib/generator-helpers.server";
+import { enforceQuota, getCtx, readString, toStringList } from "@/lib/generator-helpers.server";
 
 export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { kind: string; topic: string }) => d)
   .handler(async ({ data, context }) => {
-    await requirePremium(context.supabase, context.userId);
+    const quota = await enforceQuota(context.supabase, context.userId, "generator");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{ options?: unknown }>({
       toolName: "generate",
@@ -28,6 +28,7 @@ export const generateContent = createServerFn({ method: "POST" })
         { role: "user", content: `Profile:\n${ctx}\n\n5 ${data.kind} options for: ${data.topic}` },
       ],
     });
+    await quota.record();
     return { options: toStringList(result.options) };
   });
 
@@ -35,7 +36,7 @@ export const analyseTrend = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { input: string }) => d)
   .handler(async ({ data, context }) => {
-    await requirePremium(context.supabase, context.userId);
+    const quota = await enforceQuota(context.supabase, context.userId, "viral_lab");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
       hook_breakdown?: unknown;
@@ -61,6 +62,7 @@ export const analyseTrend = createServerFn({ method: "POST" })
         { role: "user", content: `Profile:\n${ctx}\n\nAnalyse:\n${data.input}` },
       ],
     });
+    await quota.record();
     return {
       hook_breakdown: readString(result.hook_breakdown),
       structure: readString(result.structure),
@@ -73,7 +75,7 @@ export const recycleClip = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { description: string }) => d)
   .handler(async ({ data, context }) => {
-    await requirePremium(context.supabase, context.userId);
+    const quota = await enforceQuota(context.supabase, context.userId, "recycler");
     const result = await callAITool<{ ideas?: unknown }>({
       toolName: "clip_ideas",
       toolDescription: "5 post ideas using one clip.",
@@ -105,6 +107,7 @@ export const recycleClip = createServerFn({ method: "POST" })
       ],
     });
     const ideas = Array.isArray(result.ideas) ? result.ideas : [];
+    await quota.record();
     return {
       ideas: ideas
         .map((idea) => {
@@ -123,7 +126,7 @@ export const generatePitch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { brand: string; deliverables: string; followers?: number }) => d)
   .handler(async ({ data, context }) => {
-    await requirePremium(context.supabase, context.userId);
+    const quota = await enforceQuota(context.supabase, context.userId, "ugc_pitch");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
       subject?: unknown;
@@ -150,6 +153,7 @@ export const generatePitch = createServerFn({ method: "POST" })
         },
       ],
     });
+    await quota.record();
     return {
       subject: readString(result.subject, `Collaboration idea for ${data.brand}`),
       body: readString(result.body),
