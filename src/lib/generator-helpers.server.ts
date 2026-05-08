@@ -1,15 +1,8 @@
 import { buildCreatorContext } from "@/lib/ai.server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
-type SupabaseLike = {
-  from: (table: string) => {
-    select: (columns: string) => {
-      eq: (column: string, value: string) => {
-        maybeSingle: () => Promise<{ data: Record<string, unknown> | null }>;
-      };
-    };
-  };
-  rpc: (name: string, args: Record<string, string>) => Promise<{ data: unknown }>;
-};
+type SupabaseLike = SupabaseClient<Database>;
 
 export function toStringList(value: unknown): string[] {
   if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
@@ -23,7 +16,7 @@ export function readString(value: unknown, fallback = ""): string {
 
 export async function getCtx(supabase: SupabaseLike, userId: string) {
   const { data } = await supabase.from("creator_profile").select("*").eq("user_id", userId).maybeSingle();
-  return buildCreatorContext((data ?? {}) as Parameters<typeof buildCreatorContext>[0]);
+  return buildCreatorContext(data ?? {});
 }
 
 export async function requirePremium(supabase: SupabaseLike, userId: string) {
