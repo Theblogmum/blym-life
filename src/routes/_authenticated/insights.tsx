@@ -35,9 +35,9 @@ function InsightsPage() {
     onError: (e: any) => toast.error(e.message || "Failed"),
   });
 
-  const posts = q.data?.posts ?? [];
-  const top = [...posts].sort((a, b) => (b.views ?? 0) - (a.views ?? 0))[0];
-  const avg = posts.length ? Math.round(posts.reduce((s, p) => s + (p.views ?? 0), 0) / posts.length) : 0;
+  const posts = (q.data?.posts ?? []) as any[];
+  const top = [...posts].sort((a: any, b: any) => (b.views ?? 0) - (a.views ?? 0))[0];
+  const avg = posts.length ? Math.round(posts.reduce((s: number, p: any) => s + (p.views ?? 0), 0) / posts.length) : 0;
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
@@ -81,7 +81,7 @@ function InsightsPage() {
       </div>
 
       <div className="mt-6 space-y-3">
-        {posts.map((p) => (
+        {posts.map((p: any) => (
           <Card key={p.id} className="rounded-2xl p-4">
             <div className="flex items-center justify-between">
               <p className="font-medium">{p.description}</p>
