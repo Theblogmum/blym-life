@@ -196,7 +196,17 @@ function Landing() {
       </section>
 
       <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
-        Made with care for mum creators · @theblogmumstudio
+        <p>Made with care for mum creators · @theblogmumstudio</p>
+        <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          <Link to="/terms" className="hover:text-foreground">Terms</Link>
+          <span aria-hidden>·</span>
+          <Link to="/refund" className="hover:text-foreground">Refund Policy</Link>
+          <span aria-hidden>·</span>
+          <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
+          <span aria-hidden>·</span>
+          <a href="mailto:theblogmum@gmail.com" className="hover:text-foreground">Contact</a>
+        </p>
+        <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as The Blog Mum Studio</p>
       </footer>
     </div>
   );
