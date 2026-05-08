@@ -17,7 +17,7 @@ export const resolvePaddlePrice = createServerFn({ method: "GET" })
 export const createPortalSession = createServerFn({ method: "POST" })
   .inputValidator((data: { userId: string; environment: PaddleEnv }) => data)
   .handler(async ({ data }) => {
-    const supabase = createClient(
+    const supabase: any = createClient(
       process.env.SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
