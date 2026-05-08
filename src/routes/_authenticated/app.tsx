@@ -38,10 +38,11 @@ function DashboardPage() {
 
   const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
   const tier = me.data?.profile?.tier ?? "free";
-  const used = briefs.data?.briefs.length ?? 0;
+  const list: any[] = Array.isArray(briefs.data?.briefs) ? briefs.data!.briefs : [];
+  const used = list.length;
   const remaining = tier === "free" ? Math.max(0, 3 - used) : Infinity;
 
-  const latest = briefs.data?.briefs[0];
+  const latest = list[0];
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
@@ -103,11 +104,11 @@ function DashboardPage() {
         )}
       </div>
 
-      {briefs.data && briefs.data.briefs.length > 1 && (
+      {list.length > 1 && (
         <div className="mt-10">
           <h3 className="mb-3 text-sm font-semibold text-muted-foreground">Earlier today</h3>
           <div className="space-y-3">
-            {briefs.data.briefs.slice(1).map((b: any) => (
+            {list.slice(1).map((b: any) => (
               <Card key={b.id} className="rounded-2xl p-4">
                 <p className="text-sm font-medium">{b.film}</p>
                 <p className="mt-1 text-xs text-muted-foreground">"{b.hook}"</p>
