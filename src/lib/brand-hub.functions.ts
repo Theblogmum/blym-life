@@ -132,7 +132,12 @@ export const updatePitchStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string; status: "draft" | "sent" | "replied" | "cancelled" }) => d)
   .handler(async ({ data, context }) => {
-    const updates: Record<string, unknown> = { status: data.status };
+    const updates: {
+      status: string;
+      sent_at?: string;
+      follow_up_due_at?: string;
+      replied_at?: string;
+    } = { status: data.status };
     if (data.status === "sent") {
       updates.sent_at = new Date().toISOString();
       updates.follow_up_due_at = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000).toISOString();
