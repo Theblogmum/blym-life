@@ -1,5 +1,15 @@
 import { buildCreatorContext } from "@/lib/ai.server";
 
+export function toStringList(value: unknown): string[] {
+  if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
+  if (typeof value === "string") return value.split(/\n+/).map((item) => item.replace(/^[-*\d.\s]+/, "").trim()).filter(Boolean);
+  return [];
+}
+
+export function readString(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : fallback;
+}
+
 export async function getCtx(supabase: any, userId: string) {
   const { data } = await supabase.from("creator_profile").select("*").eq("user_id", userId).maybeSingle();
   return buildCreatorContext(data ?? {});
