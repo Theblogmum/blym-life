@@ -26,12 +26,12 @@ function GeneratorPage() {
   const fn = useServerFn(generateContent);
   const [kind, setKind] = useState<string>("hook");
   const [topic, setTopic] = useState("");
-  const options = Array.isArray(m.data?.options) ? m.data.options : [];
 
   const m = useMutation({
     mutationFn: () => fn({ data: { kind, topic } }),
     onError: (e: any) => toast.error(e.message || "Failed"),
   });
+  const options = Array.isArray(m.data?.options) ? m.data.options : [];
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
