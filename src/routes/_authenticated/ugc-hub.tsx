@@ -31,10 +31,11 @@ function UgcHub() {
     onSuccess: () => usage.refetch(),
     onError: (e: any) => toast.error(e.message || "Failed"),
   });
-  const used = usage.data?.usage?.ugc_pitch ?? 0;
-  const limit = usage.data?.limit ?? null;
   const premium = !!usage.data?.premium;
-  const outOfQuota = !premium && limit !== null && used >= limit;
+  const inTrial = !!usage.data?.inTrial;
+  const daysLeft = usage.data?.daysLeft ?? null;
+  const isCaptionPage = false;
+  const outOfQuota = !premium && !inTrial && !isCaptionPage;
 
   return (
     <div>
@@ -45,7 +46,7 @@ function UgcHub() {
         description="Tell us the brand and the deliverables — we'll write the pitch email AND suggest a fair UK rate."
         variant="sunrise"
       >
-        <UsageChip used={used} limit={limit} premium={premium} />
+        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">

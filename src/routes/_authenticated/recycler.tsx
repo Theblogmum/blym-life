@@ -33,10 +33,11 @@ function RecyclerPage() {
     onError: (e: Error) => toast.error(e.message || "Failed"),
   });
   const ideas = Array.isArray(m.data?.ideas) ? m.data.ideas : [];
-  const used = usage.data?.usage?.recycler ?? 0;
-  const limit = usage.data?.limit ?? null;
   const premium = !!usage.data?.premium;
-  const outOfQuota = !premium && limit !== null && used >= limit;
+  const inTrial = !!usage.data?.inTrial;
+  const daysLeft = usage.data?.daysLeft ?? null;
+  const isCaptionPage = false;
+  const outOfQuota = !premium && !inTrial && !isCaptionPage;
 
   return (
     <div>
@@ -47,7 +48,7 @@ function RecyclerPage() {
         description="Describe footage you've already filmed — we'll spin it into 5 totally different post angles."
         variant="mint"
       >
-        <UsageChip used={used} limit={limit} premium={premium} />
+        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
@@ -89,7 +90,7 @@ function RecyclerPage() {
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-peach p-3 text-sm">
                 <p className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
-                  You've used your 3 free Recycler runs today.
+                  Your 3-day trial has ended. Upgrade to keep using Recycler.
                 </p>
                 <Link to="/settings">
                   <Button size="sm" className="rounded-full">

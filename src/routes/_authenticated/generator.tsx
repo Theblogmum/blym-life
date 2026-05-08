@@ -45,10 +45,11 @@ function GeneratorPage() {
     onError: (e: Error) => toast.error(e.message || "Failed"),
   });
   const options = Array.isArray(m.data?.options) ? m.data.options : [];
-  const used = usage.data?.usage?.generator ?? 0;
-  const limit = usage.data?.limit ?? null;
   const premium = !!usage.data?.premium;
-  const outOfQuota = !premium && limit !== null && used >= limit;
+  const inTrial = !!usage.data?.inTrial;
+  const daysLeft = usage.data?.daysLeft ?? null;
+  const isCaptionPage = true;
+  const outOfQuota = !premium && !inTrial && !isCaptionPage;
   const activeKind = KINDS.find((k) => k.v === kind);
 
   return (
@@ -60,7 +61,7 @@ function GeneratorPage() {
         description="Hooks, captions, scripts, hashtags & shot lists — written in your voice for your niche."
         variant="warm"
       >
-        <UsageChip used={used} limit={limit} premium={premium} />
+        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
