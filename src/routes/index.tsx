@@ -2,13 +2,17 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Sparkles, Camera, Calendar, TrendingUp, HeartHandshake,
-  Check, Clock, Wand2, Send,
+  Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
+  TrendingUp, CalendarDays, Heart, Star,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
+import heroImg from "@/assets/landing-hero.jpg";
+import featBrief from "@/assets/feature-brief.jpg";
+import featBrand from "@/assets/feature-brand.jpg";
+import featGrow from "@/assets/feature-grow.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,24 +87,72 @@ function Landing() {
       </header>
 
       <section className="mx-auto max-w-4xl px-6 pt-10 pb-20 text-center sm:pt-20">
-        <span className="inline-flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-          <Sparkles className="h-3.5 w-3.5" /> For mum content creators
-        </span>
-        <h1 className="mt-6 font-display text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl">
-          Tell me what to{" "}
-          <span className="bg-[image:var(--gradient-warm)] bg-clip-text text-transparent">film today.</span>
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-          Every morning, get one ready-to-shoot brief: the clip idea, the hook, the caption,
-          the shot list, and the time to post. No more staring at your phone wondering.
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link to={ctaPrimary.to}><Button size="lg" className="rounded-full px-8">{ctaPrimary.label}</Button></Link>
-          {ctaSecondary && (
-            <Link to={ctaSecondary.to}><Button size="lg" variant="outline" className="rounded-full">{ctaSecondary.label}</Button></Link>
-          )}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[image:var(--gradient-sunrise)] opacity-40" aria-hidden />
+        <div className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-white/40 blur-3xl" aria-hidden />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 pt-14 pb-16 sm:pt-20 lg:grid-cols-2 lg:gap-12 lg:pt-28">
+          <div className="text-center lg:text-left">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-widest text-foreground/80 backdrop-blur">
+              <Sparkles className="h-3.5 w-3.5 text-primary" /> For mum content creators
+            </span>
+            <h1 className="mt-5 font-display text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+              Your tiny content team{" "}
+              <span className="bg-[image:var(--gradient-warm)] bg-clip-text text-transparent">in your pocket.</span>
+            </h1>
+            <p className="mx-auto mt-5 max-w-xl text-lg text-foreground/70 lg:mx-0">
+              Daily briefs, viral remixes, brand pitches and an outreach tracker — built for mums who film between school runs.
+            </p>
+            <div className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <Link to={ctaPrimary.to}>
+                <Button size="lg" className="rounded-full px-8 shadow-[var(--shadow-glow)]">
+                  {ctaPrimary.label}
+                </Button>
+              </Link>
+              {ctaSecondary && (
+                <Link to={ctaSecondary.to}>
+                  <Button size="lg" variant="outline" className="rounded-full">
+                    {ctaSecondary.label}
+                  </Button>
+                </Link>
+              )}
+            </div>
+            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-semibold text-foreground/60 lg:justify-start">
+              <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> 3-day full trial</span>
+              <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> Captions free forever</span>
+              <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
+            </p>
+          </div>
+          <div className="relative mx-auto max-w-md lg:max-w-none">
+            <div className="absolute -inset-4 rounded-[2rem] bg-[image:var(--gradient-warm)] opacity-30 blur-2xl" aria-hidden />
+            <img
+              src={heroImg}
+              alt="Illustration of a mum filming content in a sunny kitchen"
+              width={1024}
+              height={1024}
+              className="relative w-full rounded-[2rem] shadow-[var(--shadow-glow)]"
+            />
+            <div className="absolute -bottom-5 -left-4 hidden rounded-2xl bg-card p-3 shadow-[var(--shadow-soft)] sm:block">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Today's brief</p>
+              <p className="mt-1 text-sm font-semibold">Mum-hack reel · 18s</p>
+              <p className="text-xs text-muted-foreground">Post 7:42pm · 6.4k est. views</p>
+            </div>
+          </div>
         </div>
-        <p className="mt-3 text-xs text-muted-foreground">3 daily briefs free · £19/month for unlimited</p>
+      </section>
+
+      <section className="border-y border-border bg-background py-6">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+          <span>Loved by UK mum creators</span>
+          <span className="inline-flex items-center gap-1">
+            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
+            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
+            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
+            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
+            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
+          </span>
+          <span>Built by a mum, for mums</span>
+          <span>50+ UK brands ready to pitch</span>
+        </div>
       </section>
 
       <section id="how" className="border-y border-border bg-secondary/40 py-16">
@@ -109,9 +161,9 @@ function Landing() {
           <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">From overwhelmed to filmed in 3 steps.</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {[
-              { icon: HeartHandshake, t: "1. Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for." },
+              { icon: Heart, t: "1. Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for." },
               { icon: Wand2, t: "2. Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life." },
-              { icon: Send, t: "3. Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record." },
+              { icon: Camera, t: "3. Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record." },
             ].map((s) => (
               <div key={s.t} className="rounded-3xl bg-card p-6 text-left shadow-[var(--shadow-soft)]">
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
@@ -128,25 +180,41 @@ function Landing() {
       <section id="features" className="mx-auto max-w-6xl px-6 py-20">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inside the studio</p>
-          <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">Everything you need. Nothing you don't.</h2>
+          <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">Three ways we save your evening.</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-foreground/70">
+            One tool to plan, one to grow, one to get paid. No bloat — just the bits mum creators actually use.
+          </p>
         </div>
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          { icon: Camera, title: "Tell Me What To Film", body: "A full daily brief, personalised to your niche, kids and life — not generic 'content ideas'." },
-          { icon: Sparkles, title: "Viral Content Lab", body: "Paste any trend. Get the hook breakdown and how to remix it for YOUR audience." },
-          { icon: Calendar, title: "Weekly Planner", body: "Your whole week mapped out. Drag, drop, done." },
-          { icon: TrendingUp, title: "Growth Insights", body: "We learn what works for you and double down on it." },
-          { icon: HeartHandshake, title: "UGC Creator Hub", body: "Pricing, pitches and scripts that get brands to actually pay you." },
-          { icon: Sparkles, title: "Built for real life", body: "Designed to feel calm, not overwhelming. Because you already are." },
-        ].map((f) => (
-          <div key={f.title} className="rounded-3xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary text-primary">
-              <f.icon className="h-5 w-5" />
-            </div>
-            <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>
-            <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
-          </div>
-        ))}
+
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <BigFeature
+            img={featBrief}
+            badge="Plan"
+            title="Today's brief, ready by breakfast"
+            body="One ready-to-film idea — hook, caption, shot list and best post time — built around your niche and kids."
+            surface="surface-peach"
+          />
+          <BigFeature
+            img={featBrand}
+            badge="Get paid"
+            title="Brand Hub with 50+ UK brands"
+            body="Find brands that work with mums, draft warm pitches with one click, and never double-pitch by accident."
+            surface="surface-mint"
+          />
+          <BigFeature
+            img={featGrow}
+            badge="Grow"
+            title="Insights that actually move you"
+            body="See what's working across your last posts and get tomorrow's brief tuned to your wins."
+            surface="surface-plum"
+          />
+        </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." />
+          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." />
+          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." />
+          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." />
         </div>
       </section>
 
