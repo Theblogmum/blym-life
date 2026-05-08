@@ -394,3 +394,36 @@ function PriceCard({
     </div>
   );
 }
+
+function BigFeature({
+  img, badge, title, body, surface,
+}: { img: string; badge: string; title: string; body: string; surface: string }) {
+  return (
+    <div className={`overflow-hidden rounded-3xl border-0 ${surface} shadow-[var(--shadow-soft)]`}>
+      <div className="aspect-[4/3] overflow-hidden">
+        <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover" />
+      </div>
+      <div className="p-6">
+        <span className="inline-block rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-foreground/70">
+          {badge}
+        </span>
+        <h3 className="mt-3 font-display text-xl font-black">{title}</h3>
+        <p className="mt-2 text-sm text-foreground/70">{body}</p>
+      </div>
+    </div>
+  );
+}
+
+function MiniFeature({
+  icon: Icon, title, body,
+}: { icon: React.ComponentType<{ className?: string }>; title: string; body: string }) {
+  return (
+    <div className="rounded-3xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
+      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary text-primary">
+        <Icon className="h-5 w-5" />
+      </div>
+      <p className="mt-3 font-bold">{title}</p>
+      <p className="mt-1 text-sm text-muted-foreground">{body}</p>
+    </div>
+  );
+}
