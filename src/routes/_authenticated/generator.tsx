@@ -29,16 +29,21 @@ function GeneratorPage() {
 
   const m = useMutation({
     mutationFn: () => fn({ data: { kind, topic } }),
-    onError: (e: any) => toast.error(e.message || "Failed"),
+    onError: (e: Error) => toast.error(e.message || "Failed"),
   });
+  const options = Array.isArray(m.data?.options) ? m.data.options : [];
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-8">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-secondary p-2 text-primary"><Camera className="h-5 w-5" /></div>
+        <div className="rounded-2xl bg-secondary p-2 text-primary">
+          <Camera className="h-5 w-5" />
+        </div>
         <div>
           <h1 className="font-display text-3xl font-black">Content Generator</h1>
-          <p className="text-sm text-muted-foreground">Hooks, captions, scripts — written for your vibe.</p>
+          <p className="text-sm text-muted-foreground">
+            Hooks, captions, scripts — written for your vibe.
+          </p>
         </div>
       </div>
 
@@ -50,9 +55,13 @@ function GeneratorPage() {
               onClick={() => setKind(k.v)}
               className={cn(
                 "rounded-full px-4 py-1.5 text-sm transition-colors",
-                kind === k.v ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground/70",
+                kind === k.v
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-secondary text-foreground/70",
               )}
-            >{k.l}</button>
+            >
+              {k.l}
+            </button>
           ))}
         </div>
         <Input
@@ -70,9 +79,9 @@ function GeneratorPage() {
         </Button>
       </Card>
 
-      {m.data && (
+      {options.length > 0 && (
         <div className="mt-6 space-y-3">
-          {m.data.options.map((o, i) => (
+          {options.map((o, i) => (
             <ResultRow key={i} text={o} />
           ))}
         </div>
