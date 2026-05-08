@@ -14,6 +14,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
+  id: '/viral-lab',
+  path: '/viral-lab',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   id: '/film-this',
   path: '/film-this',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,12 +85,27 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
+  '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/onboarding' | '/signup' | '/app' | '/film-this'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/signup'
+    | '/app'
+    | '/film-this'
+    | '/viral-lab'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/onboarding' | '/signup' | '/app' | '/film-this'
+  to:
+    | '/'
+    | '/login'
+    | '/onboarding'
+    | '/signup'
+    | '/app'
+    | '/film-this'
+    | '/viral-lab'
   id:
     | '__root__'
     | '/'
@@ -92,6 +115,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/app'
     | '/_authenticated/film-this'
+    | '/_authenticated/viral-lab'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -139,6 +163,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/viral-lab': {
+      id: '/_authenticated/viral-lab'
+      path: '/viral-lab'
+      fullPath: '/viral-lab'
+      preLoaderRoute: typeof AuthenticatedViralLabRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/film-this': {
       id: '/_authenticated/film-this'
       path: '/film-this'
@@ -159,11 +190,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
+  AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
+  AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
