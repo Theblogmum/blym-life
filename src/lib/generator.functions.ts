@@ -7,10 +7,25 @@ async function getCtx(supabase: any, userId: string) {
   return buildCreatorContext(data ?? {});
 }
 
+async function requirePremium(supabase: any, userId: string) {
+  const { data: profile } = await supabase.from("profiles").select("tier").eq("id", userId).maybeSingle();
+  let entitled = (profile?.tier ?? "free") !== "free";
+  if (!entitled) {
+    const env = process.env.PADDLE_LIVE_API_KEY ? "live" : "sandbox";
+    const { data: hasSub } = await supabase.rpc("has_active_subscription", {
+      user_uuid: userId,
+      check_env: env,
+    });
+    entitled = !!hasSub;
+  }
+  if (!entitled) throw new Response("Upgrade to Premium to use this feature.", { status: 402 });
+}
+
 export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { kind: string; topic: string }) => d)
   .handler(async ({ data, context }) => {
+    await requirePremium(context.supabase, context.userId);
     const ctx = await getCtx(context.supabase, context.userId);
     return await callAITool<{ options: string[] }>({
       toolName: "generate",
@@ -31,6 +46,7 @@ export const analyseTrend = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { input: string }) => d)
   .handler(async ({ data, context }) => {
+    await requirePremium(context.supabase, context.userId);
     const ctx = await getCtx(context.supabase, context.userId);
     return await callAITool<{ hook_breakdown: string; structure: string; why_it_works: string; remix_for_you: string[] }>({
       toolName: "analyse_trend", toolDescription: "Break down a viral trend and propose remixes.",
@@ -53,7 +69,8 @@ export const analyseTrend = createServerFn({ method: "POST" })
 export const recycleClip = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { description: string }) => d)
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    await requirePremium(context.supabase, context.userId);
     return await callAITool<{ ideas: { title: string; hook: string; angle: string }[] }>({
       toolName: "clip_ideas", toolDescription: "5 post ideas using one clip.",
       parameters: {
@@ -82,6 +99,7 @@ export const generatePitch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { brand: string; deliverables: string; followers?: number }) => d)
   .handler(async ({ data, context }) => {
+    await requirePremium(context.supabase, context.userId);
     const ctx = await getCtx(context.supabase, context.userId);
     return await callAITool<{ subject: string; body: string; suggested_price_gbp: number }>({
       toolName: "brand_pitch", toolDescription: "Brand pitch email + UK GBP price.",
