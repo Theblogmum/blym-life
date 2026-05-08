@@ -26,6 +26,7 @@ function GeneratorPage() {
   const fn = useServerFn(generateContent);
   const [kind, setKind] = useState<string>("hook");
   const [topic, setTopic] = useState("");
+  const options = Array.isArray(m.data?.options) ? m.data.options : [];
 
   const m = useMutation({
     mutationFn: () => fn({ data: { kind, topic } }),
@@ -70,9 +71,9 @@ function GeneratorPage() {
         </Button>
       </Card>
 
-      {m.data && (
+      {options.length > 0 && (
         <div className="mt-6 space-y-3">
-          {m.data.options.map((o, i) => (
+          {options.map((o, i) => (
             <ResultRow key={i} text={o} />
           ))}
         </div>
