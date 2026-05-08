@@ -107,10 +107,13 @@ export const recycleClip = createServerFn({ method: "POST" })
     const ideas = Array.isArray(result.ideas) ? result.ideas : [];
     return {
       ideas: ideas
-        .map((idea: any) => ({
-          title: readString(idea?.title, "Untitled idea"),
-          hook: readString(idea?.hook),
-          angle: readString(idea?.angle),
+        .map((idea) => {
+          const item = idea as Record<string, unknown>;
+          return {
+            title: readString(item.title, "Untitled idea"),
+            hook: readString(item.hook),
+            angle: readString(item.angle),
+          };
         }))
         .filter((idea) => idea.hook || idea.angle),
     };
