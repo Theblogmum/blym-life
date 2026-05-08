@@ -16,6 +16,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
+import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -54,6 +55,11 @@ const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
   path: '/recycler',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedGeneratorRoute = AuthenticatedGeneratorRouteImport.update({
   id: '/generator',
   path: '/generator',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/generator': typeof AuthenticatedGeneratorRoute
+  '/insights': typeof AuthenticatedInsightsRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/generator': typeof AuthenticatedGeneratorRoute
+  '/insights': typeof AuthenticatedInsightsRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
+  '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
 }
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/film-this'
     | '/generator'
+    | '/insights'
     | '/recycler'
     | '/viral-lab'
   fileRoutesByTo: FileRoutesByTo
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/film-this'
     | '/generator'
+    | '/insights'
     | '/recycler'
     | '/viral-lab'
   id:
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/film-this'
     | '/_authenticated/generator'
+    | '/_authenticated/insights'
     | '/_authenticated/recycler'
     | '/_authenticated/viral-lab'
   fileRoutesById: FileRoutesById
@@ -201,6 +213,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRecyclerRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/insights': {
+      id: '/_authenticated/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof AuthenticatedInsightsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/generator': {
       id: '/_authenticated/generator'
       path: '/generator'
@@ -229,6 +248,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
+  AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
@@ -237,6 +257,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
+  AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
