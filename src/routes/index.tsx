@@ -153,24 +153,7 @@ function Landing() {
         <div className="mx-auto max-w-4xl px-6 text-center">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pricing</p>
           <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">Free to start. Upgrade when you're ready.</h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2">
-            <PriceCard
-              name="Free"
-              price="£0"
-              tagline="Find your rhythm."
-              features={["3 daily briefs / day", "Caption + hook generator", "Read-only weekly planner"]}
-              cta={{ to: user ? "/app" : "/signup", label: user ? "Open studio" : "Start free" }}
-            />
-            <PriceCard
-              highlighted
-              name="Premium"
-              price="£19"
-              priceSuffix="/mo"
-              tagline="Grow on autopilot."
-              features={["Unlimited daily briefs", "Viral Content Lab", "Clip Recycler", "Growth Insights", "UGC pitches & pricing"]}
-              cta={{ to: user ? "/settings" : "/signup", label: user ? "Upgrade" : "Try free, then upgrade" }}
-            />
-          </div>
+          <PricingPlans />
         </div>
       </section>
 
