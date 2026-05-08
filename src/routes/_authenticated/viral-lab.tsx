@@ -33,10 +33,11 @@ function ViralLab() {
     onError: (e: Error) => toast.error(e.message || "Failed"),
   });
   const remixes = Array.isArray(m.data?.remix_for_you) ? m.data.remix_for_you : [];
-  const used = usage.data?.usage?.viral_lab ?? 0;
-  const limit = usage.data?.limit ?? null;
   const premium = !!usage.data?.premium;
-  const outOfQuota = !premium && limit !== null && used >= limit;
+  const inTrial = !!usage.data?.inTrial;
+  const daysLeft = usage.data?.daysLeft ?? null;
+  const isCaptionPage = false;
+  const outOfQuota = !premium && !inTrial && !isCaptionPage;
 
   return (
     <div>
@@ -47,7 +48,7 @@ function ViralLab() {
         description="Paste a trend, caption, or describe a video. We'll break down WHY it works and remix it for your niche."
         variant="bloom"
       >
-        <UsageChip used={used} limit={limit} premium={premium} />
+        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
@@ -89,7 +90,7 @@ function ViralLab() {
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-peach p-3 text-sm">
                 <p className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
-                  You've used your 3 free Viral Lab runs today.
+                  Your 3-day trial has ended. Upgrade to keep using Viral Lab.
                 </p>
                 <Link to="/settings">
                   <Button size="sm" className="rounded-full">
