@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
+import { Route as AuthenticatedUgcHubRouteImport } from './routes/_authenticated/ugc-hub'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
@@ -49,6 +50,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   id: '/viral-lab',
   path: '/viral-lab',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedUgcHubRoute = AuthenticatedUgcHubRouteImport.update({
+  id: '/ugc-hub',
+  path: '/ugc-hub',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof AuthenticatedInsightsRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesByTo {
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/insights': typeof AuthenticatedInsightsRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesById {
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
+  '/_authenticated/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRouteTypes {
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/planner'
     | '/recycler'
+    | '/ugc-hub'
     | '/viral-lab'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/planner'
     | '/recycler'
+    | '/ugc-hub'
     | '/viral-lab'
   id:
     | '__root__'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/_authenticated/insights'
     | '/_authenticated/planner'
     | '/_authenticated/recycler'
+    | '/_authenticated/ugc-hub'
     | '/_authenticated/viral-lab'
   fileRoutesById: FileRoutesById
 }
@@ -218,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedViralLabRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/ugc-hub': {
+      id: '/_authenticated/ugc-hub'
+      path: '/ugc-hub'
+      fullPath: '/ugc-hub'
+      preLoaderRoute: typeof AuthenticatedUgcHubRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/recycler': {
       id: '/_authenticated/recycler'
       path: '/recycler'
@@ -270,6 +289,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
+  AuthenticatedUgcHubRoute: typeof AuthenticatedUgcHubRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
@@ -280,6 +300,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
+  AuthenticatedUgcHubRoute: AuthenticatedUgcHubRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
