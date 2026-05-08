@@ -35,7 +35,7 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error(error);
+  console.error("[root errorComponent]", error, error?.stack);
   const router = useRouter();
 
   return (
@@ -47,9 +47,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
-        {error?.message && (
+        {error?.stack && (
           <pre className="mt-4 max-h-48 overflow-auto whitespace-pre-wrap rounded-md bg-muted p-3 text-left text-[11px] text-muted-foreground">
-            {error.message}
+            {error.stack}
           </pre>
         )}
         <div className="mt-6 flex flex-wrap justify-center gap-2">
