@@ -15,6 +15,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
+import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 
@@ -47,6 +48,11 @@ const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   path: '/viral-lab',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedGeneratorRoute = AuthenticatedGeneratorRouteImport.update({
+  id: '/generator',
+  path: '/generator',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   id: '/film-this',
   path: '/film-this',
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/generator': typeof AuthenticatedGeneratorRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesByTo {
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/generator': typeof AuthenticatedGeneratorRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRoutesById {
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
+  '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
 }
 export interface FileRouteTypes {
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/app'
     | '/film-this'
+    | '/generator'
     | '/viral-lab'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/app'
     | '/film-this'
+    | '/generator'
     | '/viral-lab'
   id:
     | '__root__'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/app'
     | '/_authenticated/film-this'
+    | '/_authenticated/generator'
     | '/_authenticated/viral-lab'
   fileRoutesById: FileRoutesById
 }
@@ -170,6 +182,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedViralLabRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/generator': {
+      id: '/_authenticated/generator'
+      path: '/generator'
+      fullPath: '/generator'
+      preLoaderRoute: typeof AuthenticatedGeneratorRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/film-this': {
       id: '/_authenticated/film-this'
       path: '/film-this'
@@ -190,12 +209,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
+  AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
+  AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
