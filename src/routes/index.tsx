@@ -99,7 +99,7 @@ function Landing() {
               <span className="bg-[image:var(--gradient-warm)] bg-clip-text text-transparent">in your pocket.</span>
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base text-foreground/70 sm:mt-5 sm:text-lg lg:mx-0">
-              Daily briefs, viral remixes, brand pitches and an outreach tracker — built for mums who film between school runs.
+              Daily briefs, viral remixes and weekly plans — built for mums who film between school runs.
             </p>
             <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               <Link to={ctaPrimary.to}>
@@ -152,7 +152,7 @@ function Landing() {
             <Star className="h-3.5 w-3.5 fill-primary text-primary" />
           </span>
           <span>Built by a mum, for mums</span>
-          <span>50+ UK brands ready to pitch</span>
+          <span>Built around your real-life schedule</span>
         </div>
       </section>
 
@@ -197,9 +197,9 @@ function Landing() {
           />
           <BigFeature
             img={featBrand}
-            badge="Get paid"
-            title="Brand Hub with 50+ UK brands"
-            body="Find brands that work with mums, draft warm pitches with one click, and never double-pitch by accident."
+            badge="Create"
+            title="Template Studio for posts, emails & DMs"
+            body="Tell us what you need — we write 4 ready-to-use options in your voice. Posts, captions, brand replies and more."
             surface="surface-mint"
           />
           <BigFeature
@@ -345,7 +345,7 @@ function PricingPlans() {
           price={premiumPrice}
           priceSuffix={premiumSuffix}
           tagline={premiumNote}
-          features={["Unlimited daily briefs", "Viral Content Lab", "Clip Recycler", "Growth Insights", "UGC pitches & pricing"]}
+          features={["Unlimited daily briefs", "Viral Content Lab", "Clip Recycler", "Growth Insights", "Template Studio"]}
           cta={
             isActive
               ? { label: hasLifetime ? "Included in Lifetime" : "Current plan", onClick: () => navigate({ to: "/app" }), disabled: true }
