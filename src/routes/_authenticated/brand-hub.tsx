@@ -126,6 +126,8 @@ function BrandHubPage() {
       </PageHero>
 
       <section className="mx-auto max-w-6xl px-5 py-8">
+        <GmailConnectCard />
+
         {locked && (
           <Card className="mb-6 flex items-center justify-between gap-4 rounded-3xl border-0 surface-plum p-5">
             <div className="flex items-center gap-3">
