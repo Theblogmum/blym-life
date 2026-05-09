@@ -14,6 +14,7 @@ import {
 import { toast } from "sonner";
 import { getDashboard, saveGoal, deleteGoal, updateGoalProgress, saveFollowUp, toggleFollowUp, deleteFollowUp, togglePlan } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
+import { XpBadge } from "@/components/xp-badge";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
