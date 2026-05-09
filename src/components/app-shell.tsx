@@ -27,6 +27,11 @@ import {
   IdCard,
   ClipboardCheck,
   Clock,
+  Eye,
+  Pin,
+  Scissors,
+  Package,
+  Calculator,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -62,6 +67,9 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/bio-optimiser", label: "Bio Optimiser", icon: IdCard, desc: "Score + 3 rewrites" },
       { to: "/profile-audit", label: "Profile Audit", icon: ClipboardCheck, desc: "Full account review + plan" },
       { to: "/post-timing", label: "Post Timing", icon: Clock, desc: "When your audience is on" },
+      { to: "/faceless-optimiser", label: "Faceless Optimiser", icon: Eye, desc: "Show up without showing your face" },
+      { to: "/pin-optimiser", label: "Pinterest Pin", icon: Pin, desc: "Title, desc, board, image brief" },
+      { to: "/script-tightener", label: "Script Tightener", icon: Scissors, desc: "Cut filler, sharpen hooks" },
     ],
   },
   {
@@ -78,6 +86,8 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/niche-audit", label: "Niche Audit", icon: Target, desc: "Clarity, gaps & monetisation" },
       { to: "/flop-analyser", label: "Flop Analyser", icon: TrendingDown, desc: "Why a video underperformed" },
       { to: "/pitch-generator", label: "Pitch Generator", icon: Mail, desc: "Email + DM + follow-up" },
+      { to: "/deliverables-builder", label: "Deliverables", icon: Package, desc: "3-tier brand-deal packages" },
+      { to: "/usage-rights", label: "Usage Rights", icon: Calculator, desc: "Calculate fair uplift" },
     ],
   },
 ];

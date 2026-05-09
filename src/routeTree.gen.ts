@@ -18,6 +18,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
+import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
@@ -90,6 +91,12 @@ const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   path: '/viral-lab',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedUsageRightsRoute =
+  AuthenticatedUsageRightsRouteImport.update({
+    id: '/usage-rights',
+    path: '/usage-rights',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedTemplatesRoute = AuthenticatedTemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
@@ -274,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
+  '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -311,6 +319,7 @@ export interface FileRoutesByTo {
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
+  '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -350,6 +359,7 @@ export interface FileRoutesById {
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
+  '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -389,6 +399,7 @@ export interface FileRouteTypes {
     | '/series-builder'
     | '/settings'
     | '/templates'
+    | '/usage-rights'
     | '/viral-lab'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
@@ -426,6 +437,7 @@ export interface FileRouteTypes {
     | '/series-builder'
     | '/settings'
     | '/templates'
+    | '/usage-rights'
     | '/viral-lab'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
@@ -464,6 +476,7 @@ export interface FileRouteTypes {
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
+    | '/_authenticated/usage-rights'
     | '/_authenticated/viral-lab'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
@@ -545,6 +558,13 @@ declare module '@tanstack/react-router' {
       path: '/viral-lab'
       fullPath: '/viral-lab'
       preLoaderRoute: typeof AuthenticatedViralLabRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/usage-rights': {
+      id: '/_authenticated/usage-rights'
+      path: '/usage-rights'
+      fullPath: '/usage-rights'
+      preLoaderRoute: typeof AuthenticatedUsageRightsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/templates': {
@@ -765,6 +785,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
+  AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
@@ -794,6 +815,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
+  AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
