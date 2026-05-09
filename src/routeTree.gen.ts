@@ -21,6 +21,7 @@ import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedServiceDescriptionRouteImport } from './routes/_authenticated/service-description'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
 import { Route as AuthenticatedScriptTightenerRouteImport } from './routes/_authenticated/script-tightener'
@@ -32,7 +33,10 @@ import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
 import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
+import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
+import { Route as AuthenticatedPackageNamesRouteImport } from './routes/_authenticated/package-names'
 import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
+import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
@@ -107,6 +111,12 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedServiceDescriptionRoute =
+  AuthenticatedServiceDescriptionRouteImport.update({
+    id: '/service-description',
+    path: '/service-description',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedSeriesBuilderRoute =
   AuthenticatedSeriesBuilderRouteImport.update({
     id: '/series-builder',
@@ -169,9 +179,26 @@ const AuthenticatedPinOptimiserRoute =
     path: '/pin-optimiser',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedPassiveIdeasRoute =
+  AuthenticatedPassiveIdeasRouteImport.update({
+    id: '/passive-ideas',
+    path: '/passive-ideas',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedPackageNamesRoute =
+  AuthenticatedPackageNamesRouteImport.update({
+    id: '/package-names',
+    path: '/package-names',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedNicheAuditRoute = AuthenticatedNicheAuditRouteImport.update({
   id: '/niche-audit',
   path: '/niche-audit',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
+  id: '/media-kit',
+  path: '/media-kit',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
@@ -267,7 +294,10 @@ export interface FileRoutesByFullPath {
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
+  '/media-kit': typeof AuthenticatedMediaKitRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/package-names': typeof AuthenticatedPackageNamesRoute
+  '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
@@ -279,6 +309,7 @@ export interface FileRoutesByFullPath {
   '/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
+  '/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
@@ -305,7 +336,10 @@ export interface FileRoutesByTo {
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
+  '/media-kit': typeof AuthenticatedMediaKitRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/package-names': typeof AuthenticatedPackageNamesRoute
+  '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
@@ -317,6 +351,7 @@ export interface FileRoutesByTo {
   '/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
+  '/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
@@ -345,7 +380,10 @@ export interface FileRoutesById {
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
+  '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
   '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/_authenticated/package-names': typeof AuthenticatedPackageNamesRoute
+  '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
@@ -357,6 +395,7 @@ export interface FileRoutesById {
   '/_authenticated/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
+  '/_authenticated/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
@@ -385,7 +424,10 @@ export interface FileRouteTypes {
     | '/flop-analyser'
     | '/generator'
     | '/insights'
+    | '/media-kit'
     | '/niche-audit'
+    | '/package-names'
+    | '/passive-ideas'
     | '/pin-optimiser'
     | '/pitch-generator'
     | '/planner'
@@ -397,6 +439,7 @@ export interface FileRouteTypes {
     | '/script-tightener'
     | '/seo-keywords'
     | '/series-builder'
+    | '/service-description'
     | '/settings'
     | '/templates'
     | '/usage-rights'
@@ -423,7 +466,10 @@ export interface FileRouteTypes {
     | '/flop-analyser'
     | '/generator'
     | '/insights'
+    | '/media-kit'
     | '/niche-audit'
+    | '/package-names'
+    | '/passive-ideas'
     | '/pin-optimiser'
     | '/pitch-generator'
     | '/planner'
@@ -435,6 +481,7 @@ export interface FileRouteTypes {
     | '/script-tightener'
     | '/seo-keywords'
     | '/series-builder'
+    | '/service-description'
     | '/settings'
     | '/templates'
     | '/usage-rights'
@@ -462,7 +509,10 @@ export interface FileRouteTypes {
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
+    | '/_authenticated/media-kit'
     | '/_authenticated/niche-audit'
+    | '/_authenticated/package-names'
+    | '/_authenticated/passive-ideas'
     | '/_authenticated/pin-optimiser'
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
@@ -474,6 +524,7 @@ export interface FileRouteTypes {
     | '/_authenticated/script-tightener'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
+    | '/_authenticated/service-description'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
     | '/_authenticated/usage-rights'
@@ -581,6 +632,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/service-description': {
+      id: '/_authenticated/service-description'
+      path: '/service-description'
+      fullPath: '/service-description'
+      preLoaderRoute: typeof AuthenticatedServiceDescriptionRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/series-builder': {
       id: '/_authenticated/series-builder'
       path: '/series-builder'
@@ -658,11 +716,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPinOptimiserRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/passive-ideas': {
+      id: '/_authenticated/passive-ideas'
+      path: '/passive-ideas'
+      fullPath: '/passive-ideas'
+      preLoaderRoute: typeof AuthenticatedPassiveIdeasRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/package-names': {
+      id: '/_authenticated/package-names'
+      path: '/package-names'
+      fullPath: '/package-names'
+      preLoaderRoute: typeof AuthenticatedPackageNamesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/niche-audit': {
       id: '/_authenticated/niche-audit'
       path: '/niche-audit'
       fullPath: '/niche-audit'
       preLoaderRoute: typeof AuthenticatedNicheAuditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/media-kit': {
+      id: '/_authenticated/media-kit'
+      path: '/media-kit'
+      fullPath: '/media-kit'
+      preLoaderRoute: typeof AuthenticatedMediaKitRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/insights': {
@@ -771,7 +850,10 @@ interface AuthenticatedRouteChildren {
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
+  AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
   AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
+  AuthenticatedPackageNamesRoute: typeof AuthenticatedPackageNamesRoute
+  AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
   AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
@@ -783,6 +865,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedScriptTightenerRoute: typeof AuthenticatedScriptTightenerRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
+  AuthenticatedServiceDescriptionRoute: typeof AuthenticatedServiceDescriptionRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
   AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
@@ -801,7 +884,10 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
+  AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
   AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
+  AuthenticatedPackageNamesRoute: AuthenticatedPackageNamesRoute,
+  AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
   AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
@@ -813,6 +899,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedScriptTightenerRoute: AuthenticatedScriptTightenerRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
+  AuthenticatedServiceDescriptionRoute: AuthenticatedServiceDescriptionRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
   AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
