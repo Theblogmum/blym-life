@@ -371,7 +371,7 @@ function PricingPlans() {
         >Yearly · save ~25%</button>
       </div>
       )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <PriceCard
           name="Free"
           price="£0"
@@ -451,7 +451,7 @@ function PricingPlans() {
           name="Lifetime"
           price="£299"
           tagline="One payment. Forever yours."
-          features={["Everything in Premium", "Pay once, never again", "All future features included"]}
+          features={["Everything in Ultimate", "Pay once, never again", "All future features included"]}
           cta={
             hasLifetime
               ? { label: "You own this 💛", onClick: () => navigate({ to: "/app" }), disabled: true }
