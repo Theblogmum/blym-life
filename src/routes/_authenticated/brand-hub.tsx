@@ -792,3 +792,141 @@ function Field({
     </div>
   );
 }
+
+/* ---------------- Gmail connection ---------------- */
+
+function GmailConnectCard() {
+  const qc = useQueryClient();
+  const fetchConn = useServerFn(getGmailConnection);
+  const startFn = useServerFn(startGmailConnect);
+  const disconnectFn = useServerFn(disconnectGmail);
+  const conn = useQuery({ queryKey: ["gmail-connection"], queryFn: () => fetchConn() });
+
+  const connect = useMutation({
+    mutationFn: () => startFn({ data: undefined as any }),
+    onSuccess: (res: any) => {
+      const popup = window.open(res.url, "gmail-oauth", "width=520,height=680");
+      if (!popup) {
+        window.location.href = res.url;
+        return;
+      }
+      const onMsg = (e: MessageEvent) => {
+        if (e.data?.type === "gmail-oauth") {
+          window.removeEventListener("message", onMsg);
+          qc.invalidateQueries({ queryKey: ["gmail-connection"] });
+          if (e.data.ok) toast.success("Gmail connected!");
+          else toast.error("Gmail connection failed");
+        }
+      };
+      window.addEventListener("message", onMsg);
+      // Fallback poll in case popup closes without postMessage
+      const poll = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(poll);
+          window.removeEventListener("message", onMsg);
+          qc.invalidateQueries({ queryKey: ["gmail-connection"] });
+        }
+      }, 1000);
+    },
+    onError: (e: any) => toast.error(e.message || "Could not start Gmail connect"),
+  });
+
+  const disconnect = useMutation({
+    mutationFn: () => disconnectFn({ data: undefined as any }),
+    onSuccess: () => {
+      toast.success("Gmail disconnected");
+      qc.invalidateQueries({ queryKey: ["gmail-connection"] });
+    },
+  });
+
+  const connected = !!conn.data?.connected;
+
+  return (
+    <Card
+      className={cn(
+        "mb-6 flex flex-col gap-3 rounded-3xl border-0 p-5 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between",
+        connected ? "surface-mint" : "surface-peach",
+      )}
+    >
+      <div className="flex items-start gap-3">
+        <div className="rounded-2xl bg-background/60 p-2.5">
+          <Mail className="h-5 w-5" />
+        </div>
+        <div>
+          <p className="font-display text-base font-black">
+            {connected ? "Gmail connected" : "Send pitches direct from your Gmail"}
+          </p>
+          <p className="text-sm text-foreground/70">
+            {connected
+              ? `Pitches will send from ${conn.data?.email}. Brands reply straight to you.`
+              : "One-click connect lets you hit Send without leaving the app — replies land in your own inbox."}
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {connected ? (
+          <Button
+            variant="outline"
+            className="rounded-full"
+            disabled={disconnect.isPending}
+            onClick={() => disconnect.mutate()}
+          >
+            Disconnect
+          </Button>
+        ) : (
+          <Button
+            className="rounded-full"
+            disabled={connect.isPending}
+            onClick={() => connect.mutate()}
+          >
+            <Mail className="mr-2 h-4 w-4" />
+            {connect.isPending ? "Opening Google…" : "Connect Gmail"}
+          </Button>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+function useGmailConnected() {
+  const fetchConn = useServerFn(getGmailConnection);
+  const conn = useQuery({ queryKey: ["gmail-connection"], queryFn: () => fetchConn() });
+  return !!conn.data?.connected;
+}
+
+function SendViaGmailButton({
+  pitchId,
+  className,
+  size = "sm",
+  label = "Send",
+  onSent,
+}: {
+  pitchId: string;
+  className?: string;
+  size?: "sm" | "default";
+  label?: string;
+  onSent?: () => void;
+}) {
+  const qc = useQueryClient();
+  const fn = useServerFn(sendPitchViaGmail);
+  const m = useMutation({
+    mutationFn: () => fn({ data: { pitchId } }),
+    onSuccess: () => {
+      toast.success("Sent! Follow-up due in 4 days.");
+      qc.invalidateQueries({ queryKey: ["brand-hub"] });
+      onSent?.();
+    },
+    onError: (e: any) => toast.error(e.message || "Send failed"),
+  });
+  return (
+    <Button
+      size={size}
+      className={cn("rounded-full", className)}
+      disabled={m.isPending}
+      onClick={() => m.mutate()}
+    >
+      <Send className="mr-1 h-3.5 w-3.5" />
+      {m.isPending ? "Sending…" : label}
+    </Button>
+  );
+}
