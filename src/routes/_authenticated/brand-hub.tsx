@@ -665,6 +665,7 @@ function OutreachTab({ pitches }: { pitches: Pitch[] }) {
   const qc = useQueryClient();
   const updateFn = useServerFn(updatePitchStatus);
   const delFn = useServerFn(deletePitch);
+  const connected = useGmailConnected();
   const update = useMutation({
     mutationFn: (v: { id: string; status: any }) => updateFn({ data: v }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["brand-hub"] }),
@@ -696,19 +697,24 @@ function OutreachTab({ pitches }: { pitches: Pitch[] }) {
           <Card key={p.id} className="flex flex-col gap-3 rounded-3xl border-0 p-5 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center">
             <PitchViewer pitch={p} followUpDue={!!followUpDue} />
             <div className="flex flex-wrap gap-2">
-              <Button asChild size="sm" className="rounded-full">
-                <a
-                  href={buildMailto(p.recipient_email, p.subject, p.body || "")}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Send className="mr-1 h-3.5 w-3.5" /> Send
-                </a>
-              </Button>
-              {p.status === "draft" && (
-                <Button size="sm" variant="outline" className="rounded-full" onClick={() => update.mutate({ id: p.id, status: "sent" })}>
-                  Mark sent
-                </Button>
+              {p.status === "draft" && connected && (
+                <SendViaGmailButton pitchId={p.id} label="Send via Gmail" />
+              )}
+              {p.status === "draft" && !connected && (
+                <>
+                  <Button asChild size="sm" className="rounded-full">
+                    <a
+                      href={buildMailto(p.recipient_email, p.subject, p.body || "")}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Send className="mr-1 h-3.5 w-3.5" /> Open in mail
+                    </a>
+                  </Button>
+                  <Button size="sm" variant="outline" className="rounded-full" onClick={() => update.mutate({ id: p.id, status: "sent" })}>
+                    Mark sent
+                  </Button>
+                </>
               )}
               {p.status === "sent" && (
                 <Button
