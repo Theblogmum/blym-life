@@ -38,6 +38,7 @@ import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authent
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
 import { Route as AuthenticatedFacelessOptimiserRouteImport } from './routes/_authenticated/faceless-optimiser'
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
+import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
@@ -199,6 +200,12 @@ const AuthenticatedEngagementBoosterRoute =
     path: '/engagement-booster',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedDeliverablesBuilderRoute =
+  AuthenticatedDeliverablesBuilderRouteImport.update({
+    id: '/deliverables-builder',
+    path: '/deliverables-builder',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedCtaGeneratorRoute =
   AuthenticatedCtaGeneratorRouteImport.update({
     id: '/cta-generator',
@@ -246,6 +253,7 @@ export interface FileRoutesByFullPath {
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
   '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
@@ -282,6 +290,7 @@ export interface FileRoutesByTo {
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
   '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
@@ -320,6 +329,7 @@ export interface FileRoutesById {
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
   '/_authenticated/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
@@ -358,6 +368,7 @@ export interface FileRouteTypes {
     | '/bio-optimiser'
     | '/broll'
     | '/cta-generator'
+    | '/deliverables-builder'
     | '/engagement-booster'
     | '/faceless-optimiser'
     | '/film-this'
@@ -394,6 +405,7 @@ export interface FileRouteTypes {
     | '/bio-optimiser'
     | '/broll'
     | '/cta-generator'
+    | '/deliverables-builder'
     | '/engagement-booster'
     | '/faceless-optimiser'
     | '/film-this'
@@ -431,6 +443,7 @@ export interface FileRouteTypes {
     | '/_authenticated/bio-optimiser'
     | '/_authenticated/broll'
     | '/_authenticated/cta-generator'
+    | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
     | '/_authenticated/faceless-optimiser'
     | '/_authenticated/film-this'
@@ -674,6 +687,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEngagementBoosterRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/deliverables-builder': {
+      id: '/_authenticated/deliverables-builder'
+      path: '/deliverables-builder'
+      fullPath: '/deliverables-builder'
+      preLoaderRoute: typeof AuthenticatedDeliverablesBuilderRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/cta-generator': {
       id: '/_authenticated/cta-generator'
       path: '/cta-generator'
@@ -724,6 +744,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
+  AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
   AuthenticatedFacelessOptimiserRoute: typeof AuthenticatedFacelessOptimiserRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
@@ -752,6 +773,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
+  AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
   AuthenticatedFacelessOptimiserRoute: AuthenticatedFacelessOptimiserRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
