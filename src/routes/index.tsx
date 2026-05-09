@@ -271,7 +271,7 @@ function Landing() {
           <span aria-hidden>·</span>
           <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
           <span aria-hidden>·</span>
-          <a href="mailto:theblogmum@gmail.com" className="hover:text-foreground">Contact</a>
+          <a href="mailto:studio@theblogmum.com" className="hover:text-foreground">Contact</a>
         </p>
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as The Blog Mum Studio</p>
       </footer>

@@ -22,7 +22,7 @@ function TermsPage() {
       <h2 className="mt-8 font-display text-xl font-bold">1. Who you are contracting with</h2>
       <p className="mt-2">
         The Blog Mum Studio ("we", "us", "our") is operated by Stephanie Trump, a sole trader based in the United Kingdom.
-        You can contact us at <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a>.
+        You can contact us at <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
         By creating an account or using the service you agree to these Terms.
       </p>
 
@@ -65,7 +65,7 @@ function TermsPage() {
         breaches, refuse or remove content, throttle usage, and suspend or terminate accounts that violate this section
         (see Section 9). Repeated or serious infringement — including repeated copyright complaints — will result in
         permanent termination. To report abuse, infringement, or a takedown request, email{" "}
-        <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a>.
+        <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">5. AI-generated content</h2>
@@ -129,7 +129,7 @@ function TermsPage() {
 
       <h2 className="mt-6 font-display text-xl font-bold">13. Contact</h2>
       <p className="mt-2">
-        Questions? Email <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a>.
+        Questions? Email <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
       </p>
     </article>
   );
