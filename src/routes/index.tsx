@@ -411,34 +411,17 @@ function PricingPlans() {
           }
         />
         <PriceCard
-          name="Premium"
-          price={premiumPrice}
-          priceSuffix={premiumSuffix}
-          tagline={premiumNote}
-          features={[
-            "Everything in Pro",
-            "Brand pitch generator + media kit",
-            "Business tools: invoices, deliverables, rates",
-            "Deliverables, usage rights, package naming",
-            "Rejection recovery + passive income ideas",
-          ]}
-          cta={
-            isActive
-              ? { label: hasLifetime ? "Included in Lifetime" : "Current plan", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Upgrade now" : "Start free, then upgrade", onClick: () => buy(premiumPriceId), disabled: loading }
-          }
-        />
-        <PriceCard
           name="Ultimate"
           price="£44.99"
           priceSuffix="/mo"
           tagline="Your always-on AI growth coach."
           features={[
-            "Everything in Pro + Premium",
+            "Everything in Pro",
             "Personal AI growth coach (chat + critique)",
             "30-day done-with-you content plans",
             "Growth simulation + viral content studio",
             "Audience psychology + monetisation guidance",
+            "Brand pitch generator + media kit + invoices",
             "Multi-platform engine + monthly strategy report",
             "Elite viral templates library",
             "Priority AI: faster + deeper outputs",
