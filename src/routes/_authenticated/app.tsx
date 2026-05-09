@@ -351,7 +351,7 @@ function StatCard({
     <div className="rounded-3xl border border-border/60 bg-card p-5 shadow-[var(--shadow-xs)] transition hover:shadow-[var(--shadow-soft)]">
       <div className="flex items-center gap-2.5">
         <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary/10 text-primary">
-          <Icon className="h-4.5 w-4.5" strokeWidth={1.75} />
+          <Icon className="h-4 w-4" strokeWidth={1.75} />
         </span>
         <span className="text-[13px] font-medium text-foreground/80">{label}</span>
       </div>
@@ -478,5 +478,5 @@ function FollowUpAdder({ onAdded }: { onAdded: () => void }) {
 }
 
 // silence unused imports referenced only in types
-const _unused = { Sparkles, FolderOpen };
-void _unused;
+
+

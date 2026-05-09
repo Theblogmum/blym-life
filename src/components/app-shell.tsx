@@ -105,7 +105,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 )}
               >
                 <span className="flex items-center gap-3">
-                  <g.icon className="h-4.5 w-4.5" strokeWidth={1.75} />
+                  <g.icon className="h-4 w-4" strokeWidth={1.75} />
                   {g.label}
                 </span>
                 <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")} />
@@ -145,7 +145,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 : "text-foreground/70 hover:bg-secondary",
             )}
           >
-            <g.icon className="h-4.5 w-4.5" strokeWidth={1.75} />
+            <g.icon className="h-4 w-4" strokeWidth={1.75} />
             {g.label}
           </Link>
         );
