@@ -14,126 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      brand_pitches: {
-        Row: {
-          body: string
-          brand_id: string | null
-          brand_name: string
-          created_at: string
-          follow_up_body: string | null
-          follow_up_due_at: string | null
-          follow_up_sent_at: string | null
-          gmail_message_id: string | null
-          gmail_thread_id: string | null
-          id: string
-          recipient_email: string
-          replied_at: string | null
-          sent_at: string | null
-          status: string
-          subject: string
-          user_brand_id: string | null
-          user_id: string
-        }
-        Insert: {
-          body: string
-          brand_id?: string | null
-          brand_name: string
-          created_at?: string
-          follow_up_body?: string | null
-          follow_up_due_at?: string | null
-          follow_up_sent_at?: string | null
-          gmail_message_id?: string | null
-          gmail_thread_id?: string | null
-          id?: string
-          recipient_email: string
-          replied_at?: string | null
-          sent_at?: string | null
-          status?: string
-          subject: string
-          user_brand_id?: string | null
-          user_id: string
-        }
-        Update: {
-          body?: string
-          brand_id?: string | null
-          brand_name?: string
-          created_at?: string
-          follow_up_body?: string | null
-          follow_up_due_at?: string | null
-          follow_up_sent_at?: string | null
-          gmail_message_id?: string | null
-          gmail_thread_id?: string | null
-          id?: string
-          recipient_email?: string
-          replied_at?: string | null
-          sent_at?: string | null
-          status?: string
-          subject?: string
-          user_brand_id?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "brand_pitches_brand_id_fkey"
-            columns: ["brand_id"]
-            isOneToOne: false
-            referencedRelation: "brands"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "brand_pitches_user_brand_id_fkey"
-            columns: ["user_brand_id"]
-            isOneToOne: false
-            referencedRelation: "user_brands"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      brands: {
-        Row: {
-          category: string
-          contact_email: string | null
-          created_at: string
-          description: string | null
-          hq_country: string | null
-          id: string
-          instagram: string | null
-          is_seeded: boolean
-          logo_url: string | null
-          name: string
-          notes: string | null
-          website: string | null
-        }
-        Insert: {
-          category: string
-          contact_email?: string | null
-          created_at?: string
-          description?: string | null
-          hq_country?: string | null
-          id?: string
-          instagram?: string | null
-          is_seeded?: boolean
-          logo_url?: string | null
-          name: string
-          notes?: string | null
-          website?: string | null
-        }
-        Update: {
-          category?: string
-          contact_email?: string | null
-          created_at?: string
-          description?: string | null
-          hq_country?: string | null
-          id?: string
-          instagram?: string | null
-          is_seeded?: boolean
-          logo_url?: string | null
-          name?: string
-          notes?: string | null
-          website?: string | null
-        }
-        Relationships: []
-      }
       creator_profile: {
         Row: {
           created_at: string
@@ -308,39 +188,6 @@ export type Database = {
           id?: string
           token?: string
           used_at?: string | null
-        }
-        Relationships: []
-      }
-      google_tokens: {
-        Row: {
-          access_token: string | null
-          created_at: string
-          email: string | null
-          expires_at: string | null
-          refresh_token: string
-          scope: string | null
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          access_token?: string | null
-          created_at?: string
-          email?: string | null
-          expires_at?: string | null
-          refresh_token: string
-          scope?: string | null
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          access_token?: string | null
-          created_at?: string
-          email?: string | null
-          expires_at?: string | null
-          refresh_token?: string
-          scope?: string | null
-          updated_at?: string
-          user_id?: string
         }
         Relationships: []
       }
@@ -575,42 +422,6 @@ export type Database = {
           feature?: string
           id?: string
           user_id?: string
-        }
-        Relationships: []
-      }
-      user_brands: {
-        Row: {
-          category: string | null
-          contact_email: string | null
-          created_at: string
-          id: string
-          instagram: string | null
-          name: string
-          notes: string | null
-          user_id: string
-          website: string | null
-        }
-        Insert: {
-          category?: string | null
-          contact_email?: string | null
-          created_at?: string
-          id?: string
-          instagram?: string | null
-          name: string
-          notes?: string | null
-          user_id: string
-          website?: string | null
-        }
-        Update: {
-          category?: string | null
-          contact_email?: string | null
-          created_at?: string
-          id?: string
-          instagram?: string | null
-          name?: string
-          notes?: string | null
-          user_id?: string
-          website?: string | null
         }
         Relationships: []
       }
