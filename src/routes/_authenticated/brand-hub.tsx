@@ -584,6 +584,81 @@ function MarkSentButton({ pitchId, onDone }: { pitchId: string; onDone: () => vo
   );
 }
 
+function ComposeSendButton({
+  pitchId,
+  email,
+  subject,
+  body,
+  onDone,
+}: {
+  pitchId: string;
+  email: string;
+  subject: string;
+  body: string;
+  onDone: () => void;
+}) {
+  const connected = useGmailConnected();
+  const qc = useQueryClient();
+  const sendFn = useServerFn(sendPitchViaGmail);
+  const markFn = useServerFn(updatePitchStatus);
+
+  const sendM = useMutation({
+    mutationFn: () => sendFn({ data: { pitchId } }),
+    onSuccess: () => {
+      toast.success("Sent! Follow-up due in 4 days.");
+      qc.invalidateQueries({ queryKey: ["brand-hub"] });
+      onDone();
+    },
+    onError: (e: any) => toast.error(e.message || "Send failed"),
+  });
+
+  const markM = useMutation({
+    mutationFn: () => markFn({ data: { id: pitchId, status: "sent" } }),
+    onSuccess: () => {
+      toast.success("Marked as sent — follow-up due in 4 days");
+      qc.invalidateQueries({ queryKey: ["brand-hub"] });
+      onDone();
+    },
+  });
+
+  if (connected) {
+    return (
+      <Button
+        className="flex-1 rounded-2xl"
+        disabled={sendM.isPending}
+        onClick={() => sendM.mutate()}
+      >
+        <Send className="mr-2 h-4 w-4" />
+        {sendM.isPending ? "Sending…" : "Send via Gmail"}
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      <Button className="flex-1 rounded-2xl" asChild>
+        <a
+          href={buildMailto(email, subject, body)}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => toast.success("Opening your email app — hit Send there!")}
+        >
+          <Send className="mr-2 h-4 w-4" />
+          Open in email app
+        </a>
+      </Button>
+      <Button
+        variant="outline"
+        className="flex-1 rounded-2xl"
+        disabled={markM.isPending}
+        onClick={() => markM.mutate()}
+      >
+        Mark as sent
+      </Button>
+    </>
+  );
+}
+
 /* ---------------- Outreach tab ---------------- */
 
 function OutreachTab({ pitches }: { pitches: Pitch[] }) {
