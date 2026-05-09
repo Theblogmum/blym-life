@@ -16,6 +16,7 @@ import {
   Wand2,
   Mail,
   TrendingDown,
+  Target,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -54,6 +55,7 @@ const groups: { label: string; items: Item[] }[] = [
     label: "Grow",
     items: [
       { to: "/insights", label: "Insights", icon: TrendingUp, desc: "Spot what works" },
+      { to: "/niche-audit", label: "Niche Audit", icon: Target, desc: "Clarity, gaps & monetisation" },
       { to: "/flop-analyser", label: "Flop Analyser", icon: TrendingDown, desc: "Why a video underperformed" },
       { to: "/pitch-generator", label: "Pitch Generator", icon: Mail, desc: "Email + DM + follow-up" },
     ],
