@@ -4,7 +4,7 @@ export const Route = createFileRoute("/refund")({
   head: () => ({
     meta: [
       { title: "Refund Policy — The Blog Mum Studio" },
-      { name: "description", content: "30-day money-back guarantee on all paid plans." },
+      { name: "description", content: "7-day money-back guarantee on all paid plans." },
       { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://theblogmumstudio.lovable.app/refund" }],
@@ -19,10 +19,10 @@ function RefundPage() {
       <h1 className="mt-4 font-display text-3xl font-black">Refund Policy</h1>
       <p className="mt-2 text-xs text-muted-foreground">Last updated: 8 May 2026</p>
 
-      <h2 className="mt-8 font-display text-xl font-bold">30-day money-back guarantee</h2>
+      <h2 className="mt-8 font-display text-xl font-bold">7-day money-back guarantee</h2>
       <p className="mt-2">
         We want you to feel confident trying The Blog Mum Studio. If you're not happy with your purchase, you can request a
-        full refund within <strong>30 days</strong> of the order date — no questions asked. This applies to monthly,
+        full refund within <strong>7 days</strong> of the order date — no questions asked. This applies to monthly,
         yearly, and lifetime purchases.
       </p>
 
@@ -33,11 +33,11 @@ function RefundPage() {
         (Stripe) within a few business days.
       </p>
 
-      <h2 className="mt-6 font-display text-xl font-bold">After 30 days</h2>
+      <h2 className="mt-6 font-display text-xl font-bold">After 7 days</h2>
       <p className="mt-2">
-        After the 30-day window, paid subscriptions can still be cancelled at any time from the customer portal. You'll keep
+        After the 7-day window, paid subscriptions can still be cancelled at any time from the customer portal. You'll keep
         access until the end of the period you've already paid for, and you won't be billed again. We don't offer pro-rated
-        refunds for partial periods after the 30-day window, except where required by law.
+        refunds for partial periods after the 7-day window, except where required by law.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">Questions</h2>
