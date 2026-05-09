@@ -23,6 +23,10 @@ import {
   Repeat2,
   MailCheck,
   Search,
+  Heart,
+  IdCard,
+  ClipboardCheck,
+  Clock,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -54,6 +58,10 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/repurpose", label: "Repurpose 1→10", icon: Repeat2, desc: "One idea, 10 platforms" },
       { to: "/response-writer", label: "Response Writer", icon: MailCheck, desc: "Reply to brand emails" },
       { to: "/seo-keywords", label: "SEO Keywords", icon: Search, desc: "TikTok, IG & Pinterest search" },
+      { to: "/engagement-booster", label: "Engagement Booster", icon: Heart, desc: "Tactics that get replies" },
+      { to: "/bio-optimiser", label: "Bio Optimiser", icon: IdCard, desc: "Score + 3 rewrites" },
+      { to: "/profile-audit", label: "Profile Audit", icon: ClipboardCheck, desc: "Full account review + plan" },
+      { to: "/post-timing", label: "Post Timing", icon: Clock, desc: "When your audience is on" },
     ],
   },
   {
