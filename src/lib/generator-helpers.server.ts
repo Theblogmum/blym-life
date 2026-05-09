@@ -177,19 +177,29 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
+export type UserTier = "free" | "creator" | "premium";
+
+export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
     .from("profiles")
     .select("tier")
     .eq("id", userId)
     .maybeSingle();
-  if ((profile?.tier ?? "free") !== "free") return true;
+  const tier = (profile?.tier ?? "free") as string;
+  if (tier === "premium" || tier === "creator") return tier;
+  // Fallback: lifetime / active sub → premium
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
     user_uuid: userId,
     check_env: env,
   });
-  return !!hasSub;
+  return hasSub ? "premium" : "free";
+}
+
+export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
+  // Backwards-compatible: "premium" semantics = full access (premium tier or lifetime).
+  const tier = await getUserTier(supabase, userId);
+  return tier === "premium";
 }
 
 /**
