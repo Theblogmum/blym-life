@@ -1566,4 +1566,536 @@ export const suggestPostTiming = createServerFn({ method: "POST" })
     };
   });
 
+// ============== Faceless Content Optimiser ==============
+export const optimiseFaceless = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string; current_format?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "faceless");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      formats?: unknown;
+      voiceover_scripts?: unknown;
+      visual_options?: unknown;
+      hook_overlays?: unknown;
+      retention_tactics?: unknown;
+      tools?: unknown;
+    }>({
+      toolName: "faceless_optimise",
+      toolDescription: "Plan a faceless short-form video: format, visuals, overlays, voiceover and retention.",
+      parameters: {
+        type: "object",
+        properties: {
+          formats: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 6 },
+          voiceover_scripts: {
+            type: "array", minItems: 3, maxItems: 3,
+            items: {
+              type: "object",
+              properties: { style: { type: "string" }, script: { type: "string" } },
+              required: ["style", "script"], additionalProperties: false,
+            },
+          },
+          visual_options: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 8 },
+          hook_overlays: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 7 },
+          retention_tactics: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 6 },
+          tools: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+        },
+        required: ["formats", "voiceover_scripts", "visual_options", "hook_overlays", "retention_tactics", "tools"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You design faceless content for UK mum creators who don't want to film themselves. British English. Practical, no fluff. Visuals must be do-able on a phone (b-roll, screen recording, stock, AI image, text-on-photo). Tools: free or cheap." },
+        { role: "user", content: `Profile:\n${ctx}\n\nTopic: ${data.topic}\nCurrent format (optional): ${data.current_format ?? "n/a"}\n\nReturn 4-6 faceless format ideas, 3 voiceover scripts (calm/energetic/storyteller), visual options, hook text overlays, retention tactics, and tools to use.` },
+      ],
+    });
+    await quota.record();
+    const vo = Array.isArray(result.voiceover_scripts) ? result.voiceover_scripts : [];
+    return {
+      formats: toStringList(result.formats),
+      voiceover_scripts: vo.map((v) => {
+        const it = v as Record<string, unknown>;
+        return { style: readString(it.style), script: readString(it.script) };
+      }),
+      visual_options: toStringList(result.visual_options),
+      hook_overlays: toStringList(result.hook_overlays),
+      retention_tactics: toStringList(result.retention_tactics),
+      tools: toStringList(result.tools),
+    };
+  });
+
+// ============== Pinterest Pin Optimiser ==============
+export const optimisePin = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string; current_title?: string; current_description?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "pin");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      titles?: unknown;
+      descriptions?: unknown;
+      board_suggestions?: unknown;
+      keywords?: unknown;
+      hashtags?: unknown;
+      pin_image_brief?: unknown;
+      text_overlay?: unknown;
+      cta?: unknown;
+      seasonality?: unknown;
+    }>({
+      toolName: "pin_optimise",
+      toolDescription: "Optimise a Pinterest pin: titles, descriptions, board, image brief and overlays.",
+      parameters: {
+        type: "object",
+        properties: {
+          titles: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 5 },
+          descriptions: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 3 },
+          board_suggestions: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 6 },
+          keywords: { type: "array", items: { type: "string" }, minItems: 6, maxItems: 12 },
+          hashtags: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 8 },
+          pin_image_brief: { type: "string" },
+          text_overlay: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          cta: { type: "string" },
+          seasonality: { type: "string" },
+        },
+        required: ["titles", "descriptions", "board_suggestions", "keywords", "hashtags", "pin_image_brief", "text_overlay", "cta", "seasonality"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You optimise Pinterest pins for UK mum creators. Pinterest = SEO + saves. Titles under 100 chars, keyword-led but readable. Descriptions 200-500 chars, conversational, keyword-rich. Image brief = exact composition, colour, layout. Overlays = punchy 3-7 word lines. British English." },
+        { role: "user", content: `Profile:\n${ctx}\n\nTopic: ${data.topic}\nCurrent title: ${data.current_title ?? "n/a"}\nCurrent description: ${data.current_description ?? "n/a"}\n\nReturn 5 titles, 3 descriptions, 4-6 board name ideas, keywords, hashtags, an image brief, 3-5 text overlay options, a CTA, and a seasonality note (when this pin will peak).` },
+      ],
+    });
+    await quota.record();
+    return {
+      titles: toStringList(result.titles),
+      descriptions: toStringList(result.descriptions),
+      board_suggestions: toStringList(result.board_suggestions),
+      keywords: toStringList(result.keywords),
+      hashtags: toStringList(result.hashtags).map((h) => (h.startsWith("#") ? h : `#${h}`)),
+      pin_image_brief: readString(result.pin_image_brief),
+      text_overlay: toStringList(result.text_overlay),
+      cta: readString(result.cta),
+      seasonality: readString(result.seasonality),
+    };
+  });
+
+// ============== Script Tightener ==============
+export const tightenScript = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { script: string; target_seconds?: number }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "script_tighten");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      original_word_count?: unknown;
+      tightened_word_count?: unknown;
+      tightened_seconds?: unknown;
+      hook_score?: unknown;
+      issues?: unknown;
+      tightened_script?: unknown;
+      cuts?: unknown;
+      hook_alternatives?: unknown;
+      ending_alternatives?: unknown;
+    }>({
+      toolName: "script_tighten",
+      toolDescription: "Tighten a short-form script: cut filler, sharpen hook, hit a target length.",
+      parameters: {
+        type: "object",
+        properties: {
+          original_word_count: { type: "number" },
+          tightened_word_count: { type: "number" },
+          tightened_seconds: { type: "number" },
+          hook_score: { type: "number" },
+          issues: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 6 },
+          tightened_script: { type: "string" },
+          cuts: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 8 },
+          hook_alternatives: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          ending_alternatives: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+        },
+        required: ["original_word_count", "tightened_word_count", "tightened_seconds", "hook_score", "issues", "tightened_script", "cuts", "hook_alternatives", "ending_alternatives"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You're a short-form script editor for UK mum creators. Cut every filler. Use ~2.5 words per second of voice-over. Keep voice human and natural — no AI clichés. Score hook 1-10. Show specific cuts." },
+        { role: "user", content: `Profile:\n${ctx}\n\nTarget length: ${data.target_seconds ?? 30}s\n\nScript:\n${data.script}\n\nReturn the original word count, tightened word count, tightened seconds, hook score, issues, the tightened script, the specific phrases you cut, alternative hooks and alternative endings.` },
+      ],
+    });
+    await quota.record();
+    const num = (v: unknown) => (typeof v === "number" ? v : 0);
+    return {
+      original_word_count: num(result.original_word_count),
+      tightened_word_count: num(result.tightened_word_count),
+      tightened_seconds: num(result.tightened_seconds),
+      hook_score: Math.max(1, Math.min(10, num(result.hook_score) || 0)),
+      issues: toStringList(result.issues),
+      tightened_script: readString(result.tightened_script),
+      cuts: toStringList(result.cuts),
+      hook_alternatives: toStringList(result.hook_alternatives),
+      ending_alternatives: toStringList(result.ending_alternatives),
+    };
+  });
+
+// ============== Deliverables Builder ==============
+export const buildDeliverables = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { brand: string; budget?: string; campaign_goal: string; platforms: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "deliverables");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      summary?: unknown;
+      packages?: unknown;
+      timeline?: unknown;
+      exclusions?: unknown;
+      add_ons?: unknown;
+      contract_clauses?: unknown;
+    }>({
+      toolName: "deliverables_build",
+      toolDescription: "Build 3 brand-deal package tiers with deliverables, timeline and add-ons.",
+      parameters: {
+        type: "object",
+        properties: {
+          summary: { type: "string" },
+          packages: {
+            type: "array", minItems: 3, maxItems: 3,
+            items: {
+              type: "object",
+              properties: {
+                tier: { type: "string", enum: ["starter", "standard", "premium"] },
+                price_range: { type: "string" },
+                deliverables: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 8 },
+                usage_rights: { type: "string" },
+                exclusivity: { type: "string" },
+              },
+              required: ["tier", "price_range", "deliverables", "usage_rights", "exclusivity"],
+              additionalProperties: false,
+            },
+          },
+          timeline: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+          exclusions: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          add_ons: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+          contract_clauses: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+        },
+        required: ["summary", "packages", "timeline", "exclusions", "add_ons", "contract_clauses"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You build brand-deal scopes for UK mum creators. British English, GBP. Realistic UK market rates for micro/mid-tier creators. Include usage rights, exclusivity windows. Be specific (e.g. '1 x 60s Reel', not 'video content')." },
+        { role: "user", content: `Profile:\n${ctx}\n\nBrand: ${data.brand}\nBudget: ${data.budget ?? "not set"}\nCampaign goal: ${data.campaign_goal}\nPlatforms: ${data.platforms}\n\nReturn 3 tiered packages (starter/standard/premium) with price range, deliverables, usage rights, exclusivity, plus a timeline, what's NOT included, optional add-ons, and key contract clauses.` },
+      ],
+    });
+    await quota.record();
+    const pkgs = Array.isArray(result.packages) ? result.packages : [];
+    return {
+      summary: readString(result.summary),
+      packages: pkgs.map((p) => {
+        const it = p as Record<string, unknown>;
+        return {
+          tier: readString(it.tier, "standard"),
+          price_range: readString(it.price_range),
+          deliverables: toStringList(it.deliverables),
+          usage_rights: readString(it.usage_rights),
+          exclusivity: readString(it.exclusivity),
+        };
+      }),
+      timeline: toStringList(result.timeline),
+      exclusions: toStringList(result.exclusions),
+      add_ons: toStringList(result.add_ons),
+      contract_clauses: toStringList(result.contract_clauses),
+    };
+  });
+
+// ============== Usage Rights Calculator ==============
+export const calculateUsageRights = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { base_fee: number; channels: string; duration_months: number; territory: string; exclusivity: string; whitelisting: boolean; paid_ads: boolean }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "usage_rights");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      multiplier?: unknown;
+      suggested_uplift_gbp?: unknown;
+      suggested_total_gbp?: unknown;
+      breakdown?: unknown;
+      negotiation_script?: unknown;
+      red_flags?: unknown;
+    }>({
+      toolName: "usage_rights_calc",
+      toolDescription: "Calculate a fair usage-rights uplift on top of a base content fee.",
+      parameters: {
+        type: "object",
+        properties: {
+          multiplier: { type: "number" },
+          suggested_uplift_gbp: { type: "number" },
+          suggested_total_gbp: { type: "number" },
+          breakdown: {
+            type: "array", minItems: 3, maxItems: 8,
+            items: {
+              type: "object",
+              properties: { factor: { type: "string" }, impact: { type: "string" }, multiplier: { type: "number" } },
+              required: ["factor", "impact", "multiplier"], additionalProperties: false,
+            },
+          },
+          negotiation_script: { type: "string" },
+          red_flags: { type: "array", items: { type: "string" }, minItems: 0, maxItems: 5 },
+        },
+        required: ["multiplier", "suggested_uplift_gbp", "suggested_total_gbp", "breakdown", "negotiation_script", "red_flags"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You calculate usage rights for UK creator brand deals in GBP. Industry norms: organic-only = 0 uplift, brand whitelisting +50-100%, paid social ads +50-150%, all-media buyout +200-400%. Multiplier scales with duration, territory, exclusivity. Be honest, never undersell." },
+        { role: "user", content: `Profile:\n${ctx}\n\nBase content fee: £${data.base_fee}\nChannels brand wants: ${data.channels}\nDuration: ${data.duration_months} months\nTerritory: ${data.territory}\nExclusivity: ${data.exclusivity}\nWhitelisting: ${data.whitelisting ? "yes" : "no"}\nPaid ads: ${data.paid_ads ? "yes" : "no"}\n\nReturn the multiplier, uplift in £, total in £, factor breakdown, a 2-line negotiation script, and any red flags.` },
+      ],
+    });
+    await quota.record();
+    const num = (v: unknown) => (typeof v === "number" ? v : 0);
+    const br = Array.isArray(result.breakdown) ? result.breakdown : [];
+    return {
+      multiplier: num(result.multiplier),
+      suggested_uplift_gbp: Math.round(num(result.suggested_uplift_gbp)),
+      suggested_total_gbp: Math.round(num(result.suggested_total_gbp)),
+      breakdown: br.map((b) => {
+        const it = b as Record<string, unknown>;
+        return { factor: readString(it.factor), impact: readString(it.impact), multiplier: num(it.multiplier) };
+      }),
+      negotiation_script: readString(result.negotiation_script),
+      red_flags: toStringList(result.red_flags),
+    };
+  });
+
+// ============== Media Kit Generator ==============
+export const generateMediaKit = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { stats: string; rates: string; past_brands?: string; goal: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "media_kit");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      tagline?: unknown;
+      about?: unknown;
+      audience_summary?: unknown;
+      stats_block?: unknown;
+      services?: unknown;
+      testimonial_prompts?: unknown;
+      cta?: unknown;
+      design_brief?: unknown;
+    }>({
+      toolName: "media_kit",
+      toolDescription: "Write all the copy for a creator's media kit one-pager.",
+      parameters: {
+        type: "object",
+        properties: {
+          tagline: { type: "string" },
+          about: { type: "string" },
+          audience_summary: { type: "string" },
+          stats_block: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+          services: {
+            type: "array", minItems: 3, maxItems: 5,
+            items: {
+              type: "object",
+              properties: { name: { type: "string" }, description: { type: "string" }, price_from: { type: "string" } },
+              required: ["name", "description", "price_from"], additionalProperties: false,
+            },
+          },
+          testimonial_prompts: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+          cta: { type: "string" },
+          design_brief: { type: "string" },
+        },
+        required: ["tagline", "about", "audience_summary", "stats_block", "services", "testimonial_prompts", "cta", "design_brief"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You write media kit copy for UK mum creators. Warm, professional, confident. British English, GBP. About section under 80 words. Tagline under 12 words. Stats reformatted as scannable lines. Design brief = specific colours/layout suggestions." },
+        { role: "user", content: `Profile:\n${ctx}\n\nGoal of media kit: ${data.goal}\nStats:\n${data.stats}\n\nRates summary:\n${data.rates}\n\nPast brands worked with:\n${data.past_brands ?? "n/a"}\n\nReturn tagline, about (under 80 words), audience summary, stats block, 3-5 services with starting prices, testimonial prompts to send to past clients, a CTA, and a design brief.` },
+      ],
+    });
+    await quota.record();
+    const sv = Array.isArray(result.services) ? result.services : [];
+    return {
+      tagline: readString(result.tagline),
+      about: readString(result.about),
+      audience_summary: readString(result.audience_summary),
+      stats_block: toStringList(result.stats_block),
+      services: sv.map((s) => {
+        const it = s as Record<string, unknown>;
+        return { name: readString(it.name), description: readString(it.description), price_from: readString(it.price_from) };
+      }),
+      testimonial_prompts: toStringList(result.testimonial_prompts),
+      cta: readString(result.cta),
+      design_brief: readString(result.design_brief),
+    };
+  });
+
+// ============== Package Naming Generator ==============
+export const generatePackageNames = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { service_type: string; vibe: string; theme?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "package_names");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{ sets?: unknown }>({
+      toolName: "package_names",
+      toolDescription: "Generate 3 sets of 3-tier service package names.",
+      parameters: {
+        type: "object",
+        properties: {
+          sets: {
+            type: "array", minItems: 5, maxItems: 5,
+            items: {
+              type: "object",
+              properties: {
+                theme: { type: "string" },
+                tiers: {
+                  type: "array", minItems: 3, maxItems: 3,
+                  items: {
+                    type: "object",
+                    properties: { name: { type: "string" }, tagline: { type: "string" } },
+                    required: ["name", "tagline"], additionalProperties: false,
+                  },
+                },
+              },
+              required: ["theme", "tiers"], additionalProperties: false,
+            },
+          },
+        },
+        required: ["sets"], additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You name service packages for UK mum creators. British English. Names should feel premium, on-brand, easy to say, never cringy. Each set has a clear theme (e.g. 'cosy/garden', 'bold/bakery', 'minimal/clean'). Tiers ordered low → high." },
+        { role: "user", content: `Profile:\n${ctx}\n\nService type: ${data.service_type}\nVibe: ${data.vibe}\nTheme hint: ${data.theme ?? "open"}\n\nReturn 5 sets of 3-tier package names with a one-line tagline each.` },
+      ],
+    });
+    await quota.record();
+    const sets = Array.isArray(result.sets) ? result.sets : [];
+    return {
+      sets: sets.map((s) => {
+        const it = s as Record<string, unknown>;
+        const tiers = Array.isArray(it.tiers) ? it.tiers : [];
+        return {
+          theme: readString(it.theme),
+          tiers: tiers.map((t) => {
+            const ti = t as Record<string, unknown>;
+            return { name: readString(ti.name), tagline: readString(ti.tagline) };
+          }),
+        };
+      }),
+    };
+  });
+
+// ============== Service Description Generator ==============
+export const generateServiceDescription = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { service_name: string; what_it_includes: string; ideal_client: string; price?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "service_desc");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      one_liner?: unknown;
+      short?: unknown;
+      long?: unknown;
+      bullets?: unknown;
+      who_its_for?: unknown;
+      who_its_not_for?: unknown;
+      faq?: unknown;
+    }>({
+      toolName: "service_description",
+      toolDescription: "Write multi-length service descriptions plus FAQs.",
+      parameters: {
+        type: "object",
+        properties: {
+          one_liner: { type: "string" },
+          short: { type: "string" },
+          long: { type: "string" },
+          bullets: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 7 },
+          who_its_for: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          who_its_not_for: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+          faq: {
+            type: "array", minItems: 3, maxItems: 5,
+            items: {
+              type: "object",
+              properties: { q: { type: "string" }, a: { type: "string" } },
+              required: ["q", "a"], additionalProperties: false,
+            },
+          },
+        },
+        required: ["one_liner", "short", "long", "bullets", "who_its_for", "who_its_not_for", "faq"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You write service descriptions for UK mum creators. British English. Warm, clear, never salesy. Short = ~40 words. Long = ~120 words. Bullets = scannable benefits. FAQs = real things buyers ask." },
+        { role: "user", content: `Profile:\n${ctx}\n\nService: ${data.service_name}\nWhat's included: ${data.what_it_includes}\nIdeal client: ${data.ideal_client}\nPrice: ${data.price ?? "n/a"}\n\nReturn one-liner, short, long, bullets, who it's for, who it's NOT for, and 3-5 FAQs.` },
+      ],
+    });
+    await quota.record();
+    const faq = Array.isArray(result.faq) ? result.faq : [];
+    return {
+      one_liner: readString(result.one_liner),
+      short: readString(result.short),
+      long: readString(result.long),
+      bullets: toStringList(result.bullets),
+      who_its_for: toStringList(result.who_its_for),
+      who_its_not_for: toStringList(result.who_its_not_for),
+      faq: faq.map((f) => {
+        const it = f as Record<string, unknown>;
+        return { q: readString(it.q), a: readString(it.a) };
+      }),
+    };
+  });
+
+// ============== Passive Product Ideas ==============
+export const generatePassiveIdeas = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { audience: string; existing_skills: string; price_range?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "passive_ideas");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{ ideas?: unknown; first_steps?: unknown }>({
+      toolName: "passive_ideas",
+      toolDescription: "Generate passive / digital product ideas with effort, market and pricing.",
+      parameters: {
+        type: "object",
+        properties: {
+          ideas: {
+            type: "array", minItems: 8, maxItems: 10,
+            items: {
+              type: "object",
+              properties: {
+                title: { type: "string" },
+                format: { type: "string" },
+                what_it_is: { type: "string" },
+                target_buyer: { type: "string" },
+                price_range: { type: "string" },
+                effort: { type: "string", enum: ["low", "medium", "high"] },
+                profit_potential: { type: "string", enum: ["low", "medium", "high"] },
+                first_post_idea: { type: "string" },
+              },
+              required: ["title", "format", "what_it_is", "target_buyer", "price_range", "effort", "profit_potential", "first_post_idea"],
+              additionalProperties: false,
+            },
+          },
+          first_steps: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+        },
+        required: ["ideas", "first_steps"], additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You generate digital/passive product ideas for UK mum creators. British English, GBP pricing. Realistic effort. Formats: PDF guide, Notion template, mini-course, preset pack, swipe file, sticker pack, printable, email mini-series, audio guide, etc." },
+        { role: "user", content: `Profile:\n${ctx}\n\nAudience: ${data.audience}\nExisting skills: ${data.existing_skills}\nPrice range: ${data.price_range ?? "open"}\n\nReturn 8-10 product ideas with format, what-it-is, target buyer, price, effort, profit, and a first-post hook idea.` },
+      ],
+    });
+    await quota.record();
+    const ideas = Array.isArray(result.ideas) ? result.ideas : [];
+    return {
+      ideas: ideas.map((i) => {
+        const it = i as Record<string, unknown>;
+        return {
+          title: readString(it.title), format: readString(it.format),
+          what_it_is: readString(it.what_it_is), target_buyer: readString(it.target_buyer),
+          price_range: readString(it.price_range),
+          effort: readString(it.effort, "medium"),
+          profit_potential: readString(it.profit_potential, "medium"),
+          first_post_idea: readString(it.first_post_idea),
+        };
+      }),
+      first_steps: toStringList(result.first_steps),
+    };
+  });
 

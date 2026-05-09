@@ -22,7 +22,16 @@ export type Feature =
   | "engagement"
   | "bio"
   | "profile_audit"
-  | "timing";
+  | "timing"
+  | "faceless"
+  | "pin"
+  | "script_tighten"
+  | "deliverables"
+  | "usage_rights"
+  | "media_kit"
+  | "package_names"
+  | "service_desc"
+  | "passive_ideas";
 
 export const FEATURE_LABELS: Record<Feature, string> = {
   generator: "Content Generator",
@@ -41,6 +50,15 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   bio: "Bio Optimiser",
   profile_audit: "Profile Audit",
   timing: "Post Timing",
+  faceless: "Faceless Content Optimiser",
+  pin: "Pinterest Pin Optimiser",
+  script_tighten: "Script Tightener",
+  deliverables: "Deliverables Builder",
+  usage_rights: "Usage Rights Calculator",
+  media_kit: "Media Kit Generator",
+  package_names: "Package Naming",
+  service_desc: "Service Description",
+  passive_ideas: "Passive Product Ideas",
 };
 
 export function toStringList(value: unknown): string[] {

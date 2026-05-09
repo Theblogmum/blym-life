@@ -18,10 +18,12 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
+import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
+import { Route as AuthenticatedScriptTightenerRouteImport } from './routes/_authenticated/script-tightener'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
@@ -29,12 +31,15 @@ import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authent
 import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authenticated/post-timing'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
+import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedFacelessOptimiserRouteImport } from './routes/_authenticated/faceless-optimiser'
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
+import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
@@ -86,6 +91,12 @@ const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   path: '/viral-lab',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedUsageRightsRoute =
+  AuthenticatedUsageRightsRouteImport.update({
+    id: '/usage-rights',
+    path: '/usage-rights',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedTemplatesRoute = AuthenticatedTemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
@@ -106,6 +117,12 @@ const AuthenticatedSeoKeywordsRoute =
   AuthenticatedSeoKeywordsRouteImport.update({
     id: '/seo-keywords',
     path: '/seo-keywords',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedScriptTightenerRoute =
+  AuthenticatedScriptTightenerRouteImport.update({
+    id: '/script-tightener',
+    path: '/script-tightener',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedResponseWriterRoute =
@@ -146,6 +163,12 @@ const AuthenticatedPitchGeneratorRoute =
     path: '/pitch-generator',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedPinOptimiserRoute =
+  AuthenticatedPinOptimiserRouteImport.update({
+    id: '/pin-optimiser',
+    path: '/pin-optimiser',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedNicheAuditRoute = AuthenticatedNicheAuditRouteImport.update({
   id: '/niche-audit',
   path: '/niche-audit',
@@ -172,10 +195,22 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedFacelessOptimiserRoute =
+  AuthenticatedFacelessOptimiserRouteImport.update({
+    id: '/faceless-optimiser',
+    path: '/faceless-optimiser',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedEngagementBoosterRoute =
   AuthenticatedEngagementBoosterRouteImport.update({
     id: '/engagement-booster',
     path: '/engagement-booster',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDeliverablesBuilderRoute =
+  AuthenticatedDeliverablesBuilderRouteImport.update({
+    id: '/deliverables-builder',
+    path: '/deliverables-builder',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedCtaGeneratorRoute =
@@ -225,12 +260,15 @@ export interface FileRoutesByFullPath {
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -238,10 +276,12 @@ export interface FileRoutesByFullPath {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
+  '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -258,12 +298,15 @@ export interface FileRoutesByTo {
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -271,10 +314,12 @@ export interface FileRoutesByTo {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
+  '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -293,12 +338,15 @@ export interface FileRoutesById {
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/_authenticated/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/post-timing': typeof AuthenticatedPostTimingRoute
@@ -306,10 +354,12 @@ export interface FileRoutesById {
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/_authenticated/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
+  '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -328,12 +378,15 @@ export interface FileRouteTypes {
     | '/bio-optimiser'
     | '/broll'
     | '/cta-generator'
+    | '/deliverables-builder'
     | '/engagement-booster'
+    | '/faceless-optimiser'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
     | '/insights'
     | '/niche-audit'
+    | '/pin-optimiser'
     | '/pitch-generator'
     | '/planner'
     | '/post-timing'
@@ -341,10 +394,12 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/repurpose'
     | '/response-writer'
+    | '/script-tightener'
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
     | '/templates'
+    | '/usage-rights'
     | '/viral-lab'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
@@ -361,12 +416,15 @@ export interface FileRouteTypes {
     | '/bio-optimiser'
     | '/broll'
     | '/cta-generator'
+    | '/deliverables-builder'
     | '/engagement-booster'
+    | '/faceless-optimiser'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
     | '/insights'
     | '/niche-audit'
+    | '/pin-optimiser'
     | '/pitch-generator'
     | '/planner'
     | '/post-timing'
@@ -374,10 +432,12 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/repurpose'
     | '/response-writer'
+    | '/script-tightener'
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
     | '/templates'
+    | '/usage-rights'
     | '/viral-lab'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
@@ -395,12 +455,15 @@ export interface FileRouteTypes {
     | '/_authenticated/bio-optimiser'
     | '/_authenticated/broll'
     | '/_authenticated/cta-generator'
+    | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
+    | '/_authenticated/faceless-optimiser'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
     | '/_authenticated/niche-audit'
+    | '/_authenticated/pin-optimiser'
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
     | '/_authenticated/post-timing'
@@ -408,10 +471,12 @@ export interface FileRouteTypes {
     | '/_authenticated/recycler'
     | '/_authenticated/repurpose'
     | '/_authenticated/response-writer'
+    | '/_authenticated/script-tightener'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
+    | '/_authenticated/usage-rights'
     | '/_authenticated/viral-lab'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
@@ -495,6 +560,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedViralLabRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/usage-rights': {
+      id: '/_authenticated/usage-rights'
+      path: '/usage-rights'
+      fullPath: '/usage-rights'
+      preLoaderRoute: typeof AuthenticatedUsageRightsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/templates': {
       id: '/_authenticated/templates'
       path: '/templates'
@@ -521,6 +593,13 @@ declare module '@tanstack/react-router' {
       path: '/seo-keywords'
       fullPath: '/seo-keywords'
       preLoaderRoute: typeof AuthenticatedSeoKeywordsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/script-tightener': {
+      id: '/_authenticated/script-tightener'
+      path: '/script-tightener'
+      fullPath: '/script-tightener'
+      preLoaderRoute: typeof AuthenticatedScriptTightenerRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/response-writer': {
@@ -572,6 +651,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPitchGeneratorRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/pin-optimiser': {
+      id: '/_authenticated/pin-optimiser'
+      path: '/pin-optimiser'
+      fullPath: '/pin-optimiser'
+      preLoaderRoute: typeof AuthenticatedPinOptimiserRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/niche-audit': {
       id: '/_authenticated/niche-audit'
       path: '/niche-audit'
@@ -607,11 +693,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/faceless-optimiser': {
+      id: '/_authenticated/faceless-optimiser'
+      path: '/faceless-optimiser'
+      fullPath: '/faceless-optimiser'
+      preLoaderRoute: typeof AuthenticatedFacelessOptimiserRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/engagement-booster': {
       id: '/_authenticated/engagement-booster'
       path: '/engagement-booster'
       fullPath: '/engagement-booster'
       preLoaderRoute: typeof AuthenticatedEngagementBoosterRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/deliverables-builder': {
+      id: '/_authenticated/deliverables-builder'
+      path: '/deliverables-builder'
+      fullPath: '/deliverables-builder'
+      preLoaderRoute: typeof AuthenticatedDeliverablesBuilderRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/cta-generator': {
@@ -664,12 +764,15 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
+  AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
+  AuthenticatedFacelessOptimiserRoute: typeof AuthenticatedFacelessOptimiserRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
+  AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedPostTimingRoute: typeof AuthenticatedPostTimingRoute
@@ -677,10 +780,12 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
+  AuthenticatedScriptTightenerRoute: typeof AuthenticatedScriptTightenerRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
+  AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
@@ -689,12 +794,15 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
+  AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
+  AuthenticatedFacelessOptimiserRoute: AuthenticatedFacelessOptimiserRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
+  AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedPostTimingRoute: AuthenticatedPostTimingRoute,
@@ -702,10 +810,12 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
+  AuthenticatedScriptTightenerRoute: AuthenticatedScriptTightenerRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
+  AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
