@@ -371,7 +371,7 @@ function PricingPlans() {
         >Yearly · save ~25%</button>
       </div>
       )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <PriceCard
           name="Free"
           price="£0"
@@ -390,7 +390,6 @@ function PricingPlans() {
           }
         />
         <PriceCard
-          highlighted
           name="Creator"
           price="£9.99"
           priceSuffix="/mo"
@@ -410,16 +409,37 @@ function PricingPlans() {
           }
         />
         <PriceCard
+          highlighted
+          name="Pro"
+          price="£24.99"
+          priceSuffix="/mo"
+          tagline="For creators serious about growth."
+          features={[
+            "Everything in Creator",
+            "Full Viral Growth Strategy generator",
+            "Advanced AI: viral rewrites + SEO captions",
+            "Viral breakdown library + performance scoring",
+            "1-click 7-day content batching",
+            "Niche domination + repurposing engine",
+            "Weekly AI growth reset",
+          ]}
+          cta={
+            isActive
+              ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : user ? "Upgrade to Pro" : "Start with Pro", onClick: () => buy("pro_monthly"), disabled: loading }
+          }
+        />
+        <PriceCard
           name="Premium"
           price={premiumPrice}
           priceSuffix={premiumSuffix}
           tagline={premiumNote}
           features={[
-            "Everything in Creator",
+            "Everything in Pro",
             "Brand pitch generator + media kit",
-            "Clip Recycler + Flop Analyser",
-            "Growth Insights + Profile Audit",
             "Business tools: invoices, deliverables, rates",
+            "Deliverables, usage rights, package naming",
+            "Rejection recovery + passive income ideas",
           ]}
           cta={
             isActive
