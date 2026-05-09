@@ -80,6 +80,30 @@ export const FREE_MONTHLY_LIMITS: Partial<Record<Feature, number>> = {
   motivation: 9999,      // effectively unlimited (free tool)
 };
 
+/**
+ * Tier entitlements. A feature is unlocked at the named tier and every tier above.
+ * Order: free < creator < premium.
+ * Features NOT in CREATOR_FEATURES are Premium-only (advanced / business tools).
+ */
+export const CREATOR_FEATURES: Feature[] = [
+  "generator",
+  "caption_generator",
+  "viral_lab",
+  "cta",
+  "broll",
+  "series",
+  "repurpose",
+  "response",
+  "seo",
+  "engagement",
+  "bio",
+  "timing",
+  "faceless",
+  "pin",
+  "script_tighten",
+  "motivation",
+];
+
 function startOfMonthISO(): string {
   const d = new Date();
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
