@@ -21,6 +21,7 @@ import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
+import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
@@ -94,6 +95,12 @@ const AuthenticatedSeriesBuilderRoute =
   AuthenticatedSeriesBuilderRouteImport.update({
     id: '/series-builder',
     path: '/series-builder',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedResponseWriterRoute =
+  AuthenticatedResponseWriterRouteImport.update({
+    id: '/response-writer',
+    path: '/response-writer',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedRepurposeRoute = AuthenticatedRepurposeRouteImport.update({
@@ -192,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
+  '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
@@ -219,6 +227,7 @@ export interface FileRoutesByTo {
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
+  '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
@@ -248,6 +257,7 @@ export interface FileRoutesById {
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
+  '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/planner'
     | '/recycler'
     | '/repurpose'
+    | '/response-writer'
     | '/series-builder'
     | '/settings'
     | '/templates'
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
     | '/planner'
     | '/recycler'
     | '/repurpose'
+    | '/response-writer'
     | '/series-builder'
     | '/settings'
     | '/templates'
@@ -332,6 +344,7 @@ export interface FileRouteTypes {
     | '/_authenticated/planner'
     | '/_authenticated/recycler'
     | '/_authenticated/repurpose'
+    | '/_authenticated/response-writer'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
@@ -437,6 +450,13 @@ declare module '@tanstack/react-router' {
       path: '/series-builder'
       fullPath: '/series-builder'
       preLoaderRoute: typeof AuthenticatedSeriesBuilderRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/response-writer': {
+      id: '/_authenticated/response-writer'
+      path: '/response-writer'
+      fullPath: '/response-writer'
+      preLoaderRoute: typeof AuthenticatedResponseWriterRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/repurpose': {
@@ -553,6 +573,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
+  AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
@@ -572,6 +593,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
+  AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
