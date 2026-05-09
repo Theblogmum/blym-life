@@ -177,4 +177,119 @@ export const generatePitch = createServerFn({ method: "POST" })
     };
   });
 
+export const analyseFlop = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (d: { hook: string; caption: string; topic: string; watch_time_seconds: number }) => d,
+  )
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "flop");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      verdict?: unknown;
+      scores?: unknown;
+      diagnoses?: unknown;
+      rewrite_hook?: unknown;
+      rewrite_caption?: unknown;
+      next_post_idea?: unknown;
+    }>({
+      toolName: "flop_analysis",
+      toolDescription:
+        "Diagnose why a short-form video underperformed. Be honest, specific, and kind.",
+      parameters: {
+        type: "object",
+        properties: {
+          verdict: { type: "string" },
+          scores: {
+            type: "object",
+            properties: {
+              opening_strength: { type: "number" },
+              specificity: { type: "number" },
+              curiosity: { type: "number" },
+              cta_strength: { type: "number" },
+            },
+            required: ["opening_strength", "specificity", "curiosity", "cta_strength"],
+            additionalProperties: false,
+          },
+          diagnoses: {
+            type: "array",
+            minItems: 3,
+            maxItems: 5,
+            items: {
+              type: "object",
+              properties: {
+                issue: {
+                  type: "string",
+                  enum: [
+                    "weak_opening",
+                    "too_broad",
+                    "no_curiosity",
+                    "weak_cta",
+                    "wrong_audience",
+                    "low_payoff",
+                    "pacing",
+                    "caption_mismatch",
+                  ],
+                },
+                label: { type: "string" },
+                why: { type: "string" },
+                fix: { type: "string" },
+              },
+              required: ["issue", "label", "why", "fix"],
+              additionalProperties: false,
+            },
+          },
+          rewrite_hook: { type: "string" },
+          rewrite_caption: { type: "string" },
+          next_post_idea: { type: "string" },
+        },
+        required: [
+          "verdict",
+          "scores",
+          "diagnoses",
+          "rewrite_hook",
+          "rewrite_caption",
+          "next_post_idea",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a short-form video strategist for UK mum creators. Diagnose flops with specific, kind, practical feedback. Score each axis 1-10 (10 = excellent). British English, no AI clichés. Reference the actual hook/caption text in your reasoning.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nVideo to diagnose:\nTopic: ${data.topic}\nHook (first line / on-screen text): ${data.hook}\nCaption: ${data.caption}\nAverage watch time: ${data.watch_time_seconds}s\n\nReturn an honest verdict, scores, 3-5 diagnoses (pick the most relevant), a rewritten hook, a rewritten caption, and a next-post idea that learns from this flop.`,
+        },
+      ],
+    });
+    await quota.record();
+    const scoresRaw = (result.scores ?? {}) as Record<string, unknown>;
+    const num = (v: unknown) => (typeof v === "number" ? Math.max(1, Math.min(10, v)) : 0);
+    const diagnosesRaw = Array.isArray(result.diagnoses) ? result.diagnoses : [];
+    return {
+      verdict: readString(result.verdict),
+      scores: {
+        opening_strength: num(scoresRaw.opening_strength),
+        specificity: num(scoresRaw.specificity),
+        curiosity: num(scoresRaw.curiosity),
+        cta_strength: num(scoresRaw.cta_strength),
+      },
+      diagnoses: diagnosesRaw.map((d) => {
+        const item = d as Record<string, unknown>;
+        return {
+          issue: readString(item.issue, "weak_opening"),
+          label: readString(item.label),
+          why: readString(item.why),
+          fix: readString(item.fix),
+        };
+      }),
+      rewrite_hook: readString(result.rewrite_hook),
+      rewrite_caption: readString(result.rewrite_caption),
+      next_post_idea: readString(result.next_post_idea),
+    };
+  });
+
 
