@@ -63,6 +63,7 @@ import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lova
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicHooksTrialRemindersRouteImport } from './routes/api/public/hooks/trial-reminders'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -356,6 +357,12 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksTrialRemindersRoute =
+  ApiPublicHooksTrialRemindersRouteImport.update({
+    id: '/api/public/hooks/trial-reminders',
+    path: '/api/public/hooks/trial-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -407,6 +414,7 @@ export interface FileRoutesByFullPath {
   '/wins': typeof AuthenticatedWinsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -462,6 +470,7 @@ export interface FileRoutesByTo {
   '/wins': typeof AuthenticatedWinsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -519,6 +528,7 @@ export interface FileRoutesById {
   '/_authenticated/wins': typeof AuthenticatedWinsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -576,6 +586,7 @@ export interface FileRouteTypes {
     | '/wins'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -631,6 +642,7 @@ export interface FileRouteTypes {
     | '/wins'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -687,6 +699,7 @@ export interface FileRouteTypes {
     | '/_authenticated/wins'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -704,6 +717,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicHooksTrialRemindersRoute: typeof ApiPublicHooksTrialRemindersRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -1090,6 +1104,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/trial-reminders': {
+      id: '/api/public/hooks/trial-reminders'
+      path: '/api/public/hooks/trial-reminders'
+      fullPath: '/api/public/hooks/trial-reminders'
+      preLoaderRoute: typeof ApiPublicHooksTrialRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -1194,6 +1215,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicHooksTrialRemindersRoute: ApiPublicHooksTrialRemindersRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
