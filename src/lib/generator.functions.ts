@@ -126,4 +126,55 @@ export const recycleClip = createServerFn({ method: "POST" })
     };
   });
 
+export const generatePitch = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { brand: string; niche: string; tone: string; platform: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "pitch");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      email_subject_lines?: unknown;
+      email_pitch?: unknown;
+      dm_pitch?: unknown;
+      follow_up?: unknown;
+    }>({
+      toolName: "brand_pitch_pack",
+      toolDescription: "Brand pitch pack: subject lines, email pitch, DM pitch, follow-up.",
+      parameters: {
+        type: "object",
+        properties: {
+          email_subject_lines: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 4,
+            maxItems: 4,
+          },
+          email_pitch: { type: "string" },
+          dm_pitch: { type: "string" },
+          follow_up: { type: "string" },
+        },
+        required: ["email_subject_lines", "email_pitch", "dm_pitch", "follow_up"],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You write warm, professional brand pitches for UK mum creators. British English, sound human, no AI clichés. Match the requested tone exactly. Keep email pitches concise (under 180 words). DMs short (under 60 words). Follow-up polite and brief.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nBrand: ${data.brand}\nNiche: ${data.niche}\nTone: ${data.tone}\nPlatform: ${data.platform}\n\nWrite (1) four subject line options, (2) the email pitch, (3) a DM-friendly version for ${data.platform}, (4) a polite 4-day follow-up.`,
+        },
+      ],
+    });
+    await quota.record();
+    return {
+      email_subject_lines: toStringList(result.email_subject_lines).slice(0, 4),
+      email_pitch: readString(result.email_pitch),
+      dm_pitch: readString(result.dm_pitch),
+      follow_up: readString(result.follow_up),
+    };
+  });
+
 
