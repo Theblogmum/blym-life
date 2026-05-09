@@ -432,4 +432,131 @@ export const auditNiche = createServerFn({ method: "POST" })
     };
   });
 
+export const generateBroll = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "broll");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      shots?: unknown;
+      angles?: unknown;
+      transitions?: unknown;
+      aesthetic?: unknown;
+      shot_list_tip?: unknown;
+    }>({
+      toolName: "broll_ideas",
+      toolDescription:
+        "Generate concrete b-roll shots, camera angles, transitions and aesthetic direction for a niche/topic.",
+      parameters: {
+        type: "object",
+        properties: {
+          shots: {
+            type: "array",
+            minItems: 8,
+            maxItems: 12,
+            items: {
+              type: "object",
+              properties: {
+                shot: { type: "string" },
+                why: { type: "string" },
+                duration_seconds: { type: "number" },
+              },
+              required: ["shot", "why", "duration_seconds"],
+              additionalProperties: false,
+            },
+          },
+          angles: {
+            type: "array",
+            minItems: 4,
+            maxItems: 6,
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                how_to: { type: "string" },
+              },
+              required: ["name", "how_to"],
+              additionalProperties: false,
+            },
+          },
+          transitions: {
+            type: "array",
+            minItems: 4,
+            maxItems: 6,
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                how_to: { type: "string" },
+              },
+              required: ["name", "how_to"],
+              additionalProperties: false,
+            },
+          },
+          aesthetic: {
+            type: "object",
+            properties: {
+              mood: { type: "string" },
+              palette: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+              lighting: { type: "string" },
+              props: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+              music_vibe: { type: "string" },
+            },
+            required: ["mood", "palette", "lighting", "props", "music_vibe"],
+            additionalProperties: false,
+          },
+          shot_list_tip: { type: "string" },
+        },
+        required: ["shots", "angles", "transitions", "aesthetic", "shot_list_tip"],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a short-form video DOP for UK mum creators filming on a phone at home. Give concrete, doable b-roll: real shots a mum can film in her kitchen/lounge/garden in 10 minutes. No film-school jargon. British English. Each shot must be specific (what's in frame, what moves), not generic ('cooking shot'). Suggest realistic durations 1-4 seconds.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nNiche/topic: ${data.topic}\n\nReturn 8-12 specific b-roll shots, 4-6 camera angles, 4-6 transition ideas, and an aesthetic direction (mood, colour palette, lighting, props, music vibe), plus one filming tip.`,
+        },
+      ],
+    });
+    await quota.record();
+    const shotsRaw = Array.isArray(result.shots) ? result.shots : [];
+    const anglesRaw = Array.isArray(result.angles) ? result.angles : [];
+    const transRaw = Array.isArray(result.transitions) ? result.transitions : [];
+    const aestRaw = (result.aesthetic ?? {}) as Record<string, unknown>;
+    return {
+      shots: shotsRaw.map((s) => {
+        const it = s as Record<string, unknown>;
+        return {
+          shot: readString(it.shot),
+          why: readString(it.why),
+          duration_seconds:
+            typeof it.duration_seconds === "number"
+              ? Math.max(1, Math.min(10, Math.round(it.duration_seconds)))
+              : 2,
+        };
+      }),
+      angles: anglesRaw.map((a) => {
+        const it = a as Record<string, unknown>;
+        return { name: readString(it.name), how_to: readString(it.how_to) };
+      }),
+      transitions: transRaw.map((t) => {
+        const it = t as Record<string, unknown>;
+        return { name: readString(it.name), how_to: readString(it.how_to) };
+      }),
+      aesthetic: {
+        mood: readString(aestRaw.mood),
+        palette: toStringList(aestRaw.palette),
+        lighting: readString(aestRaw.lighting),
+        props: toStringList(aestRaw.props),
+        music_vibe: readString(aestRaw.music_vibe),
+      },
+      shot_list_tip: readString(result.shot_list_tip),
+    };
+  });
+
 
