@@ -867,6 +867,33 @@ export type Database = {
         }
         Relationships: []
       }
+      trial_claims: {
+        Row: {
+          created_at: string
+          ends_at: string
+          id: string
+          ip_hash: string
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          ends_at?: string
+          id?: string
+          ip_hash: string
+          started_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          ends_at?: string
+          id?: string
+          ip_hash?: string
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       usage_events: {
         Row: {
           created_at: string
