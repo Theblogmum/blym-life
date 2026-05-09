@@ -193,6 +193,16 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
 
 export type UserTier = "free" | "creator" | "pro" | "ultimate";
 
+async function hasActiveTrial(supabase: SupabaseLike, userId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("trial_claims")
+    .select("ends_at")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (!data?.ends_at) return false;
+  return new Date(data.ends_at).getTime() > Date.now();
+}
+
 export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
     .from("profiles")
@@ -209,7 +219,10 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
     user_uuid: userId,
     check_env: env,
   });
-  return hasSub ? "ultimate" : "free";
+  if (hasSub) return "ultimate";
+  // Free 48-hour trial → unlock everything as ultimate while active
+  if (await hasActiveTrial(supabase, userId)) return "ultimate";
+  return "free";
 }
 
 export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
@@ -225,13 +238,24 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const tier = await getUserTier(supabase, userId);
+  const { data: trialRow } = await supabase
+    .from("trial_claims")
+    .select("started_at, ends_at")
+    .eq("user_id", userId)
+    .maybeSingle();
+  const trialEndsAt = trialRow?.ends_at ?? null;
+  const trialActive = !!trialEndsAt && new Date(trialEndsAt).getTime() > Date.now();
+  const trialClaimed = !!trialRow;
+
   if (tier === "ultimate" || tier === "pro" || tier === "creator") {
     return {
       premium: true, // legacy field: any paid tier reads as "premium" for old UI gating
       tier,
       inTrial: true, // legacy field — premium = unlimited
       daysLeft: null as number | null,
-      trialEndsAt: null as string | null,
+      trialEndsAt,
+      trialActive,
+      trialClaimed,
       freeUsage: {} as Record<string, { used: number; limit: number }>,
     };
   }
@@ -241,7 +265,9 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
     tier: "free" as UserTier,
     inTrial: false,
     daysLeft: 0,
-    trialEndsAt: null as string | null,
+    trialEndsAt,
+    trialActive,
+    trialClaimed,
     freeUsage,
   };
 }
