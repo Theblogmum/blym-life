@@ -23,6 +23,7 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
+import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
@@ -101,6 +102,11 @@ const AuthenticatedPitchGeneratorRoute =
     path: '/pitch-generator',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedNicheAuditRoute = AuthenticatedNicheAuditRouteImport.update({
+  id: '/niche-audit',
+  path: '/niche-audit',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedInsightsRoute = AuthenticatedInsightsRouteImport.update({
   id: '/insights',
   path: '/insights',
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
+  '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
@@ -175,6 +182,7 @@ export interface FileRoutesByTo {
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
+  '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
@@ -199,6 +207,7 @@ export interface FileRoutesById {
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
+  '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
@@ -223,6 +232,7 @@ export interface FileRouteTypes {
     | '/flop-analyser'
     | '/generator'
     | '/insights'
+    | '/niche-audit'
     | '/pitch-generator'
     | '/planner'
     | '/recycler'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
     | '/flop-analyser'
     | '/generator'
     | '/insights'
+    | '/niche-audit'
     | '/pitch-generator'
     | '/planner'
     | '/recycler'
@@ -268,6 +279,7 @@ export interface FileRouteTypes {
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
+    | '/_authenticated/niche-audit'
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
     | '/_authenticated/recycler'
@@ -391,6 +403,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPitchGeneratorRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/niche-audit': {
+      id: '/_authenticated/niche-audit'
+      path: '/niche-audit'
+      fullPath: '/niche-audit'
+      preLoaderRoute: typeof AuthenticatedNicheAuditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/insights': {
       id: '/_authenticated/insights'
       path: '/insights'
@@ -449,6 +468,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
+  AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
@@ -463,6 +483,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
+  AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
@@ -490,3 +511,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
