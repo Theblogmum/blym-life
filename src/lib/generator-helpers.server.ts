@@ -208,10 +208,11 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  * are deprecated and always reflect "free forever" semantics now.
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
-  const premium = await isPremium(supabase, userId);
-  if (premium) {
+  const tier = await getUserTier(supabase, userId);
+  if (tier === "premium" || tier === "creator") {
     return {
-      premium: true,
+      premium: true, // legacy: any paid tier reads as "premium" for old UI gating
+      tier,
       inTrial: true, // legacy field — premium = unlimited
       daysLeft: null as number | null,
       trialEndsAt: null as string | null,
@@ -221,6 +222,7 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const freeUsage = await getFreeTierSnapshot(supabase, userId);
   return {
     premium: false,
+    tier: "free" as UserTier,
     inTrial: false,
     daysLeft: 0,
     trialEndsAt: null as string | null,
@@ -242,20 +244,28 @@ export async function enforceTrial(
   feature: Feature,
   opts?: { freeAllowed?: boolean },
 ) {
-  const premium = await isPremium(supabase, userId);
+  const tier = await getUserTier(supabase, userId);
   const recorder = {
     record: async () => {
       await supabase.from("usage_events").insert({ user_id: userId, feature });
     },
   };
-  if (premium) return recorder;
+  if (tier === "premium") return recorder;
+
+  if (tier === "creator") {
+    if (CREATOR_FEATURES.includes(feature)) return recorder;
+    throw new Error(
+      `${FEATURE_LABELS[feature]} is a Premium tool. Upgrade from Creator to Premium to unlock advanced business tools.`,
+    );
+  }
 
   const cap = FREE_MONTHLY_LIMITS[feature];
   const isFreeFeature = cap !== undefined || opts?.freeAllowed;
 
   if (!isFreeFeature) {
+    const tierName = CREATOR_FEATURES.includes(feature) ? "Creator (£9.99/mo)" : "Premium";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is a Premium tool. Upgrade to unlock unlimited access — your free ideas, captions, planner and saves stay free forever.`,
+      `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
     );
   }
 
@@ -263,7 +273,7 @@ export async function enforceTrial(
     const used = await getMonthlyUsage(supabase, userId, feature);
     if (used >= cap) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Premium for unlimited — your monthly free allowance refreshes on the 1st.`,
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£9.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
       );
     }
   }
