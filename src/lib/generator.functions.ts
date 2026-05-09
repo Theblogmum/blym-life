@@ -7,11 +7,17 @@ export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { kind: string; topic: string }) => d)
   .handler(async ({ data, context }) => {
-    // Captions are free forever; everything else needs trial or premium.
-    const isCaption = String(data.kind).toLowerCase().includes("caption");
-    const quota = await enforceTrial(context.supabase, context.userId, "generator", {
-      freeAllowed: isCaption,
-    });
+    // Free Forever tier:
+    //   - captions/hooks → 10 / month (caption_generator bucket)
+    //   - ideas + scripts → 20 / month (generator bucket)
+    // Premium → unlimited.
+    const kindLower = String(data.kind).toLowerCase();
+    const isCaption = kindLower.includes("caption") || kindLower.includes("hook");
+    const quota = await enforceTrial(
+      context.supabase,
+      context.userId,
+      isCaption ? "caption_generator" : "generator",
+    );
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{ options?: unknown }>({
       toolName: "generate",

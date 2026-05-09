@@ -66,20 +66,23 @@ export function PageHero({
 
 export function UsageChip({
   premium,
-  inTrial,
-  daysLeft,
   freeAllowed,
+  used,
+  limit,
 }: {
   premium: boolean;
-  inTrial: boolean;
-  daysLeft: number | null;
+  inTrial?: boolean;
+  daysLeft?: number | null;
   freeAllowed?: boolean;
+  used?: number;
+  limit?: number;
 }) {
   let label = "";
   if (premium) label = "✨ Premium · unlimited";
-  else if (inTrial) label = `🎁 ${daysLeft} day${daysLeft === 1 ? "" : "s"} left of trial`;
-  else if (freeAllowed) label = "🆓 Free forever on this tool";
-  else label = "🔒 Trial ended · upgrade to unlock";
+  else if (typeof used === "number" && typeof limit === "number")
+    label = `🌸 Free · ${Math.max(0, limit - used)}/${limit} left this month`;
+  else if (freeAllowed) label = "🌸 Free forever on this tool";
+  else label = "🔒 Premium tool · upgrade to unlock";
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full bg-white/25 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
       {label}

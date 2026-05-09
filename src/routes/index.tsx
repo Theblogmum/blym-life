@@ -119,8 +119,8 @@ function Landing() {
               )}
             </div>
             <p className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs font-medium text-muted-foreground lg:justify-start">
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> 3-day full trial</span>
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Captions free forever</span>
+              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Free forever plan</span>
+              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> No card required</span>
               <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
             </p>
           </div>
@@ -375,8 +375,14 @@ function PricingPlans() {
         <PriceCard
           name="Free"
           price="£0"
-          tagline="Captions free, forever."
-          features={["Basic caption generator", "3-day full trial of everything", "No card required"]}
+          tagline="Free forever — no card needed."
+          features={[
+            "20 content ideas + scripts / month",
+            "10 caption + hook generations / month",
+            "Basic weekly content planner",
+            "Unlimited saves & favourites",
+            "Light trend inspiration feed",
+          ]}
           cta={
             isActive
               ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
