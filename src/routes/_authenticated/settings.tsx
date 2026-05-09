@@ -104,20 +104,18 @@ function SettingsPage() {
                 <p className="mt-0.5 text-xs text-muted-foreground">Unlimited ideas, captions, scripts + smart calendar.</p>
                 <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("creator_monthly")}>Go Creator</Button>
               </div>
-              <div className="rounded-2xl border border-primary/40 bg-secondary/40 p-4">
+              <div className="rounded-2xl border border-border p-4">
                 <p className="font-display text-lg font-bold">Pro · £24.99/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Viral growth engine, batching, insights + repurposing.</p>
                 <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("pro_monthly")}>Go Pro</Button>
               </div>
-              <div className="rounded-2xl border border-border p-4">
-                <p className="font-display text-lg font-bold">Premium · £19/mo</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">Everything in Pro + brand pitch, media kit, invoices.</p>
-                <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_monthly")}>Go Premium</Button>
+              <div className="rounded-2xl border border-primary/40 bg-secondary/40 p-4">
+                <p className="font-display text-lg font-bold">Ultimate · £44.99/mo</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">AI growth coach, 30-day plans, brand pitch, media kit, invoices.</p>
+                <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("ultimate_monthly")}>Go Ultimate</Button>
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <Button variant="default" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("ultimate_monthly")}>Go Ultimate · £44.99/mo</Button>
-              <Button variant="outline" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_yearly")}>£170/year · save ~25%</Button>
               <Button variant="ghost" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
             </div>
           </div>
