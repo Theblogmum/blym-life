@@ -28,7 +28,7 @@ function RefundPage() {
 
       <h2 className="mt-6 font-display text-xl font-bold">How to request a refund</h2>
       <p className="mt-2">
-        Email us at <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a> with the email
+        Email us at <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a> with the email
         address you used at checkout and your order reference. We'll process the refund through our payment processor
         (Stripe) within a few business days.
       </p>
@@ -42,7 +42,7 @@ function RefundPage() {
 
       <h2 className="mt-6 font-display text-xl font-bold">Questions</h2>
       <p className="mt-2">
-        Email <a className="underline" href="mailto:theblogmum@gmail.com">theblogmum@gmail.com</a> and we'll get back to you.
+        Email <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a> and we'll get back to you.
       </p>
     </article>
   );
