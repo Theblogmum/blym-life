@@ -104,6 +104,20 @@ export const CREATOR_FEATURES: Feature[] = [
   "motivation",
 ];
 
+/**
+ * Pro tier adds advanced growth + insight tooling on top of Creator.
+ * Premium-only (business/admin) tools are still gated above Pro.
+ */
+export const PRO_EXTRA_FEATURES: Feature[] = [
+  "recycler",
+  "niche_audit",
+  "profile_audit",
+  "flop",
+  "wins",
+];
+
+export const PRO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...PRO_EXTRA_FEATURES];
+
 function startOfMonthISO(): string {
   const d = new Date();
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
@@ -177,7 +191,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export type UserTier = "free" | "creator" | "premium";
+export type UserTier = "free" | "creator" | "pro" | "premium";
 
 export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
@@ -186,7 +200,7 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
     .eq("id", userId)
     .maybeSingle();
   const tier = (profile?.tier ?? "free") as string;
-  if (tier === "premium" || tier === "creator") return tier;
+  if (tier === "premium" || tier === "pro" || tier === "creator") return tier as UserTier;
   // Fallback: lifetime / active sub → premium
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
@@ -252,10 +266,18 @@ export async function enforceTrial(
   };
   if (tier === "premium") return recorder;
 
+  if (tier === "pro") {
+    if (PRO_FEATURES.includes(feature)) return recorder;
+    throw new Error(
+      `${FEATURE_LABELS[feature]} is a Premium business tool. Upgrade from Pro to Premium to unlock invoices, media kit, pitch generator and brand tools.`,
+    );
+  }
+
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
+    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Premium";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is a Premium tool. Upgrade from Creator to Premium to unlock advanced business tools.`,
+      `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
   }
 
@@ -263,7 +285,11 @@ export async function enforceTrial(
   const isFreeFeature = cap !== undefined || opts?.freeAllowed;
 
   if (!isFreeFeature) {
-    const tierName = CREATOR_FEATURES.includes(feature) ? "Creator (£9.99/mo)" : "Premium";
+    const tierName = CREATOR_FEATURES.includes(feature)
+      ? "Creator (£9.99/mo)"
+      : PRO_EXTRA_FEATURES.includes(feature)
+        ? "Pro (£24.99/mo)"
+        : "Premium";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
     );
