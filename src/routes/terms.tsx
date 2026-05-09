@@ -7,7 +7,7 @@ export const Route = createFileRoute("/terms")({
       { name: "description", content: "Terms and conditions for using The Blog Mum Studio." },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://theblogmumstudio.lovable.app/terms" }],
+    links: [{ rel: "canonical", href: "https://theblogmumstudio.com/terms" }],
   }),
   component: TermsPage,
 });
@@ -30,7 +30,7 @@ function TermsPage() {
       <p className="mt-2">
         The Blog Mum Studio is an AI-assisted content planning tool for social media creators. It generates daily filming
         briefs, hooks, captions, and growth insights based on inputs you provide. The service is delivered via the web at
-        theblogmumstudio.lovable.app.
+        theblogmumstudio.com.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">3. Your account</h2>

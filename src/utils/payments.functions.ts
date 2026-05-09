@@ -74,7 +74,7 @@ export const createPortalSession = createServerFn({ method: "POST" })
     const stripe = getStripe();
     const portal = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: data.returnUrl ?? process.env.SITE_URL ?? "https://theblogmumstudio.lovable.app/settings",
+      return_url: data.returnUrl ?? process.env.SITE_URL ?? "https://theblogmumstudio.com/settings",
     });
     return { url: portal.url };
   });
