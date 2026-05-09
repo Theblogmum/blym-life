@@ -25,6 +25,7 @@ import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
+import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authenticated/profile-audit'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
 import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
@@ -122,6 +123,12 @@ const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
   path: '/recycler',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedProfileAuditRoute =
+  AuthenticatedProfileAuditRouteImport.update({
+    id: '/profile-audit',
+    path: '/profile-audit',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
   id: '/planner',
   path: '/planner',
@@ -220,6 +227,7 @@ export interface FileRoutesByFullPath {
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
+  '/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
@@ -251,6 +259,7 @@ export interface FileRoutesByTo {
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
+  '/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
@@ -284,6 +293,7 @@ export interface FileRoutesById {
   '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
+  '/_authenticated/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
@@ -317,6 +327,7 @@ export interface FileRouteTypes {
     | '/niche-audit'
     | '/pitch-generator'
     | '/planner'
+    | '/profile-audit'
     | '/recycler'
     | '/repurpose'
     | '/response-writer'
@@ -348,6 +359,7 @@ export interface FileRouteTypes {
     | '/niche-audit'
     | '/pitch-generator'
     | '/planner'
+    | '/profile-audit'
     | '/recycler'
     | '/repurpose'
     | '/response-writer'
@@ -380,6 +392,7 @@ export interface FileRouteTypes {
     | '/_authenticated/niche-audit'
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
+    | '/_authenticated/profile-audit'
     | '/_authenticated/recycler'
     | '/_authenticated/repurpose'
     | '/_authenticated/response-writer'
@@ -519,6 +532,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRecyclerRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/profile-audit': {
+      id: '/_authenticated/profile-audit'
+      path: '/profile-audit'
+      fullPath: '/profile-audit'
+      preLoaderRoute: typeof AuthenticatedProfileAuditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/planner': {
       id: '/_authenticated/planner'
       path: '/planner'
@@ -633,6 +653,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
+  AuthenticatedProfileAuditRoute: typeof AuthenticatedProfileAuditRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
@@ -656,6 +677,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
+  AuthenticatedProfileAuditRoute: AuthenticatedProfileAuditRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
