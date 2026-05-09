@@ -238,13 +238,24 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const tier = await getUserTier(supabase, userId);
+  const { data: trialRow } = await supabase
+    .from("trial_claims")
+    .select("started_at, ends_at")
+    .eq("user_id", userId)
+    .maybeSingle();
+  const trialEndsAt = trialRow?.ends_at ?? null;
+  const trialActive = !!trialEndsAt && new Date(trialEndsAt).getTime() > Date.now();
+  const trialClaimed = !!trialRow;
+
   if (tier === "ultimate" || tier === "pro" || tier === "creator") {
     return {
       premium: true, // legacy field: any paid tier reads as "premium" for old UI gating
       tier,
       inTrial: true, // legacy field — premium = unlimited
       daysLeft: null as number | null,
-      trialEndsAt: null as string | null,
+      trialEndsAt,
+      trialActive,
+      trialClaimed,
       freeUsage: {} as Record<string, { used: number; limit: number }>,
     };
   }
@@ -254,7 +265,9 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
     tier: "free" as UserTier,
     inTrial: false,
     daysLeft: 0,
-    trialEndsAt: null as string | null,
+    trialEndsAt,
+    trialActive,
+    trialClaimed,
     freeUsage,
   };
 }
