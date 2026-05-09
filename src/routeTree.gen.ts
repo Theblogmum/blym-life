@@ -30,6 +30,7 @@ import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicGoogleCallbackRouteImport } from './routes/api/public/google/callback'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -137,6 +138,11 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicGoogleCallbackRoute = ApiPublicGoogleCallbackRouteImport.update({
+  id: '/api/public/google/callback',
+  path: '/api/public/google/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/templates': typeof AuthenticatedTemplatesRoute
   '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
+  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/templates': typeof AuthenticatedTemplatesRoute
   '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
+  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
   '/_authenticated/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
+  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/ugc-hub'
     | '/viral-lab'
+    | '/api/public/google/callback'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
@@ -249,6 +259,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/ugc-hub'
     | '/viral-lab'
+    | '/api/public/google/callback'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   id:
@@ -272,6 +283,7 @@ export interface FileRouteTypes {
     | '/_authenticated/templates'
     | '/_authenticated/ugc-hub'
     | '/_authenticated/viral-lab'
+    | '/api/public/google/callback'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -285,6 +297,7 @@ export interface RootRouteChildren {
   RefundRoute: typeof RefundRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
+  ApiPublicGoogleCallbackRoute: typeof ApiPublicGoogleCallbackRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
@@ -438,6 +451,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/google/callback': {
+      id: '/api/public/google/callback'
+      path: '/api/public/google/callback'
+      fullPath: '/api/public/google/callback'
+      preLoaderRoute: typeof ApiPublicGoogleCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -482,6 +502,7 @@ const rootRouteChildren: RootRouteChildren = {
   RefundRoute: RefundRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
+  ApiPublicGoogleCallbackRoute: ApiPublicGoogleCallbackRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }

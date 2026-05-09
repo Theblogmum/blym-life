@@ -44,6 +44,12 @@ import {
   updatePitchStatus,
   deletePitch,
 } from "@/lib/brand-hub.functions";
+import {
+  getGmailConnection,
+  startGmailConnect,
+  disconnectGmail,
+  sendPitchViaGmail,
+} from "@/lib/gmail.functions";
 import { cn } from "@/lib/utils";
 
 function buildMailto(to: string, subject: string, body: string) {
@@ -120,6 +126,8 @@ function BrandHubPage() {
       </PageHero>
 
       <section className="mx-auto max-w-6xl px-5 py-8">
+        <GmailConnectCard />
+
         {locked && (
           <Card className="mb-6 flex items-center justify-between gap-4 rounded-3xl border-0 surface-plum p-5">
             <div className="flex items-center gap-3">
@@ -522,20 +530,16 @@ function ComposeDialog({
               </div>
             )}
             <div className="flex flex-col gap-2 sm:flex-row">
-              <Button
-                className="flex-1 rounded-2xl"
-                asChild
-              >
-                <a
-                  href={buildMailto(email, draft.subject, draft.body)}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => toast.success("Opening your email app — hit Send there!")}
-                >
-                  <Send className="mr-2 h-4 w-4" />
-                  Open in email app
-                </a>
-              </Button>
+              <ComposeSendButton
+                pitchId={draft.id}
+                email={email}
+                subject={draft.subject}
+                body={draft.body}
+                onDone={() => {
+                  setOpen(false);
+                  setDraft(null);
+                }}
+              />
               <Button
                 variant="outline"
                 className="flex-1 rounded-2xl"
@@ -549,16 +553,9 @@ function ComposeDialog({
                 {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
                 Copy
               </Button>
-              <MarkSentButton
-                pitchId={draft.id}
-                onDone={() => {
-                  setOpen(false);
-                  setDraft(null);
-                }}
-              />
             </div>
             <p className="text-center text-xs text-muted-foreground">
-              Tip: "Open in email app" pre-fills your Gmail/Apple Mail with everything ready — just hit Send. Then mark as sent so we can track follow-ups.
+              Connect Gmail above to send in one click. Otherwise use Copy and paste into your mail app.
             </p>
           </div>
         )}
@@ -587,12 +584,88 @@ function MarkSentButton({ pitchId, onDone }: { pitchId: string; onDone: () => vo
   );
 }
 
+function ComposeSendButton({
+  pitchId,
+  email,
+  subject,
+  body,
+  onDone,
+}: {
+  pitchId: string;
+  email: string;
+  subject: string;
+  body: string;
+  onDone: () => void;
+}) {
+  const connected = useGmailConnected();
+  const qc = useQueryClient();
+  const sendFn = useServerFn(sendPitchViaGmail);
+  const markFn = useServerFn(updatePitchStatus);
+
+  const sendM = useMutation({
+    mutationFn: () => sendFn({ data: { pitchId } }),
+    onSuccess: () => {
+      toast.success("Sent! Follow-up due in 4 days.");
+      qc.invalidateQueries({ queryKey: ["brand-hub"] });
+      onDone();
+    },
+    onError: (e: any) => toast.error(e.message || "Send failed"),
+  });
+
+  const markM = useMutation({
+    mutationFn: () => markFn({ data: { id: pitchId, status: "sent" } }),
+    onSuccess: () => {
+      toast.success("Marked as sent — follow-up due in 4 days");
+      qc.invalidateQueries({ queryKey: ["brand-hub"] });
+      onDone();
+    },
+  });
+
+  if (connected) {
+    return (
+      <Button
+        className="flex-1 rounded-2xl"
+        disabled={sendM.isPending}
+        onClick={() => sendM.mutate()}
+      >
+        <Send className="mr-2 h-4 w-4" />
+        {sendM.isPending ? "Sending…" : "Send via Gmail"}
+      </Button>
+    );
+  }
+
+  return (
+    <>
+      <Button className="flex-1 rounded-2xl" asChild>
+        <a
+          href={buildMailto(email, subject, body)}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => toast.success("Opening your email app — hit Send there!")}
+        >
+          <Send className="mr-2 h-4 w-4" />
+          Open in email app
+        </a>
+      </Button>
+      <Button
+        variant="outline"
+        className="flex-1 rounded-2xl"
+        disabled={markM.isPending}
+        onClick={() => markM.mutate()}
+      >
+        Mark as sent
+      </Button>
+    </>
+  );
+}
+
 /* ---------------- Outreach tab ---------------- */
 
 function OutreachTab({ pitches }: { pitches: Pitch[] }) {
   const qc = useQueryClient();
   const updateFn = useServerFn(updatePitchStatus);
   const delFn = useServerFn(deletePitch);
+  const connected = useGmailConnected();
   const update = useMutation({
     mutationFn: (v: { id: string; status: any }) => updateFn({ data: v }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["brand-hub"] }),
@@ -624,19 +697,24 @@ function OutreachTab({ pitches }: { pitches: Pitch[] }) {
           <Card key={p.id} className="flex flex-col gap-3 rounded-3xl border-0 p-5 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center">
             <PitchViewer pitch={p} followUpDue={!!followUpDue} />
             <div className="flex flex-wrap gap-2">
-              <Button asChild size="sm" className="rounded-full">
-                <a
-                  href={buildMailto(p.recipient_email, p.subject, p.body || "")}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Send className="mr-1 h-3.5 w-3.5" /> Send
-                </a>
-              </Button>
-              {p.status === "draft" && (
-                <Button size="sm" variant="outline" className="rounded-full" onClick={() => update.mutate({ id: p.id, status: "sent" })}>
-                  Mark sent
-                </Button>
+              {p.status === "draft" && connected && (
+                <SendViaGmailButton pitchId={p.id} label="Send via Gmail" />
+              )}
+              {p.status === "draft" && !connected && (
+                <>
+                  <Button asChild size="sm" className="rounded-full">
+                    <a
+                      href={buildMailto(p.recipient_email, p.subject, p.body || "")}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Send className="mr-1 h-3.5 w-3.5" /> Open in mail
+                    </a>
+                  </Button>
+                  <Button size="sm" variant="outline" className="rounded-full" onClick={() => update.mutate({ id: p.id, status: "sent" })}>
+                    Mark sent
+                  </Button>
+                </>
               )}
               {p.status === "sent" && (
                 <Button
@@ -782,5 +860,143 @@ function Field({
         className="mt-1.5 h-11 rounded-2xl bg-secondary/40"
       />
     </div>
+  );
+}
+
+/* ---------------- Gmail connection ---------------- */
+
+function GmailConnectCard() {
+  const qc = useQueryClient();
+  const fetchConn = useServerFn(getGmailConnection);
+  const startFn = useServerFn(startGmailConnect);
+  const disconnectFn = useServerFn(disconnectGmail);
+  const conn = useQuery({ queryKey: ["gmail-connection"], queryFn: () => fetchConn() });
+
+  const connect = useMutation({
+    mutationFn: () => startFn({ data: undefined as any }),
+    onSuccess: (res: any) => {
+      const popup = window.open(res.url, "gmail-oauth", "width=520,height=680");
+      if (!popup) {
+        window.location.href = res.url;
+        return;
+      }
+      const onMsg = (e: MessageEvent) => {
+        if (e.data?.type === "gmail-oauth") {
+          window.removeEventListener("message", onMsg);
+          qc.invalidateQueries({ queryKey: ["gmail-connection"] });
+          if (e.data.ok) toast.success("Gmail connected!");
+          else toast.error("Gmail connection failed");
+        }
+      };
+      window.addEventListener("message", onMsg);
+      // Fallback poll in case popup closes without postMessage
+      const poll = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(poll);
+          window.removeEventListener("message", onMsg);
+          qc.invalidateQueries({ queryKey: ["gmail-connection"] });
+        }
+      }, 1000);
+    },
+    onError: (e: any) => toast.error(e.message || "Could not start Gmail connect"),
+  });
+
+  const disconnect = useMutation({
+    mutationFn: () => disconnectFn({ data: undefined as any }),
+    onSuccess: () => {
+      toast.success("Gmail disconnected");
+      qc.invalidateQueries({ queryKey: ["gmail-connection"] });
+    },
+  });
+
+  const connected = !!conn.data?.connected;
+
+  return (
+    <Card
+      className={cn(
+        "mb-6 flex flex-col gap-3 rounded-3xl border-0 p-5 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between",
+        connected ? "surface-mint" : "surface-peach",
+      )}
+    >
+      <div className="flex items-start gap-3">
+        <div className="rounded-2xl bg-background/60 p-2.5">
+          <Mail className="h-5 w-5" />
+        </div>
+        <div>
+          <p className="font-display text-base font-black">
+            {connected ? "Gmail connected" : "Send pitches direct from your Gmail"}
+          </p>
+          <p className="text-sm text-foreground/70">
+            {connected
+              ? `Pitches will send from ${conn.data?.email}. Brands reply straight to you.`
+              : "One-click connect lets you hit Send without leaving the app — replies land in your own inbox."}
+          </p>
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {connected ? (
+          <Button
+            variant="outline"
+            className="rounded-full"
+            disabled={disconnect.isPending}
+            onClick={() => disconnect.mutate()}
+          >
+            Disconnect
+          </Button>
+        ) : (
+          <Button
+            className="rounded-full"
+            disabled={connect.isPending}
+            onClick={() => connect.mutate()}
+          >
+            <Mail className="mr-2 h-4 w-4" />
+            {connect.isPending ? "Opening Google…" : "Connect Gmail"}
+          </Button>
+        )}
+      </div>
+    </Card>
+  );
+}
+
+function useGmailConnected() {
+  const fetchConn = useServerFn(getGmailConnection);
+  const conn = useQuery({ queryKey: ["gmail-connection"], queryFn: () => fetchConn() });
+  return !!conn.data?.connected;
+}
+
+function SendViaGmailButton({
+  pitchId,
+  className,
+  size = "sm",
+  label = "Send",
+  onSent,
+}: {
+  pitchId: string;
+  className?: string;
+  size?: "sm" | "default";
+  label?: string;
+  onSent?: () => void;
+}) {
+  const qc = useQueryClient();
+  const fn = useServerFn(sendPitchViaGmail);
+  const m = useMutation({
+    mutationFn: () => fn({ data: { pitchId } }),
+    onSuccess: () => {
+      toast.success("Sent! Follow-up due in 4 days.");
+      qc.invalidateQueries({ queryKey: ["brand-hub"] });
+      onSent?.();
+    },
+    onError: (e: any) => toast.error(e.message || "Send failed"),
+  });
+  return (
+    <Button
+      size={size}
+      className={cn("rounded-full", className)}
+      disabled={m.isPending}
+      onClick={() => m.mutate()}
+    >
+      <Send className="mr-1 h-3.5 w-3.5" />
+      {m.isPending ? "Sending…" : label}
+    </Button>
   );
 }
