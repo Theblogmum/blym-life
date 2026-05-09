@@ -19,6 +19,7 @@ import {
   Target,
   Clapperboard,
   ListOrdered,
+  MessageCircle,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,7 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/recycler", label: "Recycler", icon: Folder, desc: "5 ideas from one clip" },
       { to: "/broll", label: "B-Roll Ideas", icon: Clapperboard, desc: "Shots, angles & aesthetics" },
       { to: "/series-builder", label: "Series Builder", icon: ListOrdered, desc: "30-part content series" },
+      { to: "/cta-generator", label: "CTA Generator", icon: MessageCircle, desc: "Engagement, sales & comment hooks" },
     ],
   },
   {
