@@ -191,7 +191,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export type UserTier = "free" | "creator" | "pro" | "premium" | "ultimate";
+export type UserTier = "free" | "creator" | "pro" | "ultimate";
 
 export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
@@ -200,22 +200,22 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
     .eq("id", userId)
     .maybeSingle();
   const tier = (profile?.tier ?? "free") as string;
-  if (tier === "ultimate" || tier === "premium" || tier === "pro" || tier === "creator") {
-    return tier as UserTier;
-  }
-  // Fallback: lifetime / active sub → premium
+  // Legacy "premium" tier values are treated as ultimate.
+  if (tier === "ultimate" || tier === "premium") return "ultimate";
+  if (tier === "pro" || tier === "creator") return tier as UserTier;
+  // Fallback: lifetime / active sub → ultimate
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
     user_uuid: userId,
     check_env: env,
   });
-  return hasSub ? "premium" : "free";
+  return hasSub ? "ultimate" : "free";
 }
 
 export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
-  // Backwards-compatible: "premium" semantics = full access (premium tier or lifetime).
+  // Backwards-compatible: full access = ultimate tier or lifetime.
   const tier = await getUserTier(supabase, userId);
-  return tier === "premium" || tier === "ultimate";
+  return tier === "ultimate";
 }
 
 /**
@@ -225,9 +225,9 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const tier = await getUserTier(supabase, userId);
-  if (tier === "ultimate" || tier === "premium" || tier === "pro" || tier === "creator") {
+  if (tier === "ultimate" || tier === "pro" || tier === "creator") {
     return {
-      premium: true, // legacy: any paid tier reads as "premium" for old UI gating
+      premium: true, // legacy field: any paid tier reads as "premium" for old UI gating
       tier,
       inTrial: true, // legacy field — premium = unlimited
       daysLeft: null as number | null,
@@ -266,19 +266,18 @@ export async function enforceTrial(
       await supabase.from("usage_events").insert({ user_id: userId, feature });
     },
   };
-  if (tier === "premium") return recorder;
   if (tier === "ultimate") return recorder;
 
   if (tier === "pro") {
     if (PRO_FEATURES.includes(feature)) return recorder;
     throw new Error(
-      `${FEATURE_LABELS[feature]} is a Premium business tool. Upgrade from Pro to Premium to unlock invoices, media kit, pitch generator and brand tools.`,
+      `${FEATURE_LABELS[feature]} is unlocked on Ultimate (£44.99/mo). Upgrade from Pro to unlock invoices, media kit, pitch generator and elite brand tools.`,
     );
   }
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Premium";
+    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
@@ -292,7 +291,7 @@ export async function enforceTrial(
       ? "Creator (£9.99/mo)"
       : PRO_EXTRA_FEATURES.includes(feature)
         ? "Pro (£24.99/mo)"
-        : "Premium";
+        : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
     );

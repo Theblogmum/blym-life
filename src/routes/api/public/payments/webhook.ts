@@ -19,7 +19,7 @@ function priceKeyFromStripePriceId(stripePriceId: string | undefined | null): st
   return PRODUCT_BY_PRICE[stripePriceId] ?? stripePriceId;
 }
 
-type Tier = "free" | "creator" | "pro" | "premium" | "ultimate";
+type Tier = "free" | "creator" | "pro" | "ultimate";
 
 async function setProfileTier(userId: string, tier: Tier, env: string) {
   if (tier === "free") {
@@ -82,11 +82,9 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
     ? "creator"
     : priceKey?.startsWith("pro_")
       ? "pro"
-      : priceKey?.startsWith("ultimate_")
+      : priceKey?.startsWith("ultimate_") || priceKey?.startsWith("premium_")
         ? "ultimate"
-        : priceKey?.startsWith("premium_")
-          ? "premium"
-          : (priceKey ?? stripeProductId ?? "premium");
+        : (priceKey ?? stripeProductId ?? "ultimate");
 
   const periodStart = (sub as any).current_period_start
     ? new Date((sub as any).current_period_start * 1000).toISOString()
@@ -124,9 +122,7 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
         ? "creator"
         : productKey === "pro"
           ? "pro"
-          : productKey === "ultimate"
-            ? "ultimate"
-            : "premium")
+          : "ultimate")
     : "free";
   await setProfileTier(userId, targetTier, env);
 }
@@ -186,7 +182,7 @@ async function handleCheckoutCompleted(
         },
         { onConflict: "stripe_payment_intent_id" }
       );
-    await setProfileTier(userId, "premium", env);
+    await setProfileTier(userId, "ultimate", env);
     await maybeSendWelcomeEmail(userId, requestUrl);
   }
 }

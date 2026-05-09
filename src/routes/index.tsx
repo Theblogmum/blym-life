@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState, type ComponentType } from "react";
+import { type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
@@ -329,7 +329,6 @@ function PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
-  const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
   const { isActive, hasLifetime } = useSubscription();
 
   const buy = async (priceId: string) => {
@@ -344,34 +343,15 @@ function PricingPlans() {
     });
   };
 
-  const premiumPriceId = interval === "monthly" ? "premium_monthly" : "premium_yearly";
-  const premiumPrice = interval === "monthly" ? "£19" : "£170";
-  const premiumSuffix = interval === "monthly" ? "/mo" : "/yr";
-  const premiumNote = interval === "yearly" ? "Save ~25% vs monthly" : "Cancel anytime";
-
   return (
     <>
       {isActive && (
         <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-medium text-secondary-foreground">
           <Check className="h-4 w-4 text-primary" />
-          {hasLifetime ? "You're a Lifetime member 💛" : "You're on Premium"}
+          {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      {!isActive && (
-      <div className="mt-6 inline-flex rounded-full border border-border bg-card p-1 text-sm">
-        <button
-          type="button"
-          onClick={() => setInterval("monthly")}
-          className={`rounded-full px-4 py-1.5 transition ${interval === "monthly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-        >Monthly</button>
-        <button
-          type="button"
-          onClick={() => setInterval("yearly")}
-          className={`rounded-full px-4 py-1.5 transition ${interval === "yearly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-        >Yearly · save ~25%</button>
-      </div>
-      )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <PriceCard
           name="Free"
           price="£0"
@@ -430,34 +410,17 @@ function PricingPlans() {
           }
         />
         <PriceCard
-          name="Premium"
-          price={premiumPrice}
-          priceSuffix={premiumSuffix}
-          tagline={premiumNote}
-          features={[
-            "Everything in Pro",
-            "Brand pitch generator + media kit",
-            "Business tools: invoices, deliverables, rates",
-            "Deliverables, usage rights, package naming",
-            "Rejection recovery + passive income ideas",
-          ]}
-          cta={
-            isActive
-              ? { label: hasLifetime ? "Included in Lifetime" : "Current plan", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Upgrade now" : "Start free, then upgrade", onClick: () => buy(premiumPriceId), disabled: loading }
-          }
-        />
-        <PriceCard
           name="Ultimate"
           price="£44.99"
           priceSuffix="/mo"
           tagline="Your always-on AI growth coach."
           features={[
-            "Everything in Pro + Premium",
+            "Everything in Pro",
             "Personal AI growth coach (chat + critique)",
             "30-day done-with-you content plans",
             "Growth simulation + viral content studio",
             "Audience psychology + monetisation guidance",
+            "Brand pitch generator + media kit + invoices",
             "Multi-platform engine + monthly strategy report",
             "Elite viral templates library",
             "Priority AI: faster + deeper outputs",
