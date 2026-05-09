@@ -58,6 +58,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DunningBanner } from "@/components/dunning-banner";
+import { XpBadge } from "@/components/xp-badge";
 
 type Item = { to: string; label: string; icon: typeof Home; desc?: string };
 
@@ -204,6 +205,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
 
           <div className="ml-auto flex items-center gap-2">
+            <div className="hidden md:block"><XpBadge compact /></div>
             <Link to="/film-this" className="hidden sm:block">
               <Button size="sm" className="rounded-full font-semibold shadow-[var(--shadow-soft)]">
                 <Sparkles className="mr-1.5 h-4 w-4" /> Film this
