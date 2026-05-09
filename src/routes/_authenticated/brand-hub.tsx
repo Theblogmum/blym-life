@@ -44,6 +44,12 @@ import {
   updatePitchStatus,
   deletePitch,
 } from "@/lib/brand-hub.functions";
+import {
+  getGmailConnection,
+  startGmailConnect,
+  disconnectGmail,
+  sendPitchViaGmail,
+} from "@/lib/gmail.functions";
 import { cn } from "@/lib/utils";
 
 function buildMailto(to: string, subject: string, body: string) {
