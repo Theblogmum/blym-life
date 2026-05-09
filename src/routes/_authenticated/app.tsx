@@ -17,6 +17,7 @@ import {
   saveFollowUp, toggleFollowUp, deleteFollowUp, togglePlan,
 } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
+import { TrialBanner } from "@/components/trial-banner";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
@@ -87,6 +88,10 @@ function HomePage() {
         </h1>
         <p className="mt-2 text-[15px] text-muted-foreground">You've got this. Let's make today amazing.</p>
       </header>
+
+      <div className="mb-6">
+        <TrialBanner />
+      </div>
 
       {/* ============ Stat row ============ */}
       <section className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
