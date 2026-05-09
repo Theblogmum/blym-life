@@ -1114,4 +1114,456 @@ export const generateSeoKeywords = createServerFn({ method: "POST" })
     };
   });
 
+export const boostEngagement = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string; current_caption?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "engagement");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      reply_starters?: unknown;
+      story_prompts?: unknown;
+      polls?: unknown;
+      dm_starters?: unknown;
+      community_rituals?: unknown;
+      caption_tweaks?: unknown;
+    }>({
+      toolName: "engagement_boost",
+      toolDescription:
+        "Suggest concrete tactics to boost engagement for a specific post topic.",
+      parameters: {
+        type: "object",
+        properties: {
+          reply_starters: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 7 },
+          story_prompts: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 6 },
+          polls: {
+            type: "array",
+            minItems: 4,
+            maxItems: 6,
+            items: {
+              type: "object",
+              properties: {
+                question: { type: "string" },
+                options: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+              },
+              required: ["question", "options"],
+              additionalProperties: false,
+            },
+          },
+          dm_starters: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 6 },
+          community_rituals: {
+            type: "array",
+            minItems: 3,
+            maxItems: 5,
+            items: { type: "string" },
+          },
+          caption_tweaks: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+        },
+        required: [
+          "reply_starters",
+          "story_prompts",
+          "polls",
+          "dm_starters",
+          "community_rituals",
+          "caption_tweaks",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a community growth coach for UK mum creators. British English, warm, never gimmicky. Tactics must be doable today on a phone — no fancy tools. Story prompts use real IG sticker types (poll, slider, question, quiz, emoji). Caption tweaks are short rewrites or additions, not vague advice.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nPost topic: ${data.topic}\nCurrent caption (optional): ${data.current_caption ?? "n/a"}\n\nReturn reply starters (to seed comments), story prompts, polls (with options), DM conversation starters, community rituals (recurring engagement bits), and 3-5 caption tweaks that boost replies.`,
+        },
+      ],
+    });
+    await quota.record();
+    const pollsRaw = Array.isArray(result.polls) ? result.polls : [];
+    return {
+      reply_starters: toStringList(result.reply_starters),
+      story_prompts: toStringList(result.story_prompts),
+      polls: pollsRaw.map((p) => {
+        const it = p as Record<string, unknown>;
+        return { question: readString(it.question), options: toStringList(it.options) };
+      }),
+      dm_starters: toStringList(result.dm_starters),
+      community_rituals: toStringList(result.community_rituals),
+      caption_tweaks: toStringList(result.caption_tweaks),
+    };
+  });
+
+export const optimiseBio = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (d: {
+      current_bio: string;
+      platform: "instagram" | "tiktok" | "pinterest";
+      goal: string;
+    }) => d,
+  )
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "bio");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const limits: Record<string, string> = {
+      instagram: "150 characters max for bio. Name field is searchable (30 chars).",
+      tiktok: "80 characters max for bio. Display name is searchable (30 chars).",
+      pinterest: "160 characters max. Pinterest treats bio like SEO copy.",
+    };
+    const result = await callAITool<{
+      score?: unknown;
+      diagnosis?: unknown;
+      missing?: unknown;
+      keywords?: unknown;
+      options?: unknown;
+      name_suggestions?: unknown;
+      link_advice?: unknown;
+    }>({
+      toolName: "bio_optimise",
+      toolDescription:
+        "Optimise a creator bio for clarity, search and conversion. Return 3 ready-to-paste options.",
+      parameters: {
+        type: "object",
+        properties: {
+          score: { type: "number" },
+          diagnosis: { type: "string" },
+          missing: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 5 },
+          keywords: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 8 },
+          options: {
+            type: "array",
+            minItems: 3,
+            maxItems: 3,
+            items: {
+              type: "object",
+              properties: {
+                style: { type: "string", enum: ["clear", "playful", "bold"] },
+                bio: { type: "string" },
+              },
+              required: ["style", "bio"],
+              additionalProperties: false,
+            },
+          },
+          name_suggestions: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          link_advice: { type: "string" },
+        },
+        required: ["score", "diagnosis", "missing", "keywords", "options", "name_suggestions", "link_advice"],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You optimise creator bios for UK mum creators. British English. Each rewritten bio must respect platform character limits and feel human (no buzzwords like 'wife. mum. boss.'). Score current bio 1-10. Provide 3 styles: clear (literal), playful (warm), bold (punchy). Name field suggestions must be SEARCHABLE keyword combos people actually type.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nPlatform: ${data.platform.toUpperCase()}\nLimits: ${limits[data.platform]}\nGoal: ${data.goal}\nCurrent bio:\n${data.current_bio}\n\nReturn a score, diagnosis, what's missing, target keywords, 3 rewrites (clear/playful/bold), 3-5 searchable name field options, and link-in-bio advice.`,
+        },
+      ],
+    });
+    await quota.record();
+    const score =
+      typeof result.score === "number" ? Math.max(1, Math.min(10, Math.round(result.score))) : 0;
+    const optionsRaw = Array.isArray(result.options) ? result.options : [];
+    return {
+      score,
+      diagnosis: readString(result.diagnosis),
+      missing: toStringList(result.missing),
+      keywords: toStringList(result.keywords),
+      options: optionsRaw.map((o) => {
+        const it = o as Record<string, unknown>;
+        return { style: readString(it.style, "clear"), bio: readString(it.bio) };
+      }),
+      name_suggestions: toStringList(result.name_suggestions),
+      link_advice: readString(result.link_advice),
+    };
+  });
+
+export const auditProfile = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (d: {
+      handle: string;
+      platform: "instagram" | "tiktok";
+      bio: string;
+      grid_summary: string;
+      pinned_hooks?: string;
+    }) => d,
+  )
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "profile_audit");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      overall_score?: unknown;
+      one_line_verdict?: unknown;
+      first_impression?: unknown;
+      scores?: unknown;
+      strengths?: unknown;
+      weaknesses?: unknown;
+      quick_wins?: unknown;
+      thirty_day_plan?: unknown;
+    }>({
+      toolName: "profile_audit",
+      toolDescription:
+        "Audit a creator's profile (bio + grid + pinned content) and return scores, strengths, weaknesses, quick wins and a 30-day plan.",
+      parameters: {
+        type: "object",
+        properties: {
+          overall_score: { type: "number" },
+          one_line_verdict: { type: "string" },
+          first_impression: { type: "string" },
+          scores: {
+            type: "object",
+            properties: {
+              clarity: { type: "number" },
+              consistency: { type: "number" },
+              hook_quality: { type: "number" },
+              visual_cohesion: { type: "number" },
+              monetisation_readiness: { type: "number" },
+            },
+            required: [
+              "clarity",
+              "consistency",
+              "hook_quality",
+              "visual_cohesion",
+              "monetisation_readiness",
+            ],
+            additionalProperties: false,
+          },
+          strengths: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          weaknesses: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          quick_wins: {
+            type: "array",
+            minItems: 4,
+            maxItems: 6,
+            items: {
+              type: "object",
+              properties: {
+                action: { type: "string" },
+                impact: { type: "string", enum: ["low", "medium", "high"] },
+                effort: { type: "string", enum: ["low", "medium", "high"] },
+              },
+              required: ["action", "impact", "effort"],
+              additionalProperties: false,
+            },
+          },
+          thirty_day_plan: {
+            type: "array",
+            minItems: 4,
+            maxItems: 4,
+            items: {
+              type: "object",
+              properties: {
+                week: { type: "number" },
+                focus: { type: "string" },
+                actions: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+              },
+              required: ["week", "focus", "actions"],
+              additionalProperties: false,
+            },
+          },
+        },
+        required: [
+          "overall_score",
+          "one_line_verdict",
+          "first_impression",
+          "scores",
+          "strengths",
+          "weaknesses",
+          "quick_wins",
+          "thirty_day_plan",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You audit social profiles for UK mum creators. British English. Be honest, kind and specific — quote actual words from the bio/grid summary in your reasoning. Score each axis 1-10 (10 = excellent). Quick wins must be doable today.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nPlatform: ${data.platform.toUpperCase()}\nHandle: @${data.handle}\nBio:\n${data.bio}\n\nGrid / recent posts summary:\n${data.grid_summary}\n\nPinned / top hooks:\n${data.pinned_hooks ?? "n/a"}\n\nReturn an overall score (1-10), one-line verdict, first impression, axis scores, strengths, weaknesses, quick wins (with impact/effort), and a 4-week (30 day) growth plan.`,
+        },
+      ],
+    });
+    await quota.record();
+    const overall =
+      typeof result.overall_score === "number"
+        ? Math.max(1, Math.min(10, Math.round(result.overall_score)))
+        : 0;
+    const num = (v: unknown) =>
+      typeof v === "number" ? Math.max(1, Math.min(10, Math.round(v))) : 0;
+    const sc = (result.scores ?? {}) as Record<string, unknown>;
+    const winsRaw = Array.isArray(result.quick_wins) ? result.quick_wins : [];
+    const planRaw = Array.isArray(result.thirty_day_plan) ? result.thirty_day_plan : [];
+    return {
+      overall_score: overall,
+      one_line_verdict: readString(result.one_line_verdict),
+      first_impression: readString(result.first_impression),
+      scores: {
+        clarity: num(sc.clarity),
+        consistency: num(sc.consistency),
+        hook_quality: num(sc.hook_quality),
+        visual_cohesion: num(sc.visual_cohesion),
+        monetisation_readiness: num(sc.monetisation_readiness),
+      },
+      strengths: toStringList(result.strengths),
+      weaknesses: toStringList(result.weaknesses),
+      quick_wins: winsRaw.map((w) => {
+        const it = w as Record<string, unknown>;
+        return {
+          action: readString(it.action),
+          impact: readString(it.impact, "medium"),
+          effort: readString(it.effort, "medium"),
+        };
+      }),
+      thirty_day_plan: planRaw.map((w, i) => {
+        const it = w as Record<string, unknown>;
+        return {
+          week: typeof it.week === "number" ? it.week : i + 1,
+          focus: readString(it.focus),
+          actions: toStringList(it.actions),
+        };
+      }),
+    };
+  });
+
+export const suggestPostTiming = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(
+    (d: {
+      platform: "instagram" | "tiktok" | "pinterest" | "facebook";
+      audience_timezone?: string;
+      audience_notes?: string;
+    }) => d,
+  )
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "timing");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      summary?: unknown;
+      best_windows?: unknown;
+      avoid_windows?: unknown;
+      schedule?: unknown;
+      content_type_timing?: unknown;
+      tips?: unknown;
+    }>({
+      toolName: "post_timing",
+      toolDescription:
+        "Suggest realistic posting windows for a UK mum creator's audience, with a 7-day schedule and content-type timing.",
+      parameters: {
+        type: "object",
+        properties: {
+          summary: { type: "string" },
+          best_windows: {
+            type: "array",
+            minItems: 3,
+            maxItems: 5,
+            items: {
+              type: "object",
+              properties: {
+                day: { type: "string" },
+                window: { type: "string" },
+                why: { type: "string" },
+              },
+              required: ["day", "window", "why"],
+              additionalProperties: false,
+            },
+          },
+          avoid_windows: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+          schedule: {
+            type: "array",
+            minItems: 7,
+            maxItems: 7,
+            items: {
+              type: "object",
+              properties: {
+                day: { type: "string" },
+                time: { type: "string" },
+                content_type: { type: "string" },
+                rationale: { type: "string" },
+              },
+              required: ["day", "time", "content_type", "rationale"],
+              additionalProperties: false,
+            },
+          },
+          content_type_timing: {
+            type: "array",
+            minItems: 3,
+            maxItems: 5,
+            items: {
+              type: "object",
+              properties: {
+                content_type: { type: "string" },
+                best_time: { type: "string" },
+                why: { type: "string" },
+              },
+              required: ["content_type", "best_time", "why"],
+              additionalProperties: false,
+            },
+          },
+          tips: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+        },
+        required: [
+          "summary",
+          "best_windows",
+          "avoid_windows",
+          "schedule",
+          "content_type_timing",
+          "tips",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You advise on social posting times for UK mum creators. British English. All times in 24h format (e.g. 19:30) and explicitly in the audience timezone. Anchor advice to real mum-of-young-kids rhythms (school run, nap times, 9pm scroll). Be specific — never 'evenings'.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nPlatform: ${data.platform.toUpperCase()}\nAudience timezone: ${data.audience_timezone ?? "GMT/BST (UK)"}\nAudience notes: ${data.audience_notes ?? "n/a"}\n\nReturn a 1-line summary, 3-5 best posting windows (day + time + why), 2-4 windows to avoid, a Mon-Sun schedule (one slot per day with content type), content-type-specific timing (Reels vs Stories vs Carousels etc.), and 3-5 timing tips.`,
+        },
+      ],
+    });
+    await quota.record();
+    const bw = Array.isArray(result.best_windows) ? result.best_windows : [];
+    const sch = Array.isArray(result.schedule) ? result.schedule : [];
+    const ctt = Array.isArray(result.content_type_timing) ? result.content_type_timing : [];
+    return {
+      summary: readString(result.summary),
+      best_windows: bw.map((w) => {
+        const it = w as Record<string, unknown>;
+        return {
+          day: readString(it.day),
+          window: readString(it.window),
+          why: readString(it.why),
+        };
+      }),
+      avoid_windows: toStringList(result.avoid_windows),
+      schedule: sch.map((s) => {
+        const it = s as Record<string, unknown>;
+        return {
+          day: readString(it.day),
+          time: readString(it.time),
+          content_type: readString(it.content_type),
+          rationale: readString(it.rationale),
+        };
+      }),
+      content_type_timing: ctt.map((c) => {
+        const it = c as Record<string, unknown>;
+        return {
+          content_type: readString(it.content_type),
+          best_time: readString(it.best_time),
+          why: readString(it.why),
+        };
+      }),
+      tips: toStringList(result.tips),
+    };
+  });
+
 
