@@ -1022,4 +1022,96 @@ export const writeBrandResponse = createServerFn({ method: "POST" })
     };
   });
 
+export const generateSeoKeywords = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string; platform: "tiktok" | "instagram" | "pinterest" }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "seo");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const platformBrief = {
+      tiktok:
+        "TikTok SEO: keywords go in the on-screen caption, spoken hook (TikTok auto-transcribes), file caption and hashtags. Favour conversational long-tail (3-5 words) people actually type/say.",
+      instagram:
+        "Instagram SEO: keywords go in the bio, profile name field, alt text, caption (first 125 chars matter most), and hashtags. Mix branded, niche and broad. Hashtags lean specific (10-20k–500k posts is the sweet spot).",
+      pinterest:
+        "Pinterest SEO: pins behave like a search engine. Pack the pin title, pin description, board title, alt text and image filename with seasonal + intent-led keywords. Long-tail wins (e.g. 'easy lunchbox ideas for picky 4 year olds').",
+    }[data.platform];
+    const result = await callAITool<{
+      primary?: unknown;
+      long_tail?: unknown;
+      hashtags?: unknown;
+      questions?: unknown;
+      seasonal?: unknown;
+      placement_tips?: unknown;
+      ready_to_paste_caption?: unknown;
+    }>({
+      toolName: "seo_keywords",
+      toolDescription:
+        "Generate platform-native SEO keywords, hashtags, search questions, seasonal terms and placement tips.",
+      parameters: {
+        type: "object",
+        properties: {
+          primary: { type: "array", items: { type: "string" }, minItems: 6, maxItems: 10 },
+          long_tail: { type: "array", items: { type: "string" }, minItems: 8, maxItems: 12 },
+          hashtags: {
+            type: "array",
+            minItems: 10,
+            maxItems: 18,
+            items: {
+              type: "object",
+              properties: {
+                tag: { type: "string" },
+                size: { type: "string", enum: ["niche", "mid", "broad"] },
+              },
+              required: ["tag", "size"],
+              additionalProperties: false,
+            },
+          },
+          questions: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 8 },
+          seasonal: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 8 },
+          placement_tips: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+          ready_to_paste_caption: { type: "string" },
+        },
+        required: [
+          "primary",
+          "long_tail",
+          "hashtags",
+          "questions",
+          "seasonal",
+          "placement_tips",
+          "ready_to_paste_caption",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are an SEO strategist for UK mum content creators. British English (use British spellings like 'mum', 'lunchbox', 'cot'). Real keywords mums actually search — never invented. Hashtags: no spaces, no #, label size honestly (niche <50k posts, mid 50k–500k, broad >500k). Long-tail must be conversational and intent-driven.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nPlatform: ${data.platform.toUpperCase()}\nTopic: ${data.topic}\n\nPlatform brief:\n${platformBrief}\n\nReturn primary keywords, long-tail keywords, sized hashtags, search questions, seasonal/timely angles, placement tips for ${data.platform}, and a ready-to-paste keyword-rich caption.`,
+        },
+      ],
+    });
+    await quota.record();
+    const hashtagsRaw = Array.isArray(result.hashtags) ? result.hashtags : [];
+    return {
+      primary: toStringList(result.primary),
+      long_tail: toStringList(result.long_tail),
+      hashtags: hashtagsRaw.map((h) => {
+        const it = h as Record<string, unknown>;
+        return {
+          tag: readString(it.tag).replace(/^#/, ""),
+          size: readString(it.size, "mid"),
+        };
+      }),
+      questions: toStringList(result.questions),
+      seasonal: toStringList(result.seasonal),
+      placement_tips: toStringList(result.placement_tips),
+      ready_to_paste_caption: readString(result.ready_to_paste_caption),
+    };
+  });
+
 
