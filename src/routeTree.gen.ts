@@ -21,6 +21,7 @@ import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
+import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
@@ -95,6 +96,11 @@ const AuthenticatedSeriesBuilderRoute =
     path: '/series-builder',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedRepurposeRoute = AuthenticatedRepurposeRouteImport.update({
+  id: '/repurpose',
+  path: '/repurpose',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
   id: '/recycler',
   path: '/recycler',
@@ -185,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/repurpose': typeof AuthenticatedRepurposeRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
@@ -211,6 +218,7 @@ export interface FileRoutesByTo {
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/repurpose': typeof AuthenticatedRepurposeRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
@@ -239,6 +247,7 @@ export interface FileRoutesById {
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
+  '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
@@ -267,6 +276,7 @@ export interface FileRouteTypes {
     | '/pitch-generator'
     | '/planner'
     | '/recycler'
+    | '/repurpose'
     | '/series-builder'
     | '/settings'
     | '/templates'
@@ -293,6 +303,7 @@ export interface FileRouteTypes {
     | '/pitch-generator'
     | '/planner'
     | '/recycler'
+    | '/repurpose'
     | '/series-builder'
     | '/settings'
     | '/templates'
@@ -320,6 +331,7 @@ export interface FileRouteTypes {
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
     | '/_authenticated/recycler'
+    | '/_authenticated/repurpose'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
@@ -425,6 +437,13 @@ declare module '@tanstack/react-router' {
       path: '/series-builder'
       fullPath: '/series-builder'
       preLoaderRoute: typeof AuthenticatedSeriesBuilderRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/repurpose': {
+      id: '/_authenticated/repurpose'
+      path: '/repurpose'
+      fullPath: '/repurpose'
+      preLoaderRoute: typeof AuthenticatedRepurposeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/recycler': {
@@ -533,6 +552,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
+  AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
@@ -551,6 +571,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
+  AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,

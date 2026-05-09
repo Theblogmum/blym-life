@@ -735,4 +735,213 @@ export const generateCtas = createServerFn({ method: "POST" })
     };
   });
 
+export const repurposeContent = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { input: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "repurpose");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      tiktok?: unknown;
+      reel?: unknown;
+      pinterest?: unknown;
+      carousel?: unknown;
+      story?: unknown;
+      youtube_short?: unknown;
+      blog_snippet?: unknown;
+      email?: unknown;
+      twitter_thread?: unknown;
+      facebook_post?: unknown;
+    }>({
+      toolName: "repurpose_pack",
+      toolDescription:
+        "Turn one idea/script/video into 10 platform-specific pieces of content.",
+      parameters: {
+        type: "object",
+        properties: {
+          tiktok: {
+            type: "object",
+            properties: {
+              hook: { type: "string" },
+              script: { type: "string" },
+              caption: { type: "string" },
+              hashtags: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 6 },
+            },
+            required: ["hook", "script", "caption", "hashtags"],
+            additionalProperties: false,
+          },
+          reel: {
+            type: "object",
+            properties: {
+              hook: { type: "string" },
+              script: { type: "string" },
+              caption: { type: "string" },
+              audio_suggestion: { type: "string" },
+            },
+            required: ["hook", "script", "caption", "audio_suggestion"],
+            additionalProperties: false,
+          },
+          pinterest: {
+            type: "object",
+            properties: {
+              pin_title: { type: "string" },
+              pin_description: { type: "string" },
+              keywords: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 8 },
+            },
+            required: ["pin_title", "pin_description", "keywords"],
+            additionalProperties: false,
+          },
+          carousel: {
+            type: "object",
+            properties: {
+              cover: { type: "string" },
+              slides: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 8 },
+              caption: { type: "string" },
+            },
+            required: ["cover", "slides", "caption"],
+            additionalProperties: false,
+          },
+          story: {
+            type: "object",
+            properties: {
+              frames: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+              poll_or_question: { type: "string" },
+            },
+            required: ["frames", "poll_or_question"],
+            additionalProperties: false,
+          },
+          youtube_short: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              hook: { type: "string" },
+              script: { type: "string" },
+            },
+            required: ["title", "hook", "script"],
+            additionalProperties: false,
+          },
+          blog_snippet: {
+            type: "object",
+            properties: {
+              title: { type: "string" },
+              intro: { type: "string" },
+              body: { type: "string" },
+            },
+            required: ["title", "intro", "body"],
+            additionalProperties: false,
+          },
+          email: {
+            type: "object",
+            properties: {
+              subject: { type: "string" },
+              body: { type: "string" },
+            },
+            required: ["subject", "body"],
+            additionalProperties: false,
+          },
+          twitter_thread: {
+            type: "object",
+            properties: {
+              tweets: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 7 },
+            },
+            required: ["tweets"],
+            additionalProperties: false,
+          },
+          facebook_post: {
+            type: "object",
+            properties: {
+              post: { type: "string" },
+            },
+            required: ["post"],
+            additionalProperties: false,
+          },
+        },
+        required: [
+          "tiktok",
+          "reel",
+          "pinterest",
+          "carousel",
+          "story",
+          "youtube_short",
+          "blog_snippet",
+          "email",
+          "twitter_thread",
+          "facebook_post",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You repurpose ONE piece of content into 10 platform-native versions for a UK mum creator. Each version must respect the platform's actual format (Pinterest = SEO + keywords, TikTok = hook-first short script, carousel = punchy slides, story = casual + interactive, email = warm + scannable, Twitter = thread cadence). Same core message, different shape. British English, no AI clichés, no emoji spam.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nOriginal idea / script / video:\n${data.input}\n\nProduce all 10 platform versions.`,
+        },
+      ],
+    });
+    await quota.record();
+    const obj = (v: unknown) => (v ?? {}) as Record<string, unknown>;
+    const tk = obj(result.tiktok);
+    const rl = obj(result.reel);
+    const pn = obj(result.pinterest);
+    const cr = obj(result.carousel);
+    const st = obj(result.story);
+    const ys = obj(result.youtube_short);
+    const bl = obj(result.blog_snippet);
+    const em = obj(result.email);
+    const tw = obj(result.twitter_thread);
+    const fb = obj(result.facebook_post);
+    return {
+      tiktok: {
+        hook: readString(tk.hook),
+        script: readString(tk.script),
+        caption: readString(tk.caption),
+        hashtags: toStringList(tk.hashtags),
+      },
+      reel: {
+        hook: readString(rl.hook),
+        script: readString(rl.script),
+        caption: readString(rl.caption),
+        audio_suggestion: readString(rl.audio_suggestion),
+      },
+      pinterest: {
+        pin_title: readString(pn.pin_title),
+        pin_description: readString(pn.pin_description),
+        keywords: toStringList(pn.keywords),
+      },
+      carousel: {
+        cover: readString(cr.cover),
+        slides: toStringList(cr.slides),
+        caption: readString(cr.caption),
+      },
+      story: {
+        frames: toStringList(st.frames),
+        poll_or_question: readString(st.poll_or_question),
+      },
+      youtube_short: {
+        title: readString(ys.title),
+        hook: readString(ys.hook),
+        script: readString(ys.script),
+      },
+      blog_snippet: {
+        title: readString(bl.title),
+        intro: readString(bl.intro),
+        body: readString(bl.body),
+      },
+      email: {
+        subject: readString(em.subject),
+        body: readString(em.body),
+      },
+      twitter_thread: {
+        tweets: toStringList(tw.tweets),
+      },
+      facebook_post: {
+        post: readString(fb.post),
+      },
+    };
+  });
+
 
