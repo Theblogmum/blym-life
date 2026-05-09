@@ -688,4 +688,51 @@ export const buildSeries = createServerFn({ method: "POST" })
     };
   });
 
+export const generateCtas = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string; goal?: string; platform?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "cta");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      engagement?: unknown;
+      sales?: unknown;
+      save_share?: unknown;
+      comment_hooks?: unknown;
+    }>({
+      toolName: "cta_pack",
+      toolDescription:
+        "Generate calls-to-action across 4 categories: engagement, sales, save/share, comment hooks.",
+      parameters: {
+        type: "object",
+        properties: {
+          engagement: { type: "array", items: { type: "string" }, minItems: 6, maxItems: 6 },
+          sales: { type: "array", items: { type: "string" }, minItems: 6, maxItems: 6 },
+          save_share: { type: "array", items: { type: "string" }, minItems: 6, maxItems: 6 },
+          comment_hooks: { type: "array", items: { type: "string" }, minItems: 6, maxItems: 6 },
+        },
+        required: ["engagement", "sales", "save_share", "comment_hooks"],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You write CTAs for UK mum creators. Sound human, warm, never salesy. British English. Each CTA must be ONE short line that could be spoken or typed in a caption. No emojis spam. No 'link in bio' filler — be specific. Comment hooks should bait a real reply (a question or a fill-in-the-blank).",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nPost topic: ${data.topic}\nGoal (optional): ${data.goal ?? "any"}\nPlatform: ${data.platform ?? "Instagram/TikTok"}\n\nReturn 6 CTAs in each category: (1) engagement (likes/follows), (2) sales (towards a product/service), (3) save/share, (4) comment hooks (open-ended prompts).`,
+        },
+      ],
+    });
+    await quota.record();
+    return {
+      engagement: toStringList(result.engagement),
+      sales: toStringList(result.sales),
+      save_share: toStringList(result.save_share),
+      comment_hooks: toStringList(result.comment_hooks),
+    };
+  });
+
 
