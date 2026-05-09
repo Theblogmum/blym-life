@@ -28,6 +28,7 @@ import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -128,6 +129,11 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedBrollRoute = AuthenticatedBrollRouteImport.update({
+  id: '/broll',
+  path: '/broll',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
+  '/broll': typeof AuthenticatedBrollRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
+  '/broll': typeof AuthenticatedBrollRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
+  '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
+    | '/broll'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
+    | '/broll'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -275,6 +286,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/app'
+    | '/_authenticated/broll'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
@@ -438,6 +450,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/broll': {
+      id: '/_authenticated/broll'
+      path: '/broll'
+      fullPath: '/broll'
+      preLoaderRoute: typeof AuthenticatedBrollRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/app': {
       id: '/_authenticated/app'
       path: '/app'
@@ -464,6 +483,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
+  AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
@@ -479,6 +499,7 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
+  AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
