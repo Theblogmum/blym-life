@@ -146,11 +146,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen w-full bg-background">
       {/* Top nav (desktop + mobile shared) */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/55">
         <DunningBanner />
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 lg:px-6">
-          <Link to="/app" className="flex items-center gap-2 font-display text-xl font-black">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[image:var(--gradient-warm)] text-white shadow-[var(--shadow-soft)]">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-2 px-5 lg:px-8">
+          <Link to="/app" className="group flex items-center gap-2.5 font-display text-[19px] font-black tracking-tight">
+            <span className="grid h-9 w-9 place-items-center rounded-2xl bg-foreground text-background shadow-[var(--shadow-soft)] transition-transform group-hover:scale-[1.04]">
               <Sparkles className="h-4 w-4" />
             </span>
             <span className="hidden sm:block">
@@ -159,7 +159,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="ml-6 hidden items-center gap-1 lg:flex">
+          <nav className="ml-8 hidden items-center gap-0.5 lg:flex">
             <NavLink to="/app" active={isActive("/app")}>
               Home
             </NavLink>
@@ -168,33 +168,33 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <DropdownMenuTrigger asChild>
                   <button
                     className={cn(
-                      "flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold transition-colors",
+                      "flex items-center gap-1 rounded-full px-3.5 py-2 text-[13px] font-medium tracking-tight transition-all",
                       isGroupActive(g)
-                        ? "bg-secondary text-foreground"
-                        : "text-foreground/70 hover:bg-secondary/70 hover:text-foreground",
+                        ? "bg-foreground text-background shadow-[var(--shadow-soft)]"
+                        : "text-foreground/65 hover:bg-secondary hover:text-foreground",
                     )}
                   >
                     {g.label}
                     <ChevronDown className="h-3.5 w-3.5" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-72 rounded-2xl p-2">
-                  <DropdownMenuLabel className="px-2 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                <DropdownMenuContent align="start" className="w-80 rounded-3xl border-border/60 p-2 shadow-[var(--shadow-elegant)]">
+                  <DropdownMenuLabel className="px-2 pb-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                     {g.label}
                   </DropdownMenuLabel>
                   {g.items.map((i) => (
-                    <DropdownMenuItem key={i.to} asChild className="rounded-xl p-0">
+                    <DropdownMenuItem key={i.to} asChild className="rounded-2xl p-0 focus:bg-secondary">
                       <Link
                         to={i.to}
                         className="flex w-full items-start gap-3 p-2.5"
                       >
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-secondary text-foreground/80">
                           <i.icon className="h-4 w-4" />
                         </span>
                         <span className="flex flex-col">
-                          <span className="text-sm font-semibold">{i.label}</span>
+                          <span className="text-sm font-semibold tracking-tight">{i.label}</span>
                           {i.desc && (
-                            <span className="text-xs text-muted-foreground">{i.desc}</span>
+                            <span className="text-[11.5px] leading-tight text-muted-foreground">{i.desc}</span>
                           )}
                         </span>
                       </Link>
@@ -205,10 +205,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex items-center gap-2.5">
             <div className="hidden md:block"><XpBadge compact /></div>
             <Link to="/film-this" className="hidden sm:block">
-              <Button size="sm" className="rounded-full font-semibold shadow-[var(--shadow-soft)]">
+              <Button size="sm" className="rounded-full bg-foreground font-medium tracking-tight text-background shadow-[var(--shadow-soft)] hover:bg-foreground/90">
                 <Sparkles className="mr-1.5 h-4 w-4" /> Film this
               </Button>
             </Link>
@@ -216,7 +216,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <DropdownMenuTrigger asChild>
                 <button
                   aria-label="Account menu"
-                  className="grid h-9 w-9 place-items-center rounded-full bg-[image:var(--gradient-bloom)] text-sm font-bold text-white shadow-[var(--shadow-soft)]"
+                  className="grid h-9 w-9 place-items-center rounded-full bg-[image:var(--gradient-bloom)] text-sm font-semibold tracking-tight text-white shadow-[var(--shadow-soft)] ring-1 ring-border/60"
                 >
                   {initial}
                 </button>
@@ -331,10 +331,10 @@ function NavLink({
     <Link
       to={to}
       className={cn(
-        "rounded-full px-3.5 py-2 text-sm font-semibold transition-colors",
+        "rounded-full px-3.5 py-2 text-[13px] font-medium tracking-tight transition-all",
         active
-          ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
-          : "text-foreground/70 hover:bg-secondary/70 hover:text-foreground",
+          ? "bg-foreground text-background shadow-[var(--shadow-soft)]"
+          : "text-foreground/65 hover:bg-secondary hover:text-foreground",
       )}
     >
       {children}
