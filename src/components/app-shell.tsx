@@ -111,6 +111,7 @@ const groups: { label: string; items: Item[] }[] = [
   {
     label: "Money",
     items: [
+      { to: "/business", label: "Business Mode", icon: Briefcase, desc: "Income goals, tax, clients & outreach" },
       { to: "/invoices", label: "Invoices", icon: Receipt, desc: "Branded invoices, print to PDF" },
       { to: "/income-tracker", label: "Income Tracker", icon: Wallet, desc: "Monthly totals + categories" },
       { to: "/affiliates", label: "Affiliate Links", icon: Link2, desc: "All your codes in one place" },
