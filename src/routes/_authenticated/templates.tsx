@@ -14,7 +14,6 @@ import { PageHero, UsageChip } from "@/components/page-hero";
 const EXAMPLES = [
   "Reply to a brand offering free product (I want paid)",
   "Promo my new sleep guide launching Friday",
-  "Pitch myself to a baby food brand for a paid reel",
   "Story script: surviving the school run",
 ];
 
