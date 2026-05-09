@@ -21,6 +21,7 @@ import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
+import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
@@ -95,6 +96,12 @@ const AuthenticatedSeriesBuilderRoute =
   AuthenticatedSeriesBuilderRouteImport.update({
     id: '/series-builder',
     path: '/series-builder',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedSeoKeywordsRoute =
+  AuthenticatedSeoKeywordsRouteImport.update({
+    id: '/seo-keywords',
+    path: '/seo-keywords',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedResponseWriterRoute =
@@ -200,6 +207,7 @@ export interface FileRoutesByFullPath {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
@@ -228,6 +236,7 @@ export interface FileRoutesByTo {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
@@ -258,6 +267,7 @@ export interface FileRoutesById {
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
@@ -288,6 +298,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/repurpose'
     | '/response-writer'
+    | '/seo-keywords'
     | '/series-builder'
     | '/settings'
     | '/templates'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/repurpose'
     | '/response-writer'
+    | '/seo-keywords'
     | '/series-builder'
     | '/settings'
     | '/templates'
@@ -345,6 +357,7 @@ export interface FileRouteTypes {
     | '/_authenticated/recycler'
     | '/_authenticated/repurpose'
     | '/_authenticated/response-writer'
+    | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
@@ -450,6 +463,13 @@ declare module '@tanstack/react-router' {
       path: '/series-builder'
       fullPath: '/series-builder'
       preLoaderRoute: typeof AuthenticatedSeriesBuilderRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/seo-keywords': {
+      id: '/_authenticated/seo-keywords'
+      path: '/seo-keywords'
+      fullPath: '/seo-keywords'
+      preLoaderRoute: typeof AuthenticatedSeoKeywordsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/response-writer': {
@@ -574,6 +594,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
+  AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
@@ -594,6 +615,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
+  AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,

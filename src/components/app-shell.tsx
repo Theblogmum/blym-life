@@ -22,6 +22,7 @@ import {
   MessageCircle,
   Repeat2,
   MailCheck,
+  Search,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -52,6 +53,7 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/cta-generator", label: "CTA Generator", icon: MessageCircle, desc: "Engagement, sales & comment hooks" },
       { to: "/repurpose", label: "Repurpose 1→10", icon: Repeat2, desc: "One idea, 10 platforms" },
       { to: "/response-writer", label: "Response Writer", icon: MailCheck, desc: "Reply to brand emails" },
+      { to: "/seo-keywords", label: "SEO Keywords", icon: Search, desc: "TikTok, IG & Pinterest search" },
     ],
   },
   {
