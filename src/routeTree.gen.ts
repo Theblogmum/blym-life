@@ -32,8 +32,10 @@ import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
+import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -157,6 +159,12 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedEngagementBoosterRoute =
+  AuthenticatedEngagementBoosterRouteImport.update({
+    id: '/engagement-booster',
+    path: '/engagement-booster',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedCtaGeneratorRoute =
   AuthenticatedCtaGeneratorRouteImport.update({
     id: '/cta-generator',
@@ -168,6 +176,12 @@ const AuthenticatedBrollRoute = AuthenticatedBrollRouteImport.update({
   path: '/broll',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedBioOptimiserRoute =
+  AuthenticatedBioOptimiserRouteImport.update({
+    id: '/bio-optimiser',
+    path: '/bio-optimiser',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -195,8 +209,10 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
+  '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -224,8 +240,10 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
+  '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -255,8 +273,10 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
+  '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
+  '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
@@ -286,8 +306,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
+    | '/bio-optimiser'
     | '/broll'
     | '/cta-generator'
+    | '/engagement-booster'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -315,8 +337,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
+    | '/bio-optimiser'
     | '/broll'
     | '/cta-generator'
+    | '/engagement-booster'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -345,8 +369,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/app'
+    | '/_authenticated/bio-optimiser'
     | '/_authenticated/broll'
     | '/_authenticated/cta-generator'
+    | '/_authenticated/engagement-booster'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
@@ -542,6 +568,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/engagement-booster': {
+      id: '/_authenticated/engagement-booster'
+      path: '/engagement-booster'
+      fullPath: '/engagement-booster'
+      preLoaderRoute: typeof AuthenticatedEngagementBoosterRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/cta-generator': {
       id: '/_authenticated/cta-generator'
       path: '/cta-generator'
@@ -554,6 +587,13 @@ declare module '@tanstack/react-router' {
       path: '/broll'
       fullPath: '/broll'
       preLoaderRoute: typeof AuthenticatedBrollRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/bio-optimiser': {
+      id: '/_authenticated/bio-optimiser'
+      path: '/bio-optimiser'
+      fullPath: '/bio-optimiser'
+      preLoaderRoute: typeof AuthenticatedBioOptimiserRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/app': {
@@ -582,8 +622,10 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
+  AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
+  AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
@@ -603,8 +645,10 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
+  AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
+  AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
@@ -641,3 +685,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
