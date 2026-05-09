@@ -104,7 +104,6 @@ function SettingsPage() {
                 "Viral breakdowns + remixes",
                 "Clip recycler",
                 "Growth insights",
-                "UGC pitch generator",
               ].map((p) => (
                 <li key={p} className="flex gap-2"><Check className="h-4 w-4 text-primary" />{p}</li>
               ))}
