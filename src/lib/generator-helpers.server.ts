@@ -193,6 +193,16 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
 
 export type UserTier = "free" | "creator" | "pro" | "ultimate";
 
+async function hasActiveTrial(supabase: SupabaseLike, userId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from("trial_claims")
+    .select("ends_at")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (!data?.ends_at) return false;
+  return new Date(data.ends_at).getTime() > Date.now();
+}
+
 export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
     .from("profiles")
@@ -209,7 +219,10 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
     user_uuid: userId,
     check_env: env,
   });
-  return hasSub ? "ultimate" : "free";
+  if (hasSub) return "ultimate";
+  // Free 48-hour trial → unlock everything as ultimate while active
+  if (await hasActiveTrial(supabase, userId)) return "ultimate";
+  return "free";
 }
 
 export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
