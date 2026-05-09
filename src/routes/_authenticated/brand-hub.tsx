@@ -530,20 +530,16 @@ function ComposeDialog({
               </div>
             )}
             <div className="flex flex-col gap-2 sm:flex-row">
-              <Button
-                className="flex-1 rounded-2xl"
-                asChild
-              >
-                <a
-                  href={buildMailto(email, draft.subject, draft.body)}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => toast.success("Opening your email app — hit Send there!")}
-                >
-                  <Send className="mr-2 h-4 w-4" />
-                  Open in email app
-                </a>
-              </Button>
+              <ComposeSendButton
+                pitchId={draft.id}
+                email={email}
+                subject={draft.subject}
+                body={draft.body}
+                onDone={() => {
+                  setOpen(false);
+                  setDraft(null);
+                }}
+              />
               <Button
                 variant="outline"
                 className="flex-1 rounded-2xl"
@@ -557,16 +553,9 @@ function ComposeDialog({
                 {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
                 Copy
               </Button>
-              <MarkSentButton
-                pitchId={draft.id}
-                onDone={() => {
-                  setOpen(false);
-                  setDraft(null);
-                }}
-              />
             </div>
             <p className="text-center text-xs text-muted-foreground">
-              Tip: "Open in email app" pre-fills your Gmail/Apple Mail with everything ready — just hit Send. Then mark as sent so we can track follow-ups.
+              Connect Gmail above to send in one click. Otherwise use Copy and paste into your mail app.
             </p>
           </div>
         )}
