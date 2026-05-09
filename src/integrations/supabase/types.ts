@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      affiliate_links: {
+        Row: {
+          brand: string
+          category: string | null
+          code: string | null
+          commission_rate: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          product: string
+          updated_at: string
+          url: string
+          user_id: string
+        }
+        Insert: {
+          brand: string
+          category?: string | null
+          code?: string | null
+          commission_rate?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          product: string
+          updated_at?: string
+          url: string
+          user_id: string
+        }
+        Update: {
+          brand?: string
+          category?: string | null
+          code?: string | null
+          commission_rate?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          product?: string
+          updated_at?: string
+          url?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       creator_profile: {
         Row: {
           created_at: string
@@ -191,6 +233,108 @@ export type Database = {
         }
         Relationships: []
       }
+      income_entries: {
+        Row: {
+          amount: number
+          brand: string | null
+          category: string
+          created_at: string
+          currency: string
+          entry_date: string
+          id: string
+          notes: string | null
+          source: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          brand?: string | null
+          category?: string
+          created_at?: string
+          currency?: string
+          entry_date?: string
+          id?: string
+          notes?: string | null
+          source: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          brand?: string | null
+          category?: string
+          created_at?: string
+          currency?: string
+          entry_date?: string
+          id?: string
+          notes?: string | null
+          source?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      invoices: {
+        Row: {
+          brand_address: string | null
+          brand_email: string | null
+          brand_name: string
+          created_at: string
+          currency: string
+          due_date: string | null
+          from_address: string | null
+          from_email: string | null
+          from_name: string | null
+          id: string
+          issue_date: string
+          items: Json
+          notes: string | null
+          number: string
+          status: string
+          tax_rate: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          brand_address?: string | null
+          brand_email?: string | null
+          brand_name: string
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          from_address?: string | null
+          from_email?: string | null
+          from_name?: string | null
+          id?: string
+          issue_date?: string
+          items?: Json
+          notes?: string | null
+          number: string
+          status?: string
+          tax_rate?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          brand_address?: string | null
+          brand_email?: string | null
+          brand_name?: string
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          from_address?: string | null
+          from_email?: string | null
+          from_name?: string | null
+          id?: string
+          issue_date?: string
+          items?: Json
+          notes?: string | null
+          number?: string
+          status?: string
+          tax_rate?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       lifetime_purchases: {
         Row: {
           created_at: string | null
@@ -220,6 +364,51 @@ export type Database = {
           product_id?: string
           stripe_customer_id?: string | null
           stripe_payment_intent_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      portfolio_items: {
+        Row: {
+          brand: string | null
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          link: string | null
+          metrics: Json | null
+          platform: string | null
+          posted_on: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          brand?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          metrics?: Json | null
+          platform?: string | null
+          posted_on?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          brand?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          link?: string | null
+          metrics?: Json | null
+          platform?: string | null
+          posted_on?: string | null
+          title?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
