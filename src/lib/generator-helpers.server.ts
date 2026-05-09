@@ -169,32 +169,38 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
 }
 
 /**
- * Returns trial info for a user. Trial = first 3 days from `trial_started_at`.
- * Premium subscribers always pass.
+ * Returns plan / free-tier snapshot for a user.
+ * Shape kept backwards-compatible with old trial UI: `inTrial` and `daysLeft`
+ * are deprecated and always reflect "free forever" semantics now.
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const premium = await isPremium(supabase, userId);
   if (premium) {
-    return { premium: true, inTrial: true, daysLeft: null as number | null, trialEndsAt: null as string | null };
+    return {
+      premium: true,
+      inTrial: true, // legacy field — premium = unlimited
+      daysLeft: null as number | null,
+      trialEndsAt: null as string | null,
+      freeUsage: {} as Record<string, { used: number; limit: number }>,
+    };
   }
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("trial_started_at")
-    .eq("id", userId)
-    .maybeSingle();
-  const start = profile?.trial_started_at ? new Date(profile.trial_started_at) : new Date();
-  const end = new Date(start.getTime() + TRIAL_DAYS * 24 * 60 * 60 * 1000);
-  const now = Date.now();
-  const inTrial = now < end.getTime();
-  const msLeft = end.getTime() - now;
-  const daysLeft = inTrial ? Math.max(1, Math.ceil(msLeft / (24 * 60 * 60 * 1000))) : 0;
-  return { premium: false, inTrial, daysLeft, trialEndsAt: end.toISOString() };
+  const freeUsage = await getFreeTierSnapshot(supabase, userId);
+  return {
+    premium: false,
+    inTrial: false,
+    daysLeft: 0,
+    trialEndsAt: null as string | null,
+    freeUsage,
+  };
 }
 
 /**
- * Gates a premium-only feature. Allows premium users + users in their 3-day trial.
- * Records a usage event for analytics (non-blocking).
- * Pass `freeAllowed: true` to let everyone through (e.g. basic captions).
+ * Plan gate. Name kept for backwards compatibility with existing call sites.
+ * Behaviour:
+ *   - Premium → always allowed, records usage.
+ *   - Free + feature in FREE_MONTHLY_LIMITS (or `opts.freeAllowed`) → allowed
+ *     up to the monthly cap, then soft-blocked with an upgrade message.
+ *   - Free + premium-only feature → blocked immediately with upgrade message.
  */
 export async function enforceTrial(
   supabase: SupabaseLike,
@@ -202,22 +208,30 @@ export async function enforceTrial(
   feature: Feature,
   opts?: { freeAllowed?: boolean },
 ) {
-  if (opts?.freeAllowed) {
-    return {
-      record: async () => {
-        await supabase.from("usage_events").insert({ user_id: userId, feature });
-      },
-    };
-  }
-  const info = await getTrialInfo(supabase, userId);
-  if (!info.premium && !info.inTrial) {
-    throw new Error(
-      `Your 3-day trial of ${FEATURE_LABELS[feature]} has ended. Upgrade to Premium to keep using it — basic captions stay free.`,
-    );
-  }
-  return {
+  const premium = await isPremium(supabase, userId);
+  const recorder = {
     record: async () => {
       await supabase.from("usage_events").insert({ user_id: userId, feature });
     },
   };
+  if (premium) return recorder;
+
+  const cap = FREE_MONTHLY_LIMITS[feature];
+  const isFreeFeature = cap !== undefined || opts?.freeAllowed;
+
+  if (!isFreeFeature) {
+    throw new Error(
+      `${FEATURE_LABELS[feature]} is a Premium tool. Upgrade to unlock unlimited access — your free ideas, captions, planner and saves stay free forever.`,
+    );
+  }
+
+  if (cap !== undefined && cap < 9999) {
+    const used = await getMonthlyUsage(supabase, userId, feature);
+    if (used >= cap) {
+      throw new Error(
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Premium for unlimited — your monthly free allowance refreshes on the 1st.`,
+      );
+    }
+  }
+  return recorder;
 }
