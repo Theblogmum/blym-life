@@ -219,6 +219,3 @@ function PostTimingPage() {
     </div>
   );
 }
-
-// keep toast import used (used in error path)
-void toast;
