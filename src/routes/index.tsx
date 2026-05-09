@@ -63,9 +63,9 @@ function Landing() {
     <div className="min-h-screen bg-background">
       <PaymentTestModeBanner />
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logoImg} alt="The Blog Mum" className="h-10 w-auto" width={120} height={40} />
+          <img src={logoImg} alt="The Blog Mum" className="h-8 w-auto sm:h-10" width={120} height={40} />
           <span className="sr-only">The Blog Mum Studio</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
@@ -89,27 +89,27 @@ function Landing() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-[image:var(--gradient-sunrise)] opacity-40" aria-hidden />
         <div className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-white/40 blur-3xl" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 pt-14 pb-16 sm:pt-20 lg:grid-cols-2 lg:gap-12 lg:pt-28">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pt-10 pb-12 sm:gap-10 sm:px-6 sm:pt-20 sm:pb-16 lg:grid-cols-2 lg:gap-12 lg:pt-28">
           <div className="text-center lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-widest text-foreground/80 backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> For mum content creators
             </span>
-            <h1 className="mt-5 font-display text-5xl font-black leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 font-display text-4xl font-black leading-[1.05] tracking-tight sm:mt-5 sm:text-6xl lg:text-7xl">
               Your tiny content team{" "}
               <span className="bg-[image:var(--gradient-warm)] bg-clip-text text-transparent">in your pocket.</span>
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-lg text-foreground/70 lg:mx-0">
+            <p className="mx-auto mt-4 max-w-xl text-base text-foreground/70 sm:mt-5 sm:text-lg lg:mx-0">
               Daily briefs, viral remixes, brand pitches and an outreach tracker — built for mums who film between school runs.
             </p>
-            <div className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               <Link to={ctaPrimary.to}>
-                <Button size="lg" className="rounded-full px-8 shadow-[var(--shadow-glow)]">
+                <Button size="lg" className="w-full rounded-full px-8 shadow-[var(--shadow-glow)] sm:w-auto">
                   {ctaPrimary.label}
                 </Button>
               </Link>
               {ctaSecondary && (
                 <Link to={ctaSecondary.to}>
-                  <Button size="lg" variant="outline" className="rounded-full">
+                  <Button size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
                     {ctaSecondary.label}
                   </Button>
                 </Link>
@@ -121,15 +121,15 @@ function Landing() {
               <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
             </p>
           </div>
-          <div className="relative mx-auto max-w-md lg:max-w-none">
+          <div className="relative mx-auto w-full max-w-xs sm:max-w-md lg:max-w-none">
             <div className="absolute -inset-6 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
-            <div className="relative rounded-[2rem] bg-card p-8 shadow-[var(--shadow-glow)] ring-1 ring-primary/15 sm:p-12">
+            <div className="relative rounded-[1.5rem] bg-card p-5 shadow-[var(--shadow-glow)] ring-1 ring-primary/15 sm:rounded-[2rem] sm:p-12">
               <img
                 src={logoImg}
                 alt="The Blog Mum — make it happen"
                 width={1024}
                 height={1024}
-                className="mx-auto w-full max-w-sm"
+                className="mx-auto w-full max-w-[220px] sm:max-w-sm"
               />
             </div>
             <div className="absolute -bottom-5 -left-4 hidden rounded-2xl bg-card p-3 shadow-[var(--shadow-soft)] ring-1 ring-primary/10 sm:block">
@@ -157,9 +157,9 @@ function Landing() {
       </section>
 
       <section id="how" className="border-y border-border bg-secondary/40 py-16">
-        <div className="mx-auto max-w-5xl px-6 text-center">
+        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">How it works</p>
-          <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">From overwhelmed to filmed in 3 steps.</h2>
+          <h2 className="mt-2 font-display text-2xl font-black sm:text-4xl">From overwhelmed to filmed in 3 steps.</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {[
               { icon: Heart, t: "1. Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for." },
@@ -178,10 +178,10 @@ function Landing() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-6xl px-6 py-20">
+      <section id="features" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inside the studio</p>
-          <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">Three ways we save your evening.</h2>
+          <h2 className="mt-2 font-display text-2xl font-black sm:text-4xl">Three ways we save your evening.</h2>
           <p className="mx-auto mt-3 max-w-2xl text-foreground/70">
             One tool to plan, one to grow, one to get paid. No bloat — just the bits mum creators actually use.
           </p>
@@ -219,17 +219,17 @@ function Landing() {
         </div>
       </section>
 
-      <section id="pricing" className="border-t border-border bg-secondary/40 py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center">
+      <section id="pricing" className="border-t border-border bg-secondary/40 py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pricing</p>
-          <h2 className="mt-2 font-display text-3xl font-black sm:text-4xl">Free to start. Upgrade when you're ready.</h2>
+          <h2 className="mt-2 font-display text-2xl font-black sm:text-4xl">Free to start. Upgrade when you're ready.</h2>
           <PricingPlans />
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
         <p className="text-center text-xs font-semibold uppercase tracking-wider text-primary">FAQ</p>
-        <h2 className="mt-2 text-center font-display text-3xl font-black">Things mums ask us</h2>
+        <h2 className="mt-2 text-center font-display text-2xl font-black sm:text-3xl">Things mums ask us</h2>
         <div className="mt-8 space-y-3">
           {[
             { q: "Do I need to be on camera?", a: "Nope. Most briefs work as voiceover, hands-only or text-on-screen." },
@@ -248,16 +248,16 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pb-20">
+      <section className="mx-auto max-w-3xl px-4 pb-16 sm:px-6 sm:pb-20">
         <div className="rounded-3xl bg-[image:var(--gradient-warm)] p-[2px] shadow-[var(--shadow-soft)]">
-          <div className="rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-10 text-center">
+          <div className="rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-6 text-center sm:p-10">
             <Clock className="mx-auto h-8 w-8 text-primary" />
-            <h2 className="mt-4 font-display text-3xl font-black">Tomorrow morning, your brief is ready.</h2>
+            <h2 className="mt-4 font-display text-2xl font-black sm:text-3xl">Tomorrow morning, your brief is ready.</h2>
             <p className="mt-2 text-muted-foreground">Stop scrolling for ideas. Start filming the right one.</p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link to={ctaPrimary.to}><Button size="lg" className="rounded-full px-8">{ctaPrimary.label}</Button></Link>
+            <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap">
+              <Link to={ctaPrimary.to}><Button size="lg" className="w-full rounded-full px-8 sm:w-auto">{ctaPrimary.label}</Button></Link>
               {ctaSecondary && (
-                <Link to={ctaSecondary.to}><Button size="lg" variant="ghost" className="rounded-full">Sign in</Button></Link>
+                <Link to={ctaSecondary.to}><Button size="lg" variant="ghost" className="w-full rounded-full sm:w-auto">Sign in</Button></Link>
               )}
             </div>
           </div>
