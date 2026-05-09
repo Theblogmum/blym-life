@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState, type ComponentType } from "react";
+import { type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
@@ -329,7 +329,6 @@ function PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
-  const [interval, setInterval] = useState<"monthly" | "yearly">("monthly");
   const { isActive, hasLifetime } = useSubscription();
 
   const buy = async (priceId: string) => {
