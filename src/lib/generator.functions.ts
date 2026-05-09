@@ -292,4 +292,144 @@ export const analyseFlop = createServerFn({ method: "POST" })
     };
   });
 
+export const auditNiche = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { bio: string; niche: string; target_audience: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "niche_audit");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      clarity_score?: unknown;
+      headline_verdict?: unknown;
+      whats_unclear?: unknown;
+      missing_content?: unknown;
+      monetisation?: unknown;
+      positioning_advice?: unknown;
+      rewritten_bio?: unknown;
+      one_line_positioning?: unknown;
+    }>({
+      toolName: "niche_audit",
+      toolDescription:
+        "Audit a creator's niche, bio and target audience. Be honest, specific, and constructive.",
+      parameters: {
+        type: "object",
+        properties: {
+          clarity_score: { type: "number" },
+          headline_verdict: { type: "string" },
+          whats_unclear: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 2,
+            maxItems: 5,
+          },
+          missing_content: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                pillar: { type: "string" },
+                why: { type: "string" },
+                example_post: { type: "string" },
+              },
+              required: ["pillar", "why", "example_post"],
+              additionalProperties: false,
+            },
+            minItems: 3,
+            maxItems: 5,
+          },
+          monetisation: {
+            type: "object",
+            properties: {
+              potential: { type: "string", enum: ["low", "medium", "high"] },
+              summary: { type: "string" },
+              streams: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    name: { type: "string" },
+                    fit: { type: "string", enum: ["weak", "okay", "strong"] },
+                    notes: { type: "string" },
+                  },
+                  required: ["name", "fit", "notes"],
+                  additionalProperties: false,
+                },
+                minItems: 3,
+                maxItems: 6,
+              },
+            },
+            required: ["potential", "summary", "streams"],
+            additionalProperties: false,
+          },
+          positioning_advice: {
+            type: "array",
+            items: { type: "string" },
+            minItems: 3,
+            maxItems: 5,
+          },
+          rewritten_bio: { type: "string" },
+          one_line_positioning: { type: "string" },
+        },
+        required: [
+          "clarity_score",
+          "headline_verdict",
+          "whats_unclear",
+          "missing_content",
+          "monetisation",
+          "positioning_advice",
+          "rewritten_bio",
+          "one_line_positioning",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You audit niches for UK mum content creators. Be specific, kind and direct. British English. Score clarity 1-10. Reference the actual bio words. Suggested example posts must be concrete (not 'share a tip').",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nBio: ${data.bio}\nNiche: ${data.niche}\nTarget audience: ${data.target_audience}\n\nReturn a clarity score, a one-line verdict, what's unclear, missing content pillars (with example posts), a monetisation read with 3-6 revenue stream fits, positioning advice, a rewritten bio (under 150 chars), and a one-line "I help X do Y" positioning statement.`,
+        },
+      ],
+    });
+    await quota.record();
+    const score =
+      typeof result.clarity_score === "number"
+        ? Math.max(1, Math.min(10, Math.round(result.clarity_score)))
+        : 0;
+    const monRaw = (result.monetisation ?? {}) as Record<string, unknown>;
+    const streamsRaw = Array.isArray(monRaw.streams) ? monRaw.streams : [];
+    const missingRaw = Array.isArray(result.missing_content) ? result.missing_content : [];
+    return {
+      clarity_score: score,
+      headline_verdict: readString(result.headline_verdict),
+      whats_unclear: toStringList(result.whats_unclear),
+      missing_content: missingRaw.map((it) => {
+        const item = it as Record<string, unknown>;
+        return {
+          pillar: readString(item.pillar),
+          why: readString(item.why),
+          example_post: readString(item.example_post),
+        };
+      }),
+      monetisation: {
+        potential: readString(monRaw.potential, "medium"),
+        summary: readString(monRaw.summary),
+        streams: streamsRaw.map((s) => {
+          const item = s as Record<string, unknown>;
+          return {
+            name: readString(item.name),
+            fit: readString(item.fit, "okay"),
+            notes: readString(item.notes),
+          };
+        }),
+      },
+      positioning_advice: toStringList(result.positioning_advice),
+      rewritten_bio: readString(result.rewritten_bio),
+      one_line_positioning: readString(result.one_line_positioning),
+    };
+  });
+
 
