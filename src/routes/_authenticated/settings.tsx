@@ -100,7 +100,7 @@ function SettingsPage() {
             <p className="mt-2 font-display text-2xl font-black">Unlimited briefs, deeper insights.</p>
             <ul className="mt-3 space-y-1.5 text-sm">
               {[
-                "Unlimited 'Tell Me What To Film' plans",
+                "Unlimited content ideas, captions & hooks",
                 "Viral breakdowns + remixes",
                 "Clip recycler",
                 "Growth insights",
