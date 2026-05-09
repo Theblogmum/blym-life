@@ -29,11 +29,13 @@ import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authent
 import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authenticated/post-timing'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
+import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedFacelessOptimiserRouteImport } from './routes/_authenticated/faceless-optimiser'
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
@@ -146,6 +148,12 @@ const AuthenticatedPitchGeneratorRoute =
     path: '/pitch-generator',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedPinOptimiserRoute =
+  AuthenticatedPinOptimiserRouteImport.update({
+    id: '/pin-optimiser',
+    path: '/pin-optimiser',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedNicheAuditRoute = AuthenticatedNicheAuditRouteImport.update({
   id: '/niche-audit',
   path: '/niche-audit',
@@ -172,6 +180,12 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedFacelessOptimiserRoute =
+  AuthenticatedFacelessOptimiserRouteImport.update({
+    id: '/faceless-optimiser',
+    path: '/faceless-optimiser',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedEngagementBoosterRoute =
   AuthenticatedEngagementBoosterRouteImport.update({
     id: '/engagement-booster',
@@ -226,11 +240,13 @@ export interface FileRoutesByFullPath {
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -259,11 +275,13 @@ export interface FileRoutesByTo {
   '/broll': typeof AuthenticatedBrollRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -294,11 +312,13 @@ export interface FileRoutesById {
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/_authenticated/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
+  '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/post-timing': typeof AuthenticatedPostTimingRoute
@@ -329,11 +349,13 @@ export interface FileRouteTypes {
     | '/broll'
     | '/cta-generator'
     | '/engagement-booster'
+    | '/faceless-optimiser'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
     | '/insights'
     | '/niche-audit'
+    | '/pin-optimiser'
     | '/pitch-generator'
     | '/planner'
     | '/post-timing'
@@ -362,11 +384,13 @@ export interface FileRouteTypes {
     | '/broll'
     | '/cta-generator'
     | '/engagement-booster'
+    | '/faceless-optimiser'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
     | '/insights'
     | '/niche-audit'
+    | '/pin-optimiser'
     | '/pitch-generator'
     | '/planner'
     | '/post-timing'
@@ -396,11 +420,13 @@ export interface FileRouteTypes {
     | '/_authenticated/broll'
     | '/_authenticated/cta-generator'
     | '/_authenticated/engagement-booster'
+    | '/_authenticated/faceless-optimiser'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
     | '/_authenticated/niche-audit'
+    | '/_authenticated/pin-optimiser'
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
     | '/_authenticated/post-timing'
@@ -572,6 +598,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPitchGeneratorRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/pin-optimiser': {
+      id: '/_authenticated/pin-optimiser'
+      path: '/pin-optimiser'
+      fullPath: '/pin-optimiser'
+      preLoaderRoute: typeof AuthenticatedPinOptimiserRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/niche-audit': {
       id: '/_authenticated/niche-audit'
       path: '/niche-audit'
@@ -605,6 +638,13 @@ declare module '@tanstack/react-router' {
       path: '/film-this'
       fullPath: '/film-this'
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/faceless-optimiser': {
+      id: '/_authenticated/faceless-optimiser'
+      path: '/faceless-optimiser'
+      fullPath: '/faceless-optimiser'
+      preLoaderRoute: typeof AuthenticatedFacelessOptimiserRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/engagement-booster': {
@@ -665,11 +705,13 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
+  AuthenticatedFacelessOptimiserRoute: typeof AuthenticatedFacelessOptimiserRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
+  AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedPostTimingRoute: typeof AuthenticatedPostTimingRoute
@@ -690,11 +732,13 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
+  AuthenticatedFacelessOptimiserRoute: AuthenticatedFacelessOptimiserRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
+  AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedPostTimingRoute: AuthenticatedPostTimingRoute,
@@ -728,3 +772,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
