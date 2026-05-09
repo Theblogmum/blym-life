@@ -75,8 +75,11 @@ type Pitch = {
   id: string;
   brand_id: string | null;
   user_brand_id: string | null;
+  brand_name?: string | null;
   recipient_email: string;
   subject: string;
+  body: string;
+  follow_up_body?: string | null;
   status: string;
   created_at: string;
   sent_at: string | null;
@@ -516,6 +519,20 @@ function ComposeDialog({
             )}
             <div className="flex flex-col gap-2 sm:flex-row">
               <Button
+                className="flex-1 rounded-2xl"
+                asChild
+              >
+                <a
+                  href={buildMailto(email, draft.subject, draft.body)}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => toast.success("Opening your email app — hit Send there!")}
+                >
+                  <Send className="mr-2 h-4 w-4" />
+                  Open in email app
+                </a>
+              </Button>
+              <Button
                 variant="outline"
                 className="flex-1 rounded-2xl"
                 onClick={() => {
@@ -526,7 +543,7 @@ function ComposeDialog({
                 }}
               >
                 {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
-                Copy email
+                Copy
               </Button>
               <MarkSentButton
                 pitchId={draft.id}
@@ -537,7 +554,7 @@ function ComposeDialog({
               />
             </div>
             <p className="text-center text-xs text-muted-foreground">
-              Tip: paste into your own email, then mark as sent so we can track follow-ups.
+              Tip: "Open in email app" pre-fills your Gmail/Apple Mail with everything ready — just hit Send. Then mark as sent so we can track follow-ups.
             </p>
           </div>
         )}
