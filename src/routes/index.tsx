@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState, type ComponentType } from "react";
+import { useState, type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
@@ -9,10 +9,10 @@ import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
-import heroImg from "@/assets/landing-hero.jpg";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
+import logoImg from "@/assets/logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,9 +52,9 @@ export const Route = createFileRoute("/")({
 function Landing() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!loading && user) navigate({ to: "/app" });
-  }, [user, loading, navigate]);
+  // Note: signed-in users still see the homepage. They can click "Open studio" to enter the app.
+  void loading;
+  void navigate;
 
   const ctaPrimary = user ? { to: "/app" as const, label: "Open the studio" } : { to: "/signup" as const, label: "Get my first brief — free" };
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
@@ -64,9 +64,9 @@ function Landing() {
       <PaymentTestModeBanner />
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link to="/" className="text-lg font-semibold tracking-tight">
-          <span className="font-display font-black">the blog mum</span>{" "}
-          <span className="text-muted-foreground">studio</span>
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logoImg} alt="The Blog Mum" className="h-10 w-auto" width={120} height={40} />
+          <span className="sr-only">The Blog Mum Studio</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
           <a href="#how" className="hover:text-foreground">How it works</a>
@@ -122,15 +122,17 @@ function Landing() {
             </p>
           </div>
           <div className="relative mx-auto max-w-md lg:max-w-none">
-            <div className="absolute -inset-4 rounded-[2rem] bg-[image:var(--gradient-warm)] opacity-30 blur-2xl" aria-hidden />
-            <img
-              src={heroImg}
-              alt="Illustration of a mum filming content in a sunny kitchen"
-              width={1024}
-              height={1024}
-              className="relative w-full rounded-[2rem] shadow-[var(--shadow-glow)]"
-            />
-            <div className="absolute -bottom-5 -left-4 hidden rounded-2xl bg-card p-3 shadow-[var(--shadow-soft)] sm:block">
+            <div className="absolute -inset-6 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
+            <div className="relative rounded-[2rem] bg-card p-8 shadow-[var(--shadow-glow)] ring-1 ring-primary/15 sm:p-12">
+              <img
+                src={logoImg}
+                alt="The Blog Mum — make it happen"
+                width={1024}
+                height={1024}
+                className="mx-auto w-full max-w-sm"
+              />
+            </div>
+            <div className="absolute -bottom-5 -left-4 hidden rounded-2xl bg-card p-3 shadow-[var(--shadow-soft)] ring-1 ring-primary/10 sm:block">
               <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Today's brief</p>
               <p className="mt-1 text-sm font-semibold">Mum-hack reel · 18s</p>
               <p className="text-xs text-muted-foreground">Post 7:42pm · 6.4k est. views</p>
