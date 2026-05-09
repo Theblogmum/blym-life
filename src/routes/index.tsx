@@ -344,34 +344,15 @@ function PricingPlans() {
     });
   };
 
-  const premiumPriceId = interval === "monthly" ? "premium_monthly" : "premium_yearly";
-  const premiumPrice = interval === "monthly" ? "£19" : "£170";
-  const premiumSuffix = interval === "monthly" ? "/mo" : "/yr";
-  const premiumNote = interval === "yearly" ? "Save ~25% vs monthly" : "Cancel anytime";
-
   return (
     <>
       {isActive && (
         <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-medium text-secondary-foreground">
           <Check className="h-4 w-4 text-primary" />
-          {hasLifetime ? "You're a Lifetime member 💛" : "You're on Premium"}
+          {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      {!isActive && (
-      <div className="mt-6 inline-flex rounded-full border border-border bg-card p-1 text-sm">
-        <button
-          type="button"
-          onClick={() => setInterval("monthly")}
-          className={`rounded-full px-4 py-1.5 transition ${interval === "monthly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-        >Monthly</button>
-        <button
-          type="button"
-          onClick={() => setInterval("yearly")}
-          className={`rounded-full px-4 py-1.5 transition ${interval === "yearly" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-        >Yearly · save ~25%</button>
-      </div>
-      )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <PriceCard
           name="Free"
           price="£0"
