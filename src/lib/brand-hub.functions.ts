@@ -10,7 +10,7 @@ export const listBrands = createServerFn({ method: "GET" })
     const [seedRes, mineRes, pitchRes] = await Promise.all([
       supabase.from("brands").select("*").order("name", { ascending: true }),
       supabase.from("user_brands").select("*").eq("user_id", userId).order("created_at", { ascending: false }),
-      supabase.from("brand_pitches").select("id,brand_id,user_brand_id,recipient_email,status,created_at,sent_at,replied_at,follow_up_due_at,follow_up_sent_at,subject").eq("user_id", userId).order("created_at", { ascending: false }),
+      supabase.from("brand_pitches").select("id,brand_id,user_brand_id,brand_name,recipient_email,status,created_at,sent_at,replied_at,follow_up_due_at,follow_up_sent_at,subject,body,follow_up_body").eq("user_id", userId).order("created_at", { ascending: false }),
     ]);
     return {
       brands: seedRes.data ?? [],
