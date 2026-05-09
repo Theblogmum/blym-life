@@ -40,6 +40,10 @@ import {
   Wallet,
   Link2,
   Briefcase,
+  Users,
+  HeartHandshake,
+  Trophy,
+  Sunrise,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -109,6 +113,15 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/invoices", label: "Invoices", icon: Receipt, desc: "Branded invoices, print to PDF" },
       { to: "/income-tracker", label: "Income Tracker", icon: Wallet, desc: "Monthly totals + categories" },
       { to: "/affiliates", label: "Affiliate Links", icon: Link2, desc: "All your codes in one place" },
+    ],
+  },
+  {
+    label: "Mindset",
+    items: [
+      { to: "/community", label: "Community", icon: Users, desc: "Safe space creator feed" },
+      { to: "/wins", label: "Doing Better", icon: Trophy, desc: "Receipts of your last 30 days" },
+      { to: "/motivation", label: "Daily Motivation", icon: Sunrise, desc: "A small lift, every day" },
+      { to: "/rejection-recovery", label: "Rejection Recovery", icon: HeartHandshake, desc: "Bounce back from a no" },
     ],
   },
 ];

@@ -17,6 +17,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedWinsRouteImport } from './routes/_authenticated/wins'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
@@ -27,6 +28,7 @@ import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedScriptTightenerRouteImport } from './routes/_authenticated/script-tightener'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
+import { Route as AuthenticatedRejectionRecoveryRouteImport } from './routes/_authenticated/rejection-recovery'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authenticated/profile-audit'
 import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authenticated/post-timing'
@@ -37,6 +39,7 @@ import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authent
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
 import { Route as AuthenticatedPackageNamesRouteImport } from './routes/_authenticated/package-names'
 import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
+import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
@@ -48,6 +51,7 @@ import { Route as AuthenticatedFacelessOptimiserRouteImport } from './routes/_au
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
+import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
@@ -93,6 +97,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedWinsRoute = AuthenticatedWinsRouteImport.update({
+  id: '/wins',
+  path: '/wins',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   id: '/viral-lab',
@@ -150,6 +159,12 @@ const AuthenticatedRepurposeRoute = AuthenticatedRepurposeRouteImport.update({
   path: '/repurpose',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedRejectionRecoveryRoute =
+  AuthenticatedRejectionRecoveryRouteImport.update({
+    id: '/rejection-recovery',
+    path: '/rejection-recovery',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
   id: '/recycler',
   path: '/recycler',
@@ -203,6 +218,11 @@ const AuthenticatedPackageNamesRoute =
 const AuthenticatedNicheAuditRoute = AuthenticatedNicheAuditRouteImport.update({
   id: '/niche-audit',
   path: '/niche-audit',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMotivationRoute = AuthenticatedMotivationRouteImport.update({
+  id: '/motivation',
+  path: '/motivation',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
@@ -266,6 +286,11 @@ const AuthenticatedCtaGeneratorRoute =
     path: '/cta-generator',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedBrollRoute = AuthenticatedBrollRouteImport.update({
   id: '/broll',
   path: '/broll',
@@ -312,6 +337,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
+  '/community': typeof AuthenticatedCommunityRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
@@ -323,6 +349,7 @@ export interface FileRoutesByFullPath {
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
+  '/motivation': typeof AuthenticatedMotivationRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/package-names': typeof AuthenticatedPackageNamesRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
@@ -333,6 +360,7 @@ export interface FileRoutesByFullPath {
   '/post-timing': typeof AuthenticatedPostTimingRoute
   '/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/script-tightener': typeof AuthenticatedScriptTightenerRoute
@@ -343,6 +371,7 @@ export interface FileRoutesByFullPath {
   '/templates': typeof AuthenticatedTemplatesRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
+  '/wins': typeof AuthenticatedWinsRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -358,6 +387,7 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/broll': typeof AuthenticatedBrollRoute
+  '/community': typeof AuthenticatedCommunityRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
@@ -369,6 +399,7 @@ export interface FileRoutesByTo {
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
+  '/motivation': typeof AuthenticatedMotivationRoute
   '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/package-names': typeof AuthenticatedPackageNamesRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
@@ -379,6 +410,7 @@ export interface FileRoutesByTo {
   '/post-timing': typeof AuthenticatedPostTimingRoute
   '/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/script-tightener': typeof AuthenticatedScriptTightenerRoute
@@ -389,6 +421,7 @@ export interface FileRoutesByTo {
   '/templates': typeof AuthenticatedTemplatesRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
+  '/wins': typeof AuthenticatedWinsRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -406,6 +439,7 @@ export interface FileRoutesById {
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
+  '/_authenticated/community': typeof AuthenticatedCommunityRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
@@ -417,6 +451,7 @@ export interface FileRoutesById {
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
+  '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
   '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/_authenticated/package-names': typeof AuthenticatedPackageNamesRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
@@ -427,6 +462,7 @@ export interface FileRoutesById {
   '/_authenticated/post-timing': typeof AuthenticatedPostTimingRoute
   '/_authenticated/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
+  '/_authenticated/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
   '/_authenticated/script-tightener': typeof AuthenticatedScriptTightenerRoute
@@ -437,6 +473,7 @@ export interface FileRoutesById {
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
+  '/_authenticated/wins': typeof AuthenticatedWinsRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -454,6 +491,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/bio-optimiser'
     | '/broll'
+    | '/community'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
@@ -465,6 +503,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/invoices'
     | '/media-kit'
+    | '/motivation'
     | '/niche-audit'
     | '/package-names'
     | '/passive-ideas'
@@ -475,6 +514,7 @@ export interface FileRouteTypes {
     | '/post-timing'
     | '/profile-audit'
     | '/recycler'
+    | '/rejection-recovery'
     | '/repurpose'
     | '/response-writer'
     | '/script-tightener'
@@ -485,6 +525,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/usage-rights'
     | '/viral-lab'
+    | '/wins'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
@@ -500,6 +541,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/bio-optimiser'
     | '/broll'
+    | '/community'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
@@ -511,6 +553,7 @@ export interface FileRouteTypes {
     | '/insights'
     | '/invoices'
     | '/media-kit'
+    | '/motivation'
     | '/niche-audit'
     | '/package-names'
     | '/passive-ideas'
@@ -521,6 +564,7 @@ export interface FileRouteTypes {
     | '/post-timing'
     | '/profile-audit'
     | '/recycler'
+    | '/rejection-recovery'
     | '/repurpose'
     | '/response-writer'
     | '/script-tightener'
@@ -531,6 +575,7 @@ export interface FileRouteTypes {
     | '/templates'
     | '/usage-rights'
     | '/viral-lab'
+    | '/wins'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   id:
@@ -547,6 +592,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app'
     | '/_authenticated/bio-optimiser'
     | '/_authenticated/broll'
+    | '/_authenticated/community'
     | '/_authenticated/cta-generator'
     | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
@@ -558,6 +604,7 @@ export interface FileRouteTypes {
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
     | '/_authenticated/media-kit'
+    | '/_authenticated/motivation'
     | '/_authenticated/niche-audit'
     | '/_authenticated/package-names'
     | '/_authenticated/passive-ideas'
@@ -568,6 +615,7 @@ export interface FileRouteTypes {
     | '/_authenticated/post-timing'
     | '/_authenticated/profile-audit'
     | '/_authenticated/recycler'
+    | '/_authenticated/rejection-recovery'
     | '/_authenticated/repurpose'
     | '/_authenticated/response-writer'
     | '/_authenticated/script-tightener'
@@ -578,6 +626,7 @@ export interface FileRouteTypes {
     | '/_authenticated/templates'
     | '/_authenticated/usage-rights'
     | '/_authenticated/viral-lab'
+    | '/_authenticated/wins'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -653,6 +702,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/wins': {
+      id: '/_authenticated/wins'
+      path: '/wins'
+      fullPath: '/wins'
+      preLoaderRoute: typeof AuthenticatedWinsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/viral-lab': {
       id: '/_authenticated/viral-lab'
       path: '/viral-lab'
@@ -723,6 +779,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRepurposeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/rejection-recovery': {
+      id: '/_authenticated/rejection-recovery'
+      path: '/rejection-recovery'
+      fullPath: '/rejection-recovery'
+      preLoaderRoute: typeof AuthenticatedRejectionRecoveryRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/recycler': {
       id: '/_authenticated/recycler'
       path: '/recycler'
@@ -791,6 +854,13 @@ declare module '@tanstack/react-router' {
       path: '/niche-audit'
       fullPath: '/niche-audit'
       preLoaderRoute: typeof AuthenticatedNicheAuditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/motivation': {
+      id: '/_authenticated/motivation'
+      path: '/motivation'
+      fullPath: '/motivation'
+      preLoaderRoute: typeof AuthenticatedMotivationRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/media-kit': {
@@ -870,6 +940,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCtaGeneratorRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/community': {
+      id: '/_authenticated/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/broll': {
       id: '/_authenticated/broll'
       path: '/broll'
@@ -920,6 +997,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
+  AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
@@ -931,6 +1009,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
+  AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
   AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
   AuthenticatedPackageNamesRoute: typeof AuthenticatedPackageNamesRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
@@ -941,6 +1020,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPostTimingRoute: typeof AuthenticatedPostTimingRoute
   AuthenticatedProfileAuditRoute: typeof AuthenticatedProfileAuditRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
+  AuthenticatedRejectionRecoveryRoute: typeof AuthenticatedRejectionRecoveryRoute
   AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
   AuthenticatedScriptTightenerRoute: typeof AuthenticatedScriptTightenerRoute
@@ -951,6 +1031,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
   AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
+  AuthenticatedWinsRoute: typeof AuthenticatedWinsRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -958,6 +1039,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
+  AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
@@ -969,6 +1051,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
+  AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
   AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
   AuthenticatedPackageNamesRoute: AuthenticatedPackageNamesRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
@@ -979,6 +1062,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPostTimingRoute: AuthenticatedPostTimingRoute,
   AuthenticatedProfileAuditRoute: AuthenticatedProfileAuditRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
+  AuthenticatedRejectionRecoveryRoute: AuthenticatedRejectionRecoveryRoute,
   AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
   AuthenticatedScriptTightenerRoute: AuthenticatedScriptTightenerRoute,
@@ -989,6 +1073,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
   AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
+  AuthenticatedWinsRoute: AuthenticatedWinsRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
