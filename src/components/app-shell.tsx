@@ -20,6 +20,7 @@ import {
   Clapperboard,
   ListOrdered,
   MessageCircle,
+  Repeat2,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -48,6 +49,7 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/broll", label: "B-Roll Ideas", icon: Clapperboard, desc: "Shots, angles & aesthetics" },
       { to: "/series-builder", label: "Series Builder", icon: ListOrdered, desc: "30-part content series" },
       { to: "/cta-generator", label: "CTA Generator", icon: MessageCircle, desc: "Engagement, sales & comment hooks" },
+      { to: "/repurpose", label: "Repurpose 1→10", icon: Repeat2, desc: "One idea, 10 platforms" },
     ],
   },
   {
