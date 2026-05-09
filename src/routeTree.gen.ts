@@ -25,6 +25,7 @@ import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
+import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -110,6 +111,12 @@ const AuthenticatedGeneratorRoute = AuthenticatedGeneratorRouteImport.update({
   path: '/generator',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedFlopAnalyserRoute =
+  AuthenticatedFlopAnalyserRouteImport.update({
+    id: '/flop-analyser',
+    path: '/flop-analyser',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   id: '/film-this',
   path: '/film-this',
@@ -143,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
@@ -164,6 +172,7 @@ export interface FileRoutesByTo {
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
+  '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
@@ -187,6 +196,7 @@ export interface FileRoutesById {
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
+  '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
@@ -210,6 +220,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/app'
     | '/film-this'
+    | '/flop-analyser'
     | '/generator'
     | '/insights'
     | '/pitch-generator'
@@ -231,6 +242,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/app'
     | '/film-this'
+    | '/flop-analyser'
     | '/generator'
     | '/insights'
     | '/pitch-generator'
@@ -253,6 +265,7 @@ export interface FileRouteTypes {
     | '/terms'
     | '/_authenticated/app'
     | '/_authenticated/film-this'
+    | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
     | '/_authenticated/pitch-generator'
@@ -392,6 +405,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedGeneratorRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/flop-analyser': {
+      id: '/_authenticated/flop-analyser'
+      path: '/flop-analyser'
+      fullPath: '/flop-analyser'
+      preLoaderRoute: typeof AuthenticatedFlopAnalyserRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/film-this': {
       id: '/_authenticated/film-this'
       path: '/film-this'
@@ -426,6 +446,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
+  AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
@@ -439,6 +460,7 @@ interface AuthenticatedRouteChildren {
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
+  AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
