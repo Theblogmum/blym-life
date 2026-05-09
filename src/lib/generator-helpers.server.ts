@@ -80,6 +80,30 @@ export const FREE_MONTHLY_LIMITS: Partial<Record<Feature, number>> = {
   motivation: 9999,      // effectively unlimited (free tool)
 };
 
+/**
+ * Tier entitlements. A feature is unlocked at the named tier and every tier above.
+ * Order: free < creator < premium.
+ * Features NOT in CREATOR_FEATURES are Premium-only (advanced / business tools).
+ */
+export const CREATOR_FEATURES: Feature[] = [
+  "generator",
+  "caption_generator",
+  "viral_lab",
+  "cta",
+  "broll",
+  "series",
+  "repurpose",
+  "response",
+  "seo",
+  "engagement",
+  "bio",
+  "timing",
+  "faceless",
+  "pin",
+  "script_tighten",
+  "motivation",
+];
+
 function startOfMonthISO(): string {
   const d = new Date();
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
@@ -153,19 +177,29 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
+export type UserTier = "free" | "creator" | "premium";
+
+export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
     .from("profiles")
     .select("tier")
     .eq("id", userId)
     .maybeSingle();
-  if ((profile?.tier ?? "free") !== "free") return true;
+  const tier = (profile?.tier ?? "free") as string;
+  if (tier === "premium" || tier === "creator") return tier;
+  // Fallback: lifetime / active sub → premium
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
     user_uuid: userId,
     check_env: env,
   });
-  return !!hasSub;
+  return hasSub ? "premium" : "free";
+}
+
+export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
+  // Backwards-compatible: "premium" semantics = full access (premium tier or lifetime).
+  const tier = await getUserTier(supabase, userId);
+  return tier === "premium";
 }
 
 /**
@@ -174,10 +208,11 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  * are deprecated and always reflect "free forever" semantics now.
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
-  const premium = await isPremium(supabase, userId);
-  if (premium) {
+  const tier = await getUserTier(supabase, userId);
+  if (tier === "premium" || tier === "creator") {
     return {
-      premium: true,
+      premium: true, // legacy: any paid tier reads as "premium" for old UI gating
+      tier,
       inTrial: true, // legacy field — premium = unlimited
       daysLeft: null as number | null,
       trialEndsAt: null as string | null,
@@ -187,6 +222,7 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const freeUsage = await getFreeTierSnapshot(supabase, userId);
   return {
     premium: false,
+    tier: "free" as UserTier,
     inTrial: false,
     daysLeft: 0,
     trialEndsAt: null as string | null,
@@ -208,20 +244,28 @@ export async function enforceTrial(
   feature: Feature,
   opts?: { freeAllowed?: boolean },
 ) {
-  const premium = await isPremium(supabase, userId);
+  const tier = await getUserTier(supabase, userId);
   const recorder = {
     record: async () => {
       await supabase.from("usage_events").insert({ user_id: userId, feature });
     },
   };
-  if (premium) return recorder;
+  if (tier === "premium") return recorder;
+
+  if (tier === "creator") {
+    if (CREATOR_FEATURES.includes(feature)) return recorder;
+    throw new Error(
+      `${FEATURE_LABELS[feature]} is a Premium tool. Upgrade from Creator to Premium to unlock advanced business tools.`,
+    );
+  }
 
   const cap = FREE_MONTHLY_LIMITS[feature];
   const isFreeFeature = cap !== undefined || opts?.freeAllowed;
 
   if (!isFreeFeature) {
+    const tierName = CREATOR_FEATURES.includes(feature) ? "Creator (£9.99/mo)" : "Premium";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is a Premium tool. Upgrade to unlock unlimited access — your free ideas, captions, planner and saves stay free forever.`,
+      `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
     );
   }
 
@@ -229,7 +273,7 @@ export async function enforceTrial(
     const used = await getMonthlyUsage(supabase, userId, feature);
     if (used >= cap) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Premium for unlimited — your monthly free allowance refreshes on the 1st.`,
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£9.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
       );
     }
   }

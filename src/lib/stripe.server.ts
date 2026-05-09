@@ -20,12 +20,14 @@ export function getStripeEnv(): StripeEnv {
 // Human-readable price IDs map → Stripe price IDs.
 // Update these if you create new prices in your Stripe dashboard.
 export const PRICE_MAP: Record<string, { stripePriceId: string; mode: "subscription" | "payment" }> = {
+  creator_monthly: { stripePriceId: "price_1TVH9ELG4ux3wieXEBuL6Ydb", mode: "subscription" },
   premium_monthly: { stripePriceId: "price_1TUs2iLG4ux3wieXNocpahux", mode: "subscription" },
   premium_yearly:  { stripePriceId: "price_1TUs3RLG4ux3wieXJoxUaWyE", mode: "subscription" },
   lifetime_oneoff: { stripePriceId: "price_1TUs4oLG4ux3wieXM0IbSxDW", mode: "payment" },
 };
 
 export const PRODUCT_BY_PRICE: Record<string, string> = {
+  price_1TVH9ELG4ux3wieXEBuL6Ydb: "creator_monthly",
   price_1TUs2iLG4ux3wieXNocpahux: "premium_monthly",
   price_1TUs3RLG4ux3wieXJoxUaWyE: "premium_yearly",
   price_1TUs4oLG4ux3wieXM0IbSxDW: "lifetime_oneoff",

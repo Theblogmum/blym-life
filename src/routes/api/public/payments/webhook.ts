@@ -19,7 +19,9 @@ function priceKeyFromStripePriceId(stripePriceId: string | undefined | null): st
   return PRODUCT_BY_PRICE[stripePriceId] ?? stripePriceId;
 }
 
-async function setProfileTier(userId: string, tier: "free" | "premium", env: string) {
+type Tier = "free" | "creator" | "premium";
+
+async function setProfileTier(userId: string, tier: Tier, env: string) {
   if (tier === "free") {
     const { data: lifetime } = await getSupabase()
       .from("lifetime_purchases")
@@ -76,7 +78,11 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
   const stripeProductId =
     typeof item?.price?.product === "string" ? item.price.product : item?.price?.product?.id;
   const priceKey = priceKeyFromStripePriceId(stripePriceId);
-  const productKey = priceKey?.startsWith("premium_") ? "premium" : (priceKey ?? stripeProductId ?? "premium");
+  const productKey = priceKey?.startsWith("creator_")
+    ? "creator"
+    : priceKey?.startsWith("premium_")
+      ? "premium"
+      : (priceKey ?? stripeProductId ?? "premium");
 
   const periodStart = (sub as any).current_period_start
     ? new Date((sub as any).current_period_start * 1000).toISOString()
@@ -109,7 +115,10 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
     (sub.status === "canceled" &&
       (sub as any).current_period_end &&
       (sub as any).current_period_end * 1000 > Date.now());
-  await setProfileTier(userId, stillEntitled ? "premium" : "free", env);
+  const targetTier: Tier = stillEntitled
+    ? (productKey === "creator" ? "creator" : "premium")
+    : "free";
+  await setProfileTier(userId, targetTier, env);
 }
 
 async function handleSubscriptionDeleted(sub: Stripe.Subscription, env: string) {

@@ -371,7 +371,7 @@ function PricingPlans() {
         >Yearly · save ~25%</button>
       </div>
       )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <PriceCard
           name="Free"
           price="£0"
@@ -391,11 +391,36 @@ function PricingPlans() {
         />
         <PriceCard
           highlighted
+          name="Creator"
+          price="£9.99"
+          priceSuffix="/mo"
+          tagline="The sweet spot for serious creators."
+          features={[
+            "Unlimited content ideas + scripts",
+            "Unlimited captions, hooks & CTAs",
+            "Full TikTok / Reel script studio",
+            "Weekly + monthly content calendar",
+            "Smart saves: folders + tags",
+            "Trend breakdowns + niche mode",
+          ]}
+          cta={
+            isActive
+              ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : user ? "Upgrade to Creator" : "Start with Creator", onClick: () => buy("creator_monthly"), disabled: loading }
+          }
+        />
+        <PriceCard
           name="Premium"
           price={premiumPrice}
           priceSuffix={premiumSuffix}
           tagline={premiumNote}
-          features={["Unlimited daily briefs", "Viral Content Lab", "Clip Recycler", "Growth Insights", "Template Studio"]}
+          features={[
+            "Everything in Creator",
+            "Brand pitch generator + media kit",
+            "Clip Recycler + Flop Analyser",
+            "Growth Insights + Profile Audit",
+            "Business tools: invoices, deliverables, rates",
+          ]}
           cta={
             isActive
               ? { label: hasLifetime ? "Included in Lifetime" : "Current plan", onClick: () => navigate({ to: "/app" }), disabled: true }
