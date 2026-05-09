@@ -35,7 +35,7 @@ export const saveInvoice = createServerFn({ method: "POST" })
       issue_date: data.issue_date,
       due_date: data.due_date ?? null,
       currency: data.currency,
-      items: data.items as unknown as object,
+      items: data.items as unknown as import("@/integrations/supabase/types").Json,
       notes: data.notes ?? null,
       tax_rate: data.tax_rate ?? 0,
       status: data.status ?? "draft",
@@ -162,7 +162,7 @@ export const savePortfolio = createServerFn({ method: "POST" })
       user_id: context.userId,
       title: data.title, brand: data.brand ?? null, platform: data.platform ?? null,
       link: data.link ?? null, image_url: data.image_url ?? null, description: data.description ?? null,
-      metrics: (data.metrics ?? {}) as unknown as object,
+      metrics: (data.metrics ?? {}) as unknown as import("@/integrations/supabase/types").Json,
       posted_on: data.posted_on ?? null,
     };
     if (data.id) {
