@@ -18,6 +18,7 @@ import {
   TrendingDown,
   Target,
   Clapperboard,
+  ListOrdered,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -44,6 +45,7 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/viral-lab", label: "Viral Lab", icon: Flame, desc: "Break down trends" },
       { to: "/recycler", label: "Recycler", icon: Folder, desc: "5 ideas from one clip" },
       { to: "/broll", label: "B-Roll Ideas", icon: Clapperboard, desc: "Shots, angles & aesthetics" },
+      { to: "/series-builder", label: "Series Builder", icon: ListOrdered, desc: "30-part content series" },
     ],
   },
   {
