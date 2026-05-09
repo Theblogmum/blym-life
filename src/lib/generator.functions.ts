@@ -944,4 +944,82 @@ export const repurposeContent = createServerFn({ method: "POST" })
     };
   });
 
+export const writeBrandResponse = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { message: string; rate?: string; notes?: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "response");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      summary?: unknown;
+      red_flags?: unknown;
+      accept?: unknown;
+      negotiate?: unknown;
+      decline?: unknown;
+      follow_up?: unknown;
+    }>({
+      toolName: "brand_response_pack",
+      toolDescription:
+        "Read a brand outreach message and write 4 reply options: accept, negotiate, decline, follow-up.",
+      parameters: {
+        type: "object",
+        properties: {
+          summary: { type: "string" },
+          red_flags: { type: "array", items: { type: "string" }, minItems: 0, maxItems: 5 },
+          accept: {
+            type: "object",
+            properties: { subject: { type: "string" }, body: { type: "string" } },
+            required: ["subject", "body"],
+            additionalProperties: false,
+          },
+          negotiate: {
+            type: "object",
+            properties: { subject: { type: "string" }, body: { type: "string" } },
+            required: ["subject", "body"],
+            additionalProperties: false,
+          },
+          decline: {
+            type: "object",
+            properties: { subject: { type: "string" }, body: { type: "string" } },
+            required: ["subject", "body"],
+            additionalProperties: false,
+          },
+          follow_up: {
+            type: "object",
+            properties: { subject: { type: "string" }, body: { type: "string" } },
+            required: ["subject", "body"],
+            additionalProperties: false,
+          },
+        },
+        required: ["summary", "red_flags", "accept", "negotiate", "decline", "follow_up"],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You write professional brand replies for UK mum creators. British English. Warm but business-like, never desperate. Each reply: a clear subject and a tight body under 180 words. Negotiate replies should ask for a higher fee, usage clarity, and exclusivity terms. Decline replies stay polite and leave the door open. Follow-up is short and gracious. Flag any red flags in the brief (no fee, free product only, exclusivity grab, unrealistic deliverables, vague usage rights).",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nBrand's message:\n${data.message}\n\nMy current rate / context (optional): ${data.rate ?? "n/a"}\nExtra notes (optional): ${data.notes ?? "n/a"}\n\nWrite all 4 reply options plus a 1-line summary of what the brand is asking and any red flags.`,
+        },
+      ],
+    });
+    await quota.record();
+    const obj = (v: unknown) => (v ?? {}) as Record<string, unknown>;
+    const pack = (v: unknown) => {
+      const o = obj(v);
+      return { subject: readString(o.subject), body: readString(o.body) };
+    };
+    return {
+      summary: readString(result.summary),
+      red_flags: toStringList(result.red_flags),
+      accept: pack(result.accept),
+      negotiate: pack(result.negotiate),
+      decline: pack(result.decline),
+      follow_up: pack(result.follow_up),
+    };
+  });
+
 
