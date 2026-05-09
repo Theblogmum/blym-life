@@ -21,7 +21,7 @@ function TermsPage() {
 
       <h2 className="mt-8 font-display text-xl font-bold">1. Who you are contracting with</h2>
       <p className="mt-2">
-        The Blog Mum Studio ("we", "us", "our") is operated by Stephanie Trump, a sole trader based in the United Kingdom.
+        The Blog Mum Studio ("we", "us", "our") is operated by Stephanie Trump, a sole trader based in Guernsey, Channel Islands.
         You can contact us at <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
         By creating an account or using the service you agree to these Terms.
       </p>
