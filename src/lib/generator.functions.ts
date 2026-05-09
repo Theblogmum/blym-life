@@ -126,42 +126,4 @@ export const recycleClip = createServerFn({ method: "POST" })
     };
   });
 
-export const generatePitch = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((d: { brand: string; deliverables: string; followers?: number }) => d)
-  .handler(async ({ data, context }) => {
-    const quota = await enforceTrial(context.supabase, context.userId, "ugc_pitch");
-    const ctx = await getCtx(context.supabase, context.userId);
-    const result = await callAITool<{
-      subject?: unknown;
-      body?: unknown;
-      suggested_price_gbp?: unknown;
-    }>({
-      toolName: "brand_pitch",
-      toolDescription: "Brand pitch email + UK GBP price.",
-      parameters: {
-        type: "object",
-        properties: {
-          subject: { type: "string" },
-          body: { type: "string" },
-          suggested_price_gbp: { type: "number" },
-        },
-        required: ["subject", "body", "suggested_price_gbp"],
-        additionalProperties: false,
-      },
-      messages: [
-        { role: "system", content: "Warm, professional brand pitches for UK mum creators." },
-        {
-          role: "user",
-          content: `Creator:\n${ctx}\nFollowers: ${data.followers ?? "unknown"}\nBrand: ${data.brand}\nDeliverables: ${data.deliverables}`,
-        },
-      ],
-    });
-    await quota.record();
-    return {
-      subject: readString(result.subject, `Collaboration idea for ${data.brand}`),
-      body: readString(result.body),
-      suggested_price_gbp:
-        typeof result.suggested_price_gbp === "number" ? result.suggested_price_gbp : 0,
-    };
-  });
+
