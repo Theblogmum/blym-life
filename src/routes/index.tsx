@@ -351,7 +351,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <PriceCard
           name="Free"
           price="£0"
@@ -455,26 +455,26 @@ function PriceCard({
 }) {
   return (
     <div className={highlighted
-      ? "relative rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)]"
-      : "card-elegant p-7 text-left"}>
-      <div className={highlighted ? "rounded-[calc(1.75rem-1.5px)] bg-card p-7 text-left" : ""}>
+      ? "relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)]"
+      : "card-elegant h-full p-5 text-left flex flex-col"}>
+      <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
         {highlighted && (
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background">Most loved</span>
         )}
         <p className="eyebrow">{name}</p>
-        <p className="mt-2 font-display text-5xl font-normal tracking-tight">
-          {price}<span className="text-base font-normal text-muted-foreground">{priceSuffix}</span>
+        <p className="mt-2 font-display text-3xl sm:text-4xl font-normal tracking-tight">
+          {price}<span className="ml-0.5 text-sm font-normal text-muted-foreground">{priceSuffix}</span>
         </p>
-        <p className="mt-1.5 text-sm text-muted-foreground">{tagline}</p>
-        <ul className="mt-5 space-y-2.5 text-sm">
+        <p className="mt-1.5 text-xs text-muted-foreground leading-snug">{tagline}</p>
+        <ul className="mt-4 flex-1 space-y-2 text-[13px] leading-snug">
           {features.map((f) => (
-            <li key={f} className="flex gap-2.5">
-              <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2.5 w-2.5" /></span>
-              <span className="text-foreground/80">{f}</span>
+            <li key={f} className="flex items-start gap-2">
+              <span className="mt-1 grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2 w-2" /></span>
+              <span className="min-w-0 break-words text-foreground/80">{f}</span>
             </li>
           ))}
         </ul>
-        <Button onClick={cta.onClick} disabled={cta.disabled} className={`mt-6 w-full rounded-full ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`} variant={highlighted ? "default" : "outline"}>
+        <Button onClick={cta.onClick} disabled={cta.disabled} className={`mt-5 w-full rounded-full ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`} variant={highlighted ? "default" : "outline"}>
           {cta.label}
         </Button>
       </div>
