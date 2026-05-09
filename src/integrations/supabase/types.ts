@@ -56,6 +56,42 @@ export type Database = {
         }
         Relationships: []
       }
+      clients: {
+        Row: {
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       community_comments: {
         Row: {
           content: string
@@ -194,6 +230,7 @@ export type Database = {
           platforms: string[]
           posting_frequency: string | null
           target_audience: string | null
+          tax_rate: number
           tone: string | null
           updated_at: string
           user_id: string
@@ -213,6 +250,7 @@ export type Database = {
           platforms?: string[]
           posting_frequency?: string | null
           target_audience?: string | null
+          tax_rate?: number
           tone?: string | null
           updated_at?: string
           user_id: string
@@ -232,6 +270,7 @@ export type Database = {
           platforms?: string[]
           posting_frequency?: string | null
           target_audience?: string | null
+          tax_rate?: number
           tone?: string | null
           updated_at?: string
           user_id?: string
@@ -789,6 +828,42 @@ export type Database = {
           id?: string
           metadata?: Json | null
           reason?: string
+        }
+        Relationships: []
+      }
+      tax_reminders: {
+        Row: {
+          amount: number
+          created_at: string
+          done: boolean
+          due_date: string
+          id: string
+          notes: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          done?: boolean
+          due_date: string
+          id?: string
+          notes?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          done?: boolean
+          due_date?: string
+          id?: string
+          notes?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
