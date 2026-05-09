@@ -116,6 +116,7 @@ function SettingsPage() {
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
+              <Button variant="default" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("ultimate_monthly")}>Go Ultimate · £44.99/mo</Button>
               <Button variant="outline" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_yearly")}>£170/year · save ~25%</Button>
               <Button variant="ghost" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
             </div>

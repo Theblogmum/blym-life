@@ -191,7 +191,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export type UserTier = "free" | "creator" | "pro" | "premium";
+export type UserTier = "free" | "creator" | "pro" | "premium" | "ultimate";
 
 export async function getUserTier(supabase: SupabaseLike, userId: string): Promise<UserTier> {
   const { data: profile } = await supabase
@@ -200,7 +200,9 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
     .eq("id", userId)
     .maybeSingle();
   const tier = (profile?.tier ?? "free") as string;
-  if (tier === "premium" || tier === "pro" || tier === "creator") return tier as UserTier;
+  if (tier === "ultimate" || tier === "premium" || tier === "pro" || tier === "creator") {
+    return tier as UserTier;
+  }
   // Fallback: lifetime / active sub → premium
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
@@ -213,7 +215,7 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
 export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
   // Backwards-compatible: "premium" semantics = full access (premium tier or lifetime).
   const tier = await getUserTier(supabase, userId);
-  return tier === "premium";
+  return tier === "premium" || tier === "ultimate";
 }
 
 /**
@@ -223,7 +225,7 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const tier = await getUserTier(supabase, userId);
-  if (tier === "premium" || tier === "pro" || tier === "creator") {
+  if (tier === "ultimate" || tier === "premium" || tier === "pro" || tier === "creator") {
     return {
       premium: true, // legacy: any paid tier reads as "premium" for old UI gating
       tier,
@@ -265,6 +267,7 @@ export async function enforceTrial(
     },
   };
   if (tier === "premium") return recorder;
+  if (tier === "ultimate") return recorder;
 
   if (tier === "pro") {
     if (PRO_FEATURES.includes(feature)) return recorder;
