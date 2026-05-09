@@ -351,7 +351,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <PriceCard
           name="Free"
           price="£0"
