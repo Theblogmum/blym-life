@@ -6,7 +6,7 @@ type SupabaseLike = SupabaseClient<Database>;
 
 export const TRIAL_DAYS = 3;
 
-export type Feature = "generator" | "viral_lab" | "recycler" | "pitch" | "flop" | "niche_audit" | "broll" | "series" | "cta" | "repurpose" | "response";
+export type Feature = "generator" | "viral_lab" | "recycler" | "pitch" | "flop" | "niche_audit" | "broll" | "series" | "cta" | "repurpose" | "response" | "seo";
 
 export const FEATURE_LABELS: Record<Feature, string> = {
   generator: "Content Generator",
@@ -20,6 +20,7 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   cta: "CTA Generator",
   repurpose: "Repurposer",
   response: "Response Writer",
+  seo: "SEO Keyword Generator",
 };
 
 export function toStringList(value: unknown): string[] {
