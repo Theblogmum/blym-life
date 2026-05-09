@@ -3,7 +3,8 @@ import { useState, type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
-  TrendingUp, CalendarDays, Heart, Star,
+  TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
+  Lightbulb, BarChart3, DollarSign, Trophy,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -12,7 +13,7 @@ import { useSubscription } from "@/hooks/use-subscription";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
-import logoImg from "@/assets/logo.png";
+import logoImg from "@/assets/logo-blogmum.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,87 +63,119 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <PaymentTestModeBanner />
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-2xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logoImg} alt="The Blog Mum" className="h-8 w-auto sm:h-10" width={120} height={40} />
+          <img src={logoImg} alt="The Blog Mum" className="h-9 w-auto sm:h-10" width={120} height={40} />
           <span className="sr-only">The Blog Mum Studio</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm text-muted-foreground sm:flex">
-          <a href="#how" className="hover:text-foreground">How it works</a>
-          <a href="#features" className="hover:text-foreground">Features</a>
-          <a href="#pricing" className="hover:text-foreground">Pricing</a>
+        <nav className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex">
+          <a href="#how" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">How it works</a>
+          <a href="#features" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Features</a>
+          <a href="#pricing" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Pricing</a>
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <Link to="/app"><Button size="sm" className="rounded-full">Open studio</Button></Link>
+            <Link to="/app"><Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">Open studio</Button></Link>
           ) : (
             <>
-              <Link to="/login"><Button variant="ghost" size="sm">Sign in</Button></Link>
-              <Link to="/signup"><Button size="sm" className="rounded-full">Start free</Button></Link>
+              <Link to="/login"><Button variant="ghost" size="sm" className="rounded-full">Sign in</Button></Link>
+              <Link to="/signup"><Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">Start free</Button></Link>
             </>
           )}
         </div>
       </div>
       </header>
 
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-[image:var(--gradient-sunrise)] opacity-40" aria-hidden />
-        <div className="absolute -top-32 -right-20 h-80 w-80 rounded-full bg-white/40 blur-3xl" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pt-10 pb-12 sm:gap-10 sm:px-6 sm:pt-20 sm:pb-16 lg:grid-cols-2 lg:gap-12 lg:pt-28">
+      {/* ============ HERO ============ */}
+      <section className="relative overflow-hidden bg-aurora">
+        <div className="absolute -top-40 -right-32 h-[28rem] w-[28rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-50 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-40 -left-32 h-[26rem] w-[26rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-60 blur-3xl" aria-hidden />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:grid-cols-[1.05fr_1fr]">
           <div className="text-center lg:text-left">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-widest text-foreground/80 backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5 text-primary" /> For mum content creators
+            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
+              <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
             </span>
-            <h1 className="mt-4 font-display text-4xl font-black leading-[1.05] tracking-tight sm:mt-5 sm:text-6xl lg:text-7xl">
-              Your tiny content team{" "}
-              <span className="bg-[image:var(--gradient-warm)] bg-clip-text text-transparent">in your pocket.</span>
+            <h1 className="mt-5 font-display text-5xl font-normal leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-[80px]">
+              Your calm,&nbsp;clever{" "}
+              <span className="italic text-primary">creator&nbsp;studio</span>
+              <Heart className="ml-2 inline h-9 w-9 fill-primary text-primary align-middle sm:h-11 sm:w-11" />
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-base text-foreground/70 sm:mt-5 sm:text-lg lg:mx-0">
-              Daily briefs, viral remixes and weekly plans — built for mums who film between school runs.
+            <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground lg:mx-0">
+              Daily filming briefs, viral remixes, weekly plans and a beautiful business hub — built for mums who film between school runs.
             </p>
-            <div className="mt-6 flex flex-col items-stretch gap-3 sm:mt-7 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               <Link to={ctaPrimary.to}>
-                <Button size="lg" className="w-full rounded-full px-8 shadow-[var(--shadow-glow)] sm:w-auto">
-                  {ctaPrimary.label}
+                <Button size="lg" className="w-full rounded-full bg-foreground px-8 text-background shadow-[var(--shadow-glow)] hover:bg-foreground/90 sm:w-auto">
+                  {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               {ctaSecondary && (
                 <Link to={ctaSecondary.to}>
-                  <Button size="lg" variant="outline" className="w-full rounded-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full rounded-full border-border bg-card/70 backdrop-blur sm:w-auto">
                     {ctaSecondary.label}
                   </Button>
                 </Link>
               )}
             </div>
-            <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs font-semibold text-foreground/60 lg:justify-start">
-              <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> 3-day full trial</span>
-              <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> Captions free forever</span>
-              <span className="inline-flex items-center gap-1"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
+            <p className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs font-medium text-muted-foreground lg:justify-start">
+              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> 3-day full trial</span>
+              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Captions free forever</span>
+              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
             </p>
           </div>
-          <div className="relative mx-auto w-full max-w-xs sm:max-w-md lg:max-w-none">
-            <div className="absolute -inset-6 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
-            <div className="relative rounded-[1.5rem] bg-card p-5 shadow-[var(--shadow-glow)] ring-1 ring-primary/15 sm:rounded-[2rem] sm:p-12">
-              <img
-                src={logoImg}
-                alt="The Blog Mum — make it happen"
-                width={1024}
-                height={1024}
-                className="mx-auto w-full max-w-[220px] sm:max-w-sm"
-              />
+
+          {/* Dashboard preview mockup */}
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="absolute -inset-8 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" aria-hidden />
+            <div className="card-elegant relative overflow-hidden p-5 sm:p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="eyebrow">Today</p>
+                  <p className="mt-1 font-display text-xl font-normal">Good morning, Steph <Heart className="inline h-4 w-4 fill-primary text-primary" /></p>
+                </div>
+                <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground/70">Lvl 4</span>
+              </div>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                <MiniStat icon={Flame} label="Streak" value="12" unit="days" tint="var(--surface-blush)" />
+                <MiniStat icon={FileEdit} label="Posts" value="6" unit="this wk" tint="var(--surface-peach)" />
+                <MiniStat icon={Target} label="Goal" value="68%" unit="of £2k" tint="var(--surface-mint)" />
+                <MiniStat icon={Send} label="Follow-ups" value="3" unit="due" tint="var(--surface-butter)" />
+              </div>
+              <div className="mt-4 rounded-2xl border border-border/70 bg-secondary/40 p-4">
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow">Today's brief</p>
+                  <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">Reel</span>
+                </div>
+                <p className="mt-1.5 font-display text-lg">Mum-hack reel · 18s</p>
+                <p className="mt-1 text-xs text-muted-foreground">Hook · caption · shot list · best post time 7:42pm</p>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="h-1.5 flex-1 rounded-full bg-border/60">
+                    <div className="h-full w-2/3 rounded-full bg-primary" />
+                  </div>
+                  <span className="text-[10px] font-semibold text-muted-foreground">3 of 5</span>
+                </div>
+              </div>
+              <div className="mt-3 flex items-center gap-2 text-[11px] font-medium text-muted-foreground">
+                <TrendingUp className="h-3.5 w-3.5 text-success" />
+                <span>+24% reach this week — keep going.</span>
+              </div>
             </div>
-            <div className="absolute -bottom-5 -left-4 hidden rounded-2xl bg-card p-3 shadow-[var(--shadow-soft)] ring-1 ring-primary/10 sm:block">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Today's brief</p>
-              <p className="mt-1 text-sm font-semibold">Mum-hack reel · 18s</p>
-              <p className="text-xs text-muted-foreground">Post 7:42pm · 6.4k est. views</p>
+            <div className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-border/60 bg-card p-3 shadow-[var(--shadow-elegant)] sm:block">
+              <div className="flex items-center gap-2">
+                <span className="grid h-8 w-8 place-items-center rounded-xl bg-[var(--surface-mint)] text-success"><Trophy className="h-4 w-4" /></span>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">New win</p>
+                  <p className="text-sm font-medium">First £500 brand deal 💛</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-border bg-background py-6">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+      <section className="border-y border-border/60 bg-background py-7">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           <span>Loved by UK mum creators</span>
           <span className="inline-flex items-center gap-1">
             <Star className="h-3.5 w-3.5 fill-primary text-primary" />
@@ -156,38 +189,41 @@ function Landing() {
         </div>
       </section>
 
-      <section id="how" className="border-y border-border bg-secondary/40 py-16">
-        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">How it works</p>
-          <h2 className="mt-2 font-display text-2xl font-black sm:text-4xl">From overwhelmed to filmed in 3 steps.</h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+      <section id="how" className="bg-[image:var(--gradient-stone)] py-20">
+        <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
+          <p className="eyebrow">How it works</p>
+          <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-5xl">From overwhelmed to filmed in three calm steps.</h2>
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
             {[
-              { icon: Heart, t: "1. Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for." },
-              { icon: Wand2, t: "2. Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life." },
-              { icon: Camera, t: "3. Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record." },
-            ].map((s) => (
-              <div key={s.t} className="rounded-3xl bg-card p-6 text-left shadow-[var(--shadow-soft)]">
-                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-                  <s.icon className="h-5 w-5" />
+              { icon: Heart, t: "Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for.", tint: "var(--surface-blush)" },
+              { icon: Wand2, t: "Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life.", tint: "var(--surface-peach)" },
+              { icon: Camera, t: "Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record.", tint: "var(--surface-mint)" },
+            ].map((s, i) => (
+              <div key={s.t} className="card-elegant p-7 text-left">
+                <div className="flex items-center justify-between">
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl text-foreground" style={{ background: s.tint }}>
+                    <s.icon className="h-5 w-5" />
+                  </div>
+                  <span className="font-display text-2xl text-muted-foreground/60">0{i + 1}</span>
                 </div>
-                <h3 className="mt-4 text-lg font-semibold">{s.t}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{s.b}</p>
+                <h3 className="mt-5 font-display text-xl font-normal">{s.t}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.b}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <section id="features" className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Inside the studio</p>
-          <h2 className="mt-2 font-display text-2xl font-black sm:text-4xl">Three ways we save your evening.</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-foreground/70">
+          <p className="eyebrow">Inside the studio</p>
+          <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-5xl">A whole creator business, beautifully organised.</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
             One tool to plan, one to grow, one to get paid. No bloat — just the bits mum creators actually use.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+        <div className="mt-14 grid gap-5 lg:grid-cols-3">
           <BigFeature
             img={featBrief}
             badge="Plan"
@@ -211,60 +247,68 @@ function Landing() {
           />
         </div>
 
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." />
-          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." />
-          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." />
-          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." />
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." tint="var(--surface-blush)" />
+          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." tint="var(--surface-peach)" />
+          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." tint="var(--surface-mint)" />
+          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." tint="var(--surface-butter)" />
+          <MiniFeature icon={Lightbulb} title="Content Ideas" body="A library that learns your voice." tint="var(--surface-plum)" />
+          <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" />
+          <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" />
+          <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" />
         </div>
       </section>
 
-      <section id="pricing" className="border-t border-border bg-secondary/40 py-16 sm:py-20">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Pricing</p>
-          <h2 className="mt-2 font-display text-2xl font-black sm:text-4xl">Free to start. Upgrade when you're ready.</h2>
+      <section id="pricing" className="border-t border-border/60 bg-[image:var(--gradient-stone)] py-20 sm:py-24">
+        <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
+          <p className="eyebrow">Pricing</p>
+          <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-5xl">Free to start. Upgrade when you're ready.</h2>
           <PricingPlans />
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20">
-        <p className="text-center text-xs font-semibold uppercase tracking-wider text-primary">FAQ</p>
-        <h2 className="mt-2 text-center font-display text-2xl font-black sm:text-3xl">Things mums ask us</h2>
-        <div className="mt-8 space-y-3">
+      <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
+        <p className="eyebrow text-center">FAQ</p>
+        <h2 className="mt-3 text-center font-display text-3xl font-normal tracking-tight sm:text-4xl">Things mums ask us</h2>
+        <div className="mt-10 space-y-3">
           {[
             { q: "Do I need to be on camera?", a: "Nope. Most briefs work as voiceover, hands-only or text-on-screen." },
             { q: "What platforms is it for?", a: "TikTok and Instagram Reels. Briefs are designed for short-form vertical video." },
             { q: "How long does setup take?", a: "About 2 minutes. Tell us your niche, kids' ages and goal and you're in." },
             { q: "Can I cancel anytime?", a: "Yes — one click in Settings. No awkward emails." },
           ].map((f) => (
-            <details key={f.q} className="group rounded-2xl border border-border bg-card p-5 [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex cursor-pointer items-center justify-between font-medium">
+            <details key={f.q} className="group rounded-3xl border border-border/70 bg-card p-6 transition hover:border-border [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer items-center justify-between font-medium text-foreground">
                 {f.q}
-                <span className="text-muted-foreground transition-transform group-open:rotate-45">+</span>
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-2 text-sm text-muted-foreground">{f.a}</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
             </details>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-4 pb-16 sm:px-6 sm:pb-20">
-        <div className="rounded-3xl bg-[image:var(--gradient-warm)] p-[2px] shadow-[var(--shadow-soft)]">
-          <div className="rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-6 text-center sm:p-10">
-            <Clock className="mx-auto h-8 w-8 text-primary" />
-            <h2 className="mt-4 font-display text-2xl font-black sm:text-3xl">Tomorrow morning, your brief is ready.</h2>
-            <p className="mt-2 text-muted-foreground">Stop scrolling for ideas. Start filming the right one.</p>
-            <div className="mt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap">
-              <Link to={ctaPrimary.to}><Button size="lg" className="w-full rounded-full px-8 sm:w-auto">{ctaPrimary.label}</Button></Link>
+      <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[image:var(--gradient-ink)] p-10 text-center text-background sm:p-14">
+          <div className="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-[image:var(--gradient-warm)] opacity-30 blur-3xl" aria-hidden />
+          <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" aria-hidden />
+          <div className="relative">
+            <span className="inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-background/80 backdrop-blur">
+              <Clock className="h-3.5 w-3.5" /> Tomorrow morning
+            </span>
+            <h2 className="mt-4 font-display text-3xl font-normal tracking-tight sm:text-5xl">Your brief is already being written.</h2>
+            <p className="mx-auto mt-3 max-w-xl text-background/70">Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.</p>
+            <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+              <Link to={ctaPrimary.to}><Button size="lg" className="w-full rounded-full bg-background px-8 text-foreground hover:bg-background/90 sm:w-auto">{ctaPrimary.label} <ArrowRight className="h-4 w-4" /></Button></Link>
               {ctaSecondary && (
-                <Link to={ctaSecondary.to}><Button size="lg" variant="ghost" className="w-full rounded-full sm:w-auto">Sign in</Button></Link>
+                <Link to={ctaSecondary.to}><Button size="lg" variant="ghost" className="w-full rounded-full text-background hover:bg-background/10 sm:w-auto">Sign in</Button></Link>
               )}
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-border py-8 text-center text-xs text-muted-foreground">
+      <footer className="border-t border-border/60 py-10 text-center text-xs text-muted-foreground">
         <p>Made with care for mum creators · @theblogmumstudio</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <Link to="/terms" className="hover:text-foreground">Terms</Link>
@@ -376,20 +420,26 @@ function PriceCard({
 }) {
   return (
     <div className={highlighted
-      ? "rounded-3xl bg-[image:var(--gradient-warm)] p-[2px] shadow-[var(--shadow-soft)]"
-      : "rounded-3xl border border-border bg-card p-6 text-left"}>
-      <div className={highlighted ? "rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-6 text-left" : ""}>
-        <p className="text-sm font-semibold text-primary">{name}</p>
-        <p className="mt-1 font-display text-4xl font-black">
-          {price}<span className="text-base font-medium text-muted-foreground">{priceSuffix}</span>
+      ? "relative rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)]"
+      : "card-elegant p-7 text-left"}>
+      <div className={highlighted ? "rounded-[calc(1.75rem-1.5px)] bg-card p-7 text-left" : ""}>
+        {highlighted && (
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background">Most loved</span>
+        )}
+        <p className="eyebrow">{name}</p>
+        <p className="mt-2 font-display text-5xl font-normal tracking-tight">
+          {price}<span className="text-base font-normal text-muted-foreground">{priceSuffix}</span>
         </p>
-        <p className="mt-1 text-sm text-muted-foreground">{tagline}</p>
-        <ul className="mt-4 space-y-2 text-sm">
+        <p className="mt-1.5 text-sm text-muted-foreground">{tagline}</p>
+        <ul className="mt-5 space-y-2.5 text-sm">
           {features.map((f) => (
-            <li key={f} className="flex gap-2"><Check className="h-4 w-4 shrink-0 text-primary" />{f}</li>
+            <li key={f} className="flex gap-2.5">
+              <span className="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2.5 w-2.5" /></span>
+              <span className="text-foreground/80">{f}</span>
+            </li>
           ))}
         </ul>
-        <Button onClick={cta.onClick} disabled={cta.disabled} className="mt-5 w-full rounded-full" variant={highlighted ? "default" : "outline"}>
+        <Button onClick={cta.onClick} disabled={cta.disabled} className={`mt-6 w-full rounded-full ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`} variant={highlighted ? "default" : "outline"}>
           {cta.label}
         </Button>
       </div>
@@ -401,31 +451,48 @@ function BigFeature({
   img, badge, title, body, surface,
 }: { img: string; badge: string; title: string; body: string; surface: string }) {
   return (
-    <div className={`overflow-hidden rounded-3xl border-0 ${surface} shadow-[var(--shadow-soft)]`}>
+    <div className={`group overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-elegant)]`}>
       <div className="aspect-[4/3] overflow-hidden">
-        <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover" />
+        <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
       </div>
-      <div className="p-6">
-        <span className="inline-block rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-foreground/70">
+      <div className="p-7">
+        <span className="inline-block rounded-full bg-card/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/70 backdrop-blur">
           {badge}
         </span>
-        <h3 className="mt-3 font-display text-xl font-black">{title}</h3>
-        <p className="mt-2 text-sm text-foreground/70">{body}</p>
+        <h3 className="mt-3 font-display text-xl font-normal leading-snug">{title}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-foreground/70">{body}</p>
       </div>
     </div>
   );
 }
 
 function MiniFeature({
-  icon: Icon, title, body,
-}: { icon: ComponentType<{ className?: string }>; title: string; body: string }) {
+  icon: Icon, title, body, tint,
+}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string }) {
   return (
-    <div className="rounded-3xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
-      <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-secondary text-primary">
+    <div className="card-elegant p-5">
+      <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
         <Icon className="h-5 w-5" />
       </div>
-      <p className="mt-3 font-bold">{title}</p>
-      <p className="mt-1 text-sm text-muted-foreground">{body}</p>
+      <p className="mt-4 font-display text-base font-normal">{title}</p>
+      <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function MiniStat({
+  icon: Icon, label, value, unit, tint,
+}: { icon: ComponentType<{ className?: string }>; label: string; value: string; unit: string; tint: string }) {
+  return (
+    <div className="rounded-2xl border border-border/60 bg-card p-3.5">
+      <div className="flex items-center justify-between">
+        <span className="grid h-8 w-8 place-items-center rounded-xl text-foreground" style={{ background: tint }}>
+          <Icon className="h-4 w-4" />
+        </span>
+        <TrendingUp className="h-3.5 w-3.5 text-success" />
+      </div>
+      <p className="mt-2.5 font-display text-2xl leading-none">{value}<span className="ml-1 text-xs font-normal text-muted-foreground">{unit}</span></p>
+      <p className="mt-1 text-[11px] font-medium text-muted-foreground">{label}</p>
     </div>
   );
 }
