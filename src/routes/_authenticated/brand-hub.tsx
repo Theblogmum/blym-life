@@ -46,6 +46,10 @@ import {
 } from "@/lib/brand-hub.functions";
 import { cn } from "@/lib/utils";
 
+function buildMailto(to: string, subject: string, body: string) {
+  return `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 export const Route = createFileRoute("/_authenticated/brand-hub")({
   component: BrandHubPage,
 });
