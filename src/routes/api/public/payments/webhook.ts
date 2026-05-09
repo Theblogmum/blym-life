@@ -19,7 +19,7 @@ function priceKeyFromStripePriceId(stripePriceId: string | undefined | null): st
   return PRODUCT_BY_PRICE[stripePriceId] ?? stripePriceId;
 }
 
-type Tier = "free" | "creator" | "premium";
+type Tier = "free" | "creator" | "pro" | "premium";
 
 async function setProfileTier(userId: string, tier: Tier, env: string) {
   if (tier === "free") {
@@ -80,9 +80,11 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
   const priceKey = priceKeyFromStripePriceId(stripePriceId);
   const productKey = priceKey?.startsWith("creator_")
     ? "creator"
-    : priceKey?.startsWith("premium_")
-      ? "premium"
-      : (priceKey ?? stripeProductId ?? "premium");
+    : priceKey?.startsWith("pro_")
+      ? "pro"
+      : priceKey?.startsWith("premium_")
+        ? "premium"
+        : (priceKey ?? stripeProductId ?? "premium");
 
   const periodStart = (sub as any).current_period_start
     ? new Date((sub as any).current_period_start * 1000).toISOString()
@@ -116,7 +118,7 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
       (sub as any).current_period_end &&
       (sub as any).current_period_end * 1000 > Date.now());
   const targetTier: Tier = stillEntitled
-    ? (productKey === "creator" ? "creator" : "premium")
+    ? (productKey === "creator" ? "creator" : productKey === "pro" ? "pro" : "premium")
     : "free";
   await setProfileTier(userId, targetTier, env);
 }

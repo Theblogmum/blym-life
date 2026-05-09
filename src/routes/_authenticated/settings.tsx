@@ -98,15 +98,20 @@ function SettingsPage() {
               <p className="text-[11px] font-semibold uppercase tracking-wider">Upgrade your plan</p>
             </div>
             <p className="mt-2 font-display text-2xl font-black">Pick the plan that fits where you are.</p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-border p-4">
                 <p className="font-display text-lg font-bold">Creator · £9.99/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Unlimited ideas, captions, scripts + smart calendar.</p>
                 <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("creator_monthly")}>Go Creator</Button>
               </div>
               <div className="rounded-2xl border border-primary/40 bg-secondary/40 p-4">
+                <p className="font-display text-lg font-bold">Pro · £24.99/mo</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Viral growth engine, batching, insights + repurposing.</p>
+                <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("pro_monthly")}>Go Pro</Button>
+              </div>
+              <div className="rounded-2xl border border-border p-4">
                 <p className="font-display text-lg font-bold">Premium · £19/mo</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">Everything in Creator + business tools, insights, recycler.</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Everything in Pro + brand pitch, media kit, invoices.</p>
                 <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_monthly")}>Go Premium</Button>
               </div>
             </div>
