@@ -2099,3 +2099,168 @@ export const generatePassiveIdeas = createServerFn({ method: "POST" })
     };
   });
 
+// ===================== Rejection Recovery =====================
+export const recoverRejection = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { situation: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "rejection");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      reframe?: unknown;
+      pep_talk?: unknown;
+      reply_draft?: unknown;
+      lessons?: unknown;
+      next_steps?: unknown;
+      affirmation?: unknown;
+    }>({
+      toolName: "rejection_recovery",
+      toolDescription: "Help a creator process a rejection (brand no, flop, harsh comment, ghosted pitch) and bounce back.",
+      parameters: {
+        type: "object",
+        properties: {
+          reframe: { type: "string" },
+          pep_talk: { type: "string" },
+          reply_draft: { type: "string" },
+          lessons: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+          next_steps: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 4 },
+          affirmation: { type: "string" },
+        },
+        required: ["reframe", "pep_talk", "reply_draft", "lessons", "next_steps", "affirmation"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You're a kind, no-BS creator coach for UK mums. Validate first, then help them act. British English. Warm, not saccharine. The reply_draft should be a short, professional, classy reply they could send back (or 'no reply needed — here's why' if a reply isn't appropriate)." },
+        { role: "user", content: `Profile:\n${ctx}\n\nRejection / setback:\n${data.situation}\n\nGive: reframe, pep_talk (2-3 sentences), reply_draft, lessons, 3-4 next_steps (today/this week), and one short affirmation.` },
+      ],
+    });
+    await quota.record();
+    return {
+      reframe: readString(result.reframe),
+      pep_talk: readString(result.pep_talk),
+      reply_draft: readString(result.reply_draft),
+      lessons: toStringList(result.lessons),
+      next_steps: toStringList(result.next_steps),
+      affirmation: readString(result.affirmation),
+    };
+  });
+
+// ===================== "You're doing better than you think" =====================
+export const summariseWins = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "wins");
+    const { supabase, userId } = context;
+    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const [{ data: posts }, { data: portfolio }, { data: income }, { data: invoices }] = await Promise.all([
+      supabase.from("posts_logged").select("description, platform, views, likes, comments, saves, shares, posted_at").eq("user_id", userId).gte("posted_at", since).order("posted_at", { ascending: false }),
+      supabase.from("portfolio_items").select("title, brand, platform, posted_on").eq("user_id", userId).order("posted_on", { ascending: false, nullsFirst: false }).limit(20),
+      supabase.from("income_entries").select("amount, currency, category, entry_date, brand").eq("user_id", userId).gte("entry_date", since.slice(0, 10)),
+      supabase.from("invoices").select("number, brand_name, status, currency, items").eq("user_id", userId).gte("created_at", since),
+    ]);
+    const postsArr = posts ?? [];
+    const incomeArr = income ?? [];
+    // Numeric stats
+    const totalViews = postsArr.reduce((s, p) => s + (p.views ?? 0), 0);
+    const totalLikes = postsArr.reduce((s, p) => s + (p.likes ?? 0), 0);
+    const totalComments = postsArr.reduce((s, p) => s + (p.comments ?? 0), 0);
+    const totalSaves = postsArr.reduce((s, p) => s + (p.saves ?? 0), 0);
+    const incomeByCcy = new Map<string, number>();
+    for (const e of incomeArr) incomeByCcy.set(e.currency, (incomeByCcy.get(e.currency) ?? 0) + Number(e.amount ?? 0));
+    const stats = {
+      posts_30d: postsArr.length,
+      portfolio_items: (portfolio ?? []).length,
+      total_views: totalViews,
+      total_likes: totalLikes,
+      total_comments: totalComments,
+      total_saves: totalSaves,
+      invoices_30d: (invoices ?? []).length,
+      income_30d: Object.fromEntries(incomeByCcy),
+    };
+
+    if (postsArr.length === 0 && (portfolio ?? []).length === 0 && incomeArr.length === 0) {
+      await quota.record();
+      return {
+        stats,
+        wins: ["You showed up to read this. That's the first win."],
+        proud_of: ["Choosing to take this seriously enough to track it."],
+        invisible_progress: ["Most of what builds a creator career happens before anyone claps for it."],
+        message: "There's nothing logged yet — and that doesn't mean nothing's happened. Log one post or one invoice and we'll have something to celebrate.",
+        next_tiny_step: "Log one post you're slightly proud of in Insights.",
+      };
+    }
+
+    const ctx = await getCtx(supabase, userId);
+    const result = await callAITool<{
+      wins?: unknown; proud_of?: unknown; invisible_progress?: unknown; message?: unknown; next_tiny_step?: unknown;
+    }>({
+      toolName: "doing_better",
+      toolDescription: "Reframe a creator's last 30 days as a list of genuine wins — even small ones.",
+      parameters: {
+        type: "object",
+        properties: {
+          wins: { type: "array", items: { type: "string" }, minItems: 4, maxItems: 7 },
+          proud_of: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 5 },
+          invisible_progress: { type: "array", items: { type: "string" }, minItems: 2, maxItems: 4 },
+          message: { type: "string" },
+          next_tiny_step: { type: "string" },
+        },
+        required: ["wins", "proud_of", "invisible_progress", "message", "next_tiny_step"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "You write warm, specific 'you're doing better than you think' summaries for UK mum creators. Use their actual numbers. Never fluffy. Celebrate effort + invisible progress. British English." },
+        { role: "user", content: `Profile:\n${ctx}\n\nLast 30 days stats: ${JSON.stringify(stats)}\nRecent posts (top 10): ${JSON.stringify(postsArr.slice(0, 10))}\nPortfolio entries: ${JSON.stringify((portfolio ?? []).slice(0, 10))}\nIncome entries: ${JSON.stringify(incomeArr.slice(0, 10))}` },
+      ],
+    });
+    await quota.record();
+    return {
+      stats,
+      wins: toStringList(result.wins),
+      proud_of: toStringList(result.proud_of),
+      invisible_progress: toStringList(result.invisible_progress),
+      message: readString(result.message),
+      next_tiny_step: readString(result.next_tiny_step),
+    };
+  });
+
+// ===================== Daily Motivation =====================
+export const dailyMotivation = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "motivation", { freeAllowed: true });
+    const ctx = await getCtx(context.supabase, context.userId);
+    const today = new Date().toISOString().slice(0, 10);
+    const result = await callAITool<{
+      affirmation?: unknown; truth_bomb?: unknown; tiny_action?: unknown; journal_prompt?: unknown; permission_slip?: unknown;
+    }>({
+      toolName: "daily_motivation",
+      toolDescription: "Generate one short daily creator pep talk for a mum creator.",
+      parameters: {
+        type: "object",
+        properties: {
+          affirmation: { type: "string" },
+          truth_bomb: { type: "string" },
+          tiny_action: { type: "string" },
+          journal_prompt: { type: "string" },
+          permission_slip: { type: "string" },
+        },
+        required: ["affirmation", "truth_bomb", "tiny_action", "journal_prompt", "permission_slip"],
+        additionalProperties: false,
+      },
+      messages: [
+        { role: "system", content: "Daily pep talks for mum creators. Real, warm, no toxic positivity. British English. Short — every field 1-2 sentences max. Tiny_action must be doable in under 5 minutes today." },
+        { role: "user", content: `Profile:\n${ctx}\n\nToday is ${today}. Generate today's prompts.` },
+      ],
+    });
+    await quota.record();
+    return {
+      date: today,
+      affirmation: readString(result.affirmation),
+      truth_bomb: readString(result.truth_bomb),
+      tiny_action: readString(result.tiny_action),
+      journal_prompt: readString(result.journal_prompt),
+      permission_slip: readString(result.permission_slip),
+    };
+  });
+

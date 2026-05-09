@@ -31,7 +31,10 @@ export type Feature =
   | "media_kit"
   | "package_names"
   | "service_desc"
-  | "passive_ideas";
+  | "passive_ideas"
+  | "rejection"
+  | "wins"
+  | "motivation";
 
 export const FEATURE_LABELS: Record<Feature, string> = {
   generator: "Content Generator",
@@ -59,6 +62,9 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   package_names: "Package Naming",
   service_desc: "Service Description",
   passive_ideas: "Passive Product Ideas",
+  rejection: "Rejection Recovery",
+  wins: "Doing Better Insights",
+  motivation: "Daily Motivation",
 };
 
 export function toStringList(value: unknown): string[] {
