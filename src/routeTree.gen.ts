@@ -18,7 +18,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
-import { Route as AuthenticatedUgcHubRouteImport } from './routes/_authenticated/ugc-hub'
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
@@ -26,11 +25,9 @@ import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
-import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
-import { Route as ApiPublicGoogleCallbackRouteImport } from './routes/api/public/google/callback'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -76,11 +73,6 @@ const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   path: '/viral-lab',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedUgcHubRoute = AuthenticatedUgcHubRouteImport.update({
-  id: '/ugc-hub',
-  path: '/ugc-hub',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedTemplatesRoute = AuthenticatedTemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
@@ -116,11 +108,6 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedBrandHubRoute = AuthenticatedBrandHubRouteImport.update({
-  id: '/brand-hub',
-  path: '/brand-hub',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   id: '/app',
   path: '/app',
@@ -138,11 +125,6 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicGoogleCallbackRoute = ApiPublicGoogleCallbackRouteImport.update({
-  id: '/api/public/google/callback',
-  path: '/api/public/google/callback',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -153,7 +135,6 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
-  '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -161,9 +142,7 @@ export interface FileRoutesByFullPath {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
-  '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
-  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -176,7 +155,6 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/app': typeof AuthenticatedAppRoute
-  '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/generator': typeof AuthenticatedGeneratorRoute
   '/insights': typeof AuthenticatedInsightsRoute
@@ -184,9 +162,7 @@ export interface FileRoutesByTo {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
-  '/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
-  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -201,7 +177,6 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
-  '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
@@ -209,9 +184,7 @@ export interface FileRoutesById {
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
-  '/_authenticated/ugc-hub': typeof AuthenticatedUgcHubRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
-  '/api/public/google/callback': typeof ApiPublicGoogleCallbackRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
@@ -226,7 +199,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
-    | '/brand-hub'
     | '/film-this'
     | '/generator'
     | '/insights'
@@ -234,9 +206,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/settings'
     | '/templates'
-    | '/ugc-hub'
     | '/viral-lab'
-    | '/api/public/google/callback'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
@@ -249,7 +219,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/app'
-    | '/brand-hub'
     | '/film-this'
     | '/generator'
     | '/insights'
@@ -257,9 +226,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/settings'
     | '/templates'
-    | '/ugc-hub'
     | '/viral-lab'
-    | '/api/public/google/callback'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   id:
@@ -273,7 +240,6 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/_authenticated/app'
-    | '/_authenticated/brand-hub'
     | '/_authenticated/film-this'
     | '/_authenticated/generator'
     | '/_authenticated/insights'
@@ -281,9 +247,7 @@ export interface FileRouteTypes {
     | '/_authenticated/recycler'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
-    | '/_authenticated/ugc-hub'
     | '/_authenticated/viral-lab'
-    | '/api/public/google/callback'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
@@ -297,7 +261,6 @@ export interface RootRouteChildren {
   RefundRoute: typeof RefundRoute
   SignupRoute: typeof SignupRoute
   TermsRoute: typeof TermsRoute
-  ApiPublicGoogleCallbackRoute: typeof ApiPublicGoogleCallbackRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
@@ -367,13 +330,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedViralLabRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/ugc-hub': {
-      id: '/_authenticated/ugc-hub'
-      path: '/ugc-hub'
-      fullPath: '/ugc-hub'
-      preLoaderRoute: typeof AuthenticatedUgcHubRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/templates': {
       id: '/_authenticated/templates'
       path: '/templates'
@@ -423,13 +379,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/brand-hub': {
-      id: '/_authenticated/brand-hub'
-      path: '/brand-hub'
-      fullPath: '/brand-hub'
-      preLoaderRoute: typeof AuthenticatedBrandHubRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/app': {
       id: '/_authenticated/app'
       path: '/app'
@@ -451,19 +400,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/google/callback': {
-      id: '/api/public/google/callback'
-      path: '/api/public/google/callback'
-      fullPath: '/api/public/google/callback'
-      preLoaderRoute: typeof ApiPublicGoogleCallbackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 interface AuthenticatedRouteChildren {
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
-  AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
@@ -471,13 +412,11 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
-  AuthenticatedUgcHubRoute: typeof AuthenticatedUgcHubRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppRoute: AuthenticatedAppRoute,
-  AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
@@ -485,7 +424,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
-  AuthenticatedUgcHubRoute: AuthenticatedUgcHubRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
 }
 
@@ -502,10 +440,19 @@ const rootRouteChildren: RootRouteChildren = {
   RefundRoute: RefundRoute,
   SignupRoute: SignupRoute,
   TermsRoute: TermsRoute,
-  ApiPublicGoogleCallbackRoute: ApiPublicGoogleCallbackRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
