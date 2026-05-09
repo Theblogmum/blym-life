@@ -622,23 +622,19 @@ function OutreachTab({ pitches }: { pitches: Pitch[] }) {
           new Date(p.follow_up_due_at).getTime() < Date.now();
         return (
           <Card key={p.id} className="flex flex-col gap-3 rounded-3xl border-0 p-5 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center">
-            <div className="flex-1">
-              <div className="flex items-center gap-2">
-                <StatusBadge status={p.status} />
-                {followUpDue && (
-                  <span className="rounded-full bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-amber-700">
-                    Follow-up due
-                  </span>
-                )}
-              </div>
-              <p className="mt-2 font-semibold">{p.subject}</p>
-              <p className="text-xs text-muted-foreground">
-                {p.recipient_email} · {new Date(p.created_at).toLocaleDateString("en-GB")}
-              </p>
-            </div>
+            <PitchViewer pitch={p} followUpDue={!!followUpDue} />
             <div className="flex flex-wrap gap-2">
+              <Button asChild size="sm" className="rounded-full">
+                <a
+                  href={buildMailto(p.recipient_email, p.subject, p.body || "")}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Send className="mr-1 h-3.5 w-3.5" /> Send
+                </a>
+              </Button>
               {p.status === "draft" && (
-                <Button size="sm" className="rounded-full" onClick={() => update.mutate({ id: p.id, status: "sent" })}>
+                <Button size="sm" variant="outline" className="rounded-full" onClick={() => update.mutate({ id: p.id, status: "sent" })}>
                   Mark sent
                 </Button>
               )}
@@ -664,6 +660,90 @@ function OutreachTab({ pitches }: { pitches: Pitch[] }) {
         );
       })}
     </div>
+  );
+}
+
+function PitchViewer({ pitch, followUpDue }: { pitch: Pitch; followUpDue: boolean }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button className="flex-1 text-left">
+          <div className="flex items-center gap-2">
+            <StatusBadge status={pitch.status} />
+            {followUpDue && (
+              <span className="rounded-full bg-amber-500/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-amber-700">
+                Follow-up due
+              </span>
+            )}
+          </div>
+          <p className="mt-2 font-semibold hover:underline">{pitch.subject}</p>
+          <p className="text-xs text-muted-foreground">
+            {pitch.recipient_email} · {new Date(pitch.created_at).toLocaleDateString("en-GB")}
+          </p>
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-3xl sm:max-w-xl">
+        <DialogHeader>
+          <DialogTitle>{pitch.brand_name || "Pitch"}</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">To</p>
+            <p className="text-sm">{pitch.recipient_email}</p>
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Subject</p>
+            <p className="text-sm font-semibold">{pitch.subject}</p>
+          </div>
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Email</p>
+            <p className="mt-1 whitespace-pre-line rounded-2xl bg-secondary/40 p-4 text-sm">{pitch.body}</p>
+          </div>
+          {pitch.follow_up_body && (
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+                4-day follow-up
+              </p>
+              <p className="mt-1 whitespace-pre-line rounded-2xl bg-secondary/40 p-4 text-sm">
+                {pitch.follow_up_body}
+              </p>
+            </div>
+          )}
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Button asChild className="flex-1 rounded-2xl">
+              <a
+                href={buildMailto(pitch.recipient_email, pitch.subject, pitch.body || "")}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => toast.success("Opening your email app — hit Send there!")}
+              >
+                <Send className="mr-2 h-4 w-4" /> Open in email app
+              </a>
+            </Button>
+            <Button
+              variant="outline"
+              className="flex-1 rounded-2xl"
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  `To: ${pitch.recipient_email}\nSubject: ${pitch.subject}\n\n${pitch.body}`,
+                );
+                setCopied(true);
+                toast.success("Copied!");
+                setTimeout(() => setCopied(false), 1500);
+              }}
+            >
+              {copied ? <Check className="mr-2 h-4 w-4" /> : <Copy className="mr-2 h-4 w-4" />}
+              Copy
+            </Button>
+          </div>
+          <p className="text-center text-xs text-muted-foreground">
+            Opens in your default mail app (Gmail, Apple Mail, Outlook…) with everything pre-filled.
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
