@@ -331,10 +331,10 @@ function NavLink({
     <Link
       to={to}
       className={cn(
-        "rounded-full px-3.5 py-2 text-sm font-semibold transition-colors",
+        "rounded-full px-3.5 py-2 text-[13px] font-medium tracking-tight transition-all",
         active
-          ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
-          : "text-foreground/70 hover:bg-secondary/70 hover:text-foreground",
+          ? "bg-foreground text-background shadow-[var(--shadow-soft)]"
+          : "text-foreground/65 hover:bg-secondary hover:text-foreground",
       )}
     >
       {children}
