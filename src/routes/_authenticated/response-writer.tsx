@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -27,8 +27,6 @@ import { PageHero, UsageChip } from "@/components/page-hero";
 export const Route = createFileRoute("/_authenticated/response-writer")({
   component: ResponseWriterPage,
 });
-
-type LucideIcon = typeof ThumbsUp;
 
 const TABS = [
   { id: "accept", label: "Accept", icon: ThumbsUp },
@@ -243,7 +241,3 @@ function FieldRow({ label, value, multiline }: { label: string; value: string; m
     </div>
   );
 }
-
-// satisfy unused import linter
-void (null as unknown as LucideIcon);
-void (null as unknown as ReactNode);
