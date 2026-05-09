@@ -20,6 +20,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
@@ -87,6 +88,12 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedSeriesBuilderRoute =
+  AuthenticatedSeriesBuilderRouteImport.update({
+    id: '/series-builder',
+    path: '/series-builder',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
   id: '/recycler',
   path: '/recycler',
@@ -170,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
@@ -194,6 +202,7 @@ export interface FileRoutesByTo {
   '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
+  '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/templates': typeof AuthenticatedTemplatesRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
@@ -220,6 +229,7 @@ export interface FileRoutesById {
   '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
+  '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
@@ -246,6 +256,7 @@ export interface FileRouteTypes {
     | '/pitch-generator'
     | '/planner'
     | '/recycler'
+    | '/series-builder'
     | '/settings'
     | '/templates'
     | '/viral-lab'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/pitch-generator'
     | '/planner'
     | '/recycler'
+    | '/series-builder'
     | '/settings'
     | '/templates'
     | '/viral-lab'
@@ -295,6 +307,7 @@ export interface FileRouteTypes {
     | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
     | '/_authenticated/recycler'
+    | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/templates'
     | '/_authenticated/viral-lab'
@@ -392,6 +405,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/series-builder': {
+      id: '/_authenticated/series-builder'
+      path: '/series-builder'
+      fullPath: '/series-builder'
+      preLoaderRoute: typeof AuthenticatedSeriesBuilderRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/recycler': {
@@ -492,6 +512,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
+  AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
@@ -508,6 +529,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
+  AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,

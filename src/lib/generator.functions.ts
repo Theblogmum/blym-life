@@ -559,4 +559,133 @@ export const generateBroll = createServerFn({ method: "POST" })
     };
   });
 
+export const buildSeries = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { topic: string }) => d)
+  .handler(async ({ data, context }) => {
+    const quota = await enforceTrial(context.supabase, context.userId, "series");
+    const ctx = await getCtx(context.supabase, context.userId);
+    const result = await callAITool<{
+      series_title?: unknown;
+      premise?: unknown;
+      recurring_themes?: unknown;
+      pillars?: unknown;
+      episodes?: unknown;
+      posting_cadence?: unknown;
+    }>({
+      toolName: "content_series",
+      toolDescription:
+        "Plan a 30-part short-form content series with recurring themes and concrete episode briefs.",
+      parameters: {
+        type: "object",
+        properties: {
+          series_title: { type: "string" },
+          premise: { type: "string" },
+          recurring_themes: {
+            type: "array",
+            minItems: 3,
+            maxItems: 5,
+            items: { type: "string" },
+          },
+          pillars: {
+            type: "array",
+            minItems: 3,
+            maxItems: 5,
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                purpose: { type: "string" },
+              },
+              required: ["name", "purpose"],
+              additionalProperties: false,
+            },
+          },
+          episodes: {
+            type: "array",
+            minItems: 30,
+            maxItems: 30,
+            items: {
+              type: "object",
+              properties: {
+                number: { type: "number" },
+                title: { type: "string" },
+                pillar: { type: "string" },
+                hook: { type: "string" },
+                what_to_film: {
+                  type: "array",
+                  items: { type: "string" },
+                  minItems: 3,
+                  maxItems: 6,
+                },
+                how_to_film: { type: "string" },
+                caption: { type: "string" },
+                cta: { type: "string" },
+              },
+              required: [
+                "number",
+                "title",
+                "pillar",
+                "hook",
+                "what_to_film",
+                "how_to_film",
+                "caption",
+                "cta",
+              ],
+              additionalProperties: false,
+            },
+          },
+          posting_cadence: { type: "string" },
+        },
+        required: [
+          "series_title",
+          "premise",
+          "recurring_themes",
+          "pillars",
+          "episodes",
+          "posting_cadence",
+        ],
+        additionalProperties: false,
+      },
+      messages: [
+        {
+          role: "system",
+          content:
+            "You plan binge-able short-form video series for UK mum creators. British English, no AI clichés. Each episode must be filmable on a phone at home in under 15 mins. Hooks must be specific (not 'today I'm sharing'). Rotate across the pillars so the feed stays varied. Number episodes 1-30 in order. Captions under 220 chars. CTAs simple and natural.",
+        },
+        {
+          role: "user",
+          content: `Creator profile:\n${ctx}\n\nNiche/topic: ${data.topic}\n\nDesign a 30-part content series. Give it a memorable name, a 1-line premise, 3-5 recurring themes, 3-5 content pillars, then 30 fully briefed episodes (hook + 3-6 shots to film + how to film it + caption + CTA), and a sensible posting cadence.`,
+        },
+      ],
+    });
+    await quota.record();
+    const themesRaw = toStringList(result.recurring_themes);
+    const pillarsRaw = Array.isArray(result.pillars) ? result.pillars : [];
+    const episodesRaw = Array.isArray(result.episodes) ? result.episodes : [];
+    return {
+      series_title: readString(result.series_title),
+      premise: readString(result.premise),
+      recurring_themes: themesRaw,
+      pillars: pillarsRaw.map((p) => {
+        const it = p as Record<string, unknown>;
+        return { name: readString(it.name), purpose: readString(it.purpose) };
+      }),
+      episodes: episodesRaw.map((e, i) => {
+        const it = e as Record<string, unknown>;
+        return {
+          number: typeof it.number === "number" ? it.number : i + 1,
+          title: readString(it.title),
+          pillar: readString(it.pillar),
+          hook: readString(it.hook),
+          what_to_film: toStringList(it.what_to_film),
+          how_to_film: readString(it.how_to_film),
+          caption: readString(it.caption),
+          cta: readString(it.cta),
+        };
+      }),
+      posting_cadence: readString(result.posting_cadence),
+    };
+  });
+
 
