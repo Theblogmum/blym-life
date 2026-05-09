@@ -24,6 +24,11 @@ export const saveCreatorProfile = createServerFn({ method: "POST" })
     follower_goal?: number;
     posting_frequency?: string;
     known_for?: string;
+    tone?: string;
+    target_audience?: string;
+    content_style?: string;
+    hook_style?: string;
+    goals?: string[];
   }) => d)
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;

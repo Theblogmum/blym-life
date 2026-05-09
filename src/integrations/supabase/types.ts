@@ -182,46 +182,85 @@ export type Database = {
       }
       creator_profile: {
         Row: {
+          content_style: string | null
           created_at: string
           follower_goal: number | null
+          goals: string[]
+          hook_style: string | null
           kids_ages: string | null
           known_for: string | null
           location: string | null
           niches: string[]
           platforms: string[]
           posting_frequency: string | null
+          target_audience: string | null
+          tone: string | null
           updated_at: string
           user_id: string
           vibe: string | null
           work_status: string | null
         }
         Insert: {
+          content_style?: string | null
           created_at?: string
           follower_goal?: number | null
+          goals?: string[]
+          hook_style?: string | null
           kids_ages?: string | null
           known_for?: string | null
           location?: string | null
           niches?: string[]
           platforms?: string[]
           posting_frequency?: string | null
+          target_audience?: string | null
+          tone?: string | null
           updated_at?: string
           user_id: string
           vibe?: string | null
           work_status?: string | null
         }
         Update: {
+          content_style?: string | null
           created_at?: string
           follower_goal?: number | null
+          goals?: string[]
+          hook_style?: string | null
           kids_ages?: string | null
           known_for?: string | null
           location?: string | null
           niches?: string[]
           platforms?: string[]
           posting_frequency?: string | null
+          target_audience?: string | null
+          tone?: string | null
           updated_at?: string
           user_id?: string
           vibe?: string | null
           work_status?: string | null
+        }
+        Relationships: []
+      }
+      creator_xp: {
+        Row: {
+          created_at: string
+          last_claim_date: string | null
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          created_at?: string
+          last_claim_date?: string | null
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          created_at?: string
+          last_claim_date?: string | null
+          updated_at?: string
+          user_id?: string
+          xp?: number
         }
         Relationships: []
       }
@@ -834,11 +873,46 @@ export type Database = {
         }
         Relationships: []
       }
+      xp_events: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          reason: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          id?: string
+          reason: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          reason?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      award_xp: {
+        Args: { _amount: number; _reason: string; _user_id: string }
+        Returns: undefined
+      }
+      claim_daily_xp: {
+        Args: { _user_id: string }
+        Returns: {
+          awarded: boolean
+          xp: number
+        }[]
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean

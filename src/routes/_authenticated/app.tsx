@@ -14,6 +14,7 @@ import {
 import { toast } from "sonner";
 import { getDashboard, saveGoal, deleteGoal, updateGoalProgress, saveFollowUp, toggleFollowUp, deleteFollowUp, togglePlan } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
+import { XpBadge } from "@/components/xp-badge";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
@@ -68,9 +69,10 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Wins ribbon */}
+      {/* XP + Wins ribbon */}
+      <div className="mt-5"><XpBadge /></div>
       {d && (
-        <Card className="mt-5 rounded-3xl border-0 bg-[image:var(--gradient-mint)] p-4 text-white">
+        <Card className="mt-4 rounded-3xl border-0 bg-[image:var(--gradient-mint)] p-4 text-white">
           <div className="flex items-start gap-3">
             <Trophy className="mt-0.5 h-5 w-5 shrink-0" />
             <div className="flex flex-wrap gap-2">

@@ -18,6 +18,10 @@ export const Route = createFileRoute("/onboarding")({
 const NICHES = ["Relatable mum", "Aesthetic mum", "Working mum", "Fitness mum", "Crunchy mum", "Budget mum", "Toddler mum", "Newborn mum", "SAHM"];
 const PLATFORMS = ["TikTok", "Instagram"];
 const FREQ = ["Daily", "Few times a week", "Weekly"];
+const TONES = ["Warm", "Witty", "No-BS", "Soft", "Hype", "Educational", "Cosy"];
+const STYLES = ["Talking head", "Voiceover", "Day-in-the-life", "Faceless", "Tutorial", "Storytime", "Aesthetic"];
+const HOOKS = ["Question", "Bold claim", "Confession", "Relatable POV", "Stat / number", "Story open"];
+const GOAL_OPTIONS = ["Grow followers", "Land brand deals", "Build a community", "Sell my product", "Make passive income", "Build a portfolio"];
 const WORK = [
   { v: "sahm", l: "SAHM" },
   { v: "wfh", l: "Work from home" },
@@ -39,6 +43,11 @@ function OnboardingPage() {
   const [goal, setGoal] = useState("");
   const [freq, setFreq] = useState("");
   const [knownFor, setKnownFor] = useState("");
+  const [tone, setTone] = useState("");
+  const [audience, setAudience] = useState("");
+  const [style, setStyle] = useState("");
+  const [hookStyle, setHookStyle] = useState("");
+  const [goals, setGoals] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -61,6 +70,11 @@ function OnboardingPage() {
           follower_goal: goal ? parseInt(goal, 10) : undefined,
           posting_frequency: freq || undefined,
           known_for: knownFor || undefined,
+          tone: tone || undefined,
+          target_audience: audience || undefined,
+          content_style: style || undefined,
+          hook_style: hookStyle || undefined,
+          goals,
         },
       });
       toast.success("All set! Let's go.");
@@ -75,7 +89,7 @@ function OnboardingPage() {
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-5 py-10">
       <div className="mb-8 flex items-center gap-2">
-        {[1, 2, 3].map((s) => (
+        {[1, 2, 3, 4].map((s) => (
           <div
             key={s}
             className={cn("h-1.5 flex-1 rounded-full", s <= step ? "bg-primary" : "bg-secondary")}
@@ -188,11 +202,49 @@ function OnboardingPage() {
         </div>
       )}
 
+      {step === 4 && (
+        <div>
+          <h1 className="font-display text-3xl font-black">Your voice</h1>
+          <p className="mt-1 text-muted-foreground">So every tool sounds like you, not a robot.</p>
+
+          <Label className="mt-6 block">Tone</Label>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {TONES.map((t) => (
+              <button key={t} type="button" onClick={() => setTone(t)} className={cn("rounded-full border px-4 py-2 text-sm", tone === t ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-secondary")}>{t}</button>
+            ))}
+          </div>
+
+          <Label htmlFor="aud" className="mt-5 block">Who are you talking to?</Label>
+          <Input id="aud" placeholder="First-time mums in the UK, 25-35" value={audience} onChange={(e) => setAudience(e.target.value)} />
+
+          <Label className="mt-5 block">Content style</Label>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {STYLES.map((t) => (
+              <button key={t} type="button" onClick={() => setStyle(t)} className={cn("rounded-full border px-4 py-2 text-sm", style === t ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-secondary")}>{t}</button>
+            ))}
+          </div>
+
+          <Label className="mt-5 block">Preferred hook style</Label>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {HOOKS.map((t) => (
+              <button key={t} type="button" onClick={() => setHookStyle(t)} className={cn("rounded-full border px-4 py-2 text-sm", hookStyle === t ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-secondary")}>{t}</button>
+            ))}
+          </div>
+
+          <Label className="mt-5 block">Goals (pick any)</Label>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {GOAL_OPTIONS.map((g) => (
+              <button key={g} type="button" onClick={() => setGoals((x) => toggle(x, g))} className={cn("rounded-full border px-4 py-2 text-sm", goals.includes(g) ? "border-primary bg-primary text-primary-foreground" : "border-border bg-card hover:bg-secondary")}>{g}</button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="mt-10 flex items-center justify-between">
         <Button variant="ghost" onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1}>
           Back
         </Button>
-        {step < 3 ? (
+        {step < 4 ? (
           <Button className="rounded-full px-6" onClick={() => setStep((s) => s + 1)}>
             Next
           </Button>

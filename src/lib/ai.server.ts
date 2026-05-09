@@ -87,10 +87,20 @@ export function buildCreatorContext(p: {
   follower_goal?: number | null;
   posting_frequency?: string | null;
   known_for?: string | null;
+  tone?: string | null;
+  target_audience?: string | null;
+  content_style?: string | null;
+  hook_style?: string | null;
+  goals?: string[] | null;
 }): string {
   const lines = [
     p.niches?.length ? `Niches: ${p.niches.join(", ")}` : null,
     p.vibe ? `Vibe: ${p.vibe}` : null,
+    p.tone ? `Tone: ${p.tone}` : null,
+    p.target_audience ? `Target audience: ${p.target_audience}` : null,
+    p.content_style ? `Content style: ${p.content_style}` : null,
+    p.hook_style ? `Preferred hook style: ${p.hook_style}` : null,
+    p.goals?.length ? `Goals: ${p.goals.join(", ")}` : null,
     p.kids_ages ? `Kids' ages: ${p.kids_ages}` : null,
     p.work_status ? `Work: ${p.work_status}` : null,
     p.location ? `Location: ${p.location}` : null,
