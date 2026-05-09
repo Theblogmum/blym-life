@@ -4,10 +4,11 @@ import type { Database } from "@/integrations/supabase/types";
 
 type SupabaseLike = SupabaseClient<Database>;
 
-export const TRIAL_DAYS = 3;
+export const TRIAL_DAYS = 0; // legacy, kept for compatibility — trial is removed
 
 export type Feature =
   | "generator"
+  | "caption_generator"
   | "viral_lab"
   | "recycler"
   | "pitch"
@@ -38,6 +39,7 @@ export type Feature =
 
 export const FEATURE_LABELS: Record<Feature, string> = {
   generator: "Content Generator",
+  caption_generator: "Caption + Hook Generator",
   viral_lab: "Viral Lab",
   recycler: "Clip Recycler",
   pitch: "Pitch Generator",
@@ -66,6 +68,49 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   wins: "Doing Better Insights",
   motivation: "Daily Motivation",
 };
+
+/**
+ * Free Forever tier — monthly caps per feature bucket. Calendar month reset.
+ * Features NOT listed here are Premium-only (locked for free users).
+ * Premium subscribers always bypass these caps.
+ */
+export const FREE_MONTHLY_LIMITS: Partial<Record<Feature, number>> = {
+  generator: 20,         // content ideas + scripts (rolled together)
+  caption_generator: 10, // caption + hook generator
+  motivation: 9999,      // effectively unlimited (free tool)
+};
+
+function startOfMonthISO(): string {
+  const d = new Date();
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
+}
+
+export async function getMonthlyUsage(
+  supabase: SupabaseLike,
+  userId: string,
+  feature: Feature,
+): Promise<number> {
+  const since = startOfMonthISO();
+  const { count } = await supabase
+    .from("usage_events")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .eq("feature", feature)
+    .gte("created_at", since);
+  return count ?? 0;
+}
+
+export async function getFreeTierSnapshot(supabase: SupabaseLike, userId: string) {
+  const features = Object.keys(FREE_MONTHLY_LIMITS) as Feature[];
+  const usage: Record<string, { used: number; limit: number }> = {};
+  await Promise.all(
+    features.map(async (f) => {
+      const used = await getMonthlyUsage(supabase, userId, f);
+      usage[f] = { used, limit: FREE_MONTHLY_LIMITS[f] ?? 0 };
+    }),
+  );
+  return usage;
+}
 
 export function toStringList(value: unknown): string[] {
   if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
