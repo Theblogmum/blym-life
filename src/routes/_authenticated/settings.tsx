@@ -95,23 +95,24 @@ function SettingsPage() {
           <div className="rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-5">
             <div className="flex items-center gap-2 text-primary">
               <Sparkles className="h-4 w-4" />
-              <p className="text-[11px] font-semibold uppercase tracking-wider">Go Premium</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wider">Upgrade your plan</p>
             </div>
-            <p className="mt-2 font-display text-2xl font-black">Unlimited briefs, deeper insights.</p>
-            <ul className="mt-3 space-y-1.5 text-sm">
-              {[
-                "Unlimited content ideas, captions & hooks",
-                "Viral breakdowns + remixes",
-                "Clip recycler",
-                "Growth insights",
-              ].map((p) => (
-                <li key={p} className="flex gap-2"><Check className="h-4 w-4 text-primary" />{p}</li>
-              ))}
-            </ul>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button className="rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_monthly")}>£19/month</Button>
-              <Button className="rounded-full" variant="secondary" disabled={checkoutLoading} onClick={() => buy("premium_yearly")}>£170/year · save ~25%</Button>
-              <Button className="rounded-full" variant="outline" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
+            <p className="mt-2 font-display text-2xl font-black">Pick the plan that fits where you are.</p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-border p-4">
+                <p className="font-display text-lg font-bold">Creator · £9.99/mo</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Unlimited ideas, captions, scripts + smart calendar.</p>
+                <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("creator_monthly")}>Go Creator</Button>
+              </div>
+              <div className="rounded-2xl border border-primary/40 bg-secondary/40 p-4">
+                <p className="font-display text-lg font-bold">Premium · £19/mo</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">Everything in Creator + business tools, insights, recycler.</p>
+                <Button className="mt-3 w-full rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_monthly")}>Go Premium</Button>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button variant="outline" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("premium_yearly")}>£170/year · save ~25%</Button>
+              <Button variant="ghost" className="rounded-full" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
             </div>
           </div>
         </Card>
