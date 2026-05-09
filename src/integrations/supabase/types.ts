@@ -873,6 +873,8 @@ export type Database = {
           ends_at: string
           id: string
           ip_hash: string
+          reminder_1h_sent_at: string | null
+          reminder_24h_sent_at: string | null
           started_at: string
           user_id: string
         }
@@ -881,6 +883,8 @@ export type Database = {
           ends_at?: string
           id?: string
           ip_hash: string
+          reminder_1h_sent_at?: string | null
+          reminder_24h_sent_at?: string | null
           started_at?: string
           user_id: string
         }
@@ -889,6 +893,8 @@ export type Database = {
           ends_at?: string
           id?: string
           ip_hash?: string
+          reminder_1h_sent_at?: string | null
+          reminder_24h_sent_at?: string | null
           started_at?: string
           user_id?: string
         }
