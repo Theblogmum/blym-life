@@ -223,7 +223,7 @@ export async function isPremium(supabase: SupabaseLike, userId: string): Promise
  */
 export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const tier = await getUserTier(supabase, userId);
-  if (tier === "premium" || tier === "creator") {
+  if (tier === "premium" || tier === "pro" || tier === "creator") {
     return {
       premium: true, // legacy: any paid tier reads as "premium" for old UI gating
       tier,
