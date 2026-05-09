@@ -32,6 +32,14 @@ import {
   Scissors,
   Package,
   Calculator,
+  FileText,
+  Tag,
+  ScrollText,
+  Lightbulb,
+  Receipt,
+  Wallet,
+  Link2,
+  Briefcase,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -70,6 +78,8 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/faceless-optimiser", label: "Faceless Optimiser", icon: Eye, desc: "Show up without showing your face" },
       { to: "/pin-optimiser", label: "Pinterest Pin", icon: Pin, desc: "Title, desc, board, image brief" },
       { to: "/script-tightener", label: "Script Tightener", icon: Scissors, desc: "Cut filler, sharpen hooks" },
+      { to: "/package-names", label: "Package Names", icon: Tag, desc: "5 themed sets, 3 tiers each" },
+      { to: "/service-description", label: "Service Descriptions", icon: ScrollText, desc: "Long, short, bullets, FAQs" },
     ],
   },
   {
@@ -88,6 +98,17 @@ const groups: { label: string; items: Item[] }[] = [
       { to: "/pitch-generator", label: "Pitch Generator", icon: Mail, desc: "Email + DM + follow-up" },
       { to: "/deliverables-builder", label: "Deliverables", icon: Package, desc: "3-tier brand-deal packages" },
       { to: "/usage-rights", label: "Usage Rights", icon: Calculator, desc: "Calculate fair uplift" },
+      { to: "/media-kit", label: "Media Kit", icon: FileText, desc: "All the copy + design brief" },
+      { to: "/portfolio", label: "Portfolio", icon: Briefcase, desc: "Save your best work" },
+      { to: "/passive-ideas", label: "Passive Ideas", icon: Lightbulb, desc: "Digital product brainstorm" },
+    ],
+  },
+  {
+    label: "Money",
+    items: [
+      { to: "/invoices", label: "Invoices", icon: Receipt, desc: "Branded invoices, print to PDF" },
+      { to: "/income-tracker", label: "Income Tracker", icon: Wallet, desc: "Monthly totals + categories" },
+      { to: "/affiliates", label: "Affiliate Links", icon: Link2, desc: "All your codes in one place" },
     ],
   },
 ];
