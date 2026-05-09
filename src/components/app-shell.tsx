@@ -127,7 +127,7 @@ const groups: { label: string; items: Item[] }[] = [
 ];
 
 const flatNav: Item[] = [
-  { to: "/app", label: "Today", icon: Home },
+  { to: "/app", label: "Home", icon: Home },
   ...groups.flatMap((g) => g.items),
 ];
 
@@ -159,7 +159,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           {/* Desktop nav */}
           <nav className="ml-6 hidden items-center gap-1 lg:flex">
             <NavLink to="/app" active={isActive("/app")}>
-              Today
+              Home
             </NavLink>
             {groups.map((g) => (
               <DropdownMenu key={g.label}>
@@ -261,7 +261,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   isActive("/app") ? "bg-primary text-primary-foreground" : "bg-secondary",
                 )}
               >
-                <Home className="h-4 w-4" /> Today
+                <Home className="h-4 w-4" /> Home
               </Link>
               {groups.map((g) => (
                 <div key={g.label}>
