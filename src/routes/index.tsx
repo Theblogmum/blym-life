@@ -653,24 +653,30 @@ function PriceCard({
     <div className={highlighted
       ? "relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)]"
       : "card-elegant h-full p-5 text-left flex flex-col"}>
-      <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
+      <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-4 sm:p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
         {highlighted && (
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background">Most loved</span>
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-background">Most loved</span>
         )}
         <p className="eyebrow">{name}</p>
-        <p className="mt-2 font-display text-3xl sm:text-4xl font-normal tracking-tight">
-          {price}<span className="ml-0.5 text-sm font-normal text-muted-foreground">{priceSuffix}</span>
+        <p className="mt-2 font-display text-2xl font-normal tracking-tight sm:text-3xl">
+          {price}<span className="ml-0.5 text-xs font-normal text-muted-foreground">{priceSuffix}</span>
         </p>
-        <p className="mt-1.5 text-xs text-muted-foreground leading-snug">{tagline}</p>
-        <ul className="mt-4 flex-1 space-y-2 text-[13px] leading-snug">
+        <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{tagline}</p>
+        <ul className="mt-3 flex-1 space-y-1.5 text-[12px] leading-[1.4]">
           {features.map((f) => (
-            <li key={f} className="flex items-start gap-2">
-              <span className="mt-1 grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2 w-2" /></span>
+            <li key={f} className="flex items-start gap-1.5">
+              <span className="mt-0.5 grid h-3 w-3 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2 w-2" /></span>
               <span className="min-w-0 break-words text-foreground/80">{f}</span>
             </li>
           ))}
         </ul>
-        <Button onClick={cta.onClick} disabled={cta.disabled} className={`mt-5 w-full rounded-full ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`} variant={highlighted ? "default" : "outline"}>
+        <Button
+          onClick={cta.onClick}
+          disabled={cta.disabled}
+          size="sm"
+          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`}
+          variant={highlighted ? "default" : "outline"}
+        >
           {cta.label}
         </Button>
       </div>
