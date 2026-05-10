@@ -2,9 +2,17 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap, Mail, HelpCircle, BookOpen, Briefcase,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -69,8 +77,45 @@ function Landing() {
           <img src={logoImg} alt="The Blog Mum" className="h-9 w-auto sm:h-10" width={120} height={40} />
           <span className="sr-only">The Blog Mum Studio</span>
         </Link>
-        <nav className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex">
-          <a href="#how" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">How it works</a>
+        <NavigationMenu className="hidden lg:flex">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-muted-foreground hover:text-foreground data-[state=open]:bg-secondary">Product</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[460px] grid-cols-2 gap-2 p-3">
+                  <NavMenuLink href="#features" icon={Wand2} title="Features" body="Every tool inside the studio" />
+                  <NavMenuLink href="#how" icon={Sparkles} title="How it works" body="From idea to filmed in 3 steps" />
+                  <NavMenuLink href="#pricing" icon={DollarSign} title="Pricing" body="Free to start. Upgrade any time" />
+                  <NavMenuLink href="#faq" icon={HelpCircle} title="FAQ" body="The questions mums ask us" />
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-muted-foreground hover:text-foreground data-[state=open]:bg-secondary">For creators</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[460px] grid-cols-2 gap-2 p-3">
+                  <NavMenuLink href="#features" icon={Flame} title="Viral Lab" body="Remix any trend for your niche" />
+                  <NavMenuLink href="#features" icon={CalendarDays} title="Weekly Planner" body="A 7-day grid you'll actually fill" />
+                  <NavMenuLink href="#features" icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles" />
+                  <NavMenuLink href="#features" icon={Briefcase} title="Revenue Hub" body="Income, invoices & brand pipeline" />
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <a href="#testimonials" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Reviews</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <a href="mailto:studio@theblogmum.com" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Contact</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        {/* Compact nav for tablets */}
+        <nav className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex lg:hidden">
+          <a href="#how" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">How</a>
           <a href="#features" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Features</a>
           <a href="#pricing" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Pricing</a>
         </nav>
