@@ -462,8 +462,8 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[image:var(--gradient-ink)] p-10 text-center text-background sm:p-14">
-          <div className="absolute inset-0 bg-background/20" aria-hidden />
+        <div className="relative overflow-hidden rounded-[2rem] bg-slate-500 p-10 text-center text-white sm:p-14">
+          <div className="absolute inset-0 bg-white/5" aria-hidden />
           <div className="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-[image:var(--gradient-warm)] opacity-30 blur-3xl" aria-hidden />
           <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" aria-hidden />
           <div className="relative">
