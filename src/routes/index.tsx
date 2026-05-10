@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -91,7 +91,7 @@ function Landing() {
       <section className="relative overflow-hidden bg-aurora">
         <div className="absolute -top-40 -right-32 h-[28rem] w-[28rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-50 blur-3xl" aria-hidden />
         <div className="absolute -bottom-40 -left-32 h-[26rem] w-[26rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-60 blur-3xl" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:grid-cols-[1.05fr_1fr]">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:grid-cols-[0.9fr_1.15fr]">
           <div className="text-center lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
@@ -105,37 +105,49 @@ function Landing() {
             <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground lg:mx-0">
               Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
             </p>
-            <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
-              <Link to={ctaPrimary.to}>
-                <Button size="lg" className="w-full rounded-full bg-foreground px-8 text-background shadow-[var(--shadow-glow)] hover:bg-foreground/90 sm:w-auto">
-                  {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              {ctaSecondary && (
-                <Link to={ctaSecondary.to}>
-                  <Button size="lg" variant="outline" className="w-full rounded-full border-border bg-card/70 backdrop-blur sm:w-auto">
-                    {ctaSecondary.label}
+            {/* High-contrast focal CTA block */}
+            <div className="mt-8 rounded-3xl bg-[image:var(--gradient-ink)] p-5 text-background shadow-[var(--shadow-elegant)] sm:p-6">
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+                <Link to={ctaPrimary.to}>
+                  <Button size="lg" className="w-full rounded-full bg-primary px-8 text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90 sm:w-auto">
+                    {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
-              )}
+                {ctaSecondary && (
+                  <Link to={ctaSecondary.to}>
+                    <Button size="lg" variant="ghost" className="w-full rounded-full text-background hover:bg-background/10 sm:w-auto">
+                      {ctaSecondary.label}
+                    </Button>
+                  </Link>
+                )}
+              </div>
+              <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-medium text-background/75 lg:justify-start">
+                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Free forever plan</span>
+                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> No card required</span>
+                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
+              </p>
             </div>
-            <p className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-xs font-medium text-muted-foreground lg:justify-start">
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Free forever plan</span>
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> No card required</span>
-              <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
-            </p>
+            {/* Quick trust signals */}
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-muted-foreground lg:justify-start">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Users className="h-3.5 w-3.5 text-primary" /> Built for busy mums &amp; creators</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Sparkles className="h-3.5 w-3.5 text-primary" /> 10,000+ ideas generated</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Zap className="h-3.5 w-3.5 text-primary" /> Made to simplify content creation</span>
+            </div>
           </div>
 
           {/* AI generation mockup — shows the product working */}
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none lg:scale-[1.06] lg:origin-right">
             <div className="absolute -inset-8 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" aria-hidden />
-            <div className="card-elegant relative overflow-hidden p-5 sm:p-6">
+            <div className="card-elegant relative overflow-hidden p-5 sm:p-7">
               {/* Prompt row */}
               <div className="flex items-center gap-2">
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-secondary text-foreground/70">
                   <Wand2 className="h-4 w-4" />
                 </span>
-                <p className="text-sm text-muted-foreground">"Reel hook for tired mum-hack"</p>
+                <p className="text-sm text-muted-foreground">
+                  "Reel hook for tired mum-hack"
+                  <span className="ml-0.5 inline-block h-3.5 w-[2px] translate-y-0.5 bg-primary align-middle animate-pulse" aria-hidden />
+                </p>
               </div>
               <div className="mt-3 flex items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
@@ -233,18 +245,52 @@ function Landing() {
         </div>
       </section>
 
-      <section className="border-y border-border/60 bg-background py-7">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          <span>Loved by UK mum creators</span>
-          <span className="inline-flex items-center gap-1">
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-          </span>
-          <span>Built by a mum, for mums</span>
-          <span>Built around your real-life schedule</span>
+      {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
+      <section className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              { value: "10,000+", label: "AI ideas generated" },
+              { value: "4.9★", label: "Average creator rating" },
+              { value: "2 mins", label: "From idea to ready-to-post" },
+            ].map((s) => (
+              <div key={s.label} className="card-elegant flex items-center gap-4 p-5">
+                <div className="font-display text-3xl text-primary">{s.value}</div>
+                <div className="text-sm font-medium text-muted-foreground">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <p className="eyebrow">Loved by mum creators</p>
+            <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-4xl">Real mums. Real posts. Less burnout.</h2>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              { name: "Hannah", handle: "@hannah.mums", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
+              { name: "Priya", handle: "@priyacreates", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
+              { name: "Steph", handle: "@stephmumlife", body: "Finally a tool built for mum schedules — not 22-year-old creators with 12 free hours a day." },
+            ].map((t, i) => (
+              <figure
+                key={t.handle}
+                className="card-elegant relative p-6"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
+              >
+                <Quote className="absolute right-5 top-5 h-5 w-5 text-primary/40" />
+                <div className="flex items-center gap-1 text-primary">
+                  {[...Array(5)].map((_, k) => <Star key={k} className="h-3.5 w-3.5 fill-primary" />)}
+                </div>
+                <blockquote className="mt-3 text-sm leading-relaxed text-foreground/85">"{t.body}"</blockquote>
+                <figcaption className="mt-4 flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[image:var(--gradient-bloom)] font-display text-sm text-foreground">{t.name[0]}</span>
+                  <div className="text-xs">
+                    <p className="font-semibold text-foreground">{t.name}</p>
+                    <p className="text-muted-foreground">{t.handle}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
