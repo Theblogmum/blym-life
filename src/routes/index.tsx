@@ -149,13 +149,13 @@ function Landing() {
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
             </span>
-            <h1 className="mt-5 font-display text-[44px] font-normal leading-[1.04] tracking-tight text-foreground sm:text-6xl lg:text-[72px]">
+            <h1 className="mt-6 font-display text-[40px] font-normal leading-[1.06] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
               The AI content studio helping{" "}
               <span className="italic text-primary">mums grow online</span>{" "}
               without burnout
-              <Heart className="ml-2 inline h-8 w-8 fill-primary text-primary align-middle sm:h-10 sm:w-10" />
+              <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground lg:mx-0">
+            <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.6] text-muted-foreground text-pretty lg:mx-0">
               Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
             </p>
             {/* High-contrast focal CTA block */}
@@ -278,9 +278,11 @@ function Landing() {
         <div className="mx-auto max-w-5xl px-5 sm:px-8">
           <div className="text-center">
             <p className="eyebrow">How it helps</p>
-            <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-4xl">Everything you need to post — without the burnout.</h2>
+            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+              Everything you need to post — without the burnout.
+            </h2>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
             {[
               { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)" },
               { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)" },
@@ -290,8 +292,8 @@ function Landing() {
                 <div className="grid h-12 w-12 place-items-center rounded-2xl text-2xl" style={{ background: item.tint }}>
                   {item.emoji}
                 </div>
-                <h3 className="mt-5 font-display text-xl font-normal">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{item.title}</h3>
+                <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">{item.body}</p>
               </div>
             ))}
           </div>
@@ -316,7 +318,9 @@ function Landing() {
 
           <div className="mt-10 text-center">
             <p className="eyebrow">Loved by mum creators</p>
-            <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-4xl">Real mums. Real posts. Less burnout.</h2>
+            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+              Real mums. Real posts. Less burnout.
+            </h2>
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {[
@@ -350,7 +354,9 @@ function Landing() {
       <section id="how" className="bg-[image:var(--gradient-stone)] py-20">
         <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
           <p className="eyebrow">How it works</p>
-          <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-5xl">From overwhelmed to filmed in three calm steps.</h2>
+          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+            From overwhelmed to filmed in three calm steps.
+          </h2>
           <div className="mt-12 grid gap-5 sm:grid-cols-3">
             {[
               { icon: Heart, t: "Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for.", tint: "var(--surface-blush)" },
@@ -364,8 +370,8 @@ function Landing() {
                   </div>
                   <span className="font-display text-2xl text-muted-foreground/60">0{i + 1}</span>
                 </div>
-                <h3 className="mt-5 font-display text-xl font-normal">{s.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.b}</p>
+                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{s.t}</h3>
+                <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground text-pretty">{s.b}</p>
               </div>
             ))}
           </div>
@@ -375,8 +381,10 @@ function Landing() {
       <section id="features" className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
         <div className="text-center">
           <p className="eyebrow">Inside the studio</p>
-          <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-5xl">A whole creator business, beautifully organised.</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">
+          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+            A whole creator business, beautifully organised.
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-[1.65] text-muted-foreground text-pretty sm:text-[17px]">
             One tool to plan, one to grow, one to get paid. No bloat — just the bits mum creators actually use.
           </p>
         </div>
@@ -420,14 +428,18 @@ function Landing() {
       <section id="pricing" className="border-t border-border/60 bg-[image:var(--gradient-stone)] py-20 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
-          <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-5xl">Free to start. Upgrade when you're ready.</h2>
+          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+            Free to start. Upgrade when you're ready.
+          </h2>
           <PricingPlans />
         </div>
       </section>
 
       <section id="faq" className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
         <p className="eyebrow text-center">FAQ</p>
-        <h2 className="mt-3 text-center font-display text-3xl font-normal tracking-tight sm:text-4xl">Things mums ask us</h2>
+        <h2 className="mx-auto mt-4 text-center font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+          Things mums ask us
+        </h2>
         <div className="mt-10 space-y-3">
           {[
             { q: "Do I need to be on camera?", a: "Nope. Most briefs work as voiceover, hands-only or text-on-screen." },
@@ -436,11 +448,11 @@ function Landing() {
             { q: "Can I cancel anytime?", a: "Yes — one click in Settings. No awkward emails." },
           ].map((f) => (
             <details key={f.q} className="group rounded-3xl border border-border/70 bg-card p-6 transition hover:border-border [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex cursor-pointer items-center justify-between font-medium text-foreground">
+              <summary className="flex cursor-pointer items-center justify-between text-[15px] font-medium leading-snug text-foreground">
                 {f.q}
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+              <p className="mt-3 text-[14px] leading-[1.65] text-muted-foreground text-pretty">{f.a}</p>
             </details>
           ))}
         </div>
@@ -455,8 +467,12 @@ function Landing() {
             <span className="inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-background/80 backdrop-blur">
               <Clock className="h-3.5 w-3.5" /> Tomorrow morning
             </span>
-            <h2 className="mt-4 font-display text-3xl font-normal tracking-tight sm:text-5xl">Your brief is already being written.</h2>
-            <p className="mx-auto mt-3 max-w-xl text-background/70">Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.</p>
+            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+              Your brief is already being written.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.65] text-background/75 text-pretty">
+              Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.
+            </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
               <Link to={ctaPrimary.to}><Button size="lg" className="w-full rounded-full bg-background px-8 text-foreground hover:bg-background/90 sm:w-auto">{ctaPrimary.label} <ArrowRight className="h-4 w-4" /></Button></Link>
               {ctaSecondary && (
