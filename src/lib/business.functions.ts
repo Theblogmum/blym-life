@@ -10,7 +10,7 @@ export const listInvoices = createServerFn({ method: "GET" })
     const { data, error } = await context.supabase
       .from("invoices").select("*").eq("user_id", context.userId)
       .order("created_at", { ascending: false });
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { invoices: data ?? [] };
   });
 
@@ -42,11 +42,11 @@ export const saveInvoice = createServerFn({ method: "POST" })
     };
     if (data.id) {
       const { data: r, error } = await context.supabase.from("invoices").update(row).eq("id", data.id).eq("user_id", context.userId).select().maybeSingle();
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
       return { invoice: r };
     }
     const { data: r, error } = await context.supabase.from("invoices").insert(row).select().maybeSingle();
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { invoice: r };
   });
 
@@ -55,7 +55,7 @@ export const deleteInvoice = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("invoices").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -66,7 +66,7 @@ export const listIncome = createServerFn({ method: "GET" })
     const { data, error } = await context.supabase
       .from("income_entries").select("*").eq("user_id", context.userId)
       .order("entry_date", { ascending: false });
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { entries: data ?? [] };
   });
 
@@ -86,11 +86,11 @@ export const saveIncome = createServerFn({ method: "POST" })
     };
     if (data.id) {
       const { data: r, error } = await context.supabase.from("income_entries").update(row).eq("id", data.id).eq("user_id", context.userId).select().maybeSingle();
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
       return { entry: r };
     }
     const { data: r, error } = await context.supabase.from("income_entries").insert(row).select().maybeSingle();
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { entry: r };
   });
 
@@ -99,7 +99,7 @@ export const deleteIncome = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("income_entries").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -110,7 +110,7 @@ export const listAffiliates = createServerFn({ method: "GET" })
     const { data, error } = await context.supabase
       .from("affiliate_links").select("*").eq("user_id", context.userId)
       .order("created_at", { ascending: false });
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { links: data ?? [] };
   });
 
@@ -126,11 +126,11 @@ export const saveAffiliate = createServerFn({ method: "POST" })
     };
     if (data.id) {
       const { data: r, error } = await context.supabase.from("affiliate_links").update(row).eq("id", data.id).eq("user_id", context.userId).select().maybeSingle();
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
       return { link: r };
     }
     const { data: r, error } = await context.supabase.from("affiliate_links").insert(row).select().maybeSingle();
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { link: r };
   });
 
@@ -139,7 +139,7 @@ export const deleteAffiliate = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("affiliate_links").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -150,7 +150,7 @@ export const listPortfolio = createServerFn({ method: "GET" })
     const { data, error } = await context.supabase
       .from("portfolio_items").select("*").eq("user_id", context.userId)
       .order("posted_on", { ascending: false, nullsFirst: false });
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { items: data ?? [] };
   });
 
@@ -167,11 +167,11 @@ export const savePortfolio = createServerFn({ method: "POST" })
     };
     if (data.id) {
       const { data: r, error } = await context.supabase.from("portfolio_items").update(row).eq("id", data.id).eq("user_id", context.userId).select().maybeSingle();
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
       return { item: r };
     }
     const { data: r, error } = await context.supabase.from("portfolio_items").insert(row).select().maybeSingle();
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { item: r };
   });
 
@@ -180,6 +180,6 @@ export const deletePortfolio = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("portfolio_items").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });

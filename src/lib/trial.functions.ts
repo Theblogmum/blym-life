@@ -93,7 +93,7 @@ export const startTrial = createServerFn({ method: "POST" })
           "A free trial has already been used from this device/network.",
         );
       }
-      throw new Error(error.message);
+      console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     }
     return { ok: true, startedAt: startedAt.toISOString(), endsAt: endsAt.toISOString() };
   });
