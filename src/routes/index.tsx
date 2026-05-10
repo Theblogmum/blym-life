@@ -109,7 +109,7 @@ function Landing() {
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <a href="mailto:studio@theblogmum.com" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Contact</a>
+                <a href="#contact" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Contact</a>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -483,6 +483,22 @@ function Landing() {
         </div>
       </section>
 
+      <section id="contact" className="mx-auto max-w-3xl px-5 pb-20 sm:px-8">
+        <div className="rounded-[2rem] border border-border/60 bg-card/80 p-8 text-center shadow-[var(--shadow-xs)] sm:p-10">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">Get in touch</span>
+          <h2 className="mt-4 font-display text-[28px] font-normal leading-[1.15] tracking-[-0.02em] text-balance sm:text-[36px]">Say hi — we read every message.</h2>
+          <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-muted-foreground text-pretty">
+            Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
+          </p>
+          <a
+            href="mailto:studio@theblogmum.com"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-foreground px-6 py-3 text-sm font-semibold text-background transition hover:bg-foreground/90"
+          >
+            studio@theblogmum.com
+          </a>
+        </div>
+      </section>
+
       <footer className="border-t border-border/60 py-10 text-center text-xs text-muted-foreground">
         <p>Made with care for mum creators · @theblogmumstudio</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
@@ -492,7 +508,7 @@ function Landing() {
           <span aria-hidden>·</span>
           <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
           <span aria-hidden>·</span>
-          <a href="mailto:studio@theblogmum.com" className="hover:text-foreground">Contact</a>
+          <a href="#contact" className="hover:text-foreground">Contact</a>
         </p>
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as The Blog Mum Studio</p>
       </footer>
