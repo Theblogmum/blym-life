@@ -74,9 +74,9 @@ function Landing() {
       <PaymentTestModeBanner />
       <header className="sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logoImg} alt="The Blog Mum" className="h-9 w-auto sm:h-10" width={120} height={40} />
+        <Link to="/" className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground">
           <span className="sr-only">The Blog Mum Studio</span>
+          <span aria-hidden>The Blog Mum Studio</span>
         </Link>
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
@@ -142,9 +142,9 @@ function Landing() {
             <img
               src={logoImg}
               alt="The Blog Mum Studio"
-              className="mx-auto mb-5 h-14 w-auto sm:h-16 lg:mx-0"
-              width={180}
-              height={64}
+              className="mx-auto mb-6 h-20 w-auto sm:h-24 lg:mx-0 lg:h-28"
+              width={260}
+              height={112}
             />
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
