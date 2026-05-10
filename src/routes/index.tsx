@@ -27,30 +27,29 @@ import logoImg from "@/assets/logo-blym.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Blog Mum Studio — Tell me what to film today" },
+      { title: "Blym by The Blog Mum — Tell me what to film today" },
       { name: "description", content: "The daily content brief for mum creators. One ready-to-shoot idea every morning: hook, caption, shot list and best time to post. Free to start." },
-      { name: "author", content: "The Blog Mum Studio" },
+      { name: "author", content: "Blym by The Blog Mum" },
       { name: "keywords", content: "mum content creators, daily content brief, TikTok ideas for mums, Instagram Reels ideas, UGC for mums, content planner" },
       { name: "robots", content: "index, follow" },
       // Open Graph
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "The Blog Mum Studio" },
+      { property: "og:site_name", content: "Blym by The Blog Mum" },
       { property: "og:url", content: "https://theblogmumstudio.com/" },
-      { property: "og:title", content: "The Blog Mum Studio — Tell me what to film today" },
+      { property: "og:title", content: "Blym by The Blog Mum — Tell me what to film today" },
       { property: "og:description", content: "Personalised daily filming briefs for mum creators on TikTok and Instagram. Free to start." },
       { property: "og:image", content: "https://theblogmumstudio.com/og-landing.jpg" },
       { property: "og:image:secure_url", content: "https://theblogmumstudio.com/og-landing.jpg" },
       { property: "og:image:type", content: "image/jpeg" },
-      { property: "og:image:width", content: "1200" },
-      { property: "og:image:height", content: "640" },
-      { property: "og:image:alt", content: "The Blog Mum Studio — Tell me what to film today" },
+      { property: "og:site_name", content: "Blym by The Blog Mum" },
+      { property: "og:image:alt", content: "Blym by The Blog Mum — Tell me what to film today" },
       { property: "og:locale", content: "en_GB" },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "The Blog Mum Studio — Tell me what to film today" },
+      { name: "twitter:title", content: "Blym by The Blog Mum — Tell me what to film today" },
       { name: "twitter:description", content: "Personalised daily filming briefs for mum creators on TikTok and Instagram. Free to start." },
       { name: "twitter:image", content: "https://theblogmumstudio.com/og-landing.jpg" },
-      { name: "twitter:image:alt", content: "The Blog Mum Studio — Tell me what to film today" },
+      { name: "twitter:image:alt", content: "Blym by The Blog Mum — Tell me what to film today" },
     ],
     links: [
       { rel: "canonical", href: "https://theblogmumstudio.com/" },
@@ -75,8 +74,8 @@ function Landing() {
       <header className="sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link to="/" className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground">
-          <span className="sr-only">The Blog Mum Studio</span>
-          <span aria-hidden>The Blog Mum Studio</span>
+          <span className="sr-only">Blym by The Blog Mum</span>
+          <span aria-hidden>Blym by The Blog Mum</span>
         </Link>
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
@@ -595,7 +594,7 @@ function Landing() {
           <span aria-hidden>·</span>
           <a href="#contact" className="hover:text-foreground">Contact</a>
         </p>
-        <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as The Blog Mum Studio</p>
+        <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym by The Blog Mum</p>
       </footer>
     </div>
   );

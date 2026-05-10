@@ -3,8 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy Notice — The Blog Mum Studio" },
-      { name: "description", content: "How The Blog Mum Studio collects, uses, and protects your personal data." },
+      { title: "Privacy Notice — Blym by The Blog Mum" },
+      { name: "description", content: "How Blym by The Blog Mum collects, uses, and protects your personal data." },
       { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://theblogmumstudio.com/privacy" }],
@@ -21,8 +21,8 @@ function PrivacyPage() {
 
       <h2 className="mt-8 font-display text-xl font-bold">1. Who we are</h2>
       <p className="mt-2">
-        The Blog Mum Studio is operated by Stephanie Trump, a sole trader based in the United Kingdom, trading as "The Blog
-        Mum Studio". For privacy matters we are the <strong>data controller</strong> of the personal data described below.
+        Blym by The Blog Mum is operated by Stephanie Trump, a sole trader based in the United Kingdom, trading as "Blym by The Blog
+        Mum". For privacy matters we are the <strong>data controller</strong> of the personal data described below.
         Contact: <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
       </p>
 

@@ -3,8 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions — The Blog Mum Studio" },
-      { name: "description", content: "Terms and conditions for using The Blog Mum Studio." },
+      { title: "Terms & Conditions — Blym by The Blog Mum" },
+      { name: "description", content: "Terms and conditions for using Blym by The Blog Mum." },
       { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://theblogmumstudio.com/terms" }],
@@ -21,14 +21,14 @@ function TermsPage() {
 
       <h2 className="mt-8 font-display text-xl font-bold">1. Who you are contracting with</h2>
       <p className="mt-2">
-        The Blog Mum Studio ("we", "us", "our") is operated by Stephanie Trump, a sole trader based in Guernsey, Channel Islands.
+        Blym by The Blog Mum ("we", "us", "our") is operated by Stephanie Trump, a sole trader based in Guernsey, Channel Islands.
         You can contact us at <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
         By creating an account or using the service you agree to these Terms.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">2. The service</h2>
       <p className="mt-2">
-        The Blog Mum Studio is an AI-assisted content planning tool for social media creators. It generates daily filming
+        Blym by The Blog Mum is an AI-assisted content planning tool for social media creators. It generates daily filming
         briefs, hooks, captions, and growth insights based on inputs you provide. The service is delivered via the web at
         theblogmumstudio.com.
       </p>
