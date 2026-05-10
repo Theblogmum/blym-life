@@ -707,7 +707,7 @@ function BigFeature({
   img, badge, title, body, surface, to,
 }: { img: string; badge: string; title: string; body: string; surface: string; to: string }) {
   return (
-    <Link to={to} className={`group block overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]`}>
+    <Link to={to as never} className={`group block overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]`}>
       <div className="aspect-[4/3] overflow-hidden">
         <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
       </div>
@@ -726,7 +726,7 @@ function MiniFeature({
   icon: Icon, title, body, tint, to,
 }: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
   return (
-    <Link to={to} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
+    <Link to={to as never} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
       <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
         <Icon className="h-5 w-5" />
       </div>
