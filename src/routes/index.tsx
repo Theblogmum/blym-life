@@ -149,13 +149,13 @@ function Landing() {
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
             </span>
-            <h1 className="mt-5 font-display text-[44px] font-normal leading-[1.04] tracking-tight text-foreground sm:text-6xl lg:text-[72px]">
+            <h1 className="mt-6 font-display text-[40px] font-normal leading-[1.06] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
               The AI content studio helping{" "}
               <span className="italic text-primary">mums grow online</span>{" "}
               without burnout
-              <Heart className="ml-2 inline h-8 w-8 fill-primary text-primary align-middle sm:h-10 sm:w-10" />
+              <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground lg:mx-0">
+            <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.6] text-muted-foreground text-pretty lg:mx-0">
               Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
             </p>
             {/* High-contrast focal CTA block */}
@@ -278,9 +278,11 @@ function Landing() {
         <div className="mx-auto max-w-5xl px-5 sm:px-8">
           <div className="text-center">
             <p className="eyebrow">How it helps</p>
-            <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-4xl">Everything you need to post — without the burnout.</h2>
+            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+              Everything you need to post — without the burnout.
+            </h2>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-3">
             {[
               { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)" },
               { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)" },
@@ -290,8 +292,8 @@ function Landing() {
                 <div className="grid h-12 w-12 place-items-center rounded-2xl text-2xl" style={{ background: item.tint }}>
                   {item.emoji}
                 </div>
-                <h3 className="mt-5 font-display text-xl font-normal">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{item.title}</h3>
+                <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">{item.body}</p>
               </div>
             ))}
           </div>
