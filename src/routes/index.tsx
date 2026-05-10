@@ -89,9 +89,9 @@ function Landing() {
 
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-aurora">
-        <div className="absolute -top-40 -right-32 h-[28rem] w-[28rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-50 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-40 -left-32 h-[26rem] w-[26rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-60 blur-3xl" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:grid-cols-[0.9fr_1.15fr]">
+        <div className="absolute -top-40 -right-32 h-[24rem] w-[24rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-30 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-40 -left-32 h-[22rem] w-[22rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-35 blur-3xl" aria-hidden />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-12 pb-16 sm:px-8 sm:pt-20 sm:pb-24 lg:grid-cols-[0.95fr_1.1fr]">
           <div className="text-center lg:text-left">
             <img
               src={logoImg}
@@ -134,11 +134,13 @@ function Landing() {
                 <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
               </p>
             </div>
-            {/* Quick trust signals */}
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-muted-foreground lg:justify-start">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Users className="h-3.5 w-3.5 text-primary" /> Built for busy mums &amp; creators</span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Sparkles className="h-3.5 w-3.5 text-primary" /> 10,000+ ideas generated</span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Zap className="h-3.5 w-3.5 text-primary" /> Made to simplify content creation</span>
+            {/* Quick trust signals — compact inline row */}
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[11px] font-medium text-muted-foreground lg:justify-start">
+              <span className="inline-flex items-center gap-1.5"><Users className="h-3.5 w-3.5 text-primary" /> Built for busy mums</span>
+              <span className="text-border">·</span>
+              <span className="inline-flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-primary" /> 10,000+ ideas generated</span>
+              <span className="text-border">·</span>
+              <span className="inline-flex items-center gap-1.5"><Zap className="h-3.5 w-3.5 text-primary" /> Simplifies your content</span>
             </div>
           </div>
 
