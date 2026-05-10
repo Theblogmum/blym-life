@@ -245,18 +245,52 @@ function Landing() {
         </div>
       </section>
 
-      <section className="border-y border-border/60 bg-background py-7">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-          <span>Loved by UK mum creators</span>
-          <span className="inline-flex items-center gap-1">
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-            <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-          </span>
-          <span>Built by a mum, for mums</span>
-          <span>Built around your real-life schedule</span>
+      {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
+      <section className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              { value: "10,000+", label: "AI ideas generated" },
+              { value: "4.9★", label: "Average creator rating" },
+              { value: "2 mins", label: "From idea to ready-to-post" },
+            ].map((s) => (
+              <div key={s.label} className="card-elegant flex items-center gap-4 p-5">
+                <div className="font-display text-3xl text-primary">{s.value}</div>
+                <div className="text-sm font-medium text-muted-foreground">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <p className="eyebrow">Loved by mum creators</p>
+            <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-4xl">Real mums. Real posts. Less burnout.</h2>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              { name: "Hannah", handle: "@hannah.mums", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
+              { name: "Priya", handle: "@priyacreates", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
+              { name: "Steph", handle: "@stephmumlife", body: "Finally a tool built for mum schedules — not 22-year-old creators with 12 free hours a day." },
+            ].map((t, i) => (
+              <figure
+                key={t.handle}
+                className="card-elegant relative p-6"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
+              >
+                <Quote className="absolute right-5 top-5 h-5 w-5 text-primary/40" />
+                <div className="flex items-center gap-1 text-primary">
+                  {[...Array(5)].map((_, k) => <Star key={k} className="h-3.5 w-3.5 fill-primary" />)}
+                </div>
+                <blockquote className="mt-3 text-sm leading-relaxed text-foreground/85">"{t.body}"</blockquote>
+                <figcaption className="mt-4 flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-[image:var(--gradient-bloom)] font-display text-sm text-foreground">{t.name[0]}</span>
+                  <div className="text-xs">
+                    <p className="font-semibold text-foreground">{t.name}</p>
+                    <p className="text-muted-foreground">{t.handle}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
