@@ -96,13 +96,14 @@ function Landing() {
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
             </span>
-            <h1 className="mt-5 font-display text-5xl font-normal leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-[80px]">
-              Your calm,&nbsp;clever{" "}
-              <span className="italic text-primary">creator&nbsp;studio</span>
-              <Heart className="ml-2 inline h-9 w-9 fill-primary text-primary align-middle sm:h-11 sm:w-11" />
+            <h1 className="mt-5 font-display text-[44px] font-normal leading-[1.04] tracking-tight text-foreground sm:text-6xl lg:text-[72px]">
+              The AI content studio helping{" "}
+              <span className="italic text-primary">mums grow online</span>{" "}
+              without burnout
+              <Heart className="ml-2 inline h-8 w-8 fill-primary text-primary align-middle sm:h-10 sm:w-10" />
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-muted-foreground lg:mx-0">
-              Daily filming briefs, viral remixes, weekly plans and a beautiful business hub — built for mums who film between school runs.
+              Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
             </p>
             <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
               <Link to={ctaPrimary.to}>
@@ -125,48 +126,81 @@ function Landing() {
             </p>
           </div>
 
-          {/* Dashboard preview mockup */}
+          {/* AI generation mockup — shows the product working */}
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             <div className="absolute -inset-8 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" aria-hidden />
             <div className="card-elegant relative overflow-hidden p-5 sm:p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="eyebrow">Today</p>
-                  <p className="mt-1 font-display text-xl font-normal">Good morning, Steph <Heart className="inline h-4 w-4 fill-primary text-primary" /></p>
-                </div>
-                <span className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground/70">Lvl 4</span>
+              {/* Prompt row */}
+              <div className="flex items-center gap-2">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-secondary text-foreground/70">
+                  <Wand2 className="h-4 w-4" />
+                </span>
+                <p className="text-sm text-muted-foreground">"Reel hook for tired mum-hack"</p>
               </div>
-              <div className="mt-5 grid grid-cols-2 gap-3">
-                <MiniStat icon={Flame} label="Streak" value="12" unit="days" tint="var(--surface-blush)" />
-                <MiniStat icon={FileEdit} label="Posts" value="6" unit="this wk" tint="var(--surface-peach)" />
-                <MiniStat icon={Target} label="Goal" value="68%" unit="of £2k" tint="var(--surface-mint)" />
-                <MiniStat icon={Send} label="Follow-ups" value="3" unit="due" tint="var(--surface-butter)" />
+              <div className="mt-3 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                  <Sparkles className="h-3 w-3" /> Viral idea generated
+                </span>
+                <span className="text-[10px] font-semibold text-muted-foreground">in 3.2s</span>
               </div>
-              <div className="mt-4 rounded-2xl border border-border/70 bg-secondary/40 p-4">
-                <div className="flex items-center justify-between">
-                  <p className="eyebrow">Today's brief</p>
-                  <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">Reel</span>
-                </div>
-                <p className="mt-1.5 font-display text-lg">Mum-hack reel · 18s</p>
-                <p className="mt-1 text-xs text-muted-foreground">Hook · caption · shot list · best post time 7:42pm</p>
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="h-1.5 flex-1 rounded-full bg-border/60">
-                    <div className="h-full w-2/3 rounded-full bg-primary" />
+
+              {/* Generated hooks */}
+              <div className="mt-4 space-y-2.5">
+                {[
+                  { tag: "Hook", text: "POV: it's 6:47am and this hack just saved my morning." },
+                  { tag: "Hook", text: "Why is no one talking about this mum-hack?!" },
+                  { tag: "Hook", text: "Tell me you're a mum without telling me…" },
+                ].map((h, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-2.5 rounded-2xl border border-border/60 bg-secondary/40 p-3"
+                    style={{ animation: `fade-in 0.4s ease-out ${i * 0.15}s both` }}
+                  >
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/15 text-[10px] font-bold text-primary">
+                      {i + 1}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-primary/80">{h.tag}</p>
+                      <p className="mt-0.5 text-sm leading-snug text-foreground">{h.text}</p>
+                    </div>
+                    <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-success" />
                   </div>
-                  <span className="text-[10px] font-semibold text-muted-foreground">3 of 5</span>
-                </div>
+                ))}
               </div>
+
+              {/* Caption preview */}
+              <div className="mt-3 rounded-2xl border border-border/60 bg-[var(--surface-peach)]/50 p-3">
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow">Caption · ready to post</p>
+                  <span className="rounded-full bg-card px-2 py-0.5 text-[10px] font-semibold text-foreground/70">Reel · 18s</span>
+                </div>
+                <p className="mt-1.5 text-sm leading-snug text-foreground/85">
+                  The 30-second mum-hack I wish I'd known a year ago 🫶 Save for later — your future tired self will thank you.
+                </p>
+              </div>
+
+              {/* Generating shimmer line */}
               <div className="mt-3 flex items-center gap-2 text-[11px] font-medium text-muted-foreground">
-                <TrendingUp className="h-3.5 w-3.5 text-success" />
-                <span>+24% reach this week — keep going.</span>
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                </span>
+                <span>Generating shot list…</span>
               </div>
             </div>
-            <div className="absolute -bottom-4 -left-4 hidden rounded-2xl border border-border/60 bg-card p-3 shadow-[var(--shadow-elegant)] sm:block">
+
+            {/* Floating "before" → blank state chip */}
+            <div className="absolute -top-3 -left-4 hidden rounded-2xl border border-border/60 bg-card px-3 py-2 shadow-[var(--shadow-elegant)] sm:block">
+              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Before</p>
+              <p className="text-xs text-muted-foreground/80">Blank page · 0 ideas</p>
+            </div>
+            {/* Floating "after" win chip */}
+            <div className="absolute -bottom-4 -right-4 hidden rounded-2xl border border-border/60 bg-card p-3 shadow-[var(--shadow-elegant)] sm:block">
               <div className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-xl bg-[var(--surface-mint)] text-success"><Trophy className="h-4 w-4" /></span>
+                <span className="grid h-8 w-8 place-items-center rounded-xl bg-[var(--surface-mint)] text-success"><TrendingUp className="h-4 w-4" /></span>
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">New win</p>
-                  <p className="text-sm font-medium">First £500 brand deal 💛</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">After</p>
+                  <p className="text-sm font-medium">5 posts ready ✨</p>
                 </div>
               </div>
             </div>
