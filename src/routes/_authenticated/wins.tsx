@@ -19,7 +19,7 @@ function Page() {
   const s = q.data?.stats;
   return (
     <div>
-      <PageHero icon={Trophy} eyebrow="Doing better than you think" title="Receipts of your last 30 days." description="Pulled from your logged posts, portfolio, invoices and income. The wins you forgot to count." variant="mint">
+      <PageHero icon={Trophy} eyebrow="Doing better than you think" title="Let me show you what you've actually done." description="I pulled your posts, portfolio, invoices and income from the last 30 days — here are the wins you forgot to count 💛" variant="mint">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-4xl space-y-5 px-5 py-10">
