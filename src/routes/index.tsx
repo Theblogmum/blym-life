@@ -208,6 +208,31 @@ function Landing() {
         </div>
       </section>
 
+      {/* ============ HOW IT HELPS ============ */}
+      <section className="border-t border-border/60 bg-background py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-5 sm:px-8">
+          <div className="text-center">
+            <p className="eyebrow">How it helps</p>
+            <h2 className="mt-3 font-display text-3xl font-normal tracking-tight sm:text-4xl">Everything you need to post — without the burnout.</h2>
+          </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+            {[
+              { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)" },
+              { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)" },
+              { emoji: "🚀", title: "Grow", body: "Use AI-powered strategies designed for creator growth.", tint: "var(--surface-peach)" },
+            ].map((item) => (
+              <div key={item.title} className="card-elegant p-7 text-left">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl text-2xl" style={{ background: item.tint }}>
+                  {item.emoji}
+                </div>
+                <h3 className="mt-5 font-display text-xl font-normal">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="border-y border-border/60 bg-background py-7">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-6 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
           <span>Loved by UK mum creators</span>
