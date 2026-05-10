@@ -324,7 +324,8 @@ export async function enforceTrial(
   const tier = await getUserTier(supabase, userId);
   const recorder = {
     record: async () => {
-      await supabase.from("usage_events").insert({ user_id: userId, feature });
+      const admin = getAdminClient();
+      await admin.from("usage_events").insert({ user_id: userId, feature });
     },
   };
   if (tier === "ultimate") return recorder;
