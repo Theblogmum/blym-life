@@ -7,6 +7,7 @@ export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { kind: string; topic: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     // Free Forever tier:
     //   - captions/hooks → 10 / month (caption_generator bucket)
     //   - ideas + scripts → 20 / month (generator bucket)
@@ -46,6 +47,7 @@ export const analyseTrend = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { input: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "viral_lab");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -85,6 +87,7 @@ export const recycleClip = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { description: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "recycler");
     const result = await callAITool<{ ideas?: unknown }>({
       toolName: "clip_ideas",
@@ -136,6 +139,7 @@ export const generatePitch = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { brand: string; niche: string; tone: string; platform: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "pitch");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -189,6 +193,7 @@ export const analyseFlop = createServerFn({ method: "POST" })
     (d: { hook: string; caption: string; topic: string; watch_time_seconds: number }) => d,
   )
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "flop");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -302,6 +307,7 @@ export const auditNiche = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { bio: string; niche: string; target_audience: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "niche_audit");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -442,6 +448,7 @@ export const generateBroll = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "broll");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -569,6 +576,7 @@ export const buildSeries = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "series");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -698,6 +706,7 @@ export const generateCtas = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string; goal?: string; platform?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "cta");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -745,6 +754,7 @@ export const repurposeContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { input: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "repurpose");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -954,6 +964,7 @@ export const writeBrandResponse = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { message: string; rate?: string; notes?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "response");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1032,6 +1043,7 @@ export const generateSeoKeywords = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string; platform: "tiktok" | "instagram" | "pinterest" }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "seo");
     const ctx = await getCtx(context.supabase, context.userId);
     const platformBrief = {
@@ -1124,6 +1136,7 @@ export const boostEngagement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string; current_caption?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "engagement");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1212,6 +1225,7 @@ export const optimiseBio = createServerFn({ method: "POST" })
     }) => d,
   )
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "bio");
     const ctx = await getCtx(context.supabase, context.userId);
     const limits: Record<string, string> = {
@@ -1300,6 +1314,7 @@ export const auditProfile = createServerFn({ method: "POST" })
     }) => d,
   )
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "profile_audit");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1448,6 +1463,7 @@ export const suggestPostTiming = createServerFn({ method: "POST" })
     }) => d,
   )
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "timing");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1577,6 +1593,7 @@ export const optimiseFaceless = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string; current_format?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "faceless");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1634,6 +1651,7 @@ export const optimisePin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { topic: string; current_title?: string; current_description?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "pin");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1689,6 +1707,7 @@ export const tightenScript = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { script: string; target_seconds?: number }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "script_tighten");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1745,6 +1764,7 @@ export const buildDeliverables = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { brand: string; budget?: string; campaign_goal: string; platforms: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "deliverables");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1815,6 +1835,7 @@ export const calculateUsageRights = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { base_fee: number; channels: string; duration_months: number; territory: string; exclusivity: string; whitelisting: boolean; paid_ads: boolean }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "usage_rights");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1873,6 +1894,7 @@ export const generateMediaKit = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { stats: string; rates: string; past_brands?: string; goal: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "media_kit");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -1936,6 +1958,7 @@ export const generatePackageNames = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { service_type: string; vibe: string; theme?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "package_names");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{ sets?: unknown }>({
@@ -1992,6 +2015,7 @@ export const generateServiceDescription = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { service_name: string; what_it_includes: string; ideal_client: string; price?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "service_desc");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
@@ -2052,6 +2076,7 @@ export const generatePassiveIdeas = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { audience: string; existing_skills: string; price_range?: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "passive_ideas");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{ ideas?: unknown; first_steps?: unknown }>({
@@ -2110,6 +2135,7 @@ export const recoverRejection = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { situation: string }) => d)
   .handler(async ({ data, context }) => {
+    assertAiInput(data as any);
     const quota = await enforceTrial(context.supabase, context.userId, "rejection");
     const ctx = await getCtx(context.supabase, context.userId);
     const result = await callAITool<{
