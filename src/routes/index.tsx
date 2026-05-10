@@ -284,17 +284,17 @@ function Landing() {
           </div>
           <div className="mt-12 grid gap-5 sm:grid-cols-3">
             {[
-              { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)" },
-              { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)" },
-              { emoji: "🚀", title: "Grow", body: "Use AI-powered strategies designed for creator growth.", tint: "var(--surface-peach)" },
+              { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)", to: "/generator" as const },
+              { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)", to: "/planner" as const },
+              { emoji: "🚀", title: "Grow", body: "Use AI-powered strategies designed for creator growth.", tint: "var(--surface-peach)", to: "/insights" as const },
             ].map((item) => (
-              <div key={item.title} className="card-elegant p-7 text-left">
+              <Link key={item.title} to={item.to} className="card-elegant block p-7 text-left transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl text-2xl" style={{ background: item.tint }}>
                   {item.emoji}
                 </div>
                 <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{item.title}</h3>
                 <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">{item.body}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -396,6 +396,7 @@ function Landing() {
             title="Today's brief, ready by breakfast"
             body="One ready-to-film idea — hook, caption, shot list and best post time — built around your niche and kids."
             surface="surface-peach"
+            to="/planner"
           />
           <BigFeature
             img={featBrand}
@@ -403,6 +404,7 @@ function Landing() {
             title="Template Studio for posts, emails & DMs"
             body="Tell us what you need — we write 4 ready-to-use options in your voice. Posts, captions, brand replies and more."
             surface="surface-mint"
+            to="/templates"
           />
           <BigFeature
             img={featGrow}
@@ -410,18 +412,19 @@ function Landing() {
             title="Insights that actually move you"
             body="See what's working across your last posts and get tomorrow's brief tuned to your wins."
             surface="surface-plum"
+            to="/insights"
           />
         </div>
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." tint="var(--surface-blush)" />
-          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." tint="var(--surface-peach)" />
-          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." tint="var(--surface-mint)" />
-          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." tint="var(--surface-butter)" />
-          <MiniFeature icon={Lightbulb} title="Content Ideas" body="A library that learns your voice." tint="var(--surface-plum)" />
-          <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" />
-          <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" />
-          <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" />
+          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." tint="var(--surface-blush)" to="/viral-lab" />
+          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." tint="var(--surface-peach)" to="/templates" />
+          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." tint="var(--surface-mint)" to="/planner" />
+          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." tint="var(--surface-butter)" to="/recycler" />
+          <MiniFeature icon={Lightbulb} title="Content Ideas" body="A library that learns your voice." tint="var(--surface-plum)" to="/generator" />
+          <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" to="/insights" />
+          <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" to="/business" />
+          <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" to="/wins" />
         </div>
       </section>
 
@@ -701,10 +704,10 @@ function PriceCard({
 }
 
 function BigFeature({
-  img, badge, title, body, surface,
-}: { img: string; badge: string; title: string; body: string; surface: string }) {
+  img, badge, title, body, surface, to,
+}: { img: string; badge: string; title: string; body: string; surface: string; to: string }) {
   return (
-    <div className={`group overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-elegant)]`}>
+    <Link to={to} className={`group block overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]`}>
       <div className="aspect-[4/3] overflow-hidden">
         <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
       </div>
@@ -715,21 +718,21 @@ function BigFeature({
         <h3 className="mt-3 font-display text-xl font-normal leading-snug">{title}</h3>
         <p className="mt-2 text-sm leading-relaxed text-foreground/70">{body}</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
 function MiniFeature({
-  icon: Icon, title, body, tint,
-}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string }) {
+  icon: Icon, title, body, tint, to,
+}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
   return (
-    <div className="card-elegant p-5">
+    <Link to={to} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
       <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
         <Icon className="h-5 w-5" />
       </div>
       <p className="mt-4 font-display text-base font-normal">{title}</p>
       <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
-    </div>
+    </Link>
   );
 }
 
