@@ -44,8 +44,8 @@ function RecyclerPage() {
       <PageHero
         icon={Folder}
         eyebrow="Clip Recycler"
-        title="One clip. Five posts. Zero re-filming."
-        description="Describe footage you've already filmed — we'll spin it into 5 totally different post angles."
+        title="Tell me what you filmed — I'll find 5 ways to use it."
+        description="Describe a clip you already have. I'll spin it into 5 totally different post angles, no re-filming ✨"
         variant="mint"
       >
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
@@ -61,7 +61,7 @@ function RecyclerPage() {
           <div className="space-y-4 p-6">
             <Textarea
               rows={5}
-              placeholder="The more detail, the better the ideas — what happens, the vibe, who's in it."
+              placeholder="Tell me what happens in the clip — the vibe, who's in it, what we see. The more you give me, the better."
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               className="rounded-2xl bg-secondary/40 text-base"
@@ -84,7 +84,7 @@ function RecyclerPage() {
               onClick={() => m.mutate()}
             >
               <Sparkles className="mr-2 h-4 w-4" />
-              {m.isPending ? "Brainstorming…" : "Get 5 fresh ideas"}
+              {m.isPending ? "Bloom is brainstorming…" : "Spin it into 5 ideas ✨"}
             </Button>
             {outOfQuota && (
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-peach p-3 text-sm">
