@@ -13,7 +13,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DunningBanner } from "@/components/dunning-banner";
-import logo from "@/assets/logo-blogmum.png";
+import logo from "@/assets/logo-blym.png";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { checkIsAdmin } from "@/lib/admin.functions";
@@ -224,7 +224,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Logo */}
       <div className="px-5 pt-6 pb-4">
         <Link to="/app" onClick={onClick} className="block">
-          <img src={logo} alt="The Blog Mum" className="h-16 w-auto object-contain" />
+          <img src={logo} alt="Blym by The Blog Mum" className="h-12 w-auto object-contain" />
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            by The Blog Mum
+          </p>
         </Link>
       </div>
 
