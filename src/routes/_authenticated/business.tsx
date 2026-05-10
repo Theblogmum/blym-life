@@ -21,7 +21,7 @@ import {
 } from "@/lib/business-mode.functions";
 
 export const Route = createFileRoute("/_authenticated/business")({
-  head: () => ({ meta: [{ title: "Business Mode — The Blog Mum Studio" }] }),
+  head: () => ({ meta: [{ title: "Business Mode — Blym by The Blog Mum" }] }),
   component: BusinessPage,
 });
 
