@@ -149,7 +149,7 @@ function Landing() {
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
             </span>
-            <h1 className="mt-6 font-display text-[40px] font-normal leading-[1.06] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
+            <h1 className="mx-auto mt-6 max-w-2xl text-center font-display text-[32px] font-normal leading-[1.08] tracking-[-0.02em] text-foreground text-balance sm:text-[44px] lg:text-[52px]">
               The AI content studio helping{" "}
               <span className="relative inline-block italic text-primary">
                 mums grow online
