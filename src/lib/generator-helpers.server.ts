@@ -1,8 +1,43 @@
 import { buildCreatorContext } from "@/lib/ai.server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
+import { createClient } from "@supabase/supabase-js";
 
 type SupabaseLike = SupabaseClient<Database>;
+
+let _admin: SupabaseLike | null = null;
+function getAdminClient(): SupabaseLike {
+  if (_admin) return _admin;
+  _admin = createClient<Database>(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    { auth: { persistSession: false } },
+  );
+  return _admin;
+}
+
+/**
+ * Validate free-text user input destined for AI prompts. Throws on oversize
+ * input so we never forward multi-megabyte strings to the AI gateway.
+ */
+export function assertAiInput(
+  fields: Record<string, unknown>,
+  opts?: { maxLong?: number; maxShort?: number },
+) {
+  const maxLong = opts?.maxLong ?? 4000;
+  const maxShort = opts?.maxShort ?? 200;
+  const shortKeys = new Set([
+    "brand", "niche", "tone", "platform", "kind", "goal",
+    "service_type", "vibe", "theme", "service_name",
+  ]);
+  for (const [key, value] of Object.entries(fields)) {
+    if (typeof value !== "string") continue;
+    const limit = shortKeys.has(key) ? maxShort : maxLong;
+    if (value.length > limit) {
+      throw new Error(`Input too long. Please keep ${key} under ${limit} characters.`);
+    }
+  }
+}
 
 export const TRIAL_DAYS = 0; // legacy, kept for compatibility — trial is removed
 
@@ -289,7 +324,8 @@ export async function enforceTrial(
   const tier = await getUserTier(supabase, userId);
   const recorder = {
     record: async () => {
-      await supabase.from("usage_events").insert({ user_id: userId, feature });
+      const admin = getAdminClient();
+      await admin.from("usage_events").insert({ user_id: userId, feature });
     },
   };
   if (tier === "ultimate") return recorder;

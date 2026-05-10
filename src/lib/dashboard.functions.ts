@@ -101,10 +101,10 @@ export const saveGoal = createServerFn({ method: "POST" })
     };
     if (data.id) {
       const { error } = await context.supabase.from("creator_goals").update(row).eq("id", data.id).eq("user_id", context.userId);
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     } else {
       const { error } = await context.supabase.from("creator_goals").insert(row);
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     }
     return { ok: true };
   });
@@ -114,7 +114,7 @@ export const updateGoalProgress = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string; current_value: number }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("creator_goals").update({ current_value: data.current_value }).eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -123,7 +123,7 @@ export const deleteGoal = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("creator_goals").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -139,10 +139,10 @@ export const saveFollowUp = createServerFn({ method: "POST" })
     };
     if (data.id) {
       const { error } = await context.supabase.from("follow_ups").update(row).eq("id", data.id).eq("user_id", context.userId);
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     } else {
       const { error } = await context.supabase.from("follow_ups").insert(row);
-      if (error) throw new Error(error.message);
+      if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     }
     return { ok: true };
   });
@@ -152,7 +152,7 @@ export const toggleFollowUp = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string; done: boolean }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("follow_ups").update({ done: data.done }).eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -161,7 +161,7 @@ export const deleteFollowUp = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("follow_ups").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });
 
@@ -171,6 +171,6 @@ export const togglePlan = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string; done: boolean }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("weekly_plans").update({ done: data.done }).eq("id", data.id).eq("user_id", context.userId);
-    if (error) throw new Error(error.message);
+    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
     return { ok: true };
   });

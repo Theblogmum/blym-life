@@ -104,7 +104,17 @@ async function sendReminder(
 export const Route = createFileRoute('/api/public/hooks/trial-reminders')({
   server: {
     handlers: {
-      POST: async () => {
+      POST: async ({ request }) => {
+        // Authenticate via Supabase anon/publishable key in `apikey` header.
+        // pg_cron is configured to send this; external callers cannot guess it.
+        const expectedKey =
+          process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY
+        const providedKey =
+          request.headers.get('apikey') ||
+          request.headers.get('authorization')?.replace(/^Bearer\s+/i, '')
+        if (!expectedKey || providedKey !== expectedKey) {
+          return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        }
         const supabaseUrl = process.env.SUPABASE_URL
         const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
         if (!supabaseUrl || !serviceKey) {
@@ -126,7 +136,8 @@ export const Route = createFileRoute('/api/public/hooks/trial-reminders')({
           .lte('ends_at', windowEnd)
 
         if (error) {
-          return Response.json({ error: error.message }, { status: 500 })
+          console.error('[trial-reminders] query error', error)
+          return Response.json({ error: 'Internal error' }, { status: 500 })
         }
 
         const results: Array<Record<string, any>> = []
