@@ -491,7 +491,7 @@ function PricingPlans() {
           cta={
             isActive
               ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Upgrade to Creator" : "Start with Creator", onClick: () => buy("creator_monthly"), disabled: loading }
+              : { label: loading ? "Opening…" : user ? "Go Creator" : "Go Creator", onClick: () => buy("creator_monthly"), disabled: loading }
           }
         />
         <PriceCard
