@@ -11,6 +11,7 @@ import { generateContent } from "@/lib/generator.functions";
 import { getUsageToday } from "@/lib/usage.functions";
 import { cn } from "@/lib/utils";
 import { PageHero, UsageChip } from "@/components/page-hero";
+import { TypingDots, IdeaGeneratedBadge } from "@/components/micro";
 
 const KINDS = [
   { v: "hook", l: "Hooks", emoji: "🎣", tip: "Stop the scroll in 2 seconds." },
@@ -126,8 +127,12 @@ function GeneratorPage() {
           disabled={!topic.trim() || m.isPending || lockedKind}
           onClick={() => m.mutate()}
         >
-          <Sparkles className="mr-2 h-4 w-4" />
-          {m.isPending ? "Writing your 5 options…" : "Generate 5 options"}
+          <Sparkles className={cn("mr-2 h-4 w-4", m.isPending && "animate-spin")} />
+          {m.isPending ? (
+            <span className="inline-flex items-center gap-2">Writing your 5 options <TypingDots /></span>
+          ) : (
+            "Generate 5 options"
+          )}
         </Button>
 
         {lockedKind && (
@@ -145,10 +150,13 @@ function GeneratorPage() {
 
       {options.length > 0 && (
         <section className="mx-auto max-w-5xl px-5 pb-10">
-          <h2 className="mb-4 font-display text-2xl font-black">Your 5 options</h2>
+          <div className="mb-4 flex items-center gap-3">
+            <h2 className="font-display text-2xl font-black">Your 5 options</h2>
+            <IdeaGeneratedBadge />
+          </div>
           <div className="grid gap-3 md:grid-cols-2">
             {options.map((o, i) => (
-              <ResultRow key={i} index={i + 1} text={o} />
+              <ResultRow key={`${m.dataUpdatedAt}-${i}`} index={i + 1} text={o} delayMs={i * 70} />
             ))}
           </div>
         </section>
@@ -183,10 +191,13 @@ function GeneratorPage() {
   );
 }
 
-function ResultRow({ text, index }: { text: string; index: number }) {
+function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; delayMs?: number }) {
   const [copied, setCopied] = useState(false);
   return (
-    <Card className="group flex items-start justify-between gap-3 rounded-3xl border-0 bg-card p-5 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-glow)]">
+    <Card
+      className="card-pop glow-hover group flex items-start justify-between gap-3 rounded-3xl border-0 bg-card p-5 shadow-[var(--shadow-soft)]"
+      style={{ animationDelay: `${delayMs}ms` }}
+    >
       <div className="flex flex-1 gap-3">
         <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-xs font-bold text-white">
           {index}
