@@ -57,7 +57,7 @@ function Landing() {
   void loading;
   void navigate;
 
-  const ctaPrimary = user ? { to: "/app" as const, label: "Open the studio" } : { to: "/signup" as const, label: "Get my first brief — free" };
+  const ctaPrimary = user ? { to: "/app" as const, label: "Create my content" } : { to: "/signup" as const, label: "Create my content — free" };
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
 
   return (
