@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/refund")({
   head: () => ({
     meta: [
-      { title: "Refund Policy — The Blog Mum Studio" },
+      { title: "Refund Policy — Blym by The Blog Mum" },
       { name: "description", content: "7-day money-back guarantee on all paid plans." },
       { name: "robots", content: "index, follow" },
     ],
@@ -21,7 +21,7 @@ function RefundPage() {
 
       <h2 className="mt-8 font-display text-xl font-bold">7-day money-back guarantee</h2>
       <p className="mt-2">
-        We want you to feel confident trying The Blog Mum Studio. If you're not happy with your purchase, you can request a
+        We want you to feel confident trying Blym by The Blog Mum. If you're not happy with your purchase, you can request a
         full refund within <strong>7 days</strong> of the order date — no questions asked. This applies to monthly,
         yearly, and lifetime purchases.
       </p>
