@@ -22,7 +22,7 @@ import { useSubscription } from "@/hooks/use-subscription";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
-import logoImg from "@/assets/logo-blogmum.png";
+import logoImg from "@/assets/logo-blym.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
