@@ -22,7 +22,7 @@ import { useSubscription } from "@/hooks/use-subscription";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
-import logoImg from "@/assets/logo-blogmum.png";
+import logoImg from "@/assets/logo-blym.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -141,18 +141,18 @@ function Landing() {
           <div className="text-center lg:text-left">
             <img
               src={logoImg}
-              alt="The Blog Mum Studio"
-              className="mx-auto mb-6 h-24 w-auto sm:h-32 lg:mx-0 lg:h-36"
+              alt="Blym — by The Blog Mum"
+              className="mx-auto mb-5 h-20 w-auto sm:h-24 lg:mx-0 lg:h-28"
               width={320}
               height={144}
             />
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
+              <Sparkles className="h-3.5 w-3.5 text-primary" /> By The Blog Mum
             </span>
             <h1 className="mx-auto mt-6 max-w-2xl text-center font-display text-[32px] font-normal leading-[1.08] tracking-[-0.02em] text-foreground text-balance sm:text-[44px] lg:text-[52px]">
-              The AI content studio helping{" "}
+              Short for{" "}
               <span className="relative inline-block italic text-primary">
-                mums grow online
+                Blog Mum
                 <svg
                   aria-hidden
                   viewBox="0 0 300 16"
@@ -167,12 +167,12 @@ function Landing() {
                     strokeLinecap="round"
                   />
                 </svg>
-              </span>{" "}
-              without burnout
+              </span>.{" "}
+              Big enough to grow your content. Small enough to fit your day.
               <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.6] text-muted-foreground text-pretty lg:mx-0">
-              Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
+              Blym is The Blog Mum's pocket-sized content studio — daily filming briefs, hooks, captions and a planner for mums who create between school runs.
             </p>
             {/* High-contrast focal CTA block */}
             <div className="mx-auto mt-8 max-w-md rounded-3xl bg-slate-700/90 p-4 text-white shadow-[var(--shadow-soft)] sm:p-5 text-center">
