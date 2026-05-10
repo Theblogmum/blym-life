@@ -59,6 +59,7 @@ import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAffiliatesRouteImport } from './routes/_authenticated/affiliates'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -334,6 +335,11 @@ const AuthenticatedAffiliatesRoute = AuthenticatedAffiliatesRouteImport.update({
   path: '/affiliates',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -379,6 +385,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
@@ -436,6 +443,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
@@ -495,6 +503,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/affiliates': typeof AuthenticatedAffiliatesRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
@@ -554,6 +563,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/unsubscribe'
+    | '/admin'
     | '/affiliates'
     | '/app'
     | '/bio-optimiser'
@@ -611,6 +621,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/unsubscribe'
+    | '/admin'
     | '/affiliates'
     | '/app'
     | '/bio-optimiser'
@@ -669,6 +680,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/terms'
     | '/unsubscribe'
+    | '/_authenticated/admin'
     | '/_authenticated/affiliates'
     | '/_authenticated/app'
     | '/_authenticated/bio-optimiser'
@@ -1089,6 +1101,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAffiliatesRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -1135,6 +1154,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedAffiliatesRoute: typeof AuthenticatedAffiliatesRoute
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
@@ -1178,6 +1198,7 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedAffiliatesRoute: AuthenticatedAffiliatesRoute,
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,

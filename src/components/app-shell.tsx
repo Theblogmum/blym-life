@@ -14,6 +14,10 @@ import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DunningBanner } from "@/components/dunning-banner";
 import logo from "@/assets/logo-blogmum.png";
+import { useServerFn } from "@tanstack/react-start";
+import { useQuery } from "@tanstack/react-query";
+import { checkIsAdmin } from "@/lib/admin.functions";
+import { Shield } from "lucide-react";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -88,6 +92,15 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const checkAdmin = useServerFn(checkIsAdmin);
+  const adminQ = useQuery({
+    queryKey: ["is-admin"],
+    queryFn: () => checkAdmin(),
+    enabled: !!user,
+    staleTime: 5 * 60 * 1000,
+  });
+  const isAdmin = !!adminQ.data?.isAdmin;
 
   // Close search dropdown on outside click
   useEffect(() => {
@@ -188,6 +201,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           </Link>
         );
       })}
+      {isAdmin && (
+        <Link
+          to="/admin"
+          onClick={onClick}
+          className={cn(
+            "flex items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-medium transition-all",
+            isActive("/admin")
+              ? "bg-primary/10 text-primary"
+              : "text-foreground/70 hover:bg-secondary",
+          )}
+        >
+          <Shield className="h-4 w-4" strokeWidth={1.75} />
+          Admin
+        </Link>
+      )}
     </nav>
   );
 
