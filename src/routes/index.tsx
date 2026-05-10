@@ -12,7 +12,8 @@ import {
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap, Mail, HelpCircle, BookOpen, Briefcase,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap, HelpCircle, Briefcase,
+  type LucideIcon,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
