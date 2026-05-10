@@ -93,6 +93,13 @@ function Landing() {
         <div className="absolute -bottom-40 -left-32 h-[26rem] w-[26rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-60 blur-3xl" aria-hidden />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:grid-cols-[0.9fr_1.15fr]">
           <div className="text-center lg:text-left">
+            <img
+              src={logoImg}
+              alt="The Blog Mum Studio"
+              className="mx-auto mb-5 h-14 w-auto sm:h-16 lg:mx-0"
+              width={180}
+              height={64}
+            />
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
             </span>
