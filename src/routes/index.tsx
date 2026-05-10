@@ -175,7 +175,7 @@ function Landing() {
               Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
             </p>
             {/* High-contrast focal CTA block */}
-            <div className="mt-8 rounded-3xl bg-[image:var(--gradient-ink)] p-5 text-background shadow-[var(--shadow-elegant)] sm:p-6">
+            <div className="mt-8 rounded-3xl bg-[image:var(--gradient-ink)] p-5 text-background shadow-[var(--shadow-elegant)] sm:p-6 text-center">
               <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
                 <Link to={ctaPrimary.to}>
                   <Button size="lg" className="w-full rounded-full bg-primary px-8 text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90 sm:w-auto">
