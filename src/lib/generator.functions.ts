@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { callAITool } from "@/lib/ai.server";
-import { enforceTrial, getCtx, readString, toStringList } from "@/lib/generator-helpers.server";
+import { assertAiInput, enforceTrial, getCtx, readString, toStringList } from "@/lib/generator-helpers.server";
 
 export const generateContent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
