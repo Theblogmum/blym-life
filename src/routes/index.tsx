@@ -448,11 +448,11 @@ function Landing() {
             { q: "Can I cancel anytime?", a: "Yes — one click in Settings. No awkward emails." },
           ].map((f) => (
             <details key={f.q} className="group rounded-3xl border border-border/70 bg-card p-6 transition hover:border-border [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex cursor-pointer items-center justify-between font-medium text-foreground">
+              <summary className="flex cursor-pointer items-center justify-between text-[15px] font-medium leading-snug text-foreground">
                 {f.q}
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+              <p className="mt-3 text-[14px] leading-[1.65] text-muted-foreground text-pretty">{f.a}</p>
             </details>
           ))}
         </div>
