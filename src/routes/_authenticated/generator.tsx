@@ -156,7 +156,7 @@ function GeneratorPage() {
           </div>
           <div className="grid gap-3 md:grid-cols-2">
             {options.map((o, i) => (
-              <ResultRow key={`${m.dataUpdatedAt}-${i}`} index={i + 1} text={o} delayMs={i * 70} />
+              <ResultRow key={`${m.submittedAt}-${i}`} index={i + 1} text={o} delayMs={i * 70} />
             ))}
           </div>
         </section>
