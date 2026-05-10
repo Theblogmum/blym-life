@@ -143,8 +143,8 @@ function Landing() {
           </div>
 
           {/* AI generation mockup — shows the product working */}
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none lg:scale-[1.06] lg:origin-right">
-            <div className="absolute -inset-8 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" aria-hidden />
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="absolute -inset-6 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-15 blur-3xl" aria-hidden />
             <div className="card-elegant relative overflow-hidden p-5 sm:p-7">
               {/* Prompt row */}
               <div className="flex items-center gap-2">
@@ -208,19 +208,17 @@ function Landing() {
               </div>
             </div>
 
-            {/* Floating "before" → blank state chip */}
-            <div className="absolute -top-3 -left-4 hidden rounded-2xl border border-border/60 bg-card px-3 py-2 shadow-[var(--shadow-elegant)] sm:block">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Before</p>
-              <p className="text-xs text-muted-foreground/80">Blank page · 0 ideas</p>
+            {/* Floating "before" chip — compact */}
+            <div className="absolute -top-2 -left-2 hidden rounded-xl border border-border/60 bg-card px-2.5 py-1.5 shadow-[var(--shadow-soft)] sm:block">
+              <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Before</p>
+              <p className="text-[11px] text-muted-foreground/80">Blank page</p>
             </div>
-            {/* Floating "after" win chip */}
-            <div className="absolute -bottom-4 -right-4 hidden rounded-2xl border border-border/60 bg-card p-3 shadow-[var(--shadow-elegant)] sm:block">
-              <div className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-xl bg-[var(--surface-mint)] text-success"><TrendingUp className="h-4 w-4" /></span>
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">After</p>
-                  <p className="text-sm font-medium">5 posts ready ✨</p>
-                </div>
+            {/* Floating "after" chip — compact */}
+            <div className="absolute -bottom-2 -right-2 hidden items-center gap-2 rounded-xl border border-border/60 bg-card px-2.5 py-1.5 shadow-[var(--shadow-soft)] sm:flex">
+              <span className="grid h-6 w-6 place-items-center rounded-lg bg-[var(--surface-mint)] text-success"><TrendingUp className="h-3.5 w-3.5" /></span>
+              <div className="leading-tight">
+                <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">After</p>
+                <p className="text-[12px] font-medium">5 posts ready ✨</p>
               </div>
             </div>
           </div>
