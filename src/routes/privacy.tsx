@@ -4,7 +4,7 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Notice — Blym by The Blog Mum" },
-      { name: "description", content: "How The Blog Mum Studio collects, uses, and protects your personal data." },
+      { name: "description", content: "How Blym by The Blog Mum collects, uses, and protects your personal data." },
       { name: "robots", content: "index, follow" },
     ],
     links: [{ rel: "canonical", href: "https://theblogmumstudio.com/privacy" }],

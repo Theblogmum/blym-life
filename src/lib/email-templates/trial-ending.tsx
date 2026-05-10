@@ -12,7 +12,7 @@ import {
 } from '@react-email/components'
 import type { TemplateEntry } from './registry'
 
-const SITE_NAME = 'The Blog Mum Studio'
+const SITE_NAME = 'Blym by The Blog Mum'
 const APP_URL = 'https://theblogmumstudio.com/app'
 
 interface TrialEndingProps {
