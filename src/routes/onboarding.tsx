@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/onboarding")({
-  head: () => ({ meta: [{ title: "Set up — The Blog Mum Studio" }] }),
+  head: () => ({ meta: [{ title: "Set up — Blym by The Blog Mum" }] }),
   component: OnboardingPage,
 });
 
