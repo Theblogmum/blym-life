@@ -175,8 +175,8 @@ function Landing() {
               Generate scroll-stopping hooks, reel scripts and captions in seconds — built for mums who film between school runs.
             </p>
             {/* High-contrast focal CTA block */}
-            <div className="mt-8 rounded-3xl bg-[image:var(--gradient-ink)] p-5 text-background shadow-[var(--shadow-elegant)] sm:p-6 text-center">
-              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+            <div className="mx-auto mt-8 max-w-md rounded-3xl bg-slate-700/90 p-4 text-white shadow-[var(--shadow-soft)] sm:p-5 text-center">
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
                 <Link to={ctaPrimary.to}>
                   <Button size="lg" className="w-full rounded-full bg-primary px-8 text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90 sm:w-auto">
                     {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
@@ -184,16 +184,16 @@ function Landing() {
                 </Link>
                 {ctaSecondary && (
                   <Link to={ctaSecondary.to}>
-                    <Button size="lg" variant="ghost" className="w-full rounded-full text-background hover:bg-background/10 sm:w-auto">
+                    <Button size="lg" variant="ghost" className="w-full rounded-full text-white hover:bg-white/10 sm:w-auto">
                       {ctaSecondary.label}
                     </Button>
                   </Link>
                 )}
               </div>
-              <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-medium text-background/75 lg:justify-start">
-                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Free forever plan</span>
-                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> No card required</span>
-                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
+              <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-medium text-white/85">
+                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-foreground" /> Free forever plan</span>
+                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-foreground" /> No card required</span>
+                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-foreground" /> Cancel any time</span>
               </p>
             </div>
             {/* Quick trust signals — compact inline row */}
