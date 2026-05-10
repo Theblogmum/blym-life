@@ -89,9 +89,9 @@ function Landing() {
 
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-aurora">
-        <div className="absolute -top-40 -right-32 h-[28rem] w-[28rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-50 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-40 -left-32 h-[26rem] w-[26rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-60 blur-3xl" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-24 sm:pb-28 lg:grid-cols-[0.9fr_1.15fr]">
+        <div className="absolute -top-40 -right-32 h-[24rem] w-[24rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-30 blur-3xl" aria-hidden />
+        <div className="absolute -bottom-40 -left-32 h-[22rem] w-[22rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-35 blur-3xl" aria-hidden />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-12 pb-16 sm:px-8 sm:pt-20 sm:pb-24 lg:grid-cols-[0.95fr_1.1fr]">
           <div className="text-center lg:text-left">
             <img
               src={logoImg}
@@ -134,17 +134,19 @@ function Landing() {
                 <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary" /> Cancel any time</span>
               </p>
             </div>
-            {/* Quick trust signals */}
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-[11px] font-semibold text-muted-foreground lg:justify-start">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Users className="h-3.5 w-3.5 text-primary" /> Built for busy mums &amp; creators</span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Sparkles className="h-3.5 w-3.5 text-primary" /> 10,000+ ideas generated</span>
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 backdrop-blur"><Zap className="h-3.5 w-3.5 text-primary" /> Made to simplify content creation</span>
+            {/* Quick trust signals — compact inline row */}
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[11px] font-medium text-muted-foreground lg:justify-start">
+              <span className="inline-flex items-center gap-1.5"><Users className="h-3.5 w-3.5 text-primary" /> Built for busy mums</span>
+              <span className="text-border">·</span>
+              <span className="inline-flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-primary" /> 10,000+ ideas generated</span>
+              <span className="text-border">·</span>
+              <span className="inline-flex items-center gap-1.5"><Zap className="h-3.5 w-3.5 text-primary" /> Simplifies your content</span>
             </div>
           </div>
 
           {/* AI generation mockup — shows the product working */}
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none lg:scale-[1.06] lg:origin-right">
-            <div className="absolute -inset-8 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" aria-hidden />
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            <div className="absolute -inset-6 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-15 blur-3xl" aria-hidden />
             <div className="card-elegant relative overflow-hidden p-5 sm:p-7">
               {/* Prompt row */}
               <div className="flex items-center gap-2">
@@ -208,19 +210,17 @@ function Landing() {
               </div>
             </div>
 
-            {/* Floating "before" → blank state chip */}
-            <div className="absolute -top-3 -left-4 hidden rounded-2xl border border-border/60 bg-card px-3 py-2 shadow-[var(--shadow-elegant)] sm:block">
-              <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Before</p>
-              <p className="text-xs text-muted-foreground/80">Blank page · 0 ideas</p>
+            {/* Floating "before" chip — compact */}
+            <div className="absolute -top-2 -left-2 hidden rounded-xl border border-border/60 bg-card px-2.5 py-1.5 shadow-[var(--shadow-soft)] sm:block">
+              <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Before</p>
+              <p className="text-[11px] text-muted-foreground/80">Blank page</p>
             </div>
-            {/* Floating "after" win chip */}
-            <div className="absolute -bottom-4 -right-4 hidden rounded-2xl border border-border/60 bg-card p-3 shadow-[var(--shadow-elegant)] sm:block">
-              <div className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-xl bg-[var(--surface-mint)] text-success"><TrendingUp className="h-4 w-4" /></span>
-                <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">After</p>
-                  <p className="text-sm font-medium">5 posts ready ✨</p>
-                </div>
+            {/* Floating "after" chip — compact */}
+            <div className="absolute -bottom-2 -right-2 hidden items-center gap-2 rounded-xl border border-border/60 bg-card px-2.5 py-1.5 shadow-[var(--shadow-soft)] sm:flex">
+              <span className="grid h-6 w-6 place-items-center rounded-lg bg-[var(--surface-mint)] text-success"><TrendingUp className="h-3.5 w-3.5" /></span>
+              <div className="leading-tight">
+                <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">After</p>
+                <p className="text-[12px] font-medium">5 posts ready ✨</p>
               </div>
             </div>
           </div>
