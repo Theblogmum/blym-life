@@ -4,7 +4,7 @@ import {
   FolderOpen, Users, Star, Settings, LogOut, ChevronDown, ChevronRight,
   Menu, X, Bell, Search,
 } from "lucide-react";
-import { useState, type ReactNode } from "react";
+import { useState, useMemo, useRef, useEffect, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
@@ -85,6 +85,44 @@ export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  // Close search dropdown on outside click
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  // Flatten nav into searchable items
+  const allItems = useMemo(() => {
+    const items: { to: string; label: string; group: string }[] = [];
+    NAV.forEach((g) => {
+      if (g.to) items.push({ to: g.to, label: g.label, group: g.label });
+      g.items?.forEach((i) => items.push({ to: i.to, label: i.label, group: g.label }));
+    });
+    return items;
+  }, []);
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return allItems
+      .filter((i) => i.label.toLowerCase().includes(q) || i.group.toLowerCase().includes(q))
+      .slice(0, 8);
+  }, [searchQuery, allItems]);
+
+  const goToResult = (to: string) => {
+    setSearchQuery("");
+    setSearchOpen(false);
+    navigate({ to });
+  };
 
   const isActive = (to?: string) => !!to && (path === to || (to !== "/app" && path.startsWith(to)));
   const initial = (user?.email ?? "?").slice(0, 1).toUpperCase();
@@ -250,16 +288,68 @@ export function AppShell({ children }: { children: ReactNode }) {
               </button>
 
               <div className="ml-auto flex items-center gap-2">
-                <button className="relative grid h-10 w-10 place-items-center rounded-full bg-card text-foreground/70 ring-1 ring-border hover:text-foreground" aria-label="Notifications">
-                  <Bell className="h-4 w-4" strokeWidth={1.75} />
-                  <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" />
-                </button>
-                <div className="relative hidden md:block">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button
+                      className="relative grid h-10 w-10 place-items-center rounded-full bg-card text-foreground/70 ring-1 ring-border hover:text-foreground"
+                      aria-label="Notifications"
+                    >
+                      <Bell className="h-4 w-4" strokeWidth={1.75} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-72 rounded-2xl">
+                    <DropdownMenuLabel className="text-xs text-muted-foreground">
+                      Notifications
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <div className="px-3 py-6 text-center text-sm text-muted-foreground">
+                      You're all caught up ✨
+                      <div className="mt-1 text-[11px]">No new notifications</div>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                <div ref={searchRef} className="relative hidden md:block">
                   <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <input
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setSearchOpen(true);
+                    }}
+                    onFocus={() => setSearchOpen(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && searchResults[0]) {
+                        goToResult(searchResults[0].to);
+                      } else if (e.key === "Escape") {
+                        setSearchOpen(false);
+                      }
+                    }}
                     placeholder="Search anything..."
                     className="h-10 w-72 rounded-full border border-border bg-card pl-10 pr-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                   />
+                  {searchOpen && searchQuery.trim() && (
+                    <div className="absolute right-0 top-12 z-50 w-80 overflow-hidden rounded-2xl border border-border bg-popover shadow-lg">
+                      {searchResults.length === 0 ? (
+                        <div className="px-4 py-6 text-center text-sm text-muted-foreground">
+                          No results for "{searchQuery}"
+                        </div>
+                      ) : (
+                        <ul className="max-h-80 overflow-y-auto py-2">
+                          {searchResults.map((r) => (
+                            <li key={r.to}>
+                              <button
+                                onClick={() => goToResult(r.to)}
+                                className="flex w-full items-center justify-between px-4 py-2 text-left text-sm transition hover:bg-secondary"
+                              >
+                                <span className="font-medium text-foreground">{r.label}</span>
+                                <span className="text-[11px] text-muted-foreground">{r.group}</span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
