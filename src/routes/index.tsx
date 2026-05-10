@@ -2,9 +2,18 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { type ComponentType } from "react";
 import { Button } from "@/components/ui/button";
 import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap, HelpCircle, Briefcase,
+  type LucideIcon,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -69,8 +78,45 @@ function Landing() {
           <img src={logoImg} alt="The Blog Mum" className="h-9 w-auto sm:h-10" width={120} height={40} />
           <span className="sr-only">The Blog Mum Studio</span>
         </Link>
-        <nav className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex">
-          <a href="#how" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">How it works</a>
+        <NavigationMenu className="hidden lg:flex">
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-muted-foreground hover:text-foreground data-[state=open]:bg-secondary">Product</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[460px] grid-cols-2 gap-2 p-3">
+                  <NavMenuLink href="#features" icon={Wand2} title="Features" body="Every tool inside the studio" />
+                  <NavMenuLink href="#how" icon={Sparkles} title="How it works" body="From idea to filmed in 3 steps" />
+                  <NavMenuLink href="#pricing" icon={DollarSign} title="Pricing" body="Free to start. Upgrade any time" />
+                  <NavMenuLink href="#faq" icon={HelpCircle} title="FAQ" body="The questions mums ask us" />
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-muted-foreground hover:text-foreground data-[state=open]:bg-secondary">For creators</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[460px] grid-cols-2 gap-2 p-3">
+                  <NavMenuLink href="#features" icon={Flame} title="Viral Lab" body="Remix any trend for your niche" />
+                  <NavMenuLink href="#features" icon={CalendarDays} title="Weekly Planner" body="A 7-day grid you'll actually fill" />
+                  <NavMenuLink href="#features" icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles" />
+                  <NavMenuLink href="#features" icon={Briefcase} title="Revenue Hub" body="Income, invoices & brand pipeline" />
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <a href="#testimonials" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Reviews</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <a href="mailto:studio@theblogmum.com" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Contact</a>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        {/* Compact nav for tablets */}
+        <nav className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex lg:hidden">
+          <a href="#how" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">How</a>
           <a href="#features" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Features</a>
           <a href="#pricing" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Pricing</a>
         </nav>
@@ -253,7 +299,7 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+      <section id="testimonials" className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid gap-3 sm:grid-cols-3">
             {[
@@ -379,7 +425,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
+      <section id="faq" className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
         <p className="eyebrow text-center">FAQ</p>
         <h2 className="mt-3 text-center font-display text-3xl font-normal tracking-tight sm:text-4xl">Things mums ask us</h2>
         <div className="mt-10 space-y-3">
@@ -435,6 +481,27 @@ function Landing() {
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as The Blog Mum Studio</p>
       </footer>
     </div>
+  );
+}
+
+function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: LucideIcon; title: string; body: string }) {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          href={href}
+          className="group flex items-start gap-3 rounded-2xl border border-transparent p-3 transition hover:border-border/60 hover:bg-secondary/60"
+        >
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-primary">
+            <Icon className="h-4 w-4" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-foreground">{title}</span>
+            <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{body}</span>
+          </span>
+        </a>
+      </NavigationMenuLink>
+    </li>
   );
 }
 
