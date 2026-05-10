@@ -12,6 +12,7 @@ import { getUsageToday } from "@/lib/usage.functions";
 import { cn } from "@/lib/utils";
 import { PageHero, UsageChip } from "@/components/page-hero";
 import { TypingDots, IdeaGeneratedBadge } from "@/components/micro";
+import { PersonaBubble } from "@/components/ai-persona";
 
 const KINDS = [
   { v: "hook", l: "Hooks", emoji: "🎣", tip: "Stop the scroll in 2 seconds." },
@@ -60,17 +61,20 @@ function GeneratorPage() {
       <PageHero
         icon={Camera}
         eyebrow="Content Generator"
-        title="Five posts. One minute."
-        description="Hooks, captions, scripts, hashtags & shot lists — written in your voice for your niche."
+        title="Tell me what you filmed."
+        description="I'll turn it into hooks, captions, scripts, hashtags or a shot list — in your voice ✨"
         variant="warm"
       >
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
       </PageHero>
 
       <section className="mx-auto max-w-3xl space-y-6 px-5 py-8">
+        <PersonaBubble tone="peach">
+          Hey lovely — pick what you need, drop the topic, and I'll write 5 options you can post tonight.
+        </PersonaBubble>
         <div>
           <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-            1 · Pick what to write
+            First — what should I write?
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {KINDS.map((k) => (
@@ -93,11 +97,11 @@ function GeneratorPage() {
 
         <div>
           <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-            2 · What's it about?
+            Now — what's it about?
           </label>
           <Input
             className="mt-2 h-12 rounded-xl text-base"
-            placeholder="e.g. surviving witching hour with a 2-year-old"
+            placeholder="Tell me in a sentence — e.g. 'surviving witching hour with a 2-year-old'"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
           />
@@ -129,9 +133,9 @@ function GeneratorPage() {
         >
           <Sparkles className={cn("mr-2 h-4 w-4", m.isPending && "animate-spin")} />
           {m.isPending ? (
-            <span className="inline-flex items-center gap-2">Writing your 5 options <TypingDots /></span>
+            <span className="inline-flex items-center gap-2">Bloom is writing <TypingDots /></span>
           ) : (
-            "Generate 5 options"
+            "Write me 5 options ✨"
           )}
         </Button>
 
@@ -151,7 +155,7 @@ function GeneratorPage() {
       {options.length > 0 && (
         <section className="mx-auto max-w-5xl px-5 pb-10">
           <div className="mb-4 flex items-center gap-3">
-            <h2 className="font-display text-2xl font-black">Your 5 options</h2>
+            <h2 className="font-display text-2xl font-black">Here's what I'd post 👇</h2>
             <IdeaGeneratedBadge />
           </div>
           <div className="grid gap-3 md:grid-cols-2">

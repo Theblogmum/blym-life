@@ -24,7 +24,7 @@ function Page() {
   const ready = situation.trim().length > 10;
   return (
     <div>
-      <PageHero icon={HeartHandshake} eyebrow="Rejection recovery" title="A no isn't the end. Let's land it softly." description="Paste the brand no, the ghosting, the harsh comment, the flop. Get a kind reframe, a reply you can send, and 3 tiny next steps." variant="bloom">
+      <PageHero icon={HeartHandshake} eyebrow="Rejection recovery" title="Tell me what happened — I've got you." description="Paste the brand no, the ghosting, the harsh comment, the flop. I'll give you a kind reframe, a reply you can send, and 3 tiny next steps 💛" variant="bloom">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-3xl px-5 py-10">
@@ -34,7 +34,7 @@ function Page() {
             <Textarea id="sit" rows={6} value={situation} onChange={(e) => setSituation(e.target.value)} placeholder="e.g. Pitched a brand for £1500, they came back with £200 + 3 deliverables..." className="rounded-xl bg-secondary/40" />
           </div>
           <Button size="lg" className="h-12 w-full rounded-2xl text-base font-bold sm:w-auto" disabled={!ready || m.isPending || locked} onClick={() => m.mutate()}>
-            <Sparkles className="mr-2 h-4 w-4" /> {m.isPending ? "On it…" : "Help me bounce back"}
+            <Sparkles className="mr-2 h-4 w-4" /> {m.isPending ? "Bloom is on it…" : "Help me bounce back ✨"}
           </Button>
           {locked && (
             <div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">

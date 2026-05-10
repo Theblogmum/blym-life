@@ -41,8 +41,8 @@ function TemplatesPage() {
       <PageHero
         icon={Wand2}
         eyebrow="Template Studio"
-        title="Tell us what you need. Pick from 4."
-        description="Posts, emails, DMs — we work out what fits and write 4 ready-to-use options."
+        title="Tell me what you need to send."
+        description="Brand reply, DM, story script, email — I'll write 4 ready-to-use options you can pick from ✨"
         variant="sunrise"
       >
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} />
@@ -60,7 +60,7 @@ function TemplatesPage() {
               rows={4}
               value={need}
               onChange={(e) => setNeed(e.target.value)}
-              placeholder="e.g. 'reply to a brand who sent me a free playmat — I want to negotiate paid'"
+              placeholder="Tell me in your own words — e.g. 'reply to a brand who sent me a free playmat, I want paid'"
               className="rounded-2xl bg-secondary/40 text-base"
             />
             <div className="flex flex-wrap gap-1.5">
@@ -81,7 +81,7 @@ function TemplatesPage() {
               onClick={() => m.mutate()}
             >
               <Sparkles className="mr-2 h-4 w-4" />
-              {m.isPending ? "Drafting your 4 options…" : "Generate 4 templates"}
+              {m.isPending ? "Bloom is drafting…" : "Draft me 4 options ✨"}
             </Button>
             {locked && (
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">
