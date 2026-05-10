@@ -10,7 +10,10 @@ export const listFeed = createServerFn({ method: "GET" })
       .select("*")
       .order("created_at", { ascending: false })
       .limit(100);
-    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
+    if (error) {
+      console.error("[db error]", error);
+      throw new Error("Something went wrong. Please try again.");
+    }
     const list = posts ?? [];
     if (list.length === 0) return { posts: [] };
     const ids = list.map((p) => p.id);
@@ -52,7 +55,10 @@ export const createPost = createServerFn({ method: "POST" })
       content,
       mood: data.mood ?? null,
     });
-    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
+    if (error) {
+      console.error("[db error]", error);
+      throw new Error("Something went wrong. Please try again.");
+    }
     return { ok: true };
   });
 
@@ -61,7 +67,10 @@ export const deletePost = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("community_posts").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
+    if (error) {
+      console.error("[db error]", error);
+      throw new Error("Something went wrong. Please try again.");
+    }
     return { ok: true };
   });
 
@@ -88,7 +97,10 @@ export const addComment = createServerFn({ method: "POST" })
       user_id: context.userId,
       content,
     });
-    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
+    if (error) {
+      console.error("[db error]", error);
+      throw new Error("Something went wrong. Please try again.");
+    }
     return { ok: true };
   });
 
@@ -97,6 +109,9 @@ export const deleteComment = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("community_comments").delete().eq("id", data.id).eq("user_id", context.userId);
-    if (error) console.error("[db error]", error); throw new Error("Something went wrong. Please try again.");
+    if (error) {
+      console.error("[db error]", error);
+      throw new Error("Something went wrong. Please try again.");
+    }
     return { ok: true };
   });
