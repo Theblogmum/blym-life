@@ -151,7 +151,23 @@ function Landing() {
             </span>
             <h1 className="mt-6 font-display text-[40px] font-normal leading-[1.06] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
               The AI content studio helping{" "}
-              <span className="italic text-primary">mums grow online</span>{" "}
+              <span className="relative inline-block italic text-primary">
+                mums grow online
+                <svg
+                  aria-hidden
+                  viewBox="0 0 300 16"
+                  preserveAspectRatio="none"
+                  className="pointer-events-none absolute -bottom-2 left-0 h-3 w-full text-primary/60"
+                >
+                  <path
+                    d="M2 9 C 60 2, 120 14, 180 7 S 280 4, 298 11"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>{" "}
               without burnout
               <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
             </h1>
@@ -274,8 +290,21 @@ function Landing() {
       </section>
 
       {/* ============ HOW IT HELPS ============ */}
-      <section className="border-t border-border/60 bg-background py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-5 sm:px-8">
+      <section className="relative border-t border-border/60 bg-background py-16 sm:py-20">
+        {/* Decorative dotted backdrop */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              "radial-gradient(currentColor 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+            color: "var(--border)",
+            maskImage:
+              "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
           <div className="text-center">
             <p className="eyebrow">How it helps</p>
             <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
@@ -287,13 +316,23 @@ function Landing() {
               { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)", to: "/generator" as const },
               { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)", to: "/planner" as const },
               { emoji: "🚀", title: "Grow", body: "Use AI-powered strategies designed for creator growth.", tint: "var(--surface-peach)", to: "/insights" as const },
-            ].map((item) => (
-              <Link key={item.title} to={item.to} className="card-elegant block p-7 text-left transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl text-2xl" style={{ background: item.tint }}>
+            ].map((item, i) => (
+              <Link
+                key={item.title}
+                to={item.to}
+                className="card-elegant group relative block p-7 text-left transition hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+                style={{ transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.6 : 0.6}deg)` }}
+              >
+                <span aria-hidden className="absolute right-5 top-5 h-1.5 w-1.5 rounded-full bg-primary/60" />
+                <div
+                  className="grid h-14 w-14 place-items-center rounded-2xl text-2xl shadow-[var(--shadow-soft)] transition-transform group-hover:-rotate-6"
+                  style={{ background: item.tint }}
+                >
                   {item.emoji}
                 </div>
                 <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{item.title}</h3>
                 <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">{item.body}</p>
+                <ArrowRight className="mt-4 h-4 w-4 text-primary opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
               </Link>
             ))}
           </div>
@@ -301,16 +340,22 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section id="testimonials" className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <section id="testimonials" className="relative overflow-hidden border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+        <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
+        <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              { value: "10,000+", label: "AI ideas generated" },
-              { value: "4.9★", label: "Average creator rating" },
-              { value: "2 mins", label: "From idea to ready-to-post" },
-            ].map((s) => (
-              <div key={s.label} className="card-elegant flex items-center gap-4 p-5">
-                <div className="font-display text-3xl text-primary">{s.value}</div>
+              { value: "10,000+", label: "AI ideas generated", tint: "var(--surface-peach)" },
+              { value: "4.9★", label: "Average creator rating", tint: "var(--surface-blush)" },
+              { value: "2 mins", label: "From idea to ready-to-post", tint: "var(--surface-mint)" },
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                className="card-elegant flex items-center gap-4 p-5"
+                style={{ background: s.tint, transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.4 : 0.4}deg)` }}
+              >
+                <div className="font-display text-3xl text-foreground">{s.value}</div>
                 <div className="text-sm font-medium text-muted-foreground">{s.label}</div>
               </div>
             ))}
@@ -322,7 +367,7 @@ function Landing() {
               Real mums. Real posts. Less burnout.
             </h2>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {[
               { name: "Hannah", handle: "@hannah.mums", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
               { name: "Priya", handle: "@priyacreates", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
@@ -330,9 +375,17 @@ function Landing() {
             ].map((t, i) => (
               <figure
                 key={t.handle}
-                className="card-elegant relative p-6"
-                style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
+                className="card-elegant relative p-6 transition-transform hover:-translate-y-1"
+                style={{
+                  animation: `fade-in 0.5s ease-out ${i * 0.12}s both`,
+                  transform: `rotate(${i === 0 ? -1.2 : i === 1 ? 0.4 : -0.6}deg)`,
+                }}
               >
+                {/* "Tape" sticker for polaroid feel */}
+                <span
+                  aria-hidden
+                  className="absolute -top-3 left-6 h-5 w-14 rotate-[-4deg] rounded-sm bg-primary/20 shadow-[var(--shadow-xs)] backdrop-blur"
+                />
                 <Quote className="absolute right-5 top-5 h-5 w-5 text-primary/40" />
                 <div className="flex items-center gap-1 text-primary">
                   {[...Array(5)].map((_, k) => <Star key={k} className="h-3.5 w-3.5 fill-primary" />)}
@@ -351,8 +404,18 @@ function Landing() {
         </div>
       </section>
 
-      <section id="how" className="bg-[image:var(--gradient-stone)] py-20">
-        <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
+      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-20">
+        {/* Wavy top divider */}
+        <svg
+          aria-hidden
+          viewBox="0 0 1200 60"
+          preserveAspectRatio="none"
+          className="absolute -top-px left-0 h-10 w-full text-background"
+        >
+          <path d="M0,40 C200,10 400,60 600,30 C800,0 1000,50 1200,20 L1200,0 L0,0 Z" fill="currentColor" />
+        </svg>
+        <div aria-hidden className="absolute right-[-4rem] top-20 h-72 w-72 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
+        <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
           <p className="eyebrow">How it works</p>
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
             From overwhelmed to filmed in three calm steps.
@@ -363,7 +426,23 @@ function Landing() {
               { icon: Wand2, t: "Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life.", tint: "var(--surface-peach)" },
               { icon: Camera, t: "Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record.", tint: "var(--surface-mint)" },
             ].map((s, i) => (
-              <div key={s.t} className="card-elegant p-7 text-left">
+              <div
+                key={s.t}
+                className="card-elegant relative p-7 text-left transition hover:-translate-y-1"
+                style={{ transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.5 : 0.5}deg)` }}
+              >
+                {/* Connecting dotted line between cards */}
+                {i < 2 && (
+                  <span
+                    aria-hidden
+                    className="absolute right-[-1.25rem] top-1/2 hidden h-px w-10 sm:block"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, var(--border) 50%, transparent 50%)",
+                      backgroundSize: "8px 1px",
+                    }}
+                  />
+                )}
                 <div className="flex items-center justify-between">
                   <div className="grid h-12 w-12 place-items-center rounded-2xl text-foreground" style={{ background: s.tint }}>
                     <s.icon className="h-5 w-5" />
@@ -378,7 +457,9 @@ function Landing() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+      <section id="features" className="relative px-5 py-20 sm:px-8 sm:py-24">
+        <div aria-hidden className="absolute left-1/2 top-10 -z-10 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" />
+        <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="eyebrow">Inside the studio</p>
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
@@ -425,6 +506,7 @@ function Landing() {
           <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" to="/insights" />
           <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" to="/business" />
           <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" to="/wins" />
+        </div>
         </div>
       </section>
 
