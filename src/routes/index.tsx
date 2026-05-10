@@ -485,6 +485,31 @@ function Landing() {
 }
 
 function PricingPlans() {
+  return null as never;
+}
+
+function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: LucideIcon; title: string; body: string }) {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          href={href}
+          className="group flex items-start gap-3 rounded-2xl border border-transparent p-3 transition hover:border-border/60 hover:bg-secondary/60"
+        >
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-primary">
+            <Icon className="h-4 w-4" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold text-foreground">{title}</span>
+            <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{body}</span>
+          </span>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+}
+
+function _PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
