@@ -487,15 +487,15 @@ function Landing() {
       </section>
 
       <section id="contact" className="mx-auto max-w-3xl px-5 pb-20 sm:px-8">
-        <div className="rounded-[2rem] bg-primary p-8 text-center text-primary-foreground shadow-[var(--shadow-soft)] sm:p-10">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary-foreground">Get in touch</span>
-          <h2 className="mt-4 font-display text-[28px] font-normal leading-[1.15] tracking-[-0.02em] text-primary-foreground text-balance sm:text-[36px]">Say hi — we read every message.</h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-primary-foreground/85 text-pretty">
+        <div className="rounded-[2rem] bg-primary/70 p-8 text-center text-white shadow-[var(--shadow-soft)] sm:p-10">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white">Get in touch</span>
+          <h2 className="mt-4 font-display text-[28px] font-normal leading-[1.15] tracking-[-0.02em] text-white text-balance sm:text-[36px]">Say hi — we read every message.</h2>
+          <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-white/85 text-pretty">
             Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
           </p>
           <a
             href="mailto:studio@theblogmum.com"
-            className="mt-6 inline-flex items-center justify-center rounded-full bg-primary-foreground px-6 py-3 text-sm font-semibold text-primary transition hover:bg-primary-foreground/90"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/90"
           >
             studio@theblogmum.com
           </a>
