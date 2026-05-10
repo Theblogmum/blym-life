@@ -290,8 +290,21 @@ function Landing() {
       </section>
 
       {/* ============ HOW IT HELPS ============ */}
-      <section className="border-t border-border/60 bg-background py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-5 sm:px-8">
+      <section className="relative border-t border-border/60 bg-background py-16 sm:py-20">
+        {/* Decorative dotted backdrop */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          style={{
+            backgroundImage:
+              "radial-gradient(currentColor 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+            color: "var(--border)",
+            maskImage:
+              "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
           <div className="text-center">
             <p className="eyebrow">How it helps</p>
             <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
@@ -303,13 +316,23 @@ function Landing() {
               { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)", to: "/generator" as const },
               { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)", to: "/planner" as const },
               { emoji: "🚀", title: "Grow", body: "Use AI-powered strategies designed for creator growth.", tint: "var(--surface-peach)", to: "/insights" as const },
-            ].map((item) => (
-              <Link key={item.title} to={item.to} className="card-elegant block p-7 text-left transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl text-2xl" style={{ background: item.tint }}>
+            ].map((item, i) => (
+              <Link
+                key={item.title}
+                to={item.to}
+                className="card-elegant group relative block p-7 text-left transition hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+                style={{ transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.6 : 0.6}deg)` }}
+              >
+                <span aria-hidden className="absolute right-5 top-5 h-1.5 w-1.5 rounded-full bg-primary/60" />
+                <div
+                  className="grid h-14 w-14 place-items-center rounded-2xl text-2xl shadow-[var(--shadow-soft)] transition-transform group-hover:-rotate-6"
+                  style={{ background: item.tint }}
+                >
                   {item.emoji}
                 </div>
                 <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{item.title}</h3>
                 <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">{item.body}</p>
+                <ArrowRight className="mt-4 h-4 w-4 text-primary opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
               </Link>
             ))}
           </div>
@@ -317,16 +340,22 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section id="testimonials" className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <section id="testimonials" className="relative overflow-hidden border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+        <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
+        <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              { value: "10,000+", label: "AI ideas generated" },
-              { value: "4.9★", label: "Average creator rating" },
-              { value: "2 mins", label: "From idea to ready-to-post" },
-            ].map((s) => (
-              <div key={s.label} className="card-elegant flex items-center gap-4 p-5">
-                <div className="font-display text-3xl text-primary">{s.value}</div>
+              { value: "10,000+", label: "AI ideas generated", tint: "var(--surface-peach)" },
+              { value: "4.9★", label: "Average creator rating", tint: "var(--surface-blush)" },
+              { value: "2 mins", label: "From idea to ready-to-post", tint: "var(--surface-mint)" },
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                className="card-elegant flex items-center gap-4 p-5"
+                style={{ background: s.tint, transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.4 : 0.4}deg)` }}
+              >
+                <div className="font-display text-3xl text-foreground">{s.value}</div>
                 <div className="text-sm font-medium text-muted-foreground">{s.label}</div>
               </div>
             ))}
@@ -338,7 +367,7 @@ function Landing() {
               Real mums. Real posts. Less burnout.
             </h2>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {[
               { name: "Hannah", handle: "@hannah.mums", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
               { name: "Priya", handle: "@priyacreates", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
@@ -346,9 +375,17 @@ function Landing() {
             ].map((t, i) => (
               <figure
                 key={t.handle}
-                className="card-elegant relative p-6"
-                style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
+                className="card-elegant relative p-6 transition-transform hover:-translate-y-1"
+                style={{
+                  animation: `fade-in 0.5s ease-out ${i * 0.12}s both`,
+                  transform: `rotate(${i === 0 ? -1.2 : i === 1 ? 0.4 : -0.6}deg)`,
+                }}
               >
+                {/* "Tape" sticker for polaroid feel */}
+                <span
+                  aria-hidden
+                  className="absolute -top-3 left-6 h-5 w-14 rotate-[-4deg] rounded-sm bg-primary/20 shadow-[var(--shadow-xs)] backdrop-blur"
+                />
                 <Quote className="absolute right-5 top-5 h-5 w-5 text-primary/40" />
                 <div className="flex items-center gap-1 text-primary">
                   {[...Array(5)].map((_, k) => <Star key={k} className="h-3.5 w-3.5 fill-primary" />)}
