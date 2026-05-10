@@ -299,7 +299,7 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+      <section id="testimonials" className="border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="grid gap-3 sm:grid-cols-3">
             {[
