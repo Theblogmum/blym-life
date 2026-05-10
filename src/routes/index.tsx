@@ -207,28 +207,28 @@ function Landing() {
           </div>
 
           {/* AI generation mockup — shows the product working */}
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+          <div className="relative mx-auto w-full max-w-sm">
             <div className="absolute -inset-6 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-15 blur-3xl" aria-hidden />
-            <div className="card-elegant relative overflow-hidden p-5 sm:p-7">
+            <div className="card-elegant relative overflow-hidden p-4 sm:p-5">
               {/* Prompt row */}
               <div className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-secondary text-foreground/70">
-                  <Wand2 className="h-4 w-4" />
+                <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-foreground/70">
+                  <Wand2 className="h-3.5 w-3.5" />
                 </span>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   "Reel hook for tired mum-hack"
-                  <span className="ml-0.5 inline-block h-3.5 w-[2px] translate-y-0.5 bg-primary align-middle animate-pulse" aria-hidden />
+                  <span className="ml-0.5 inline-block h-3 w-[2px] translate-y-0.5 bg-primary align-middle animate-pulse" aria-hidden />
                 </p>
               </div>
-              <div className="mt-3 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+              <div className="mt-2.5 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">
                   <Sparkles className="h-3 w-3" /> Viral idea generated
                 </span>
-                <span className="text-[10px] font-semibold text-muted-foreground">in 3.2s</span>
+                <span className="text-[9px] font-semibold text-muted-foreground">in 3.2s</span>
               </div>
 
               {/* Generated hooks */}
-              <div className="mt-4 space-y-2.5">
+              <div className="mt-3 space-y-2">
                 {[
                   { tag: "Hook", text: "POV: it's 6:47am and this hack just saved my morning." },
                   { tag: "Hook", text: "Why is no one talking about this mum-hack?!" },
@@ -236,37 +236,37 @@ function Landing() {
                 ].map((h, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-2.5 rounded-2xl border border-border/60 bg-secondary/40 p-3"
+                    className="flex items-start gap-2 rounded-xl border border-border/60 bg-secondary/40 p-2.5"
                     style={{ animation: `fade-in 0.4s ease-out ${i * 0.15}s both` }}
                   >
-                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary/15 text-[10px] font-bold text-primary">
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/15 text-[9px] font-bold text-primary">
                       {i + 1}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-wider text-primary/80">{h.tag}</p>
-                      <p className="mt-0.5 text-sm leading-snug text-foreground">{h.text}</p>
+                      <p className="text-[9px] font-bold uppercase tracking-wider text-primary/80">{h.tag}</p>
+                      <p className="mt-0.5 text-xs leading-snug text-foreground">{h.text}</p>
                     </div>
-                    <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-success" />
+                    <Check className="mt-1 h-3 w-3 shrink-0 text-success" />
                   </div>
                 ))}
               </div>
 
               {/* Caption preview */}
-              <div className="mt-3 rounded-2xl border border-border/60 bg-[var(--surface-peach)]/50 p-3">
+              <div className="mt-3 rounded-xl border border-border/60 bg-[var(--surface-peach)]/50 p-2.5">
                 <div className="flex items-center justify-between">
                   <p className="eyebrow">Caption · ready to post</p>
-                  <span className="rounded-full bg-card px-2 py-0.5 text-[10px] font-semibold text-foreground/70">Reel · 18s</span>
+                  <span className="rounded-full bg-card px-1.5 py-0.5 text-[9px] font-semibold text-foreground/70">Reel · 18s</span>
                 </div>
-                <p className="mt-1.5 text-sm leading-snug text-foreground/85">
+                <p className="mt-1 text-xs leading-snug text-foreground/85">
                   The 30-second mum-hack I wish I'd known a year ago 🫶 Save for later — your future tired self will thank you.
                 </p>
               </div>
 
               {/* Generating shimmer line */}
-              <div className="mt-3 flex items-center gap-2 text-[11px] font-medium text-muted-foreground">
-                <span className="relative flex h-2 w-2">
+              <div className="mt-2.5 flex items-center gap-2 text-[10px] font-medium text-muted-foreground">
+                <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                 </span>
                 <span>Generating shot list…</span>
               </div>
