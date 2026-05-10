@@ -204,14 +204,13 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex-1 overflow-y-auto px-3 pb-6">{renderNav(onClick)}</div>
 
       {/* Inspirational card */}
-      <div className="px-4">
-        <div className="rounded-3xl bg-primary/8 p-5 text-center">
-          <p className="font-display text-[13px] leading-snug text-foreground/85">
-            You're not just creating content,<br />
-            you're building<br />
+      <div className="px-6 py-3">
+        <div className="mx-auto max-w-[200px] rounded-2xl bg-primary/8 px-4 py-3 text-center">
+          <p className="font-display text-[12px] leading-[1.45] text-foreground/85 text-balance">
+            You're not just creating content — you're building{" "}
             <span className="italic">your dream life.</span>
           </p>
-          <Heart className="mx-auto mt-2.5 h-3.5 w-3.5 fill-primary text-primary" />
+          <Heart className="mx-auto mt-2 h-3 w-3 fill-primary text-primary" />
         </div>
       </div>
 
