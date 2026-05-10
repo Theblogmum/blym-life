@@ -404,8 +404,18 @@ function Landing() {
         </div>
       </section>
 
-      <section id="how" className="bg-[image:var(--gradient-stone)] py-20">
-        <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
+      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-20">
+        {/* Wavy top divider */}
+        <svg
+          aria-hidden
+          viewBox="0 0 1200 60"
+          preserveAspectRatio="none"
+          className="absolute -top-px left-0 h-10 w-full text-background"
+        >
+          <path d="M0,40 C200,10 400,60 600,30 C800,0 1000,50 1200,20 L1200,0 L0,0 Z" fill="currentColor" />
+        </svg>
+        <div aria-hidden className="absolute right-[-4rem] top-20 h-72 w-72 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
+        <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
           <p className="eyebrow">How it works</p>
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
             From overwhelmed to filmed in three calm steps.
@@ -416,7 +426,23 @@ function Landing() {
               { icon: Wand2, t: "Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life.", tint: "var(--surface-peach)" },
               { icon: Camera, t: "Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record.", tint: "var(--surface-mint)" },
             ].map((s, i) => (
-              <div key={s.t} className="card-elegant p-7 text-left">
+              <div
+                key={s.t}
+                className="card-elegant relative p-7 text-left transition hover:-translate-y-1"
+                style={{ transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.5 : 0.5}deg)` }}
+              >
+                {/* Connecting dotted line between cards */}
+                {i < 2 && (
+                  <span
+                    aria-hidden
+                    className="absolute right-[-1.25rem] top-1/2 hidden h-px w-10 sm:block"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(to right, var(--border) 50%, transparent 50%)",
+                      backgroundSize: "8px 1px",
+                    }}
+                  />
+                )}
                 <div className="flex items-center justify-between">
                   <div className="grid h-12 w-12 place-items-center rounded-2xl text-foreground" style={{ background: s.tint }}>
                     <s.icon className="h-5 w-5" />
@@ -431,7 +457,9 @@ function Landing() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+      <section id="features" className="relative px-5 py-20 sm:px-8 sm:py-24">
+        <div aria-hidden className="absolute left-1/2 top-10 -z-10 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" />
+        <div className="mx-auto max-w-6xl">
         <div className="text-center">
           <p className="eyebrow">Inside the studio</p>
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
@@ -478,6 +506,7 @@ function Landing() {
           <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" to="/insights" />
           <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" to="/business" />
           <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" to="/wins" />
+        </div>
         </div>
       </section>
 
