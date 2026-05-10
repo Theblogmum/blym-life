@@ -484,10 +484,6 @@ function Landing() {
   );
 }
 
-function PricingPlans() {
-  return null as never;
-}
-
 function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: LucideIcon; title: string; body: string }) {
   return (
     <li>
@@ -509,7 +505,7 @@ function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: Lu
   );
 }
 
-function _PricingPlans() {
+function PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
