@@ -66,89 +66,81 @@ function GeneratorPage() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
       </PageHero>
 
-      <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
-          <div className="border-b border-border/40 surface-peach px-6 py-4">
-            <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
-              Step 1 · Pick what to write
+      <section className="mx-auto max-w-3xl space-y-6 px-5 py-8">
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+            1 · Pick what to write
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {KINDS.map((k) => (
+              <button
+                key={k.v}
+                onClick={() => setKind(k.v)}
+                className={cn(
+                  "rounded-full border px-3 py-1.5 text-sm font-medium transition-all",
+                  kind === k.v
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-background text-foreground/70 hover:border-foreground/30",
+                )}
+              >
+                <span className="mr-1">{k.emoji}</span>
+                {k.l}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+            2 · What's it about?
+          </label>
+          <Input
+            className="mt-2 h-12 rounded-xl text-base"
+            placeholder="e.g. surviving witching hour with a 2-year-old"
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+          />
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {EXAMPLE_TOPICS.map((t) => (
+              <button
+                key={t}
+                onClick={() => setTopic(t)}
+                className="rounded-full px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:underline"
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {activeKind && (
+          <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+            <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+            <span><span className="font-semibold text-foreground/80">{activeKind.l} tip:</span> {activeKind.tip}</span>
+          </p>
+        )}
+
+        <Button
+          size="lg"
+          className="h-12 w-full rounded-xl text-base font-bold shadow-[var(--shadow-glow)] sm:w-auto"
+          disabled={!topic.trim() || m.isPending || lockedKind}
+          onClick={() => m.mutate()}
+        >
+          <Sparkles className="mr-2 h-4 w-4" />
+          {m.isPending ? "Writing your 5 options…" : "Generate 5 options"}
+        </Button>
+
+        {lockedKind && (
+          <Card className="flex items-center justify-between gap-3 rounded-2xl border-0 surface-plum p-3 text-sm">
+            <p className="flex items-center gap-2">
+              <Lock className="h-4 w-4" />
+              Trial ended — captions stay free, but {activeKind?.l.toLowerCase()} are premium.
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {KINDS.map((k) => (
-                <button
-                  key={k.v}
-                  onClick={() => setKind(k.v)}
-                  className={cn(
-                    "rounded-full px-4 py-2 text-sm font-semibold transition-all",
-                    kind === k.v
-                      ? "bg-primary text-primary-foreground shadow-[var(--shadow-soft)]"
-                      : "bg-white/70 text-foreground/70 hover:bg-white",
-                  )}
-                >
-                  <span className="mr-1.5">{k.emoji}</span>
-                  {k.l}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-4 p-6">
-            <div>
-              <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-                Step 2 · What's it about?
-              </label>
-              <Input
-                className="mt-2 h-12 rounded-2xl bg-secondary/40 text-base"
-                placeholder="e.g. surviving witching hour with a 2-year-old"
-                value={topic}
-                onChange={(e) => setTopic(e.target.value)}
-              />
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {EXAMPLE_TOPICS.map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTopic(t)}
-                    className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-foreground/70 hover:bg-secondary/70"
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {activeKind && (
-              <div className="flex items-start gap-2 rounded-2xl surface-butter p-3 text-sm">
-                <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <p>
-                  <span className="font-semibold">{activeKind.l} tip:</span> {activeKind.tip}
-                </p>
-              </div>
-            )}
-
-            <Button
-              size="lg"
-              className="h-12 w-full rounded-2xl text-base font-bold shadow-[var(--shadow-glow)] sm:w-auto"
-              disabled={!topic.trim() || m.isPending || lockedKind}
-              onClick={() => m.mutate()}
-            >
-              <Sparkles className="mr-2 h-4 w-4" />
-              {m.isPending ? "Writing your 5 options…" : "Generate 5 options"}
-            </Button>
-
-            {lockedKind && (
-              <div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">
-                <p className="flex items-center gap-2">
-                  <Lock className="h-4 w-4" />
-                  Trial ended — captions stay free, but {activeKind?.l.toLowerCase()} are premium.
-                </p>
-                <Link to="/settings">
-                  <Button size="sm" className="rounded-full">
-                    Upgrade
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
-        </Card>
+            <Link to="/settings">
+              <Button size="sm" className="rounded-full">Upgrade</Button>
+            </Link>
+          </Card>
+        )}
       </section>
 
       {options.length > 0 && (
