@@ -425,7 +425,7 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
+      <section id="faq" className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
         <p className="eyebrow text-center">FAQ</p>
         <h2 className="mt-3 text-center font-display text-3xl font-normal tracking-tight sm:text-4xl">Things mums ask us</h2>
         <div className="mt-10 space-y-3">
