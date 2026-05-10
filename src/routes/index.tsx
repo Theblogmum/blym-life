@@ -142,9 +142,9 @@ function Landing() {
             <img
               src={logoImg}
               alt="The Blog Mum Studio"
-              className="mx-auto mb-6 h-20 w-auto sm:h-24 lg:mx-0 lg:h-28"
-              width={260}
-              height={112}
+              className="mx-auto mb-6 h-24 w-auto sm:h-32 lg:mx-0 lg:h-36"
+              width={320}
+              height={144}
             />
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> The Creator OS for mums
