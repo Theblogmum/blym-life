@@ -151,7 +151,23 @@ function Landing() {
             </span>
             <h1 className="mt-6 font-display text-[40px] font-normal leading-[1.06] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
               The AI content studio helping{" "}
-              <span className="italic text-primary">mums grow online</span>{" "}
+              <span className="relative inline-block italic text-primary">
+                mums grow online
+                <svg
+                  aria-hidden
+                  viewBox="0 0 300 16"
+                  preserveAspectRatio="none"
+                  className="pointer-events-none absolute -bottom-2 left-0 h-3 w-full text-primary/60"
+                >
+                  <path
+                    d="M2 9 C 60 2, 120 14, 180 7 S 280 4, 298 11"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>{" "}
               without burnout
               <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
             </h1>
