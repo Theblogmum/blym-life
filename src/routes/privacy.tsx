@@ -7,7 +7,7 @@ export const Route = createFileRoute("/privacy")({
       { name: "description", content: "How Blym by The Blog Mum collects, uses, and protects your personal data." },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://theblogmumstudio.com/privacy" }],
+    links: [{ rel: "canonical", href: "https://blym.life/privacy" }],
   }),
   component: PrivacyPage,
 });
