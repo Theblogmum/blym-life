@@ -7,7 +7,7 @@ export const Route = createFileRoute("/refund")({
       { name: "description", content: "7-day money-back guarantee on all paid plans." },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "https://theblogmumstudio.com/refund" }],
+    links: [{ rel: "canonical", href: "https://blym.life/refund" }],
   }),
   component: RefundPage,
 });

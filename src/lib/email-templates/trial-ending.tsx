@@ -13,7 +13,7 @@ import {
 import type { TemplateEntry } from './registry'
 
 const SITE_NAME = 'Blym by The Blog Mum'
-const APP_URL = 'https://theblogmumstudio.com/app'
+const APP_URL = 'https://blym.life/app'
 
 interface TrialEndingProps {
   name?: string
