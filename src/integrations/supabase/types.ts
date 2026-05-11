@@ -703,6 +703,8 @@ export type Database = {
           display_name: string | null
           id: string
           onboarded: boolean
+          public_bio: string | null
+          public_slug: string | null
           tier: string
           trial_started_at: string
           updated_at: string
@@ -713,6 +715,8 @@ export type Database = {
           display_name?: string | null
           id: string
           onboarded?: boolean
+          public_bio?: string | null
+          public_slug?: string | null
           tier?: string
           trial_started_at?: string
           updated_at?: string
@@ -723,6 +727,8 @@ export type Database = {
           display_name?: string | null
           id?: string
           onboarded?: boolean
+          public_bio?: string | null
+          public_slug?: string | null
           tier?: string
           trial_started_at?: string
           updated_at?: string

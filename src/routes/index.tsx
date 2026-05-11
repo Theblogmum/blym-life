@@ -288,6 +288,35 @@ function Landing() {
         </div>
       </section>
 
+      {/* ============ PROMO VIDEO ============ */}
+      <section className="relative border-t border-border/60 bg-[image:var(--gradient-stone)] py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-5 sm:px-8">
+          <div className="mb-8 flex flex-col items-center text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+              <Sparkles className="h-3 w-3" /> 60-second tour
+            </span>
+            <h2 className="mt-3 font-display text-3xl font-black tracking-tight sm:text-4xl">
+              See Blym in action
+            </h2>
+            <p className="mt-2 max-w-xl text-[15px] text-muted-foreground">
+              From today's idea to a fully planned week — the whole creator workflow in one studio.
+            </p>
+          </div>
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-bold)]">
+            <video
+              src="/promo.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="block w-full"
+              aria-label="A short tour of Blym showing daily ideas, viral hooks, weekly planner, and monetisation tools"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ============ HOW IT HELPS ============ */}
       <section className="relative border-t border-border/60 bg-background py-16 sm:py-20">
         {/* Decorative dotted backdrop */}
