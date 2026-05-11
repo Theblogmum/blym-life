@@ -125,7 +125,7 @@
   --gradient-stone: linear-gradient(180deg, oklch(0.99 0.004 30), oklch(0.96 0.005 30));
   --gradient-ink: linear-gradient(135deg, oklch(0.18 0.012 20), oklch(0.08 0.008 20));
   /* Bold display gradient for hero / dashboard */
-  --gradient-hero: linear-gradient(135deg, oklch(0.18 0.012 20) 0%, oklch(0.32 0.08 12) 55%, oklch(0.55 0.22 8) 100%);
+  --gradient-hero: linear-gradient(135deg, oklch(0.96 0.03 18) 0%, oklch(0.93 0.06 12) 55%, oklch(0.88 0.09 8) 100%);
   --gradient-mesh: radial-gradient(80% 60% at 0% 0%, oklch(0.62 0.22 8 / 0.18), transparent 60%),
                    radial-gradient(70% 60% at 100% 100%, oklch(0.72 0.16 340 / 0.22), transparent 55%),
                    linear-gradient(180deg, oklch(0.99 0.004 30), oklch(0.97 0.006 30));
