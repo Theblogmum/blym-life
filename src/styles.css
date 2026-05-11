@@ -69,16 +69,16 @@
   --radius: 1.25rem;
   /* Almost-pure warm white */
   --background: oklch(0.995 0.003 30);
-  --foreground: oklch(0.16 0.01 20);
+  --foreground: oklch(0.13 0.012 20);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.01 20);
+  --card-foreground: oklch(0.13 0.012 20);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.01 20);
-  /* Saturated brand blush — warm, feminine, confident */
-  --primary: oklch(0.74 0.15 8);
+  --popover-foreground: oklch(0.13 0.012 20);
+  /* Bold brand rose — confident, modern */
+  --primary: oklch(0.62 0.22 8);
   --primary-foreground: oklch(1 0 0);
   /* Deeper rose for hover / emphasis */
-  --accent: oklch(0.66 0.18 10);
+  --accent: oklch(0.52 0.24 12);
   --accent-foreground: oklch(1 0 0);
   /* Soft sage success (calmer than mint) */
   --success: oklch(0.74 0.07 155);
@@ -92,7 +92,7 @@
   --destructive-foreground: oklch(0.99 0.004 30);
   --border: oklch(0.88 0.014 12);
   --input: oklch(0.88 0.014 12);
-  --ring: oklch(0.74 0.15 8);
+  --ring: oklch(0.62 0.22 8);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -118,12 +118,17 @@
   --surface-stone: oklch(0.94 0.008 30);
 
   /* Gradients — soft, editorial, never garish */
-  --gradient-warm: linear-gradient(135deg, oklch(0.93 0.035 18), oklch(0.82 0.07 12));
+  --gradient-warm: linear-gradient(135deg, oklch(0.78 0.16 18), oklch(0.55 0.22 8));
   --gradient-sunrise: linear-gradient(160deg, oklch(0.97 0.018 60), oklch(0.88 0.045 18));
-  --gradient-bloom: linear-gradient(135deg, oklch(0.92 0.04 350), oklch(0.82 0.07 12));
+  --gradient-bloom: linear-gradient(135deg, oklch(0.72 0.18 340), oklch(0.55 0.22 8));
   --gradient-mint: linear-gradient(135deg, oklch(0.95 0.025 155), oklch(0.84 0.06 155));
   --gradient-stone: linear-gradient(180deg, oklch(0.99 0.004 30), oklch(0.96 0.005 30));
-  --gradient-ink: linear-gradient(135deg, oklch(0.22 0.01 20), oklch(0.12 0.005 20));
+  --gradient-ink: linear-gradient(135deg, oklch(0.18 0.012 20), oklch(0.08 0.008 20));
+  /* Bold display gradient for hero / dashboard */
+  --gradient-hero: linear-gradient(135deg, oklch(0.18 0.012 20) 0%, oklch(0.32 0.08 12) 55%, oklch(0.55 0.22 8) 100%);
+  --gradient-mesh: radial-gradient(80% 60% at 0% 0%, oklch(0.62 0.22 8 / 0.18), transparent 60%),
+                   radial-gradient(70% 60% at 100% 100%, oklch(0.72 0.16 340 / 0.22), transparent 55%),
+                   linear-gradient(180deg, oklch(0.99 0.004 30), oklch(0.97 0.006 30));
   --gradient-aurora: radial-gradient(120% 80% at 0% 0%, oklch(0.92 0.05 12 / 0.55), transparent 60%),
                      radial-gradient(120% 80% at 100% 0%, oklch(0.94 0.04 80 / 0.45), transparent 55%),
                      linear-gradient(180deg, oklch(0.99 0.004 30), oklch(0.97 0.006 30));
@@ -132,9 +137,10 @@
   --shadow-xs: 0 1px 2px oklch(0.2 0.01 20 / 0.04);
   --shadow-soft: 0 1px 2px oklch(0.2 0.01 20 / 0.04), 0 8px 24px -12px oklch(0.2 0.01 20 / 0.08);
   --shadow-elegant: 0 1px 2px oklch(0.2 0.01 20 / 0.04), 0 24px 60px -28px oklch(0.2 0.01 20 / 0.18);
-  --shadow-glow: 0 30px 80px -30px oklch(0.78 0.08 12 / 0.35);
+  --shadow-glow: 0 30px 80px -30px oklch(0.62 0.22 8 / 0.45);
   --shadow-pop: 0 4px 0 0 oklch(0.78 0.06 12 / 0.18);
   --shadow-ring: 0 0 0 1px oklch(0.86 0.012 25);
+  --shadow-bold: 0 2px 4px oklch(0.13 0.012 20 / 0.06), 0 24px 48px -16px oklch(0.13 0.012 20 / 0.18);
 }
 
 .dark {
