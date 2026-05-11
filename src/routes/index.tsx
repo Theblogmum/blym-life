@@ -575,10 +575,10 @@ function Landing() {
             Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
           </p>
           <a
-            href="mailto:studio@theblogmum.com"
+            href="mailto:info@blym.life"
             className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/90"
           >
-            studio@theblogmum.com
+            info@blym.life
           </a>
         </div>
       </section>
