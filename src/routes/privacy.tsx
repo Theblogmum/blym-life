@@ -23,7 +23,7 @@ function PrivacyPage() {
       <p className="mt-2">
         Blym is operated by Stephanie Trump, a sole trader based in the United Kingdom, trading as "Blym
         Mum". For privacy matters we are the <strong>data controller</strong> of the personal data described below.
-        Contact: <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
+        Contact: <a className="underline" href="mailto:info@blym.life">info@blym.life</a>.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">2. What we collect and why</h2>
@@ -75,7 +75,7 @@ function PrivacyPage() {
         <li>complain to the UK's Information Commissioner's Office (<a className="underline" href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a>).</li>
       </ul>
       <p className="mt-2">
-        To exercise any of these, email <a className="underline" href="mailto:studio@theblogmum.com">studio@theblogmum.com</a>.
+        To exercise any of these, email <a className="underline" href="mailto:info@blym.life">info@blym.life</a>.
         We respond within one month.
       </p>
 
