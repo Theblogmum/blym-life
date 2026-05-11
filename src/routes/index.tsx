@@ -584,7 +584,7 @@ function Landing() {
       </section>
 
       <footer className="border-t border-border/60 py-10 text-center text-xs text-muted-foreground">
-        <p>Made with care for mum creators · @theblogmumstudio</p>
+        <p>Made with care for mum creators · @blym.life</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <Link to="/terms" className="hover:text-foreground">Terms</Link>
           <span aria-hidden>·</span>
