@@ -12,6 +12,8 @@ import {
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
 import { TrialPill } from "@/components/trial-pill";
+import { getDailyIdea } from "@/lib/daily-idea.functions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
@@ -83,10 +85,16 @@ const CATEGORIES = [
 function HomePage() {
   const fetchDash = useServerFn(getDashboard);
   const fetchMe = useServerFn(getMe);
+  const fetchIdea = useServerFn(getDailyIdea);
   const navigate = useNavigate();
 
   const me = useQuery({ queryKey: ["me"], queryFn: () => fetchMe() });
   const dash = useQuery({ queryKey: ["dashboard"], queryFn: () => fetchDash() });
+  const idea = useQuery({
+    queryKey: ["daily-idea", new Date().toISOString().slice(0, 10)],
+    queryFn: () => fetchIdea(),
+    staleTime: 1000 * 60 * 60 * 6,
+  });
 
   useEffect(() => {
     if (me.data?.profile && !me.data.profile.onboarded) navigate({ to: "/onboarding" });
@@ -146,6 +154,66 @@ function HomePage() {
       </section>
 
       <div className="mx-auto max-w-[1200px] px-5 pb-20 pt-10 lg:px-10 lg:pt-14">
+        {/* DAILY IDEA */}
+        <section className="mb-10">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 sm:p-7">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-glow)]">
+                  <Sparkles className="h-3.5 w-3.5" />
+                </span>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">
+                    Today's idea · just for you
+                  </p>
+                </div>
+              </div>
+              <Link to="/generator">
+                <Button size="sm" variant="outline" className="h-8 rounded-lg text-[12px]">
+                  Open in Generator <ArrowRight className="ml-1 h-3 w-3" />
+                </Button>
+              </Link>
+            </div>
+
+            {idea.isLoading ? (
+              <div className="mt-5 space-y-3">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/3" />
+                <Skeleton className="h-3.5 w-2/3" />
+              </div>
+            ) : idea.data ? (
+              <div className="mt-5">
+                <p className="font-display text-[22px] font-bold leading-snug sm:text-[26px]">
+                  "{idea.data.idea.hook}"
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-foreground/8 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-foreground/75">
+                    {idea.data.idea.format}
+                  </span>
+                  <span className="text-[12.5px] text-muted-foreground">{idea.data.idea.why}</span>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <Link to="/generator">
+                    <Button size="sm" className="h-9 rounded-lg bg-foreground text-background hover:bg-foreground/90">
+                      <Wand2 className="mr-1.5 h-3.5 w-3.5" /> Build the script
+                    </Button>
+                  </Link>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-9 rounded-lg"
+                    onClick={() => idea.refetch()}
+                  >
+                    Try another
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-5 text-sm text-muted-foreground">Couldn't load today's idea — try refreshing.</p>
+            )}
+          </div>
+        </section>
+
         {/* QUICK ACTIONS */}
         <section className="mb-14">
           <SectionHead eyebrow="Start now" title="Quick actions" />
