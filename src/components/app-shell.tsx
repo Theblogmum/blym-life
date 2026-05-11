@@ -62,6 +62,7 @@ const SECTIONS: Section[] = [
       {
         label: "Grow", icon: TrendingUp, items: [
           { to: "/insights", label: "Insights" },
+          { to: "/brand-hub", label: "Brand Hub" },
           { to: "/niche-audit", label: "Niche Audit" },
           { to: "/profile-audit", label: "Profile Audit" },
           { to: "/flop-analyser", label: "Flop Analyser" },

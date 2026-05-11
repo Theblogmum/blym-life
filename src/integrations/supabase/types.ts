@@ -56,6 +56,126 @@ export type Database = {
         }
         Relationships: []
       }
+      brand_pitches: {
+        Row: {
+          body: string
+          brand_id: string | null
+          created_at: string
+          follow_up_due_at: string | null
+          follow_up_sent_at: string | null
+          gmail_message_id: string | null
+          gmail_thread_id: string | null
+          id: string
+          recipient_email: string
+          replied_at: string | null
+          sent_at: string | null
+          status: string
+          subject: string
+          updated_at: string
+          user_brand_id: string | null
+          user_id: string
+        }
+        Insert: {
+          body: string
+          brand_id?: string | null
+          created_at?: string
+          follow_up_due_at?: string | null
+          follow_up_sent_at?: string | null
+          gmail_message_id?: string | null
+          gmail_thread_id?: string | null
+          id?: string
+          recipient_email: string
+          replied_at?: string | null
+          sent_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+          user_brand_id?: string | null
+          user_id: string
+        }
+        Update: {
+          body?: string
+          brand_id?: string | null
+          created_at?: string
+          follow_up_due_at?: string | null
+          follow_up_sent_at?: string | null
+          gmail_message_id?: string | null
+          gmail_thread_id?: string | null
+          id?: string
+          recipient_email?: string
+          replied_at?: string | null
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+          user_brand_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brand_pitches_brand_id_fkey"
+            columns: ["brand_id"]
+            isOneToOne: false
+            referencedRelation: "brands"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "brand_pitches_user_brand_id_fkey"
+            columns: ["user_brand_id"]
+            isOneToOne: false
+            referencedRelation: "user_brands"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brands: {
+        Row: {
+          category: string | null
+          contact_email: string | null
+          created_at: string
+          description: string | null
+          hq_country: string | null
+          id: string
+          instagram: string | null
+          is_seeded: boolean
+          logo_url: string | null
+          name: string
+          notes: string | null
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          category?: string | null
+          contact_email?: string | null
+          created_at?: string
+          description?: string | null
+          hq_country?: string | null
+          id?: string
+          instagram?: string | null
+          is_seeded?: boolean
+          logo_url?: string | null
+          name: string
+          notes?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          category?: string | null
+          contact_email?: string | null
+          created_at?: string
+          description?: string | null
+          hq_country?: string | null
+          id?: string
+          instagram?: string | null
+          is_seeded?: boolean
+          logo_url?: string | null
+          name?: string
+          notes?: string | null
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           contact_name: string | null
@@ -924,6 +1044,39 @@ export type Database = {
           feature?: string
           id?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_brands: {
+        Row: {
+          contact_email: string | null
+          created_at: string
+          id: string
+          name: string
+          notes: string | null
+          updated_at: string
+          user_id: string
+          website: string | null
+        }
+        Insert: {
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          notes?: string | null
+          updated_at?: string
+          user_id: string
+          website?: string | null
+        }
+        Update: {
+          contact_email?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          updated_at?: string
+          user_id?: string
+          website?: string | null
         }
         Relationships: []
       }
