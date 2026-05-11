@@ -56,6 +56,7 @@ import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authent
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedBusinessRouteImport } from './routes/_authenticated/business'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
+import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
 import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAffiliatesRouteImport } from './routes/_authenticated/affiliates'
@@ -319,6 +320,11 @@ const AuthenticatedBrollRoute = AuthenticatedBrollRouteImport.update({
   path: '/broll',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedBrandHubRoute = AuthenticatedBrandHubRouteImport.update({
+  id: '/brand-hub',
+  path: '/brand-hub',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedBioOptimiserRoute =
   AuthenticatedBioOptimiserRouteImport.update({
     id: '/bio-optimiser',
@@ -389,6 +395,7 @@ export interface FileRoutesByFullPath {
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
+  '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
   '/community': typeof AuthenticatedCommunityRoute
@@ -447,6 +454,7 @@ export interface FileRoutesByTo {
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
+  '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
   '/community': typeof AuthenticatedCommunityRoute
@@ -507,6 +515,7 @@ export interface FileRoutesById {
   '/_authenticated/affiliates': typeof AuthenticatedAffiliatesRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
+  '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/business': typeof AuthenticatedBusinessRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRoute
@@ -567,6 +576,7 @@ export interface FileRouteTypes {
     | '/affiliates'
     | '/app'
     | '/bio-optimiser'
+    | '/brand-hub'
     | '/broll'
     | '/business'
     | '/community'
@@ -625,6 +635,7 @@ export interface FileRouteTypes {
     | '/affiliates'
     | '/app'
     | '/bio-optimiser'
+    | '/brand-hub'
     | '/broll'
     | '/business'
     | '/community'
@@ -684,6 +695,7 @@ export interface FileRouteTypes {
     | '/_authenticated/affiliates'
     | '/_authenticated/app'
     | '/_authenticated/bio-optimiser'
+    | '/_authenticated/brand-hub'
     | '/_authenticated/broll'
     | '/_authenticated/business'
     | '/_authenticated/community'
@@ -1080,6 +1092,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBrollRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/brand-hub': {
+      id: '/_authenticated/brand-hub'
+      path: '/brand-hub'
+      fullPath: '/brand-hub'
+      preLoaderRoute: typeof AuthenticatedBrandHubRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/bio-optimiser': {
       id: '/_authenticated/bio-optimiser'
       path: '/bio-optimiser'
@@ -1158,6 +1177,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAffiliatesRoute: typeof AuthenticatedAffiliatesRoute
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
+  AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedBusinessRoute: typeof AuthenticatedBusinessRoute
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
@@ -1202,6 +1222,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAffiliatesRoute: AuthenticatedAffiliatesRoute,
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
+  AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedBusinessRoute: AuthenticatedBusinessRoute,
   AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
