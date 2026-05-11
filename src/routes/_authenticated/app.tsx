@@ -121,15 +121,15 @@ function HomePage() {
         <div className="relative mx-auto max-w-[1200px] px-5 pb-12 pt-10 lg:px-10 lg:pb-16 lg:pt-14">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white/80 backdrop-blur">
+              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-foreground/75 backdrop-blur">
                 <Sparkles className="h-3 w-3" /> Your Studio
               </p>
-              <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-tight text-white sm:text-[52px]">
+              <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-tight text-foreground sm:text-[52px]">
                 {greet},
                 <br />
-                <span className="capitalize bg-gradient-to-r from-white to-[oklch(0.85_0.12_18)] bg-clip-text text-transparent">{name}.</span>
+                <span className="capitalize bg-gradient-to-r from-[oklch(0.45_0.22_8)] to-[oklch(0.55_0.22_8)] bg-clip-text text-transparent">{name}.</span>
               </h1>
-              <p className="mt-3 max-w-md text-[15px] text-white/70">
+              <p className="mt-3 max-w-md text-[15px] text-foreground/70">
                 What do you want to create today? Your toolkit is ready.
               </p>
             </div>
@@ -286,18 +286,18 @@ function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; 
 
 function HeroStat({ icon: Icon, label, value, unit, progress }: { icon: typeof Flame; label: string; value: string; unit?: string; progress?: number }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+    <div className="rounded-2xl border border-foreground/10 bg-background/60 p-4 backdrop-blur-sm">
       <div className="flex items-center gap-2">
-        <Icon className="h-3.5 w-3.5 text-white/70" />
-        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">{label}</p>
+        <Icon className="h-3.5 w-3.5 text-foreground/70" />
+        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">{label}</p>
       </div>
-      <p className="mt-2 flex items-baseline gap-1.5 font-display text-[32px] font-black leading-none tabular-nums text-white">
+      <p className="mt-2 flex items-baseline gap-1.5 font-display text-[32px] font-black leading-none tabular-nums text-foreground">
         {value}
-        {unit && <span className="text-[13px] font-normal text-white/60">{unit}</span>}
+        {unit && <span className="text-[13px] font-normal text-foreground/60">{unit}</span>}
       </p>
       {typeof progress === "number" && (
-        <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
-          <div className="h-full bg-white transition-all" style={{ width: `${progress}%` }} />
+        <div className="mt-3 h-1 overflow-hidden rounded-full bg-foreground/10">
+          <div className="h-full bg-foreground transition-all" style={{ width: `${progress}%` }} />
         </div>
       )}
     </div>
