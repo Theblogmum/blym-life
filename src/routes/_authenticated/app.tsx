@@ -259,7 +259,7 @@ function HomePage() {
 
             <div className="mt-6 space-y-3 border-t border-border pt-5">
               <MiniRow icon={Flame} label="Current streak" value={`${streak}d`} />
-              <MiniRow icon={Clock} label="Last activity" value={d?.last_activity ? "Today" : "—"} />
+              <MiniRow icon={Clock} label="Posts shipped" value={`${postsWeek}`} />
             </div>
 
             <Link to="/wins" className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-bold text-primary hover:gap-2 transition-all">
