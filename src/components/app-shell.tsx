@@ -21,6 +21,7 @@ import logo from "@/assets/logo-blym.png";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { checkIsAdmin } from "@/lib/admin.functions";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -393,9 +394,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
           </header>
 
-          <main className="overflow-x-hidden">{children}</main>
+          <main className="overflow-x-hidden pb-20 lg:pb-0">{children}</main>
         </div>
       </div>
+      <MobileBottomNav onSearch={() => setPaletteOpen(true)} />
     </div>
   );
 }
