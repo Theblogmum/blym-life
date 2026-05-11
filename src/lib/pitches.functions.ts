@@ -126,7 +126,11 @@ export const updatePitchStatus = createServerFn({ method: "POST" })
   .inputValidator((d: { id: string; status: PitchStatus }) => d)
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: {
+      status: PitchStatus;
+      replied_at?: string;
+      follow_up_sent_at?: string;
+    } = { status: data.status };
     if (data.status === "replied") patch.replied_at = new Date().toISOString();
     if (data.status === "followed_up") patch.follow_up_sent_at = new Date().toISOString();
     const { error } = await supabase
