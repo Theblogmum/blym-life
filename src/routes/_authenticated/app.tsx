@@ -5,8 +5,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
-  Sparkles, Flame, Wand2, FileText, Calendar,
-  Heart, ArrowRight, Zap, MessageSquare,
+  Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight, Zap,
+  MessageSquare, TrendingUp, DollarSign, Target, Flag,
+  Trophy, Clock,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
@@ -14,11 +15,69 @@ import { TrialPill } from "@/components/trial-pill";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
-const CREATE_ACTIONS = [
+const QUICK = [
   { to: "/viral-lab", label: "Viral Hook", icon: Flame, hint: "Scroll-stopping openers" },
   { to: "/generator", label: "Reel Script", icon: Wand2, hint: "Full script in seconds" },
-  { to: "/generator", label: "Caption", icon: MessageSquare, hint: "On-brand & ready to post" },
-  { to: "/planner", label: "Content Plan", icon: Calendar, hint: "Map out your week" },
+  { to: "/generator", label: "Caption", icon: MessageSquare, hint: "On-brand & ready" },
+  { to: "/planner", label: "Plan Week", icon: Calendar, hint: "Map out your week" },
+];
+
+const CATEGORIES = [
+  {
+    label: "Create",
+    icon: Sparkles,
+    blurb: "Ideas, scripts, captions",
+    count: 16,
+    accent: "from-[oklch(0.78_0.16_18)] to-[oklch(0.55_0.22_8)]",
+    href: "/generator",
+    sample: [
+      { to: "/viral-lab", label: "Viral Lab" },
+      { to: "/generator", label: "Idea Generator" },
+      { to: "/script-tightener", label: "Script Tightener" },
+      { to: "/templates", label: "Templates" },
+    ],
+  },
+  {
+    label: "Grow",
+    icon: TrendingUp,
+    blurb: "Audits, insights, brand pitches",
+    count: 11,
+    accent: "from-[oklch(0.72_0.18_340)] to-[oklch(0.55_0.22_8)]",
+    href: "/insights",
+    sample: [
+      { to: "/insights", label: "Insights" },
+      { to: "/profile-audit", label: "Profile Audit" },
+      { to: "/pitch-generator", label: "Brand Pitch" },
+      { to: "/media-kit", label: "Media Kit" },
+    ],
+  },
+  {
+    label: "Monetise",
+    icon: DollarSign,
+    blurb: "Invoices, packages, income",
+    count: 6,
+    accent: "from-[oklch(0.74_0.14_155)] to-[oklch(0.5_0.16_165)]",
+    href: "/business",
+    sample: [
+      { to: "/business", label: "Business Mode" },
+      { to: "/invoices", label: "Invoices" },
+      { to: "/income-tracker", label: "Income Tracker" },
+      { to: "/affiliates", label: "Affiliates" },
+    ],
+  },
+  {
+    label: "Mindset",
+    icon: Heart,
+    blurb: "Motivation, wins, recovery",
+    count: 3,
+    accent: "from-[oklch(0.82_0.1_60)] to-[oklch(0.62_0.18_30)]",
+    href: "/motivation",
+    sample: [
+      { to: "/motivation", label: "Daily Motivation" },
+      { to: "/wins", label: "Doing Better" },
+      { to: "/rejection-recovery", label: "Rejection Recovery" },
+    ],
+  },
 ];
 
 function HomePage() {
@@ -47,7 +106,7 @@ function HomePage() {
   const postsWeek = d?.posts_last_7 ?? 0;
   const focusSuggestion =
     postsWeek === 0
-      ? "Create your first reel today — start with a viral hook."
+      ? "Create your first post today — start with a viral hook."
       : streak === 0
       ? "Post once today to start a streak."
       : monthlyGoal && monthlyPct < 100
@@ -55,110 +114,203 @@ function HomePage() {
       : "Plan tomorrow's post while today's energy is high.";
 
   return (
-    <div className="relative mx-auto max-w-[1100px] px-5 pb-20 pt-8 lg:px-10 lg:pt-12">
-      {/* ============ Greeting + Trial pill ============ */}
-      <header className="mb-10 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <h1 className="font-display text-[30px] font-normal leading-tight tracking-tight text-foreground sm:text-[40px]">
-            {greet}, <span className="capitalize">{name}</span>{" "}
-            <Heart className="ml-0.5 inline h-6 w-6 fill-primary text-primary align-middle" />
-          </h1>
-          <p className="mt-1.5 text-[14px] text-muted-foreground">What do you want to create today?</p>
-        </div>
-        <TrialPill />
-      </header>
+    <div className="relative">
+      {/* HERO */}
+      <section className="relative overflow-hidden border-b border-border bg-[image:var(--gradient-hero)]">
+        <div aria-hidden className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px), radial-gradient(circle at 70% 70%, white 1px, transparent 1px)", backgroundSize: "60px 60px, 80px 80px" }} />
+        <div className="relative mx-auto max-w-[1200px] px-5 pb-12 pt-10 lg:px-10 lg:pb-16 lg:pt-14">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white/80 backdrop-blur">
+                <Sparkles className="h-3 w-3" /> Your Studio
+              </p>
+              <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-tight text-white sm:text-[52px]">
+                {greet},
+                <br />
+                <span className="capitalize bg-gradient-to-r from-white to-[oklch(0.85_0.12_18)] bg-clip-text text-transparent">{name}.</span>
+              </h1>
+              <p className="mt-3 max-w-md text-[15px] text-white/70">
+                What do you want to create today? Your toolkit is ready.
+              </p>
+            </div>
+            <TrialPill />
+          </div>
 
-      {/* ============ HERO: Quick create actions ============ */}
-      <section className="mb-10">
-        <div className="rounded-[28px] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-soft)]">
-          <div className="rounded-[26.5px] bg-card px-6 py-8 sm:px-10 sm:py-10">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">Start here</span>
-            </div>
-            <h2 className="mt-2 font-display text-[26px] font-normal leading-tight tracking-tight sm:text-[32px]">
-              What do you want to create today?
-            </h2>
-            <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {CREATE_ACTIONS.map((a, i) => (
-                <Link
-                  key={i}
-                  to={a.to}
-                  className="group flex flex-col items-start gap-3 rounded-2xl bg-secondary/60 p-5 transition hover:bg-primary hover:text-primary-foreground"
-                >
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-card text-primary shadow-[var(--shadow-xs)] transition group-hover:bg-primary-foreground/15 group-hover:text-primary-foreground">
-                    <a.icon className="h-5 w-5" strokeWidth={1.75} />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="font-display text-[18px] font-normal leading-tight">{a.label}</p>
-                    <p className="mt-1 text-[12px] text-muted-foreground transition group-hover:text-primary-foreground/85">{a.hint}</p>
+          {/* Stat strip */}
+          <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            <HeroStat icon={Flame} label="Streak" value={`${streak}`} unit={streak === 1 ? "day" : "days"} />
+            <HeroStat icon={Zap} label="Posts this week" value={`${postsWeek}`} />
+            <HeroStat icon={Target} label="Goal" value={`${monthlyPct}%`} progress={monthlyPct} />
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-[1200px] px-5 pb-20 pt-10 lg:px-10 lg:pt-14">
+        {/* QUICK ACTIONS */}
+        <section className="mb-14">
+          <SectionHead eyebrow="Start now" title="Quick actions" />
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {QUICK.map((a) => (
+              <Link
+                key={a.label}
+                to={a.to}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:-translate-y-1 hover:border-foreground hover:shadow-[var(--shadow-bold)]"
+              >
+                <span className="grid h-10 w-10 place-items-center rounded-xl bg-foreground text-background transition group-hover:bg-primary">
+                  <a.icon className="h-4.5 w-4.5" strokeWidth={2} />
+                </span>
+                <p className="mt-4 font-display text-[18px] font-bold leading-tight">{a.label}</p>
+                <p className="mt-1 text-[12.5px] text-muted-foreground">{a.hint}</p>
+                <ArrowRight className="absolute right-4 top-4 h-4 w-4 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* TOOLKIT — visual hub */}
+        <section className="mb-14">
+          <SectionHead eyebrow="Your Toolkit" title="Browse by category" sub="36 tools, organised. Jump in." />
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            {CATEGORIES.map((c) => (
+              <div key={c.label} className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 transition hover:border-foreground/40 hover:shadow-[var(--shadow-bold)]">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${c.accent} text-white shadow-[var(--shadow-soft)]`}>
+                      <c.icon className="h-5 w-5" strokeWidth={2} />
+                    </span>
+                    <div>
+                      <h3 className="font-display text-[22px] font-bold leading-tight">{c.label}</h3>
+                      <p className="text-[12.5px] text-muted-foreground">{c.blurb}</p>
+                    </div>
                   </div>
+                  <span className="rounded-full bg-foreground/5 px-2.5 py-1 text-[11px] font-bold tabular-nums text-foreground/70">
+                    {c.count} tools
+                  </span>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-1.5">
+                  {c.sample.map((s) => (
+                    <Link
+                      key={s.to}
+                      to={s.to}
+                      className="rounded-lg border border-border bg-background px-2.5 py-1 text-[12px] font-medium text-foreground/75 transition hover:border-foreground hover:text-foreground"
+                    >
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+                <Link
+                  to={c.href}
+                  className="mt-5 inline-flex items-center gap-1 text-[13px] font-bold text-primary transition group-hover:gap-2"
+                >
+                  Open {c.label} <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
-              ))}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* TODAY's FOCUS + WINS */}
+        <section className="grid gap-4 lg:grid-cols-3">
+          <div className="lg:col-span-2 rounded-3xl border border-border bg-[image:var(--gradient-mesh)] p-6 sm:p-8">
+            <div className="flex items-center gap-2">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-foreground text-background">
+                <Sparkles className="h-3.5 w-3.5" />
+              </span>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">Today's focus</p>
             </div>
-            <div className="mt-7 flex justify-center">
+            <p className="mt-4 font-display text-[22px] font-bold leading-snug sm:text-[26px]">
+              {focusSuggestion}
+            </p>
+            {monthlyGoal && (
+              <div className="mt-5 rounded-2xl bg-card/80 p-4 backdrop-blur">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Flag className="h-4 w-4 shrink-0 text-primary" />
+                    <p className="truncate text-[13px] font-semibold">{monthlyGoal.title}</p>
+                  </div>
+                  <span className="shrink-0 text-[12px] font-bold tabular-nums">{monthlyPct}%</span>
+                </div>
+                <Progress value={monthlyPct} className="mt-2 h-1.5" />
+              </div>
+            )}
+            <div className="mt-6 flex flex-wrap gap-2">
               <Link to="/generator">
-                <Button size="lg" className="h-12 rounded-full bg-primary px-7 text-[15px] font-semibold text-primary-foreground shadow-[var(--shadow-soft)] hover:bg-primary/90">
-                  <Zap className="mr-1.5 h-4 w-4" /> Create my next post
+                <Button className="h-10 rounded-lg bg-foreground px-5 text-background hover:bg-foreground/90">
+                  <Zap className="mr-1.5 h-4 w-4" /> Create now
+                </Button>
+              </Link>
+              <Link to="/planner">
+                <Button variant="outline" className="h-10 rounded-lg">
+                  <Calendar className="mr-1.5 h-4 w-4" /> Open planner
                 </Button>
               </Link>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ============ Snapshot card ============ */}
-      <section>
-        <div className="rounded-3xl bg-secondary/40 p-6 sm:p-8">
-          <div className="flex items-center gap-2">
-            <span className="text-base">📊</span>
-            <h3 className="font-display text-[20px] font-normal tracking-tight">Your Creator Snapshot</h3>
-          </div>
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
-            <SnapshotStat label="Streak" value={`${streak}`} unit={streak === 1 ? "day" : "days"} />
-            <SnapshotStat label="Posts this week" value={`${postsWeek}`} />
-            <div>
-              <p className="text-[11.5px] font-semibold uppercase tracking-wider text-muted-foreground">Goal progress</p>
-              <p className="mt-1.5 font-display text-[28px] font-normal leading-none tracking-tight">{monthlyPct}%</p>
-              <Progress value={monthlyPct} className="mt-3 h-1.5" />
+          <div className="rounded-3xl border border-border bg-card p-6">
+            <div className="flex items-center gap-2">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-[oklch(0.92_0.06_60)] text-[oklch(0.4_0.14_40)]">
+                <Trophy className="h-3.5 w-3.5" />
+              </span>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">This week</p>
             </div>
-          </div>
-          <div className="mt-7 flex flex-wrap items-start gap-3 rounded-2xl bg-card p-4 ring-1 ring-border/40">
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
-              <Sparkles className="h-4 w-4" />
-            </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-primary">Your best focus today</p>
-              <p className="mt-0.5 text-[14px] text-foreground/85">{focusSuggestion}</p>
+            <p className="mt-4 font-display text-[42px] font-black leading-none tabular-nums">{postsWeek}</p>
+            <p className="mt-1 text-[12.5px] text-muted-foreground">posts shipped</p>
+
+            <div className="mt-6 space-y-3 border-t border-border pt-5">
+              <MiniRow icon={Flame} label="Current streak" value={`${streak}d`} />
+              <MiniRow icon={Clock} label="Last activity" value={d?.last_activity ? "Today" : "—"} />
             </div>
-            <Link to="/generator">
-              <Button size="sm" variant="ghost" className="rounded-full font-semibold text-primary hover:bg-primary/10">
-                Let's go <ArrowRight className="ml-1 h-3.5 w-3.5" />
-              </Button>
+
+            <Link to="/wins" className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-bold text-primary hover:gap-2 transition-all">
+              See all wins <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* ============ Subtle secondary links ============ */}
-      <section className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12.5px] text-muted-foreground">
-        <Link to="/planner" className="inline-flex items-center gap-1 transition hover:text-foreground"><Calendar className="h-3.5 w-3.5" /> Planner</Link>
-        <Link to="/templates" className="inline-flex items-center gap-1 transition hover:text-foreground"><FileText className="h-3.5 w-3.5" /> Templates</Link>
-        <Link to="/insights" className="inline-flex items-center gap-1 transition hover:text-foreground">📈 Insights</Link>
-        <Link to="/wins" className="inline-flex items-center gap-1 transition hover:text-foreground">🏆 Wins</Link>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }
 
-function SnapshotStat({ label, value, unit }: { label: string; value: string; unit?: string }) {
+function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
-    <div>
-      <p className="text-[11.5px] font-semibold uppercase tracking-wider text-muted-foreground">{label}</p>
-      <p className="mt-1.5 flex items-baseline gap-1.5 font-display text-[28px] font-normal leading-none tracking-tight">
+    <div className="flex items-end justify-between gap-4">
+      <div>
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
+        <h2 className="mt-1 font-display text-[26px] font-black leading-tight tracking-tight sm:text-[32px]">{title}</h2>
+        {sub && <p className="mt-1 text-[13px] text-muted-foreground">{sub}</p>}
+      </div>
+    </div>
+  );
+}
+
+function HeroStat({ icon: Icon, label, value, unit, progress }: { icon: typeof Flame; label: string; value: string; unit?: string; progress?: number }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+      <div className="flex items-center gap-2">
+        <Icon className="h-3.5 w-3.5 text-white/70" />
+        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/60">{label}</p>
+      </div>
+      <p className="mt-2 flex items-baseline gap-1.5 font-display text-[32px] font-black leading-none tabular-nums text-white">
         {value}
-        {unit && <span className="text-[12px] font-normal text-muted-foreground">{unit}</span>}
+        {unit && <span className="text-[13px] font-normal text-white/60">{unit}</span>}
       </p>
+      {typeof progress === "number" && (
+        <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
+          <div className="h-full bg-white transition-all" style={{ width: `${progress}%` }} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MiniRow({ icon: Icon, label, value }: { icon: typeof Flame; label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between text-[12.5px]">
+      <span className="flex items-center gap-2 text-muted-foreground">
+        <Icon className="h-3.5 w-3.5" /> {label}
+      </span>
+      <span className="font-bold tabular-nums text-foreground">{value}</span>
     </div>
   );
 }
