@@ -137,16 +137,16 @@ function Landing() {
         <div className="absolute -top-40 -right-32 h-[24rem] w-[24rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-30 blur-3xl" aria-hidden />
         <div className="absolute -bottom-40 -left-32 h-[22rem] w-[22rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-35 blur-3xl" aria-hidden />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-12 pb-16 sm:px-8 sm:pt-20 sm:pb-24 lg:grid-cols-[0.95fr_1.1fr]">
-          <div className="text-center lg:text-left">
+          <div className="text-center">
             <img
               src={logoImg}
               alt="Blym"
-              className="mx-auto mb-5 h-20 w-auto sm:h-24 lg:mx-0 lg:h-28"
+              className="mx-auto mb-5 h-20 w-auto sm:h-24 lg:h-28"
               width={320}
               height={144}
             />
             {/* Compact promo video — directly under the logo */}
-            <div className="mx-auto mb-6 max-w-xs overflow-hidden rounded-2xl border border-border/60 bg-card shadow-[var(--shadow-soft)] lg:mx-0">
+            <div className="mx-auto mb-6 max-w-xs overflow-hidden rounded-2xl border border-border/60 bg-card shadow-[var(--shadow-soft)]">
               <video
                 src="/promo.mp4"
                 autoPlay
