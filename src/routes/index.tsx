@@ -27,29 +27,29 @@ import logoImg from "@/assets/logo-blym.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Blym by The Blog Mum — Tell me what to film today" },
+      { title: "Blym — Tell me what to film today" },
       { name: "description", content: "The daily content brief for mum creators. One ready-to-shoot idea every morning: hook, caption, shot list and best time to post. Free to start." },
-      { name: "author", content: "Blym by The Blog Mum" },
+      { name: "author", content: "Blym" },
       { name: "keywords", content: "mum content creators, daily content brief, TikTok ideas for mums, Instagram Reels ideas, UGC for mums, content planner" },
       { name: "robots", content: "index, follow" },
       // Open Graph
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Blym by The Blog Mum" },
+      { property: "og:site_name", content: "Blym" },
       { property: "og:url", content: "https://blym.life/" },
-      { property: "og:title", content: "Blym by The Blog Mum — Tell me what to film today" },
+      { property: "og:title", content: "Blym — Tell me what to film today" },
       { property: "og:description", content: "Personalised daily filming briefs for mum creators on TikTok and Instagram. Free to start." },
       { property: "og:image", content: "https://blym.life/og-landing.jpg" },
       { property: "og:image:secure_url", content: "https://blym.life/og-landing.jpg" },
       { property: "og:image:type", content: "image/jpeg" },
-      { property: "og:site_name", content: "Blym by The Blog Mum" },
-      { property: "og:image:alt", content: "Blym by The Blog Mum — Tell me what to film today" },
+      { property: "og:site_name", content: "Blym" },
+      { property: "og:image:alt", content: "Blym — Tell me what to film today" },
       { property: "og:locale", content: "en_GB" },
       // Twitter
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Blym by The Blog Mum — Tell me what to film today" },
+      { name: "twitter:title", content: "Blym — Tell me what to film today" },
       { name: "twitter:description", content: "Personalised daily filming briefs for mum creators on TikTok and Instagram. Free to start." },
       { name: "twitter:image", content: "https://blym.life/og-landing.jpg" },
-      { name: "twitter:image:alt", content: "Blym by The Blog Mum — Tell me what to film today" },
+      { name: "twitter:image:alt", content: "Blym — Tell me what to film today" },
     ],
     links: [
       { rel: "canonical", href: "https://blym.life/" },
@@ -74,8 +74,8 @@ function Landing() {
       <header className="sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link to="/" className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground">
-          <span className="sr-only">Blym by The Blog Mum</span>
-          <span aria-hidden>Blym by The Blog Mum</span>
+          <span className="sr-only">Blym</span>
+          <span aria-hidden>Blym</span>
         </Link>
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
@@ -140,18 +140,18 @@ function Landing() {
           <div className="text-center lg:text-left">
             <img
               src={logoImg}
-              alt="Blym — by The Blog Mum"
+              alt="Blym"
               className="mx-auto mb-5 h-20 w-auto sm:h-24 lg:mx-0 lg:h-28"
               width={320}
               height={144}
             />
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5 text-primary" /> By The Blog Mum
+              <Sparkles className="h-3.5 w-3.5 text-primary" /> Daily content briefs
             </span>
             <h1 className="mx-auto mt-6 max-w-2xl text-center font-display text-[32px] font-normal leading-[1.08] tracking-[-0.02em] text-foreground text-balance sm:text-[44px] lg:text-[52px]">
-              Short for{" "}
+              Big enough to grow your{" "}
               <span className="relative inline-block italic text-primary">
-                Blog Mum
+                content
                 <svg
                   aria-hidden
                   viewBox="0 0 300 16"
@@ -167,11 +167,11 @@ function Landing() {
                   />
                 </svg>
               </span>.{" "}
-              Big enough to grow your content. Small enough to fit your day.
+              Small enough to fit your day.
               <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.6] text-muted-foreground text-pretty lg:mx-0">
-              Blym is The Blog Mum's pocket-sized content studio — daily filming briefs, hooks, captions and a planner for mums who create between school runs.
+              Blym is your pocket-sized content studio — daily filming briefs, hooks, captions and a planner for mums who create between school runs.
             </p>
             {/* High-contrast focal CTA block */}
             <div className="mx-auto mt-8 max-w-md rounded-3xl bg-slate-700/90 p-4 text-white shadow-[var(--shadow-soft)] sm:p-5 text-center">
@@ -594,7 +594,7 @@ function Landing() {
           <span aria-hidden>·</span>
           <a href="#contact" className="hover:text-foreground">Contact</a>
         </p>
-        <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym by The Blog Mum</p>
+        <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
     </div>
   );
