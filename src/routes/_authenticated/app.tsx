@@ -156,7 +156,7 @@ function HomePage() {
                     style={{ background: "var(--gradient-warm)" }}
                   />
                   <div className="relative flex h-full flex-col">
-                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-background/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-background/85 backdrop-blur">
+                    <span className="inline-flex w-fit items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-background/70">
                       <Sparkles className="h-3 w-3" /> Most loved
                     </span>
                     <h3 className="mt-5 font-display text-[28px] font-black leading-[1.05] tracking-tight sm:text-[34px]">
@@ -409,8 +409,8 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
     <div className="rounded-3xl bg-card/80 p-6 backdrop-blur shadow-[var(--shadow-soft)]">
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">This week</p>
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-foreground/8 px-2.5 py-1 text-[11px] font-bold text-foreground/75">
-          <Flame className="h-3 w-3" /> {streak}d streak
+        <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-foreground/65">
+          <Flame className="h-3.5 w-3.5 text-foreground/45" /> {streak}d streak
         </span>
       </div>
       <p className="mt-3 font-display text-[40px] font-black leading-none tabular-nums text-foreground">
