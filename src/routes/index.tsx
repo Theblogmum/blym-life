@@ -1,10 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { type ComponentType, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
-  TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote,
+  Sparkles, Check, Clock, Wand2, Camera,
+  Heart, Star, ArrowRight, Quote,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -677,39 +676,6 @@ function PriceCard({
   );
 }
 
-function BigFeature({
-  img, badge, title, body, surface, to,
-}: { img: string; badge: string; title: string; body: string; surface: string; to: string }) {
-  return (
-    <Link to={to as never} className={`group block overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]`}>
-      <div className="aspect-[4/3] overflow-hidden">
-        <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
-      </div>
-      <div className="p-7">
-        <span className="inline-block rounded-full bg-card/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/70 backdrop-blur">
-          {badge}
-        </span>
-        <h3 className="mt-3 font-display text-xl font-normal leading-snug">{title}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-foreground/70">{body}</p>
-      </div>
-    </Link>
-  );
-}
-
-function MiniFeature({
-  icon: Icon, title, body, tint, to,
-}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
-  return (
-    <Link to={to as never} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
-      <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
-        <Icon className="h-5 w-5" />
-      </div>
-      <p className="mt-4 font-display text-base font-normal">{title}</p>
-      <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
-    </Link>
-  );
-}
-
 function FeatureRow({
   copy, image, imageSide, tint, offset,
 }: {
@@ -738,23 +704,6 @@ function FeatureRow({
         </div>
       </div>
       <div className={imageFirst ? "lg:order-2" : "lg:order-1"}>{copy}</div>
-    </div>
-  );
-}
-
-function MiniStat({
-  icon: Icon, label, value, unit, tint,
-}: { icon: ComponentType<{ className?: string }>; label: string; value: string; unit: string; tint: string }) {
-  return (
-    <div className="rounded-2xl border border-border/60 bg-card p-3.5">
-      <div className="flex items-center justify-between">
-        <span className="grid h-8 w-8 place-items-center rounded-xl text-foreground" style={{ background: tint }}>
-          <Icon className="h-4 w-4" />
-        </span>
-        <TrendingUp className="h-3.5 w-3.5 text-success" />
-      </div>
-      <p className="mt-2.5 font-display text-2xl leading-none">{value}<span className="ml-1 text-xs font-normal text-muted-foreground">{unit}</span></p>
-      <p className="mt-1 text-[11px] font-medium text-muted-foreground">{label}</p>
     </div>
   );
 }
