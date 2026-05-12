@@ -352,7 +352,7 @@ function Landing() {
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             From overwhelmed to filmed in three calm steps.
           </h2>
-          <div className="mt-12 grid gap-5 sm:grid-cols-3">
+          <div className="mt-14 grid gap-10 sm:grid-cols-3 sm:gap-8">
             {[
               { icon: Heart, t: "Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for.", tint: "var(--surface-blush)" },
               { icon: Wand2, t: "Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life.", tint: "var(--surface-peach)" },
@@ -360,21 +360,8 @@ function Landing() {
             ].map((s, i) => (
               <div
                 key={s.t}
-                className="card-elegant relative p-7 text-left transition hover:-translate-y-1"
-                style={{ transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.5 : 0.5}deg)` }}
+                className="relative text-left"
               >
-                {/* Connecting dotted line between cards */}
-                {i < 2 && (
-                  <span
-                    aria-hidden
-                    className="absolute right-[-1.25rem] top-1/2 hidden h-px w-10 sm:block"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(to right, var(--border) 50%, transparent 50%)",
-                      backgroundSize: "8px 1px",
-                    }}
-                  />
-                )}
                 <div className="flex items-center justify-between">
                   <div className="grid h-12 w-12 place-items-center rounded-2xl text-foreground" style={{ background: s.tint }}>
                     <s.icon className="h-5 w-5" />
