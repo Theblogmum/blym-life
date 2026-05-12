@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { type ComponentType } from "react";
+import { type ComponentType, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -214,51 +214,79 @@ function Landing() {
       </section>
 
       {/* ============ HOW IT HELPS ============ */}
-      <section className="relative border-t border-border/60 bg-background py-16 sm:py-20">
-        {/* Decorative dotted backdrop */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.35]"
-          style={{
-            backgroundImage:
-              "radial-gradient(currentColor 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-            color: "var(--border)",
-            maskImage:
-              "radial-gradient(ellipse at center, black 30%, transparent 70%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-5xl px-5 sm:px-8">
-          <div className="text-center">
-            <p className="eyebrow">How it helps</p>
-            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
-              Everything you need to post — without the burnout.
+      <section className="relative border-t border-border/60 bg-background py-24 sm:py-32">
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+          <div className="max-w-2xl">
+            <p className="eyebrow">What you can do in Blym</p>
+            <h2 className="mt-4 font-display text-[32px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[48px]">
+              Real tools for the bits that actually slow you down.
             </h2>
           </div>
-          <div className="mt-12 grid gap-5 sm:grid-cols-3">
-            {[
-              { emoji: "✨", title: "Generate", body: "Get viral hooks, captions and reel ideas instantly.", tint: "var(--surface-blush)", to: "/generator" as const },
-              { emoji: "📅", title: "Plan", body: "Organise your content week in minutes.", tint: "var(--surface-mint)", to: "/planner" as const },
-              { emoji: "🚀", title: "Grow", body: "Use AI-powered strategies designed for creator growth.", tint: "var(--surface-peach)", to: "/insights" as const },
-            ].map((item, i) => (
-              <Link
-                key={item.title}
-                to={item.to}
-                className="card-elegant group relative block p-7 text-left transition hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
-                style={{ transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.6 : 0.6}deg)` }}
-              >
-                <span aria-hidden className="absolute right-5 top-5 h-1.5 w-1.5 rounded-full bg-primary/60" />
-                <div
-                  className="grid h-14 w-14 place-items-center rounded-2xl text-2xl shadow-[var(--shadow-soft)] transition-transform group-hover:-rotate-6"
-                  style={{ background: item.tint }}
-                >
-                  {item.emoji}
-                </div>
-                <h3 className="mt-5 font-display text-xl font-medium tracking-tight">{item.title}</h3>
-                <p className="mt-2 text-[14px] leading-[1.65] text-muted-foreground">{item.body}</p>
-                <ArrowRight className="mt-4 h-4 w-4 text-primary opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
-              </Link>
-            ))}
+
+          <div className="mt-16 space-y-24 sm:space-y-32">
+            {/* Row 1 — image right */}
+            <FeatureRow
+              copy={
+                <>
+                  <p className="eyebrow">Generate</p>
+                  <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
+                    Generate hooks that <span className="italic text-primary">sound human</span>.
+                  </h3>
+                  <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
+                    No more "Are you tired of…" openers. Just hooks that sound like you on a good day.
+                  </p>
+                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                    Try the generator <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </>
+              }
+              image={featBrief}
+              imageSide="right"
+              tint="var(--surface-peach)"
+            />
+
+            {/* Row 2 — image left, slightly offset for asymmetry */}
+            <FeatureRow
+              copy={
+                <>
+                  <p className="eyebrow">Plan</p>
+                  <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
+                    Plan a week of content in <span className="italic text-primary">5 minutes</span>.
+                  </h3>
+                  <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
+                    Drag, drop, done. A full content week — laid out around your real life, not a 22-year-old's calendar.
+                  </p>
+                  <Link to="/planner" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                    Open the planner <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </>
+              }
+              image={featBrand}
+              imageSide="left"
+              tint="var(--surface-mint)"
+              offset
+            />
+
+            {/* Row 3 — image right */}
+            <FeatureRow
+              copy={
+                <>
+                  <p className="eyebrow">Create</p>
+                  <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
+                    Never stare at a <span className="italic text-primary">blank caption box</span> again.
+                  </h3>
+                  <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
+                    Tell Blym what you filmed — get four ready-to-post captions in your voice, with the right hooks and CTAs.
+                  </p>
+                  <Link to="/templates" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                    Open the studio <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </>
+              }
+              image={featGrow}
+              imageSide="right"
+              tint="var(--surface-blush)"
+            />
           </div>
         </div>
       </section>
@@ -739,6 +767,38 @@ function MiniFeature({
       <p className="mt-4 font-display text-base font-normal">{title}</p>
       <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
     </Link>
+  );
+}
+
+function FeatureRow({
+  copy, image, imageSide, tint, offset,
+}: {
+  copy: ReactNode;
+  image: string;
+  imageSide: "left" | "right";
+  tint: string;
+  offset?: boolean;
+}) {
+  const imageFirst = imageSide === "left";
+  return (
+    <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className={imageFirst ? "lg:order-1" : "lg:order-2"}>
+        <div
+          className={`relative overflow-hidden rounded-[2rem] border border-border/60 shadow-[var(--shadow-elegant)] ${offset ? "lg:translate-y-6" : ""}`}
+          style={{ background: tint }}
+        >
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            width={1024}
+            height={768}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+      <div className={imageFirst ? "lg:order-2" : "lg:order-1"}>{copy}</div>
+    </div>
   );
 }
 
