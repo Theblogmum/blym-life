@@ -12,7 +12,7 @@ import {
 import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote, Users, Zap, HelpCircle, Briefcase,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote, HelpCircle, Briefcase,
   type LucideIcon,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
@@ -22,7 +22,6 @@ import { useSubscription } from "@/hooks/use-subscription";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
-import logoImg from "@/assets/logo-blym.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
