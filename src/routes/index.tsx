@@ -271,19 +271,7 @@ function Landing() {
               </div>
             </div>
 
-            {/* Floating "before" chip — compact */}
-            <div className="absolute -top-2 -left-2 hidden rounded-xl border border-border/60 bg-card px-2.5 py-1.5 shadow-[var(--shadow-soft)] sm:block">
-              <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">Before</p>
-              <p className="text-[11px] text-muted-foreground/80">Blank page</p>
-            </div>
-            {/* Floating "after" chip — compact */}
-            <div className="absolute -bottom-2 -right-2 hidden items-center gap-2 rounded-xl border border-border/60 bg-card px-2.5 py-1.5 shadow-[var(--shadow-soft)] sm:flex">
-              <span className="grid h-6 w-6 place-items-center rounded-lg bg-[var(--surface-mint)] text-success"><TrendingUp className="h-3.5 w-3.5" /></span>
-              <div className="leading-tight">
-                <p className="text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">After</p>
-                <p className="text-[12px] font-medium">5 posts ready ✨</p>
-              </div>
-            </div>
+            {/* Before/after chips removed */}
           </div>
         </div>
       </section>
