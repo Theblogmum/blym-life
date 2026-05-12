@@ -120,11 +120,11 @@ function Landing() {
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <Link to="/app"><Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">Open studio</Button></Link>
+            <Link to="/app"><Button size="sm" className="rounded-full bg-anchor text-anchor-foreground hover:bg-anchor/90">Open studio</Button></Link>
           ) : (
             <>
               <Link to="/login"><Button variant="ghost" size="sm" className="rounded-full">Sign in</Button></Link>
-              <Link to="/signup"><Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">Start free</Button></Link>
+              <Link to="/signup"><Button size="sm" className="rounded-full bg-anchor text-anchor-foreground hover:bg-anchor/90">Start free</Button></Link>
             </>
           )}
         </div>
@@ -150,7 +150,7 @@ function Landing() {
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <Link to={ctaPrimary.to}>
-                <Button size="lg" className="rounded-full bg-foreground px-7 py-6 text-base text-background hover:bg-foreground/90">
+                <Button size="lg" className="rounded-full bg-anchor px-7 py-6 text-base text-anchor-foreground hover:bg-anchor/90">
                   Start creating <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -248,7 +248,7 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     No more "Are you tired of…" openers. Just hooks that sound like you on a good day.
                   </p>
-                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
                     Try the generator <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
@@ -269,7 +269,7 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     Drag, drop, done. A full content week — laid out around your real life, not a 22-year-old's calendar.
                   </p>
-                  <Link to="/planner" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                  <Link to="/planner" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
                     Open the planner <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
@@ -291,7 +291,7 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     Tell Blym what you filmed — get four ready-to-post captions in your voice, with the right hooks and CTAs.
                   </p>
-                  <Link to="/templates" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                  <Link to="/templates" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
                     Open the studio <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
@@ -492,7 +492,7 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-slate-500 p-10 text-center text-white sm:p-14">
+        <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-10 text-center text-white sm:p-14">
           <div className="absolute inset-0 bg-white/5" aria-hidden />
           <div className="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-[image:var(--gradient-warm)] opacity-30 blur-3xl" aria-hidden />
           <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" aria-hidden />
@@ -557,7 +557,7 @@ function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: Lu
           href={href}
           className="group flex items-start gap-3 rounded-2xl border border-transparent p-3 transition hover:border-border/60 hover:bg-secondary/60"
         >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-primary">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-anchor">
             <Icon className="h-4 w-4" />
           </span>
           <span className="min-w-0">
@@ -723,7 +723,7 @@ function PriceCard({
           onClick={cta.onClick}
           disabled={cta.disabled}
           size="sm"
-          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`}
+          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-anchor text-anchor-foreground hover:bg-anchor/90" : ""}`}
           variant={highlighted ? "default" : "outline"}
         >
           {cta.label}
