@@ -120,11 +120,11 @@ function Landing() {
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <Link to="/app"><Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">Open studio</Button></Link>
+            <Link to="/app"><Button size="sm" className="rounded-full bg-anchor text-anchor-foreground hover:bg-anchor/90">Open studio</Button></Link>
           ) : (
             <>
               <Link to="/login"><Button variant="ghost" size="sm" className="rounded-full">Sign in</Button></Link>
-              <Link to="/signup"><Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">Start free</Button></Link>
+              <Link to="/signup"><Button size="sm" className="rounded-full bg-anchor text-anchor-foreground hover:bg-anchor/90">Start free</Button></Link>
             </>
           )}
         </div>
@@ -150,7 +150,7 @@ function Landing() {
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <Link to={ctaPrimary.to}>
-                <Button size="lg" className="rounded-full bg-foreground px-7 py-6 text-base text-background hover:bg-foreground/90">
+                <Button size="lg" className="rounded-full bg-anchor px-7 py-6 text-base text-anchor-foreground hover:bg-anchor/90">
                   Start creating <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
@@ -492,7 +492,7 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-slate-500 p-10 text-center text-white sm:p-14">
+        <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-10 text-center text-white sm:p-14">
           <div className="absolute inset-0 bg-white/5" aria-hidden />
           <div className="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-[image:var(--gradient-warm)] opacity-30 blur-3xl" aria-hidden />
           <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" aria-hidden />
@@ -723,7 +723,7 @@ function PriceCard({
           onClick={cta.onClick}
           disabled={cta.disabled}
           size="sm"
-          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-foreground text-background hover:bg-foreground/90" : ""}`}
+          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-anchor text-anchor-foreground hover:bg-anchor/90" : ""}`}
           variant={highlighted ? "default" : "outline"}
         >
           {cta.label}
