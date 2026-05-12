@@ -690,7 +690,7 @@ function FeatureRow({
     <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
       <div className={imageFirst ? "lg:order-1" : "lg:order-2"}>
         <div
-          className={`relative overflow-hidden rounded-[2rem] border border-border/60 shadow-[var(--shadow-elegant)] ${offset ? "lg:translate-y-6" : ""}`}
+          className={`relative overflow-hidden rounded-[2rem] shadow-[var(--shadow-elegant)] ${offset ? "lg:translate-y-6" : ""}`}
           style={{ background: tint }}
         >
           <img
