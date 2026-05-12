@@ -145,19 +145,6 @@ function Landing() {
               width={320}
               height={144}
             />
-            {/* Compact promo video — directly under the logo */}
-            <div className="mx-auto mb-6 max-w-xs overflow-hidden rounded-2xl border border-border/60 bg-card shadow-[var(--shadow-soft)]">
-              <video
-                src="/promo.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                className="block w-full"
-                aria-label="A short tour of Blym showing daily ideas, viral hooks, weekly planner, and monetisation tools"
-              />
-            </div>
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-primary" /> Daily content briefs
             </span>
