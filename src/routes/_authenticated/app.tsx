@@ -127,41 +127,48 @@ function HomePage() {
       <section className="relative overflow-hidden border-b border-border bg-[image:var(--gradient-hero)]">
         <div aria-hidden className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px), radial-gradient(circle at 70% 70%, white 1px, transparent 1px)", backgroundSize: "60px 60px, 80px 80px" }} />
         <div className="relative mx-auto max-w-[1200px] px-5 pb-12 pt-10 lg:px-10 lg:pb-16 lg:pt-14">
-          <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
+            {/* LEFT — greeting, prompt, quick actions */}
             <div>
-              <p className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-foreground/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-foreground/75 backdrop-blur">
-                <Sparkles className="h-3 w-3" /> Your Studio
-              </p>
-              <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-tight text-foreground sm:text-[52px]">
-                {greet},
-                <br />
-                <span className="capitalize bg-gradient-to-r from-[oklch(0.45_0.22_8)] to-[oklch(0.55_0.22_8)] bg-clip-text text-transparent">{name}.</span>
-              </h1>
-              <p className="mt-3 max-w-md text-[15px] text-foreground/70">
-                What do you want to create today? Your toolkit is ready.
-              </p>
-            </div>
-            <TrialPill />
-          </div>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h1 className="font-display text-[36px] font-black leading-[1.05] tracking-tight text-foreground sm:text-[52px]">
+                    {greet},
+                    <br />
+                    <span className="capitalize bg-gradient-to-r from-[oklch(0.45_0.22_8)] to-[oklch(0.55_0.22_8)] bg-clip-text text-transparent">{name}.</span>
+                  </h1>
+                  <p className="mt-3 max-w-md text-[15px] text-foreground/70">
+                    {focusSuggestion}
+                  </p>
+                </div>
+                <div className="lg:hidden"><TrialPill /></div>
+              </div>
 
-          {/* Quick actions — what users actually want first */}
-          <div className="mt-10">
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">Start now</p>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {QUICK.map((a) => (
-                <Link
-                  key={a.label}
-                  to={a.to}
-                  className="group relative overflow-hidden rounded-2xl bg-card/70 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:bg-card hover:shadow-[var(--shadow-soft)]"
-                >
-                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-foreground group-hover:text-background">
-                    <a.icon className="h-4 w-4" strokeWidth={2} />
-                  </span>
-                  <p className="mt-3 font-display text-[15px] font-bold leading-tight">{a.label}</p>
-                  <p className="mt-0.5 text-[11.5px] text-muted-foreground">{a.hint}</p>
-                  <ArrowRight className="absolute right-3 top-3 h-3.5 w-3.5 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
-                </Link>
-              ))}
+              <div className="mt-8">
+                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">Start now</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {QUICK.map((a) => (
+                    <Link
+                      key={a.label}
+                      to={a.to}
+                      className="group relative overflow-hidden rounded-2xl bg-card/70 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:bg-card hover:shadow-[var(--shadow-soft)]"
+                    >
+                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-foreground group-hover:text-background">
+                        <a.icon className="h-4 w-4" strokeWidth={2} />
+                      </span>
+                      <p className="mt-3 font-display text-[15px] font-bold leading-tight">{a.label}</p>
+                      <p className="mt-0.5 text-[11.5px] text-muted-foreground">{a.hint}</p>
+                      <ArrowRight className="absolute right-3 top-3 h-3.5 w-3.5 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT — ONE clean progress widget: weekly consistency */}
+            <div className="flex flex-col gap-3">
+              <div className="hidden justify-end lg:flex"><TrialPill /></div>
+              <ConsistencyWidget postsWeek={postsWeek} streak={streak} />
             </div>
           </div>
         </div>
@@ -352,6 +359,59 @@ function MiniRow({ icon: Icon, label, value }: { icon: typeof Flame; label: stri
         <Icon className="h-3.5 w-3.5" /> {label}
       </span>
       <span className="font-bold tabular-nums text-foreground">{value}</span>
+    </div>
+  );
+}
+
+function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: number }) {
+  // Show last 7 days as dots — filled if a post landed that day (best-effort: distribute postsWeek across most recent days).
+  const today = new Date();
+  const filled = Math.min(7, postsWeek);
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() - (6 - i));
+    return {
+      label: d.toLocaleDateString(undefined, { weekday: "narrow" }),
+      isToday: i === 6,
+      filled: i >= 7 - filled,
+    };
+  });
+  const goal = 5;
+  const pct = Math.min(100, Math.round((postsWeek / goal) * 100));
+  return (
+    <div className="rounded-3xl bg-card/80 p-6 backdrop-blur shadow-[var(--shadow-soft)]">
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">This week</p>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-foreground/8 px-2.5 py-1 text-[11px] font-bold text-foreground/75">
+          <Flame className="h-3 w-3" /> {streak}d streak
+        </span>
+      </div>
+      <p className="mt-3 font-display text-[40px] font-black leading-none tabular-nums text-foreground">
+        {postsWeek}
+        <span className="ml-1.5 text-[14px] font-normal text-foreground/55">/ {goal} posts</span>
+      </p>
+      <p className="mt-1.5 text-[12.5px] text-muted-foreground">
+        {pct >= 100 ? "Consistency goal hit — you're on fire." : `${pct}% of your weekly rhythm.`}
+      </p>
+      <div className="mt-5 flex items-end justify-between gap-1.5">
+        {days.map((d, i) => (
+          <div key={i} className="flex flex-1 flex-col items-center gap-2">
+            <span
+              className={
+                d.filled
+                  ? "h-8 w-full rounded-md bg-foreground"
+                  : d.isToday
+                  ? "h-8 w-full rounded-md border border-dashed border-foreground/30 bg-foreground/5"
+                  : "h-8 w-full rounded-md bg-foreground/8"
+              }
+              aria-hidden
+            />
+            <span className={`text-[10px] font-semibold ${d.isToday ? "text-foreground" : "text-foreground/45"}`}>
+              {d.label}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
