@@ -165,6 +165,19 @@ function Landing() {
             <p className="mt-4 text-[12px] text-muted-foreground">
               Free forever plan · No card required
             </p>
+            {/* Inline stats — directly under CTA so they feel part of the promise */}
+            <dl className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border/60 pt-6">
+              {[
+                { value: "10,000+", label: "ideas generated" },
+                { value: "4.9★", label: "creator rating" },
+                { value: "2 mins", label: "to ready-to-post" },
+              ].map((s) => (
+                <div key={s.label} className="flex items-baseline gap-2">
+                  <dt className="font-display text-xl text-foreground sm:text-2xl">{s.value}</dt>
+                  <dd className="text-[12px] text-muted-foreground">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           {/* RIGHT — ONE polished mockup. Background fades softly. */}
