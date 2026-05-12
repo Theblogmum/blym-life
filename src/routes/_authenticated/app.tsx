@@ -267,41 +267,38 @@ function HomePage() {
 
         {/* TOOLKIT — visual hub */}
         <section className="mb-14">
-          <SectionHead eyebrow="Your Toolkit" title="Browse by category" sub="36 tools, organised. Jump in." />
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <SectionHead eyebrow="Your Toolkit" title="Everything you need, grouped by what it does." />
+          <div className="mt-10 grid gap-x-12 gap-y-12 sm:grid-cols-2">
             {CATEGORIES.map((c) => (
-              <div key={c.label} className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 transition hover:border-foreground/40 hover:shadow-[var(--shadow-bold)]">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className={`grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br ${c.accent} text-white shadow-[var(--shadow-soft)]`}>
-                      <c.icon className="h-5 w-5" strokeWidth={2} />
-                    </span>
-                    <div>
-                      <h3 className="font-display text-[22px] font-bold leading-tight">{c.label}</h3>
-                      <p className="text-[12.5px] text-muted-foreground">{c.blurb}</p>
-                    </div>
+              <div key={c.label} className="group">
+                <div className="flex items-baseline justify-between gap-3">
+                  <div className="flex items-baseline gap-3">
+                    <c.icon className="h-3.5 w-3.5 self-center text-foreground/40" strokeWidth={1.75} />
+                    <h3 className="font-display text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/70">
+                      {c.label}
+                    </h3>
+                    <span className="text-[11px] tabular-nums text-foreground/35">{c.count}</span>
                   </div>
-                  <span className="rounded-full bg-foreground/5 px-2.5 py-1 text-[11px] font-bold tabular-nums text-foreground/70">
-                    {c.count} tools
-                  </span>
+                  <Link
+                    to={c.href}
+                    className="inline-flex items-center gap-1 text-[12px] font-medium text-foreground/50 transition hover:text-foreground"
+                  >
+                    See all <ArrowRight className="h-3 w-3" />
+                  </Link>
                 </div>
-                <div className="mt-5 flex flex-wrap gap-1.5">
+                <ul className="mt-4 divide-y divide-border/40">
                   {c.sample.map((s) => (
-                    <Link
-                      key={s.to}
-                      to={s.to}
-                      className="rounded-lg border border-border bg-background px-2.5 py-1 text-[12px] font-medium text-foreground/75 transition hover:border-foreground hover:text-foreground"
-                    >
-                      {s.label}
-                    </Link>
+                    <li key={s.to}>
+                      <Link
+                        to={s.to}
+                        className="group/row flex items-center justify-between gap-3 py-2.5 text-[14px] text-foreground/75 transition hover:text-foreground"
+                      >
+                        <span>{s.label}</span>
+                        <ArrowRight className="h-3.5 w-3.5 -translate-x-1 text-foreground/30 opacity-0 transition group-hover/row:translate-x-0 group-hover/row:opacity-100" />
+                      </Link>
+                    </li>
                   ))}
-                </div>
-                <Link
-                  to={c.href}
-                  className="mt-5 inline-flex items-center gap-1 text-[13px] font-bold text-primary transition group-hover:gap-2"
-                >
-                  Open {c.label} <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+                </ul>
               </div>
             ))}
           </div>
