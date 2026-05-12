@@ -124,9 +124,15 @@ function HomePage() {
   return (
     <div className="relative">
       {/* HERO */}
-      <section className="relative overflow-hidden border-b border-border bg-[image:var(--gradient-hero)]">
-        <div aria-hidden className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px), radial-gradient(circle at 70% 70%, white 1px, transparent 1px)", backgroundSize: "60px 60px, 80px 80px" }} />
-        <div className="relative mx-auto max-w-[1200px] px-5 pb-12 pt-10 lg:px-10 lg:pb-16 lg:pt-14">
+      <section className="relative overflow-hidden bg-[image:var(--gradient-hero)]">
+        <div aria-hidden className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px), radial-gradient(circle at 70% 70%, white 1px, transparent 1px)", backgroundSize: "60px 60px, 80px 80px" }} />
+        {/* Fade pink down into the page background so the hero breathes */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
+          style={{ background: "linear-gradient(180deg, transparent, var(--background))" }}
+        />
+        <div className="relative mx-auto max-w-[1200px] px-5 pb-8 pt-7 lg:px-10 lg:pb-10 lg:pt-9">
           <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
             {/* LEFT — greeting, prompt, quick actions */}
             <div>
