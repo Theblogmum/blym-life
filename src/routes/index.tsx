@@ -133,145 +133,84 @@ function Landing() {
       </header>
 
       {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden bg-aurora">
-        <div className="absolute -top-40 -right-32 h-[24rem] w-[24rem] rounded-full bg-[image:var(--gradient-bloom)] opacity-30 blur-3xl" aria-hidden />
-        <div className="absolute -bottom-40 -left-32 h-[22rem] w-[22rem] rounded-full bg-[image:var(--gradient-sunrise)] opacity-35 blur-3xl" aria-hidden />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-12 pb-16 sm:px-8 sm:pt-20 sm:pb-24 lg:grid-cols-[0.95fr_1.1fr]">
-          <div className="text-center">
-            <img
-              src={logoImg}
-              alt="Blym"
-              className="mx-auto mb-5 h-20 w-auto sm:h-24 lg:h-28"
-              width={320}
-              height={144}
-            />
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70 shadow-[var(--shadow-xs)] backdrop-blur">
-              <Sparkles className="h-3.5 w-3.5 text-primary" /> Daily content briefs
-            </span>
-            <h1 className="mx-auto mt-6 max-w-2xl text-center font-display text-[32px] font-normal leading-[1.08] tracking-[-0.02em] text-foreground text-balance sm:text-[44px] lg:text-[52px]">
-              Big enough to grow your{" "}
-              <span className="relative inline-block italic text-primary">
-                content
-                <svg
-                  aria-hidden
-                  viewBox="0 0 300 16"
-                  preserveAspectRatio="none"
-                  className="pointer-events-none absolute -bottom-2 left-0 h-3 w-full text-primary/60"
-                >
-                  <path
-                    d="M2 9 C 60 2, 120 14, 180 7 S 280 4, 298 11"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>.{" "}
-              Small enough to fit your day.
-              <Heart className="ml-1.5 inline h-7 w-7 fill-primary text-primary align-baseline sm:h-9 sm:w-9" />
+      <section className="relative overflow-hidden bg-background">
+        {/* Soft, faded backdrop — single subtle wash, no decorative blobs */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-60"
+          style={{ background: "var(--gradient-aurora)" }}
+        />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-24 pb-20 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-40 lg:pb-32">
+          {/* LEFT — single focal point: headline + subtext + CTA */}
+          <div className="text-left">
+            <h1 className="font-display text-[40px] font-normal leading-[1.05] tracking-[-0.025em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
+              Know what to post before your{" "}
+              <span className="italic text-primary">coffee</span> gets cold.
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-[17px] leading-[1.6] text-muted-foreground text-pretty lg:mx-0">
-              Blym is your pocket-sized content studio — daily filming briefs, hooks, captions and a planner for mums who create between school runs.
+            <p className="mt-6 max-w-lg text-[17px] leading-[1.6] text-muted-foreground text-pretty sm:text-[19px]">
+              Hooks, captions and a week of content — written for busy mums, ready before the school run.
             </p>
-            {/* High-contrast focal CTA block */}
-            <div className="mx-auto mt-8 max-w-md rounded-3xl bg-slate-700/90 p-4 text-white shadow-[var(--shadow-soft)] sm:p-5 text-center">
-              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
-                <Link to={ctaPrimary.to}>
-                  <Button size="lg" className="w-full rounded-full bg-primary px-8 text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary/90 sm:w-auto">
-                    {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
+            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+              <Link to={ctaPrimary.to}>
+                <Button size="lg" className="rounded-full bg-foreground px-7 py-6 text-base text-background hover:bg-foreground/90">
+                  {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              {ctaSecondary && (
+                <Link to={ctaSecondary.to}>
+                  <Button size="lg" variant="ghost" className="rounded-full px-5 py-6 text-base text-muted-foreground hover:text-foreground">
+                    {ctaSecondary.label}
                   </Button>
                 </Link>
-                {ctaSecondary && (
-                  <Link to={ctaSecondary.to}>
-                    <Button size="lg" variant="ghost" className="w-full rounded-full text-white hover:bg-white/10 sm:w-auto">
-                      {ctaSecondary.label}
-                    </Button>
-                  </Link>
-                )}
-              </div>
-              <p className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px] font-medium text-white/85">
-                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-foreground" /> Free forever plan</span>
-                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-foreground" /> No card required</span>
-                <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-primary-foreground" /> Cancel any time</span>
-              </p>
+              )}
             </div>
-            {/* Quick trust signals — compact inline row */}
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[11px] font-medium text-muted-foreground lg:justify-start">
-              <span className="inline-flex items-center gap-1.5"><Users className="h-3.5 w-3.5 text-primary" /> Built for busy mums</span>
-              <span className="text-border">·</span>
-              <span className="inline-flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-primary" /> 10,000+ ideas generated</span>
-              <span className="text-border">·</span>
-              <span className="inline-flex items-center gap-1.5"><Zap className="h-3.5 w-3.5 text-primary" /> Simplifies your content</span>
-            </div>
+            <p className="mt-4 text-[12px] text-muted-foreground">
+              Free forever plan · No card required
+            </p>
           </div>
 
-          {/* AI generation mockup — shows the product working */}
-          <div className="relative mx-auto w-full max-w-sm">
-            <div className="absolute -inset-6 rounded-[2.5rem] bg-[image:var(--gradient-warm)] opacity-15 blur-3xl" aria-hidden />
-            <div className="card-elegant relative overflow-hidden p-4 sm:p-5">
-              {/* Prompt row */}
-              <div className="flex items-center gap-2">
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-foreground/70">
-                  <Wand2 className="h-3.5 w-3.5" />
-                </span>
-                <p className="text-xs text-muted-foreground">
-                  "Reel hook for tired mum-hack"
-                  <span className="ml-0.5 inline-block h-3 w-[2px] translate-y-0.5 bg-primary align-middle animate-pulse" aria-hidden />
-                </p>
+          {/* RIGHT — ONE polished mockup. Background fades softly. */}
+          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
+            {/* Soft fade glow behind the single mockup */}
+            <div
+              aria-hidden
+              className="absolute -inset-10 rounded-[3rem] opacity-40 blur-3xl"
+              style={{ background: "var(--gradient-warm)" }}
+            />
+            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card shadow-[var(--shadow-elegant)]">
+              {/* Browser chrome */}
+              <div className="flex items-center gap-1.5 border-b border-border/60 bg-secondary/40 px-4 py-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
+                <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
+                <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
               </div>
-              <div className="mt-2.5 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-primary">
-                  <Sparkles className="h-3 w-3" /> Viral idea generated
-                </span>
-                <span className="text-[9px] font-semibold text-muted-foreground">in 3.2s</span>
-              </div>
-
-              {/* Generated hooks */}
-              <div className="mt-3 space-y-2">
-                {[
-                  { tag: "Hook", text: "POV: it's 6:47am and this hack just saved my morning." },
-                  { tag: "Hook", text: "Why is no one talking about this mum-hack?!" },
-                  { tag: "Hook", text: "Tell me you're a mum without telling me…" },
-                ].map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-2 rounded-xl border border-border/60 bg-secondary/40 p-2.5"
-                    style={{ animation: `fade-in 0.4s ease-out ${i * 0.15}s both` }}
-                  >
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/15 text-[9px] font-bold text-primary">
-                      {i + 1}
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[9px] font-bold uppercase tracking-wider text-primary/80">{h.tag}</p>
-                      <p className="mt-0.5 text-xs leading-snug text-foreground">{h.text}</p>
-                    </div>
-                    <Check className="mt-1 h-3 w-3 shrink-0 text-success" />
-                  </div>
-                ))}
-              </div>
-
-              {/* Caption preview */}
-              <div className="mt-3 rounded-xl border border-border/60 bg-[var(--surface-peach)]/50 p-2.5">
-                <div className="flex items-center justify-between">
-                  <p className="eyebrow">Caption · ready to post</p>
-                  <span className="rounded-full bg-card px-1.5 py-0.5 text-[9px] font-semibold text-foreground/70">Reel · 18s</span>
+              <div className="p-7 sm:p-9">
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">Today's brief · Tuesday</p>
+                <h3 className="mt-3 font-display text-2xl leading-snug text-foreground sm:text-[28px]">
+                  The 30-second mum-hack you'll wish you'd known sooner.
+                </h3>
+                <div className="mt-7 rounded-2xl border border-border/60 bg-secondary/30 p-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Hook</p>
+                  <p className="mt-2 text-[15px] leading-snug text-foreground">
+                    "POV: it's 6:47am and this hack just saved my morning."
+                  </p>
                 </div>
-                <p className="mt-1 text-xs leading-snug text-foreground/85">
-                  The 30-second mum-hack I wish I'd known a year ago 🫶 Save for later — your future tired self will thank you.
-                </p>
-              </div>
-
-              {/* Generating shimmer line */}
-              <div className="mt-2.5 flex items-center gap-2 text-[10px] font-medium text-muted-foreground">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-                </span>
-                <span>Generating shot list…</span>
+                <div className="mt-3 rounded-2xl border border-border/60 bg-secondary/30 p-5">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Caption</p>
+                  <p className="mt-2 text-[14px] leading-relaxed text-foreground/85">
+                    Save this for your future tired self 🫶 Three minutes that change the whole morning.
+                  </p>
+                </div>
+                <div className="mt-5 flex items-center justify-between text-[12px] text-muted-foreground">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5" /> Best posted 7:42pm
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 font-semibold text-primary">
+                    <Sparkles className="h-3 w-3" /> Ready to film
+                  </span>
+                </div>
               </div>
             </div>
-
-            {/* Before/after chips removed */}
           </div>
         </div>
       </section>
