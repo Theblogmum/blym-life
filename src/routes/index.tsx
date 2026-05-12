@@ -2,18 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { type ComponentType, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote, HelpCircle, Briefcase,
-  type LucideIcon,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -540,27 +531,6 @@ function Landing() {
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
     </div>
-  );
-}
-
-function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: LucideIcon; title: string; body: string }) {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          href={href}
-          className="group flex items-start gap-3 rounded-2xl border border-transparent p-3 transition hover:border-border/60 hover:bg-secondary/60"
-        >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-anchor">
-            <Icon className="h-4 w-4" />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-sm font-semibold text-foreground">{title}</span>
-            <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{body}</span>
-          </span>
-        </a>
-      </NavigationMenuLink>
-    </li>
   );
 }
 
