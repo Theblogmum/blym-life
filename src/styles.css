@@ -61,6 +61,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
+  --color-anchor: var(--anchor);
+  --color-anchor-foreground: var(--anchor-foreground);
   --font-display: "Fraunces", ui-serif, Georgia, serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
@@ -83,6 +85,10 @@
   /* Soft sage success (calmer than mint) */
   --success: oklch(0.74 0.07 155);
   --success-foreground: oklch(0.18 0.01 20);
+  /* Anchor — single deep slate used for primary CTAs, important text, hover states.
+     Matches Tailwind slate-500 (#64748b) used on the dark card at the bottom of the landing. */
+  --anchor: oklch(0.55 0.03 250);
+  --anchor-foreground: oklch(1 0 0);
   /* Warm pinkish-grey surfaces */
   --secondary: oklch(0.972 0.012 12);
   --secondary-foreground: oklch(0.18 0.01 20);
