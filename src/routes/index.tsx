@@ -60,7 +60,7 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <PaymentTestModeBanner />
-      <header className="sticky top-0 z-40 border-b border-border/40 bg-background/70 backdrop-blur-2xl">
+      <header className="sticky top-0 z-40 bg-background/70 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link to="/" className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground">
           <span className="sr-only">Blym</span>
@@ -150,7 +150,7 @@ function Landing() {
               Free forever plan · No card required
             </p>
             {/* Inline stats — directly under CTA so they feel part of the promise */}
-            <dl className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border/60 pt-6">
+            <dl className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-3">
               {[
                 { value: "10,000+", label: "ideas generated" },
                 { value: "4.9★", label: "creator rating" },
@@ -172,9 +172,9 @@ function Landing() {
               className="absolute -inset-10 rounded-[3rem] opacity-40 blur-3xl"
               style={{ background: "var(--gradient-warm)" }}
             />
-            <div className="relative overflow-hidden rounded-[2rem] border border-border/60 bg-card shadow-[var(--shadow-elegant)]">
+            <div className="relative overflow-hidden rounded-[2rem] bg-card shadow-[var(--shadow-elegant)]">
               {/* Browser chrome */}
-              <div className="flex items-center gap-1.5 border-b border-border/60 bg-secondary/40 px-4 py-3">
+              <div className="flex items-center gap-1.5 bg-secondary/40 px-4 py-3">
                 <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
                 <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
                 <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
@@ -184,13 +184,13 @@ function Landing() {
                 <h3 className="mt-3 font-display text-2xl leading-snug text-foreground sm:text-[28px]">
                   The 30-second mum-hack you'll wish you'd known sooner.
                 </h3>
-                <div className="mt-7 rounded-2xl border border-border/60 bg-secondary/30 p-5">
+                <div className="mt-7 rounded-2xl bg-secondary/40 p-5">
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Hook</p>
                   <p className="mt-2 text-[15px] leading-snug text-foreground">
                     "POV: it's 6:47am and this hack just saved my morning."
                   </p>
                 </div>
-                <div className="mt-3 rounded-2xl border border-border/60 bg-secondary/30 p-5">
+                <div className="mt-3 rounded-2xl bg-secondary/40 p-5">
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Caption</p>
                   <p className="mt-2 text-[14px] leading-relaxed text-foreground/85">
                     Save this for your future tired self 🫶 Three minutes that change the whole morning.
@@ -211,7 +211,7 @@ function Landing() {
       </section>
 
       {/* ============ HOW IT HELPS ============ */}
-      <section className="relative border-t border-border/60 bg-background py-24 sm:py-32">
+      <section className="relative bg-background py-24 sm:py-32">
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="max-w-2xl">
             <p className="eyebrow">What you can do in Blym</p>
@@ -289,7 +289,7 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section id="testimonials" className="relative overflow-hidden border-y border-border/60 bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-14 sm:py-16">
         <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -390,7 +390,7 @@ function Landing() {
       </section>
 
       {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
-      <section id="features" className="relative border-t border-border/60 bg-background px-5 py-24 sm:px-8 sm:py-32">
+      <section id="features" className="relative bg-background px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto max-w-4xl text-center">
           <p className="eyebrow">And there's more inside</p>
           <h2 className="mx-auto mt-5 max-w-3xl font-display text-[36px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
@@ -406,7 +406,7 @@ function Landing() {
             ].map((label) => (
               <span
                 key={label}
-                className="rounded-full border border-border/60 bg-card px-4 py-1.5 text-[13px] font-medium text-foreground/80 shadow-[var(--shadow-xs)]"
+                className="rounded-full bg-secondary/60 px-4 py-1.5 text-[13px] font-medium text-foreground/80"
               >
                 {label}
               </span>
@@ -415,7 +415,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="pricing" className="border-t border-border/60 bg-[image:var(--gradient-stone)] py-20 sm:py-24">
+      <section id="pricing" className="bg-[image:var(--gradient-stone)] py-20 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
           <h2 className="mx-auto mt-4 max-w-2xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
@@ -437,7 +437,7 @@ function Landing() {
             { q: "How long does setup take?", a: "About 2 minutes. Tell us your niche, kids' ages and goal and you're in." },
             { q: "Can I cancel anytime?", a: "Yes — one click in Settings. No awkward emails." },
           ].map((f) => (
-            <details key={f.q} className="group rounded-3xl border border-border/70 bg-card p-6 transition hover:border-border [&_summary::-webkit-details-marker]:hidden">
+            <details key={f.q} className="group rounded-2xl px-2 py-5 border-b border-border/50 [&_summary::-webkit-details-marker]:hidden">
               <summary className="flex cursor-pointer items-center justify-between text-[15px] font-medium leading-snug text-foreground">
                 {f.q}
                 <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform group-open:rotate-45">+</span>
@@ -496,7 +496,7 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-border/60 py-10 text-center text-xs text-muted-foreground">
+      <footer className="py-10 text-center text-xs text-muted-foreground">
         <p>Made with care for mum creators · @blym.life</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <Link to="/terms" className="hover:text-foreground">Terms</Link>
