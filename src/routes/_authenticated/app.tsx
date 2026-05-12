@@ -144,23 +144,26 @@ function HomePage() {
                 <div className="lg:hidden"><TrialPill /></div>
               </div>
 
-              <div className="mt-8">
-                <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">Start now</p>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {QUICK.map((a) => (
-                    <Link
-                      key={a.label}
-                      to={a.to}
-                      className="group relative overflow-hidden rounded-2xl bg-card/70 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:bg-card hover:shadow-[var(--shadow-soft)]"
-                    >
-                      <span className="grid h-9 w-9 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-foreground group-hover:text-background">
-                        <a.icon className="h-4 w-4" strokeWidth={2} />
-                      </span>
-                      <p className="mt-3 font-display text-[15px] font-bold leading-tight">{a.label}</p>
-                      <p className="mt-0.5 text-[11.5px] text-muted-foreground">{a.hint}</p>
-                      <ArrowRight className="absolute right-3 top-3 h-3.5 w-3.5 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
-                    </Link>
+              <div className="mt-10">
+                <p className="text-[13px] text-foreground/55">
+                  Want to start with…
+                </p>
+                <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-2 font-display text-[22px] leading-[1.35] tracking-tight sm:text-[26px]">
+                  {QUICK.map((a, i) => (
+                    <span key={a.label} className="inline-flex items-baseline">
+                      <Link
+                        to={a.to}
+                        className="group inline-flex items-baseline gap-1.5 text-foreground/55 underline-offset-[6px] decoration-foreground/20 hover:text-foreground hover:decoration-foreground/60 hover:underline"
+                      >
+                        <a.icon className="h-4 w-4 self-center text-foreground/40 group-hover:text-foreground" strokeWidth={1.75} />
+                        <span className="font-semibold">{a.label.toLowerCase()}</span>
+                      </Link>
+                      {i < QUICK.length - 1 && (
+                        <span aria-hidden className="text-foreground/30">·</span>
+                      )}
+                    </span>
                   ))}
+                  <span className="text-foreground/40">?</span>
                 </div>
               </div>
             </div>
