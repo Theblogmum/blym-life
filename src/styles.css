@@ -89,6 +89,9 @@
      Matches Tailwind slate-500 (#64748b) used on the dark card at the bottom of the landing. */
   --anchor: oklch(0.55 0.03 250);
   --anchor-foreground: oklch(1 0 0);
+  /* Sidebar active pill — soft dark plum, gentler than pure foreground */
+  --sidebar-active: oklch(0.32 0.055 350);
+  --sidebar-active-foreground: oklch(0.985 0.005 350);
   /* Warm pinkish-grey surfaces */
   --secondary: oklch(0.972 0.012 12);
   --secondary-foreground: oklch(0.18 0.01 20);
