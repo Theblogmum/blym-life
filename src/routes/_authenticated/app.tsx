@@ -18,10 +18,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
 const QUICK = [
-  { to: "/viral-lab", label: "Viral Hook", icon: Flame, hint: "Scroll-stopping openers" },
-  { to: "/generator", label: "Reel Script", icon: Wand2, hint: "Full script in seconds" },
-  { to: "/generator", label: "Caption", icon: MessageSquare, hint: "On-brand & ready" },
-  { to: "/planner", label: "Plan Week", icon: Calendar, hint: "Map out your week" },
+  { to: "/viral-lab", label: "Help me hook them", icon: Flame, hint: "A scroll-stopping opener" },
+  { to: "/generator", label: "Write me a script", icon: Wand2, hint: "Ready before nap time" },
+  { to: "/generator", label: "Caption this for me", icon: MessageSquare, hint: "In your voice" },
+  { to: "/planner", label: "Plan my week", icon: Calendar, hint: "Around real life" },
 ];
 
 const CATEGORIES = [
