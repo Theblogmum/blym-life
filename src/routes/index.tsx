@@ -759,6 +759,8 @@ function BigFeature({
 function MiniFeature({
   icon: Icon, title, body, tint, to,
 }: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
+  icon: Icon, title, body, tint, to,
+}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
   return (
     <Link to={to as never} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
       <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
