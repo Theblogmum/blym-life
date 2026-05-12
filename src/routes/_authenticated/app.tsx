@@ -424,7 +424,14 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
   const goal = 5;
   const pct = Math.min(100, Math.round((postsWeek / goal) * 100));
   return (
-    <div className="rounded-3xl bg-card/80 p-6 backdrop-blur shadow-[var(--shadow-soft)]">
+    <div
+      className="relative overflow-hidden rounded-[2rem] p-6 backdrop-blur shadow-[var(--shadow-layered)]"
+      style={{
+        background:
+          "radial-gradient(140% 90% at 100% 0%, oklch(0.96 0.04 18 / 0.55), transparent 55%), linear-gradient(180deg, oklch(1 0 0 / 0.85), oklch(0.985 0.006 30 / 0.85))",
+      }}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">This week</p>
         <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-foreground/65">
