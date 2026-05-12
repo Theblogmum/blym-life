@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight, Zap,
-  MessageSquare, TrendingUp, DollarSign, Target, Flag,
+  MessageSquare, TrendingUp, DollarSign, Flag,
   Trophy, Clock,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
@@ -144,11 +144,25 @@ function HomePage() {
             <TrialPill />
           </div>
 
-          {/* Stat strip */}
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
-            <HeroStat icon={Flame} label="Streak" value={`${streak}`} unit={streak === 1 ? "day" : "days"} />
-            <HeroStat icon={Zap} label="Posts this week" value={`${postsWeek}`} />
-            <HeroStat icon={Target} label="Goal" value={`${monthlyPct}%`} progress={monthlyPct} />
+          {/* Quick actions — what users actually want first */}
+          <div className="mt-10">
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">Start now</p>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {QUICK.map((a) => (
+                <Link
+                  key={a.label}
+                  to={a.to}
+                  className="group relative overflow-hidden rounded-2xl bg-card/70 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:bg-card hover:shadow-[var(--shadow-soft)]"
+                >
+                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-foreground group-hover:text-background">
+                    <a.icon className="h-4 w-4" strokeWidth={2} />
+                  </span>
+                  <p className="mt-3 font-display text-[15px] font-bold leading-tight">{a.label}</p>
+                  <p className="mt-0.5 text-[11.5px] text-muted-foreground">{a.hint}</p>
+                  <ArrowRight className="absolute right-3 top-3 h-3.5 w-3.5 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -211,27 +225,6 @@ function HomePage() {
             ) : (
               <p className="mt-5 text-sm text-muted-foreground">Couldn't load today's idea — try refreshing.</p>
             )}
-          </div>
-        </section>
-
-        {/* QUICK ACTIONS */}
-        <section className="mb-14">
-          <SectionHead eyebrow="Start now" title="Quick actions" />
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {QUICK.map((a) => (
-              <Link
-                key={a.label}
-                to={a.to}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:-translate-y-1 hover:border-foreground hover:shadow-[var(--shadow-bold)]"
-              >
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-foreground text-background transition group-hover:bg-primary">
-                  <a.icon className="h-4.5 w-4.5" strokeWidth={2} />
-                </span>
-                <p className="mt-4 font-display text-[18px] font-bold leading-tight">{a.label}</p>
-                <p className="mt-1 text-[12.5px] text-muted-foreground">{a.hint}</p>
-                <ArrowRight className="absolute right-4 top-4 h-4 w-4 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
-              </Link>
-            ))}
           </div>
         </section>
 
@@ -348,26 +341,6 @@ function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; 
         <h2 className="mt-1 font-display text-[26px] font-black leading-tight tracking-tight sm:text-[32px]">{title}</h2>
         {sub && <p className="mt-1 text-[13px] text-muted-foreground">{sub}</p>}
       </div>
-    </div>
-  );
-}
-
-function HeroStat({ icon: Icon, label, value, unit, progress }: { icon: typeof Flame; label: string; value: string; unit?: string; progress?: number }) {
-  return (
-    <div className="rounded-2xl border border-foreground/10 bg-background/60 p-4 backdrop-blur-sm">
-      <div className="flex items-center gap-2">
-        <Icon className="h-3.5 w-3.5 text-foreground/70" />
-        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">{label}</p>
-      </div>
-      <p className="mt-2 flex items-baseline gap-1.5 font-display text-[32px] font-black leading-none tabular-nums text-foreground">
-        {value}
-        {unit && <span className="text-[13px] font-normal text-foreground/60">{unit}</span>}
-      </p>
-      {typeof progress === "number" && (
-        <div className="mt-3 h-1 overflow-hidden rounded-full bg-foreground/10">
-          <div className="h-full bg-foreground transition-all" style={{ width: `${progress}%` }} />
-        </div>
-      )}
     </div>
   );
 }
