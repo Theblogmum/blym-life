@@ -128,10 +128,10 @@ function Landing() {
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <h1 className="font-display text-[40px] font-normal leading-[1.05] tracking-[-0.025em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
-              Create content without the <span className="italic text-primary">mental load</span>.
+              Know what to post before your <span className="italic text-primary">coffee</span> gets cold.
             </h1>
             <p className="mt-5 max-w-lg text-[17px] leading-[1.6] text-muted-foreground text-pretty sm:text-[19px]">
-              Hooks, captions, content plans, analysis tools and viral ideas.
+              Hooks, captions, content plans, analysis tools and viral ideas — without the mental load.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <Link to={ctaPrimary.to}>
