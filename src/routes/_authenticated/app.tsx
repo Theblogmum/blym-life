@@ -228,27 +228,6 @@ function HomePage() {
           </div>
         </section>
 
-        {/* QUICK ACTIONS */}
-        <section className="mb-14">
-          <SectionHead eyebrow="Start now" title="Quick actions" />
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {QUICK.map((a) => (
-              <Link
-                key={a.label}
-                to={a.to}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition hover:-translate-y-1 hover:border-foreground hover:shadow-[var(--shadow-bold)]"
-              >
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-foreground text-background transition group-hover:bg-primary">
-                  <a.icon className="h-4.5 w-4.5" strokeWidth={2} />
-                </span>
-                <p className="mt-4 font-display text-[18px] font-bold leading-tight">{a.label}</p>
-                <p className="mt-1 text-[12.5px] text-muted-foreground">{a.hint}</p>
-                <ArrowRight className="absolute right-4 top-4 h-4 w-4 -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
-              </Link>
-            ))}
-          </div>
-        </section>
-
         {/* TOOLKIT — visual hub */}
         <section className="mb-14">
           <SectionHead eyebrow="Your Toolkit" title="Browse by category" sub="36 tools, organised. Jump in." />
