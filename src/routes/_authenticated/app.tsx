@@ -207,7 +207,14 @@ function HomePage() {
       <div className="mx-auto max-w-[1200px] px-5 pb-20 pt-10 lg:px-10 lg:pt-14">
         {/* DAILY IDEA */}
         <section className="mb-10">
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-card p-6 sm:p-7">
+          <div
+            className="relative overflow-hidden rounded-[2rem] p-6 sm:p-7 shadow-[var(--shadow-layered)]"
+            style={{
+              background:
+                "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.03 18 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.96 0.04 340 / 0.55), transparent 55%), var(--card)",
+            }}
+          >
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-glow)]">
@@ -306,7 +313,10 @@ function HomePage() {
 
         {/* TODAY's FOCUS + WINS */}
         <section className="grid gap-4 lg:grid-cols-3">
-          <div className="lg:col-span-2 rounded-3xl border border-border bg-[image:var(--gradient-mesh)] p-6 sm:p-8">
+          <div className="relative lg:col-span-2 overflow-hidden rounded-[2rem] bg-[image:var(--gradient-mesh)] p-6 sm:p-8 shadow-[var(--shadow-layered)]">
+            <div aria-hidden className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full opacity-40 blur-3xl" style={{ background: "var(--gradient-warm)" }} />
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
+            <div className="relative">
             <div className="flex items-center gap-2">
               <span className="grid h-8 w-8 place-items-center rounded-full bg-foreground text-background">
                 <Sparkles className="h-3.5 w-3.5" />
@@ -340,9 +350,17 @@ function HomePage() {
                 </Button>
               </Link>
             </div>
+            </div>
           </div>
 
-          <div className="rounded-3xl border border-border bg-card p-6">
+          <div
+            className="relative overflow-hidden rounded-[2rem] p-6 shadow-[var(--shadow-layered)]"
+            style={{
+              background:
+                "linear-gradient(180deg, oklch(0.985 0.012 60), oklch(0.97 0.018 30)), var(--card)",
+            }}
+          >
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
             <div className="flex items-center gap-2">
               <span className="grid h-8 w-8 place-items-center rounded-full bg-[oklch(0.92_0.06_60)] text-[oklch(0.4_0.14_40)]">
                 <Trophy className="h-3.5 w-3.5" />
@@ -406,7 +424,14 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
   const goal = 5;
   const pct = Math.min(100, Math.round((postsWeek / goal) * 100));
   return (
-    <div className="rounded-3xl bg-card/80 p-6 backdrop-blur shadow-[var(--shadow-soft)]">
+    <div
+      className="relative overflow-hidden rounded-[2rem] p-6 backdrop-blur shadow-[var(--shadow-layered)]"
+      style={{
+        background:
+          "radial-gradient(140% 90% at 100% 0%, oklch(0.96 0.04 18 / 0.55), transparent 55%), linear-gradient(180deg, oklch(1 0 0 / 0.85), oklch(0.985 0.006 30 / 0.85))",
+      }}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
       <div className="flex items-center justify-between">
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">This week</p>
         <span className="inline-flex items-center gap-1.5 text-[11.5px] font-semibold text-foreground/65">
