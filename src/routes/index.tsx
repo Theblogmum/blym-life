@@ -248,7 +248,7 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     No more "Are you tired of…" openers. Just hooks that sound like you on a good day.
                   </p>
-                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
                     Try the generator <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
@@ -269,7 +269,7 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     Drag, drop, done. A full content week — laid out around your real life, not a 22-year-old's calendar.
                   </p>
-                  <Link to="/planner" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                  <Link to="/planner" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
                     Open the planner <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
@@ -291,7 +291,7 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     Tell Blym what you filmed — get four ready-to-post captions in your voice, with the right hooks and CTAs.
                   </p>
-                  <Link to="/templates" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-primary">
+                  <Link to="/templates" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
                     Open the studio <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
@@ -557,7 +557,7 @@ function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: Lu
           href={href}
           className="group flex items-start gap-3 rounded-2xl border border-transparent p-3 transition hover:border-border/60 hover:bg-secondary/60"
         >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-primary">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-anchor">
             <Icon className="h-4 w-4" />
           </span>
           <span className="min-w-0">
