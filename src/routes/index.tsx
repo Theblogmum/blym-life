@@ -1,10 +1,9 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { type ComponentType, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
-  TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote,
+  Sparkles, Check, Clock, Wand2, Camera,
+  Heart, Star, ArrowRight, Quote,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -296,7 +295,7 @@ function Landing() {
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="text-center">
             <p className="eyebrow">Loved by mum creators</p>
-            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[52px]">
               Real mums. Real posts. Less burnout.
             </h2>
           </div>
@@ -350,7 +349,7 @@ function Landing() {
         <div aria-hidden className="absolute right-[-4rem] top-20 h-72 w-72 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
           <p className="eyebrow">How it works</p>
-          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             From overwhelmed to filmed in three calm steps.
           </h2>
           <div className="mt-12 grid gap-5 sm:grid-cols-3">
@@ -390,63 +389,36 @@ function Landing() {
         </div>
       </section>
 
-      <section id="features" className="relative px-5 py-20 sm:px-8 sm:py-24">
-        <div aria-hidden className="absolute left-1/2 top-10 -z-10 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" />
-        <div className="mx-auto max-w-6xl">
-        <div className="text-center">
-          <p className="eyebrow">Inside the studio</p>
-          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
-            A whole creator business, beautifully organised.
+      {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
+      <section id="features" className="relative border-t border-border/60 bg-background px-5 py-24 sm:px-8 sm:py-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="eyebrow">And there's more inside</p>
+          <h2 className="mx-auto mt-5 max-w-3xl font-display text-[36px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
+            A whole creator studio — quietly powerful.
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-[1.65] text-muted-foreground text-pretty sm:text-[17px]">
-            One tool to plan, one to grow, one to get paid. No bloat — just the bits mum creators actually use.
+          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.65] text-muted-foreground text-pretty">
+            Viral Lab, Recycler, Insights, Revenue Hub, Wins — the calm tools that make a real creator business.
           </p>
-        </div>
-
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          <BigFeature
-            img={featBrief}
-            badge="Plan"
-            title="Today's brief, ready by breakfast"
-            body="One ready-to-film idea — hook, caption, shot list and best post time — built around your niche and kids."
-            surface="surface-peach"
-            to="/planner"
-          />
-          <BigFeature
-            img={featBrand}
-            badge="Create"
-            title="Template Studio for posts, emails & DMs"
-            body="Tell us what you need — we write 4 ready-to-use options in your voice. Posts, captions, brand replies and more."
-            surface="surface-mint"
-            to="/templates"
-          />
-          <BigFeature
-            img={featGrow}
-            badge="Grow"
-            title="Insights that actually move you"
-            body="See what's working across your last posts and get tomorrow's brief tuned to your wins."
-            surface="surface-plum"
-            to="/insights"
-          />
-        </div>
-
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." tint="var(--surface-blush)" to="/viral-lab" />
-          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." tint="var(--surface-peach)" to="/templates" />
-          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." tint="var(--surface-mint)" to="/planner" />
-          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." tint="var(--surface-butter)" to="/recycler" />
-          <MiniFeature icon={Lightbulb} title="Content Ideas" body="A library that learns your voice." tint="var(--surface-plum)" to="/generator" />
-          <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" to="/insights" />
-          <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" to="/business" />
-          <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" to="/wins" />
-        </div>
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
+            {[
+              "Viral Lab", "Weekly Planner", "Recycler", "Template Studio",
+              "Content Ideas", "Insights", "Revenue Hub", "Creator Wins",
+            ].map((label) => (
+              <span
+                key={label}
+                className="rounded-full border border-border/60 bg-card px-4 py-1.5 text-[13px] font-medium text-foreground/80 shadow-[var(--shadow-xs)]"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
       <section id="pricing" className="border-t border-border/60 bg-[image:var(--gradient-stone)] py-20 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
-          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             Free to start. Upgrade when you're ready.
           </h2>
           <PricingPlans />
@@ -455,7 +427,7 @@ function Landing() {
 
       <section id="faq" className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
         <p className="eyebrow text-center">FAQ</p>
-        <h2 className="mx-auto mt-4 text-center font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+        <h2 className="mx-auto mt-4 text-center font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[52px]">
           Things mums ask us
         </h2>
         <div className="mt-10 space-y-3">
@@ -477,24 +449,31 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-10 text-center text-white sm:p-14">
-          <div className="absolute inset-0 bg-white/5" aria-hidden />
-          <div className="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-[image:var(--gradient-warm)] opacity-30 blur-3xl" aria-hidden />
-          <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" aria-hidden />
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-anchor p-12 text-center text-white shadow-[var(--shadow-elegant)] sm:p-20">
+          <div className="absolute -top-32 -right-24 h-80 w-80 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
+          <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[image:var(--gradient-bloom)] opacity-20 blur-3xl" aria-hidden />
           <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-background/80 backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
               <Clock className="h-3.5 w-3.5" /> Tomorrow morning
             </span>
-            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-[36px] font-normal leading-[1.02] tracking-[-0.025em] text-balance sm:text-[64px]">
               Your brief is already being written.
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.65] text-background/75 text-pretty">
+            <p className="mx-auto mt-6 max-w-lg text-[17px] leading-[1.6] text-white/75 text-pretty">
               Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.
             </p>
-            <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
-              <Link to={ctaPrimary.to}><Button size="lg" className="w-full rounded-full bg-background px-8 text-foreground hover:bg-background/90 sm:w-auto">{ctaPrimary.label} <ArrowRight className="h-4 w-4" /></Button></Link>
+            <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+              <Link to={ctaPrimary.to}>
+                <Button size="lg" className="w-full rounded-full bg-white px-8 py-6 text-base text-foreground shadow-[var(--shadow-soft)] hover:bg-white/90 sm:w-auto">
+                  {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
               {ctaSecondary && (
-                <Link to={ctaSecondary.to}><Button size="lg" variant="ghost" className="w-full rounded-full text-background hover:bg-background/10 sm:w-auto">Sign in</Button></Link>
+                <Link to={ctaSecondary.to}>
+                  <Button size="lg" variant="ghost" className="w-full rounded-full px-6 py-6 text-base text-white hover:bg-white/10 sm:w-auto">
+                    Sign in
+                  </Button>
+                </Link>
               )}
             </div>
           </div>
@@ -697,39 +676,6 @@ function PriceCard({
   );
 }
 
-function BigFeature({
-  img, badge, title, body, surface, to,
-}: { img: string; badge: string; title: string; body: string; surface: string; to: string }) {
-  return (
-    <Link to={to as never} className={`group block overflow-hidden rounded-[1.75rem] border border-border/60 ${surface} shadow-[var(--shadow-soft)] transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]`}>
-      <div className="aspect-[4/3] overflow-hidden">
-        <img src={img} alt={title} loading="lazy" width={1024} height={768} className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]" />
-      </div>
-      <div className="p-7">
-        <span className="inline-block rounded-full bg-card/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/70 backdrop-blur">
-          {badge}
-        </span>
-        <h3 className="mt-3 font-display text-xl font-normal leading-snug">{title}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-foreground/70">{body}</p>
-      </div>
-    </Link>
-  );
-}
-
-function MiniFeature({
-  icon: Icon, title, body, tint, to,
-}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
-  return (
-    <Link to={to as never} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
-      <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
-        <Icon className="h-5 w-5" />
-      </div>
-      <p className="mt-4 font-display text-base font-normal">{title}</p>
-      <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
-    </Link>
-  );
-}
-
 function FeatureRow({
   copy, image, imageSide, tint, offset,
 }: {
@@ -758,23 +704,6 @@ function FeatureRow({
         </div>
       </div>
       <div className={imageFirst ? "lg:order-2" : "lg:order-1"}>{copy}</div>
-    </div>
-  );
-}
-
-function MiniStat({
-  icon: Icon, label, value, unit, tint,
-}: { icon: ComponentType<{ className?: string }>; label: string; value: string; unit: string; tint: string }) {
-  return (
-    <div className="rounded-2xl border border-border/60 bg-card p-3.5">
-      <div className="flex items-center justify-between">
-        <span className="grid h-8 w-8 place-items-center rounded-xl text-foreground" style={{ background: tint }}>
-          <Icon className="h-4 w-4" />
-        </span>
-        <TrendingUp className="h-3.5 w-3.5 text-success" />
-      </div>
-      <p className="mt-2.5 font-display text-2xl leading-none">{value}<span className="ml-1 text-xs font-normal text-muted-foreground">{unit}</span></p>
-      <p className="mt-1 text-[11px] font-medium text-muted-foreground">{label}</p>
     </div>
   );
 }
