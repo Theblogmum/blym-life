@@ -184,7 +184,7 @@ function HomePage() {
                           <a.icon className="h-4 w-4" strokeWidth={1.75} />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block font-display text-[15px] font-bold leading-tight">{a.label}</span>
+                          <span className="block text-[15px] font-bold leading-tight">{a.label}</span>
                           <span className="block truncate text-[11.5px] text-muted-foreground">{a.hint}</span>
                         </span>
                         <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-foreground/40 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
@@ -274,7 +274,7 @@ function HomePage() {
                 <div className="flex items-baseline justify-between gap-3">
                   <div className="flex items-baseline gap-3">
                     <c.icon className="h-3.5 w-3.5 self-center text-foreground/40" strokeWidth={1.75} />
-                    <h3 className="font-display text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/70">
+                    <h3 className="text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/70">
                       {c.label}
                     </h3>
                     <span className="text-[11px] tabular-nums text-foreground/35">{c.count}</span>
@@ -349,7 +349,7 @@ function HomePage() {
               </span>
               <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">This week</p>
             </div>
-            <p className="mt-4 font-display text-[42px] font-black leading-none tabular-nums">{postsWeek}</p>
+            <p className="mt-4 text-[42px] font-black leading-none tabular-nums">{postsWeek}</p>
             <p className="mt-1 text-[12.5px] text-muted-foreground">posts shipped</p>
 
             <div className="mt-6 space-y-3 border-t border-border pt-5">
@@ -413,7 +413,7 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
           <Flame className="h-3.5 w-3.5 text-foreground/45" /> {streak}d streak
         </span>
       </div>
-      <p className="mt-3 font-display text-[40px] font-black leading-none tabular-nums text-foreground">
+      <p className="mt-3 text-[40px] font-black leading-none tabular-nums text-foreground">
         {postsWeek}
         <span className="ml-1.5 text-[14px] font-normal text-foreground/55">/ {goal} posts</span>
       </p>
