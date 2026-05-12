@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { type ComponentType } from "react";
+import { type ComponentType, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -773,7 +773,7 @@ function MiniFeature({
 function FeatureRow({
   copy, image, imageSide, tint, offset,
 }: {
-  copy: React.ReactNode;
+  copy: ReactNode;
   image: string;
   imageSide: "left" | "right";
   tint: string;
