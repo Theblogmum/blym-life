@@ -372,7 +372,7 @@ function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; 
     <div className="flex items-end justify-between gap-4">
       <div>
         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
-        <h2 className="mt-1 font-display text-[26px] font-black leading-tight tracking-tight sm:text-[32px]">{title}</h2>
+        <h2 className="mt-1 text-[26px] font-black leading-tight tracking-tight sm:text-[32px]">{title}</h2>
         {sub && <p className="mt-1 text-[13px] text-muted-foreground">{sub}</p>}
       </div>
     </div>
