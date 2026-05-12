@@ -2,18 +2,9 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { type ComponentType, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import {
   Sparkles, Check, Clock, Wand2, Building2, Camera, Flame,
   TrendingUp, CalendarDays, Heart, Star, ArrowRight, FileEdit, Send, Target,
-  Lightbulb, BarChart3, DollarSign, Trophy, Quote, HelpCircle, Briefcase,
-  type LucideIcon,
+  Lightbulb, BarChart3, DollarSign, Trophy, Quote,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -76,55 +67,49 @@ function Landing() {
           <span className="sr-only">Blym</span>
           <span aria-hidden>Blym</span>
         </Link>
-        <NavigationMenu className="hidden lg:flex">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-muted-foreground hover:text-foreground data-[state=open]:bg-secondary">Product</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[460px] grid-cols-2 gap-2 p-3">
-                  <NavMenuLink href="#features" icon={Wand2} title="Features" body="Every tool inside the studio" />
-                  <NavMenuLink href="#how" icon={Sparkles} title="How it works" body="From idea to filmed in 3 steps" />
-                  <NavMenuLink href="#pricing" icon={DollarSign} title="Pricing" body="Free to start. Upgrade any time" />
-                  <NavMenuLink href="#faq" icon={HelpCircle} title="FAQ" body="The questions mums ask us" />
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-muted-foreground hover:text-foreground data-[state=open]:bg-secondary">For creators</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[460px] grid-cols-2 gap-2 p-3">
-                  <NavMenuLink href="#features" icon={Flame} title="Viral Lab" body="Remix any trend for your niche" />
-                  <NavMenuLink href="#features" icon={CalendarDays} title="Weekly Planner" body="A 7-day grid you'll actually fill" />
-                  <NavMenuLink href="#features" icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles" />
-                  <NavMenuLink href="#features" icon={Briefcase} title="Revenue Hub" body="Income, invoices & brand pipeline" />
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <a href="#testimonials" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Reviews</a>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <a href="#contact" className="inline-flex h-9 items-center rounded-full px-3 text-sm font-medium text-muted-foreground transition hover:bg-secondary hover:text-foreground">Contact</a>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        {/* Compact nav for tablets */}
-        <nav className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex lg:hidden">
-          <a href="#how" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">How</a>
-          <a href="#features" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Features</a>
-          <a href="#pricing" className="rounded-full px-3 py-1.5 transition hover:bg-secondary hover:text-foreground">Pricing</a>
+        {/* Tight, balanced nav */}
+        <nav className="hidden items-center gap-1 text-sm sm:flex">
+          {[
+            { href: "#features", label: "Features" },
+            { href: "#how", label: "How it works" },
+            { href: "#features", label: "Examples" },
+            { href: "#pricing", label: "Pricing" },
+            { href: "#testimonials", label: "Reviews" },
+          ].map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              className="rounded-full px-2.5 py-1.5 text-[13px] font-medium text-muted-foreground transition hover:text-foreground"
+            >
+              {item.label}
+            </a>
+          ))}
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <Link to="/app"><Button size="sm" className="rounded-full bg-anchor text-anchor-foreground hover:bg-anchor/90">Open studio</Button></Link>
+            <Link to="/app">
+              <Button
+                size="lg"
+                className="rounded-full bg-secondary px-5 text-[13px] font-semibold text-foreground shadow-[var(--shadow-soft)] hover:bg-secondary/80"
+              >
+                Open studio <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </Link>
           ) : (
             <>
-              <Link to="/login"><Button variant="ghost" size="sm" className="rounded-full">Sign in</Button></Link>
-              <Link to="/signup"><Button size="sm" className="rounded-full bg-anchor text-anchor-foreground hover:bg-anchor/90">Start free</Button></Link>
+              <Link to="/login" className="hidden sm:inline-flex">
+                <Button variant="ghost" size="sm" className="rounded-full text-[13px] text-muted-foreground hover:text-foreground">
+                  Sign in
+                </Button>
+              </Link>
+              <Link to="/signup">
+                <Button
+                  size="lg"
+                  className="rounded-full bg-anchor px-5 text-[13px] font-semibold text-anchor-foreground shadow-[var(--shadow-soft)] hover:bg-anchor/90"
+                >
+                  Start free <ArrowRight className="h-3.5 w-3.5" />
+                </Button>
+              </Link>
             </>
           )}
         </div>
@@ -546,27 +531,6 @@ function Landing() {
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
     </div>
-  );
-}
-
-function NavMenuLink({ href, icon: Icon, title, body }: { href: string; icon: LucideIcon; title: string; body: string }) {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          href={href}
-          className="group flex items-start gap-3 rounded-2xl border border-transparent p-3 transition hover:border-border/60 hover:bg-secondary/60"
-        >
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--surface-peach)] text-foreground/80 transition group-hover:bg-primary/15 group-hover:text-anchor">
-            <Icon className="h-4 w-4" />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-sm font-semibold text-foreground">{title}</span>
-            <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{body}</span>
-          </span>
-        </a>
-      </NavigationMenuLink>
-    </li>
   );
 }
 
