@@ -201,10 +201,17 @@
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.005em;
   }
-  h1, h2, h3, h4 {
+  /* Serif is reserved for hero / section-level moments (h1, h2).
+     Smaller headings default to sans for calmer hierarchy. */
+  h1, h2 {
     font-family: var(--font-display);
     letter-spacing: -0.022em;
     font-feature-settings: "ss01", "ss02";
+  }
+  h3, h4 {
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+    font-weight: 600;
   }
   /* Subtle selection */
   ::selection { background: oklch(0.92 0.05 12 / 0.6); color: var(--foreground); }
