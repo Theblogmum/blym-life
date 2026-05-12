@@ -296,7 +296,7 @@ function Landing() {
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="text-center">
             <p className="eyebrow">Loved by mum creators</p>
-            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[52px]">
               Real mums. Real posts. Less burnout.
             </h2>
           </div>
@@ -350,7 +350,7 @@ function Landing() {
         <div aria-hidden className="absolute right-[-4rem] top-20 h-72 w-72 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
           <p className="eyebrow">How it works</p>
-          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             From overwhelmed to filmed in three calm steps.
           </h2>
           <div className="mt-12 grid gap-5 sm:grid-cols-3">
@@ -419,7 +419,7 @@ function Landing() {
       <section id="pricing" className="border-t border-border/60 bg-[image:var(--gradient-stone)] py-20 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
-          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+          <h2 className="mx-auto mt-4 max-w-2xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             Free to start. Upgrade when you're ready.
           </h2>
           <PricingPlans />
@@ -428,7 +428,7 @@ function Landing() {
 
       <section id="faq" className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
         <p className="eyebrow text-center">FAQ</p>
-        <h2 className="mx-auto mt-4 text-center font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
+        <h2 className="mx-auto mt-4 text-center font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[52px]">
           Things mums ask us
         </h2>
         <div className="mt-10 space-y-3">
