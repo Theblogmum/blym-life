@@ -18,10 +18,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
 const QUICK = [
-  { to: "/viral-lab", label: "Help me hook them", icon: Flame, hint: "A scroll-stopping opener" },
-  { to: "/generator", label: "Write me a script", icon: Wand2, hint: "Ready before nap time" },
-  { to: "/generator", label: "Caption this for me", icon: MessageSquare, hint: "In your voice" },
-  { to: "/planner", label: "Plan my week", icon: Calendar, hint: "Around real life" },
+  { to: "/viral-lab", label: "Help me hook them", icon: Flame, hint: "Something they'll stop scrolling for" },
+  { to: "/generator", label: "Write me a script", icon: Wand2, hint: "Done before the kettle boils" },
+  { to: "/generator", label: "Caption this for me", icon: MessageSquare, hint: "Sounds like you, not a brand" },
+  { to: "/planner", label: "Plan my week", icon: Calendar, hint: "Gentle, around school runs and naps" },
 ];
 
 const CATEGORIES = [
@@ -114,12 +114,12 @@ function HomePage() {
   const postsWeek = d?.posts_last_7 ?? 0;
   const focusSuggestion =
     postsWeek === 0
-      ? "Let's get one post out today — even a small one counts."
+      ? "No posts this week, and that's okay. One small one today is a win — let's start there."
       : streak === 0
-      ? "One post today and you're back on a roll."
+      ? "You've taken a little break. One post today and you're back in your rhythm — no pressure."
       : monthlyGoal && monthlyPct < 100
-      ? `You're ${monthlyPct}% of the way to "${monthlyGoal.title}". Nice.`
-      : "You're in flow. Want to bank tomorrow's idea while it's hot?";
+      ? `${monthlyPct}% of the way to "${monthlyGoal.title}" — look at you go.`
+      : "You're in flow this week. Want to bank tomorrow's idea while it's still fresh?";
 
   return (
     <div className="relative">
@@ -144,7 +144,7 @@ function HomePage() {
                     <span className="capitalize bg-gradient-to-r from-[oklch(0.45_0.22_8)] to-[oklch(0.55_0.22_8)] bg-clip-text text-transparent">{name}.</span>
                   </h1>
                   <p className="mt-3 max-w-md text-[15px] text-foreground/70">
-                    {focusSuggestion}
+                    What would feel good to post today?
                   </p>
                 </div>
                 <div className="lg:hidden"><TrialPill /></div>
@@ -168,8 +168,11 @@ function HomePage() {
                     <h3 className="mt-5 font-display text-[28px] font-black leading-[1.05] tracking-tight sm:text-[34px]">
                       Help me hook them.
                     </h3>
+                    <p className="mt-3 max-w-[22rem] text-[13.5px] leading-relaxed text-background/70">
+                      Open Viral Lab and we'll write the first line together — the bit that makes them stay.
+                    </p>
                     <span className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-background/90">
-                      Start in Viral Lab
+                      Let's write it together
                       <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                     </span>
                   </div>
@@ -225,13 +228,13 @@ function HomePage() {
                 </span>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">
-                    Made for you today
+                    A little something for you today
                   </p>
                 </div>
               </div>
               <Link to="/generator">
                 <Button size="sm" variant="outline" className="h-8 rounded-lg text-[12px]">
-                  Open in Generator <ArrowRight className="ml-1 h-3 w-3" />
+                  Make it yours <ArrowRight className="ml-1 h-3 w-3" />
                 </Button>
               </Link>
             </div>
@@ -256,7 +259,7 @@ function HomePage() {
                 <div className="mt-5 flex flex-wrap gap-2">
                   <Link to="/generator">
                     <Button size="sm" className="h-9 rounded-lg bg-foreground text-background hover:bg-foreground/90">
-                      <Wand2 className="mr-1.5 h-3.5 w-3.5" /> Build the script
+                      <Wand2 className="mr-1.5 h-3.5 w-3.5" /> Turn it into a script
                     </Button>
                   </Link>
                   <Button
@@ -265,19 +268,19 @@ function HomePage() {
                     className="h-9 rounded-lg"
                     onClick={() => idea.refetch()}
                   >
-                    Try another
+                    Not feeling it — try another
                   </Button>
                 </div>
               </div>
             ) : (
-              <p className="mt-5 text-sm text-muted-foreground">Couldn't load today's idea — try refreshing.</p>
+              <p className="mt-5 text-sm text-muted-foreground">Today's idea is hiding — give it a refresh.</p>
             )}
           </div>
         </section>
 
         {/* TOOLKIT — visual hub */}
         <section className="mb-14">
-          <SectionHead eyebrow="When you need a hand" title="The whole studio" />
+          <SectionHead eyebrow="When you need a hand" title="The whole studio, here for you" />
           <div className="mt-10 grid gap-x-12 gap-y-12 sm:grid-cols-2">
             {CATEGORIES.map((c) => (
               <div key={c.label} className="group">
@@ -324,7 +327,7 @@ function HomePage() {
               <span className="grid h-8 w-8 place-items-center rounded-full bg-foreground text-background">
                 <Sparkles className="h-3.5 w-3.5" />
               </span>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">Today's focus</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">What would feel good today?</p>
             </div>
             <p className="mt-4 font-display text-[22px] font-bold leading-snug sm:text-[26px]">
               {focusSuggestion}
@@ -344,12 +347,12 @@ function HomePage() {
             <div className="mt-6 flex flex-wrap gap-2">
               <Link to="/generator">
                 <Button className="h-10 rounded-lg bg-foreground px-5 text-background hover:bg-foreground/90">
-                  <Zap className="mr-1.5 h-4 w-4" /> Create now
+                  <Zap className="mr-1.5 h-4 w-4" /> Let's make something
                 </Button>
               </Link>
               <Link to="/planner">
                 <Button variant="outline" className="h-10 rounded-lg">
-                  <Calendar className="mr-1.5 h-4 w-4" /> Open planner
+                  <Calendar className="mr-1.5 h-4 w-4" /> Plan it around your week
                 </Button>
               </Link>
             </div>
@@ -368,18 +371,18 @@ function HomePage() {
               <span className="grid h-8 w-8 place-items-center rounded-full bg-[oklch(0.92_0.06_60)] text-[oklch(0.4_0.14_40)]">
                 <Trophy className="h-3.5 w-3.5" />
               </span>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">This week</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">Look what you did</p>
             </div>
             <p className="mt-4 text-[42px] font-black leading-none tabular-nums">{postsWeek}</p>
-            <p className="mt-1 text-[12.5px] text-muted-foreground">posts shipped</p>
+            <p className="mt-1 text-[12.5px] text-muted-foreground">{postsWeek === 1 ? "post out in the world this week" : "posts out in the world this week"}</p>
 
             <div className="mt-6 space-y-3 border-t border-border pt-5">
-              <MiniRow icon={Flame} label="Current streak" value={`${streak}d`} />
-              <MiniRow icon={Clock} label="Posts shipped" value={`${postsWeek}`} />
+              <MiniRow icon={Flame} label="Days in a row" value={`${streak}d`} />
+              <MiniRow icon={Clock} label="You showed up" value={`${postsWeek}×`} />
             </div>
 
             <Link to="/wins" className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-bold text-primary hover:gap-2 transition-all">
-              See all wins <ArrowRight className="h-3.5 w-3.5" />
+              See everything you've done <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </section>
@@ -446,7 +449,7 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
         <span className="ml-1.5 text-[14px] font-normal text-foreground/55">/ {goal} posts</span>
       </p>
       <p className="mt-1.5 text-[12.5px] text-muted-foreground">
-        {pct >= 100 ? "Consistency goal hit — you're on fire." : `${pct}% of your weekly rhythm.`}
+        {pct >= 100 ? "You hit your rhythm this week — proud of you." : `${pct}% of the way there. Every post counts.`}
       </p>
       <div className="mt-5 flex items-end justify-between gap-1.5">
         {days.map((d, i) => (
