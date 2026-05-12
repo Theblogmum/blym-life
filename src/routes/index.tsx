@@ -759,8 +759,6 @@ function BigFeature({
 function MiniFeature({
   icon: Icon, title, body, tint, to,
 }: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
-  icon: Icon, title, body, tint, to,
-}: { icon: ComponentType<{ className?: string }>; title: string; body: string; tint?: string; to: string }) {
   return (
     <Link to={to as never} className="card-elegant block p-5 transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)]">
       <div className="grid h-10 w-10 place-items-center rounded-2xl text-foreground" style={{ background: tint ?? "var(--surface-stone)" }}>
@@ -769,6 +767,38 @@ function MiniFeature({
       <p className="mt-4 font-display text-base font-normal">{title}</p>
       <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{body}</p>
     </Link>
+  );
+}
+
+function FeatureRow({
+  copy, image, imageSide, tint, offset,
+}: {
+  copy: React.ReactNode;
+  image: string;
+  imageSide: "left" | "right";
+  tint: string;
+  offset?: boolean;
+}) {
+  const imageFirst = imageSide === "left";
+  return (
+    <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className={imageFirst ? "lg:order-1" : "lg:order-2"}>
+        <div
+          className={`relative overflow-hidden rounded-[2rem] border border-border/60 shadow-[var(--shadow-elegant)] ${offset ? "lg:translate-y-6" : ""}`}
+          style={{ background: tint }}
+        >
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            width={1024}
+            height={768}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+      <div className={imageFirst ? "lg:order-2" : "lg:order-1"}>{copy}</div>
+    </div>
   );
 }
 
