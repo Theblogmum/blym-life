@@ -307,18 +307,10 @@ function Landing() {
             ].map((t, i) => (
               <figure
                 key={t.handle}
-                className="card-elegant relative p-6 transition-transform hover:-translate-y-1"
-                style={{
-                  animation: `fade-in 0.5s ease-out ${i * 0.12}s both`,
-                  transform: `rotate(${i === 0 ? -1.2 : i === 1 ? 0.4 : -0.6}deg)`,
-                }}
+                className="relative p-2"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
               >
-                {/* "Tape" sticker for polaroid feel */}
-                <span
-                  aria-hidden
-                  className="absolute -top-3 left-6 h-5 w-14 rotate-[-4deg] rounded-sm bg-primary/20 shadow-[var(--shadow-xs)] backdrop-blur"
-                />
-                <Quote className="absolute right-5 top-5 h-5 w-5 text-primary/40" />
+                <Quote className="absolute right-2 top-0 h-5 w-5 text-primary/30" />
                 <div className="flex items-center gap-1 text-primary">
                   {[...Array(5)].map((_, k) => <Star key={k} className="h-3.5 w-3.5 fill-primary" />)}
                 </div>
