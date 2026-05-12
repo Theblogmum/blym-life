@@ -390,56 +390,29 @@ function Landing() {
         </div>
       </section>
 
-      <section id="features" className="relative px-5 py-20 sm:px-8 sm:py-24">
-        <div aria-hidden className="absolute left-1/2 top-10 -z-10 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-[image:var(--gradient-warm)] opacity-20 blur-3xl" />
-        <div className="mx-auto max-w-6xl">
-        <div className="text-center">
-          <p className="eyebrow">Inside the studio</p>
-          <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
-            A whole creator business, beautifully organised.
+      {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
+      <section id="features" className="relative border-t border-border/60 bg-background px-5 py-24 sm:px-8 sm:py-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="eyebrow">And there's more inside</p>
+          <h2 className="mx-auto mt-5 max-w-3xl font-display text-[36px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
+            A whole creator studio — quietly powerful.
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-[1.65] text-muted-foreground text-pretty sm:text-[17px]">
-            One tool to plan, one to grow, one to get paid. No bloat — just the bits mum creators actually use.
+          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.65] text-muted-foreground text-pretty">
+            Viral Lab, Recycler, Insights, Revenue Hub, Wins — the calm tools that make a real creator business.
           </p>
-        </div>
-
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          <BigFeature
-            img={featBrief}
-            badge="Plan"
-            title="Today's brief, ready by breakfast"
-            body="One ready-to-film idea — hook, caption, shot list and best post time — built around your niche and kids."
-            surface="surface-peach"
-            to="/planner"
-          />
-          <BigFeature
-            img={featBrand}
-            badge="Create"
-            title="Template Studio for posts, emails & DMs"
-            body="Tell us what you need — we write 4 ready-to-use options in your voice. Posts, captions, brand replies and more."
-            surface="surface-mint"
-            to="/templates"
-          />
-          <BigFeature
-            img={featGrow}
-            badge="Grow"
-            title="Insights that actually move you"
-            body="See what's working across your last posts and get tomorrow's brief tuned to your wins."
-            surface="surface-plum"
-            to="/insights"
-          />
-        </div>
-
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <MiniFeature icon={Flame} title="Viral Lab" body="Paste any trend → remix it for your niche." tint="var(--surface-blush)" to="/viral-lab" />
-          <MiniFeature icon={Wand2} title="Template Studio" body="Posts, emails & DMs in 4 picks." tint="var(--surface-peach)" to="/templates" />
-          <MiniFeature icon={CalendarDays} title="Weekly Planner" body="7-day grid you'll actually fill." tint="var(--surface-mint)" to="/planner" />
-          <MiniFeature icon={TrendingUp} title="Recycler" body="One clip → 5 fresh angles." tint="var(--surface-butter)" to="/recycler" />
-          <MiniFeature icon={Lightbulb} title="Content Ideas" body="A library that learns your voice." tint="var(--surface-plum)" to="/generator" />
-          <MiniFeature icon={BarChart3} title="Insights" body="Calm analytics — only what matters." tint="var(--surface-sky)" to="/insights" />
-          <MiniFeature icon={DollarSign} title="Revenue Hub" body="Income, invoices & brand pipeline." tint="var(--surface-mint)" to="/business" />
-          <MiniFeature icon={Trophy} title="Creator Wins" body="Celebrate every milestone." tint="var(--surface-blush)" to="/wins" />
-        </div>
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
+            {[
+              "Viral Lab", "Weekly Planner", "Recycler", "Template Studio",
+              "Content Ideas", "Insights", "Revenue Hub", "Creator Wins",
+            ].map((label) => (
+              <span
+                key={label}
+                className="rounded-full border border-border/60 bg-card px-4 py-1.5 text-[13px] font-medium text-foreground/80 shadow-[var(--shadow-xs)]"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
 
