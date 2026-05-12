@@ -165,6 +165,19 @@ function Landing() {
             <p className="mt-4 text-[12px] text-muted-foreground">
               Free forever plan · No card required
             </p>
+            {/* Inline stats — directly under CTA so they feel part of the promise */}
+            <dl className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-border/60 pt-6">
+              {[
+                { value: "10,000+", label: "ideas generated" },
+                { value: "4.9★", label: "creator rating" },
+                { value: "2 mins", label: "to ready-to-post" },
+              ].map((s) => (
+                <div key={s.label} className="flex items-baseline gap-2">
+                  <dt className="font-display text-xl text-foreground sm:text-2xl">{s.value}</dt>
+                  <dd className="text-[12px] text-muted-foreground">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           {/* RIGHT — ONE polished mockup. Background fades softly. */}
@@ -296,24 +309,7 @@ function Landing() {
         <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="grid gap-3 sm:grid-cols-3">
-            {[
-              { value: "10,000+", label: "AI ideas generated", tint: "var(--surface-peach)" },
-              { value: "4.9★", label: "Average creator rating", tint: "var(--surface-blush)" },
-              { value: "2 mins", label: "From idea to ready-to-post", tint: "var(--surface-mint)" },
-            ].map((s, i) => (
-              <div
-                key={s.label}
-                className="card-elegant flex items-center gap-4 p-5"
-                style={{ background: s.tint, transform: `rotate(${i === 1 ? 0 : i === 0 ? -0.4 : 0.4}deg)` }}
-              >
-                <div className="font-display text-3xl text-foreground">{s.value}</div>
-                <div className="text-sm font-medium text-muted-foreground">{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
+          <div className="text-center">
             <p className="eyebrow">Loved by mum creators</p>
             <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.12] tracking-[-0.02em] text-balance sm:text-[40px]">
               Real mums. Real posts. Less burnout.
