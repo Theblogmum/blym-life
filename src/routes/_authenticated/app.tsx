@@ -114,12 +114,12 @@ function HomePage() {
   const postsWeek = d?.posts_last_7 ?? 0;
   const focusSuggestion =
     postsWeek === 0
-      ? "Create your first post today — start with a viral hook."
+      ? "Let's get one post out today — even a small one counts."
       : streak === 0
-      ? "Post once today to start a streak."
+      ? "One post today and you're back on a roll."
       : monthlyGoal && monthlyPct < 100
-      ? `Move closer to "${monthlyGoal.title}" — you're ${monthlyPct}% there.`
-      : "Plan tomorrow's post while today's energy is high.";
+      ? `You're ${monthlyPct}% of the way to "${monthlyGoal.title}". Nice.`
+      : "You're in flow. Want to bank tomorrow's idea while it's hot?";
 
   return (
     <div className="relative">
