@@ -169,20 +169,20 @@ export function AppShell({ children }: { children: ReactNode }) {
           <button
             onClick={() => setOpenGroups((s) => ({ ...s, [g.label]: !open }))}
             className={cn(
-              "group flex w-full items-center justify-between rounded-xl px-3 py-2 text-[13px] font-semibold transition-all",
+              "group flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
               active
                 ? "bg-foreground text-background"
-                : "text-foreground/75 hover:bg-foreground/5",
+                : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
             )}
           >
             <span className="flex items-center gap-2.5">
-              <g.icon className="h-4 w-4" strokeWidth={2} />
+              <g.icon className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} />
               {g.label}
             </span>
-            <ChevronDown className={cn("h-3.5 w-3.5 opacity-60 transition-transform", open && "rotate-180")} />
+            <ChevronDown className={cn("h-3 w-3 opacity-40 transition-transform", open && "rotate-180")} />
           </button>
           {open && (
-            <ul className="mt-1 ml-4 space-y-0.5 border-l-2 border-border pl-2.5">
+            <ul className="mt-1 ml-[1.05rem] space-y-0.5 border-l border-border/60 pl-3">
               {g.items.map((i) => {
                 const a = isActive(i.to);
                 return (
@@ -193,8 +193,8 @@ export function AppShell({ children }: { children: ReactNode }) {
                       className={cn(
                         "block rounded-lg px-2.5 py-1.5 text-[12.5px] transition",
                         a
-                          ? "bg-primary/12 font-semibold text-primary"
-                          : "text-foreground/65 hover:bg-foreground/5 hover:text-foreground",
+                          ? "bg-primary/10 font-semibold text-primary"
+                          : "text-foreground/45 hover:bg-foreground/5 hover:text-foreground/85",
                       )}
                     >
                       {i.label}
@@ -213,13 +213,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         to={g.to!}
         onClick={onClick}
         className={cn(
-          "flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-semibold transition-all",
+          "flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
           active
             ? "bg-foreground text-background"
-            : "text-foreground/75 hover:bg-foreground/5",
+            : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
         )}
       >
-        <g.icon className="h-4 w-4" strokeWidth={2} />
+        <g.icon className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} />
         {g.label}
       </Link>
     );
@@ -246,9 +246,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       <div className="flex-1 overflow-y-auto px-3 pb-6">
-        {SECTIONS.map((s) => (
-          <div key={s.eyebrow} className="mb-5">
-            <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground/70">
+        {SECTIONS.map((s, idx) => (
+          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-8" : "mb-8 mt-2")}>
+            <p className="px-3 pb-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/55">
               {s.eyebrow}
             </p>
             <div className="space-y-0.5">
@@ -257,21 +257,21 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         ))}
         {isAdmin && (
-          <div className="mb-2">
-            <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground/70">
+          <div className="mb-2 mt-2">
+            <p className="px-3 pb-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/55">
               Admin
             </p>
             <Link
               to="/admin"
               onClick={onClick}
               className={cn(
-                "flex items-center gap-2.5 rounded-xl px-3 py-2 text-[13px] font-semibold transition-all",
+                "flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
                 isActive("/admin")
                   ? "bg-foreground text-background"
-                  : "text-foreground/75 hover:bg-foreground/5",
+                  : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
               )}
             >
-              <Shield className="h-4 w-4" strokeWidth={2} />
+              <Shield className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} />
               Admin
             </Link>
           </div>
