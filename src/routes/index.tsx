@@ -450,24 +450,31 @@ function Landing() {
       </section>
 
       <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-10 text-center text-white sm:p-14">
-          <div className="absolute inset-0 bg-white/5" aria-hidden />
-          <div className="absolute -top-24 -right-20 h-64 w-64 rounded-full bg-[image:var(--gradient-warm)] opacity-30 blur-3xl" aria-hidden />
-          <div className="absolute -bottom-24 -left-20 h-64 w-64 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" aria-hidden />
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-anchor p-12 text-center text-white shadow-[var(--shadow-elegant)] sm:p-20">
+          <div className="absolute -top-32 -right-24 h-80 w-80 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
+          <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[image:var(--gradient-bloom)] opacity-20 blur-3xl" aria-hidden />
           <div className="relative">
-            <span className="inline-flex items-center gap-2 rounded-full border border-background/20 bg-background/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-background/80 backdrop-blur">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
               <Clock className="h-3.5 w-3.5" /> Tomorrow morning
             </span>
-            <h2 className="mx-auto mt-4 max-w-3xl font-display text-[30px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[44px]">
+            <h2 className="mx-auto mt-6 max-w-3xl font-display text-[36px] font-normal leading-[1.02] tracking-[-0.025em] text-balance sm:text-[64px]">
               Your brief is already being written.
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-[15px] leading-[1.65] text-background/75 text-pretty">
+            <p className="mx-auto mt-6 max-w-lg text-[17px] leading-[1.6] text-white/75 text-pretty">
               Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.
             </p>
-            <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
-              <Link to={ctaPrimary.to}><Button size="lg" className="w-full rounded-full bg-background px-8 text-foreground hover:bg-background/90 sm:w-auto">{ctaPrimary.label} <ArrowRight className="h-4 w-4" /></Button></Link>
+            <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+              <Link to={ctaPrimary.to}>
+                <Button size="lg" className="w-full rounded-full bg-white px-8 py-6 text-base text-foreground shadow-[var(--shadow-soft)] hover:bg-white/90 sm:w-auto">
+                  {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
               {ctaSecondary && (
-                <Link to={ctaSecondary.to}><Button size="lg" variant="ghost" className="w-full rounded-full text-background hover:bg-background/10 sm:w-auto">Sign in</Button></Link>
+                <Link to={ctaSecondary.to}>
+                  <Button size="lg" variant="ghost" className="w-full rounded-full px-6 py-6 text-base text-white hover:bg-white/10 sm:w-auto">
+                    Sign in
+                  </Button>
+                </Link>
               )}
             </div>
           </div>
