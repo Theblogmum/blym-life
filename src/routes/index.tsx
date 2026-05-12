@@ -227,7 +227,7 @@ function Landing() {
                 <>
                   <p className="eyebrow">Generate</p>
                   <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
-                    Generate hooks that <span className="italic text-primary">sound human</span>.
+                    Generate Viral Hooks In <span className="italic text-primary">1 Click</span>.
                   </h3>
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     No more "Are you tired of…" openers. Just hooks that sound like you on a good day.
