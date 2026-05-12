@@ -166,7 +166,7 @@ function HomePage() {
                       <Sparkles className="h-3 w-3" /> Most loved
                     </span>
                     <h3 className="mt-5 font-display text-[28px] font-black leading-[1.05] tracking-tight sm:text-[34px]">
-                      Generate a viral hook
+                      Help me hook them.
                     </h3>
                     <span className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-background/90">
                       Start in Viral Lab
@@ -225,7 +225,7 @@ function HomePage() {
                 </span>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">
-                    Today's idea
+                    Made for you today
                   </p>
                 </div>
               </div>
@@ -277,7 +277,7 @@ function HomePage() {
 
         {/* TOOLKIT — visual hub */}
         <section className="mb-14">
-          <SectionHead eyebrow="Your toolkit" title="36 tools" />
+          <SectionHead eyebrow="When you need a hand" title="The whole studio" />
           <div className="mt-10 grid gap-x-12 gap-y-12 sm:grid-cols-2">
             {CATEGORIES.map((c) => (
               <div key={c.label} className="group">
