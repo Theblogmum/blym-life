@@ -367,7 +367,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
               <div className="ml-auto flex items-center gap-2">
                 <Link to="/generator">
-                  <Button size="sm" className="h-9 rounded-lg bg-foreground text-background hover:bg-foreground/90">
+                  <Button size="sm" className="h-9 rounded-lg bg-anchor text-anchor-foreground hover:bg-anchor/90">
                     <Plus className="mr-1 h-3.5 w-3.5" /> Create
                   </Button>
                 </Link>
