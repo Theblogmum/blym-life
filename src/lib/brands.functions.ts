@@ -9,7 +9,7 @@ export const listBrands = createServerFn({ method: "GET" })
     let q = supabase.from("brands").select("*").order("name", { ascending: true });
     if (data.category) q = q.eq("category", data.category);
     if (data.q) q = q.ilike("name", `%${data.q}%`);
-    const { data: rows, error } = await q.limit(200);
+    const { data: rows, error } = await q.limit(2000);
     if (error) { console.error("[db] listBrands", error); throw new Error("Couldn't load brands."); }
 
     const { data: mine } = await supabase
