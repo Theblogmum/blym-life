@@ -18,10 +18,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
 const QUICK = [
-  { to: "/viral-lab", label: "Viral Hook", icon: Flame, hint: "Scroll-stopping openers" },
-  { to: "/generator", label: "Reel Script", icon: Wand2, hint: "Full script in seconds" },
-  { to: "/generator", label: "Caption", icon: MessageSquare, hint: "On-brand & ready" },
-  { to: "/planner", label: "Plan Week", icon: Calendar, hint: "Map out your week" },
+  { to: "/viral-lab", label: "Help me hook them", icon: Flame, hint: "A scroll-stopping opener" },
+  { to: "/generator", label: "Write me a script", icon: Wand2, hint: "Ready before nap time" },
+  { to: "/generator", label: "Caption this for me", icon: MessageSquare, hint: "In your voice" },
+  { to: "/planner", label: "Plan my week", icon: Calendar, hint: "Around real life" },
 ];
 
 const CATEGORIES = [
@@ -114,12 +114,12 @@ function HomePage() {
   const postsWeek = d?.posts_last_7 ?? 0;
   const focusSuggestion =
     postsWeek === 0
-      ? "Create your first post today — start with a viral hook."
+      ? "Let's get one post out today — even a small one counts."
       : streak === 0
-      ? "Post once today to start a streak."
+      ? "One post today and you're back on a roll."
       : monthlyGoal && monthlyPct < 100
-      ? `Move closer to "${monthlyGoal.title}" — you're ${monthlyPct}% there.`
-      : "Plan tomorrow's post while today's energy is high.";
+      ? `You're ${monthlyPct}% of the way to "${monthlyGoal.title}". Nice.`
+      : "You're in flow. Want to bank tomorrow's idea while it's hot?";
 
   return (
     <div className="relative">
@@ -166,7 +166,7 @@ function HomePage() {
                       <Sparkles className="h-3 w-3" /> Most loved
                     </span>
                     <h3 className="mt-5 font-display text-[28px] font-black leading-[1.05] tracking-tight sm:text-[34px]">
-                      Generate a viral hook
+                      Help me hook them.
                     </h3>
                     <span className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-background/90">
                       Start in Viral Lab
@@ -225,7 +225,7 @@ function HomePage() {
                 </span>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">
-                    Today's idea
+                    Made for you today
                   </p>
                 </div>
               </div>
@@ -277,7 +277,7 @@ function HomePage() {
 
         {/* TOOLKIT — visual hub */}
         <section className="mb-14">
-          <SectionHead eyebrow="Your toolkit" title="36 tools" />
+          <SectionHead eyebrow="When you need a hand" title="The whole studio" />
           <div className="mt-10 grid gap-x-12 gap-y-12 sm:grid-cols-2">
             {CATEGORIES.map((c) => (
               <div key={c.label} className="group">
