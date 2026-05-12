@@ -144,27 +144,54 @@ function HomePage() {
                 <div className="lg:hidden"><TrialPill /></div>
               </div>
 
-              <div className="mt-10">
-                <p className="text-[13px] text-foreground/55">
-                  Want to start with…
-                </p>
-                <div className="mt-4 flex flex-wrap items-baseline gap-x-2 gap-y-2 font-display text-[22px] leading-[1.35] tracking-tight sm:text-[26px]">
-                  {QUICK.map((a, i) => (
-                    <span key={a.label} className="inline-flex items-baseline">
+              <div className="mt-10 grid gap-4 sm:grid-cols-[1.6fr_1fr]">
+                {/* Hero action — large editorial card */}
+                <Link
+                  to={QUICK[0].to}
+                  className="group relative overflow-hidden rounded-3xl bg-foreground p-6 text-background transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)] sm:p-7"
+                >
+                  <div
+                    aria-hidden
+                    className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-25 blur-3xl"
+                    style={{ background: "var(--gradient-warm)" }}
+                  />
+                  <div className="relative flex h-full flex-col">
+                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-background/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-background/85 backdrop-blur">
+                      <Sparkles className="h-3 w-3" /> Most loved
+                    </span>
+                    <h3 className="mt-5 font-display text-[28px] font-black leading-[1.05] tracking-tight sm:text-[34px]">
+                      Generate a viral hook
+                    </h3>
+                    <p className="mt-2 max-w-xs text-[13.5px] leading-snug text-background/70">
+                      Scroll-stopping openers, in your voice — in seconds.
+                    </p>
+                    <span className="mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-background/90">
+                      Start in Viral Lab
+                      <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                </Link>
+
+                {/* Side actions — smaller, stacked, no boxes */}
+                <ul className="flex flex-col justify-between gap-1">
+                  {QUICK.slice(1).map((a) => (
+                    <li key={a.label}>
                       <Link
                         to={a.to}
-                        className="group inline-flex items-baseline gap-1.5 text-foreground/55 underline-offset-[6px] decoration-foreground/20 hover:text-foreground hover:decoration-foreground/60 hover:underline"
+                        className="group flex items-center gap-3 rounded-xl px-2 py-2.5 transition hover:bg-foreground/5"
                       >
-                        <a.icon className="h-4 w-4 self-center text-foreground/40 group-hover:text-foreground" strokeWidth={1.75} />
-                        <span className="font-semibold">{a.label.toLowerCase()}</span>
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-foreground group-hover:text-background">
+                          <a.icon className="h-4 w-4" strokeWidth={1.75} />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block font-display text-[15px] font-bold leading-tight">{a.label}</span>
+                          <span className="block truncate text-[11.5px] text-muted-foreground">{a.hint}</span>
+                        </span>
+                        <ArrowRight className="h-3.5 w-3.5 shrink-0 -translate-x-1 text-foreground/40 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100" />
                       </Link>
-                      {i < QUICK.length - 1 && (
-                        <span aria-hidden className="text-foreground/30">·</span>
-                      )}
-                    </span>
+                    </li>
                   ))}
-                  <span className="text-foreground/40">?</span>
-                </div>
+                </ul>
               </div>
             </div>
 
