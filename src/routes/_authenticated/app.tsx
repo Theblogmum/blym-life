@@ -154,7 +154,7 @@ function HomePage() {
                 {/* Hero action — large editorial card */}
                 <Link
                   to={QUICK[0].to}
-                  className="group relative overflow-hidden rounded-3xl bg-foreground p-6 text-background transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)] sm:p-7"
+                  className="group relative overflow-hidden rounded-3xl bg-anchor p-6 text-anchor-foreground transition hover:-translate-y-0.5 hover:shadow-[var(--shadow-elegant)] sm:p-7"
                 >
                   <div
                     aria-hidden
@@ -162,16 +162,16 @@ function HomePage() {
                     style={{ background: "var(--gradient-warm)" }}
                   />
                   <div className="relative flex h-full flex-col">
-                    <span className="inline-flex w-fit items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-background/70">
+                    <span className="inline-flex w-fit items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.22em] text-anchor-foreground/70">
                       <Sparkles className="h-3 w-3" /> Most loved
                     </span>
                     <h3 className="mt-5 font-display text-[28px] font-black leading-[1.05] tracking-tight sm:text-[34px]">
                       Help me hook them.
                     </h3>
-                    <p className="mt-3 max-w-[22rem] text-[13.5px] leading-relaxed text-background/70">
+                    <p className="mt-3 max-w-[22rem] text-[13.5px] leading-relaxed text-anchor-foreground/70">
                       Open Viral Lab and we'll write the first line together — the bit that makes them stay.
                     </p>
-                    <span className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-background/90">
+                    <span className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-anchor-foreground/90">
                       Let's write it together
                       <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                     </span>
@@ -186,7 +186,7 @@ function HomePage() {
                         to={a.to}
                         className="group flex items-center gap-3 rounded-xl px-2 py-2.5 transition hover:bg-foreground/5"
                       >
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-foreground group-hover:text-background">
+                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-foreground/8 text-foreground transition group-hover:bg-anchor group-hover:text-anchor-foreground">
                           <a.icon className="h-4 w-4" strokeWidth={1.75} />
                         </span>
                         <span className="min-w-0 flex-1">
@@ -324,7 +324,7 @@ function HomePage() {
             <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
             <div className="relative">
             <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-foreground text-background">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-anchor text-anchor-foreground">
                 <Sparkles className="h-3.5 w-3.5" />
               </span>
               <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">What would feel good today?</p>
@@ -346,7 +346,7 @@ function HomePage() {
             )}
             <div className="mt-6 flex flex-wrap gap-2">
               <Link to="/generator">
-                <Button className="h-10 rounded-lg bg-foreground px-5 text-background hover:bg-foreground/90">
+                <Button className="h-10 rounded-lg bg-anchor px-5 text-anchor-foreground hover:bg-anchor/90">
                   <Zap className="mr-1.5 h-4 w-4" /> Let's make something
                 </Button>
               </Link>
