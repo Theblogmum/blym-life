@@ -362,3 +362,56 @@ function MiniRow({ icon: Icon, label, value }: { icon: typeof Flame; label: stri
     </div>
   );
 }
+
+function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: number }) {
+  // Show last 7 days as dots — filled if a post landed that day (best-effort: distribute postsWeek across most recent days).
+  const today = new Date();
+  const filled = Math.min(7, postsWeek);
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() - (6 - i));
+    return {
+      label: d.toLocaleDateString(undefined, { weekday: "narrow" }),
+      isToday: i === 6,
+      filled: i >= 7 - filled,
+    };
+  });
+  const goal = 5;
+  const pct = Math.min(100, Math.round((postsWeek / goal) * 100));
+  return (
+    <div className="rounded-3xl bg-card/80 p-6 backdrop-blur shadow-[var(--shadow-soft)]">
+      <div className="flex items-center justify-between">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/55">This week</p>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-foreground/8 px-2.5 py-1 text-[11px] font-bold text-foreground/75">
+          <Flame className="h-3 w-3" /> {streak}d streak
+        </span>
+      </div>
+      <p className="mt-3 font-display text-[40px] font-black leading-none tabular-nums text-foreground">
+        {postsWeek}
+        <span className="ml-1.5 text-[14px] font-normal text-foreground/55">/ {goal} posts</span>
+      </p>
+      <p className="mt-1.5 text-[12.5px] text-muted-foreground">
+        {pct >= 100 ? "Consistency goal hit — you're on fire." : `${pct}% of your weekly rhythm.`}
+      </p>
+      <div className="mt-5 flex items-end justify-between gap-1.5">
+        {days.map((d, i) => (
+          <div key={i} className="flex flex-1 flex-col items-center gap-2">
+            <span
+              className={
+                d.filled
+                  ? "h-8 w-full rounded-md bg-foreground"
+                  : d.isToday
+                  ? "h-8 w-full rounded-md border border-dashed border-foreground/30 bg-foreground/5"
+                  : "h-8 w-full rounded-md bg-foreground/8"
+              }
+              aria-hidden
+            />
+            <span className={`text-[10px] font-semibold ${d.isToday ? "text-foreground" : "text-foreground/45"}`}>
+              {d.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
