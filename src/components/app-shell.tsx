@@ -171,7 +171,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             className={cn(
               "group flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
               active
-                ? "bg-foreground text-background"
+                ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
                 : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
             )}
           >
@@ -215,7 +215,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         className={cn(
           "flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
           active
-            ? "bg-foreground text-background"
+            ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
             : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
         )}
       >
@@ -267,7 +267,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               className={cn(
                 "flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
                 isActive("/admin")
-                  ? "bg-foreground text-background"
+                  ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
                   : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
               )}
             >
