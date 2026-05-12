@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
   Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight, Zap,
-  MessageSquare, TrendingUp, DollarSign, Target, Flag,
+  MessageSquare, TrendingUp, DollarSign, Flag,
   Trophy, Clock,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
@@ -341,26 +341,6 @@ function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; 
         <h2 className="mt-1 font-display text-[26px] font-black leading-tight tracking-tight sm:text-[32px]">{title}</h2>
         {sub && <p className="mt-1 text-[13px] text-muted-foreground">{sub}</p>}
       </div>
-    </div>
-  );
-}
-
-function HeroStat({ icon: Icon, label, value, unit, progress }: { icon: typeof Flame; label: string; value: string; unit?: string; progress?: number }) {
-  return (
-    <div className="rounded-2xl border border-foreground/10 bg-background/60 p-4 backdrop-blur-sm">
-      <div className="flex items-center gap-2">
-        <Icon className="h-3.5 w-3.5 text-foreground/70" />
-        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">{label}</p>
-      </div>
-      <p className="mt-2 flex items-baseline gap-1.5 font-display text-[32px] font-black leading-none tabular-nums text-foreground">
-        {value}
-        {unit && <span className="text-[13px] font-normal text-foreground/60">{unit}</span>}
-      </p>
-      {typeof progress === "number" && (
-        <div className="mt-3 h-1 overflow-hidden rounded-full bg-foreground/10">
-          <div className="h-full bg-foreground transition-all" style={{ width: `${progress}%` }} />
-        </div>
-      )}
     </div>
   );
 }
