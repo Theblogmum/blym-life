@@ -20,7 +20,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Plus, Trash2, Upload } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/admin/products")({
+export const Route = createFileRoute("/_authenticated/admin_/products")({
   head: () => ({ meta: [{ title: "Admin · Products" }] }),
   component: AdminProductsPage,
 });
