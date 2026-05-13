@@ -1,7 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
-  FolderOpen, Star, Settings, LogOut, ChevronDown,
+  Settings, LogOut, ChevronDown,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
@@ -85,13 +85,6 @@ const SECTIONS: Section[] = [
           { to: "/rejection-recovery", label: "Rejection Recovery" },
         ],
       },
-    ],
-  },
-  {
-    eyebrow: "Library",
-    groups: [
-      { label: "Templates", icon: FolderOpen, to: "/templates" },
-      { label: "Wins", icon: Star, to: "/wins" },
     ],
   },
 ];
