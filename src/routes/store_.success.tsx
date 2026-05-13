@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/store/success")({
+export const Route = createFileRoute("/store_/success")({
   head: () => ({
     meta: [
       { title: "Thanks for your purchase · Blym" },

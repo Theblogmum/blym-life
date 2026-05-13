@@ -9,7 +9,7 @@ import { ArrowLeft, Check, Download, Mail, Shield } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/store/$slug")({
+export const Route = createFileRoute("/store_/$slug")({
   head: ({ params }) => ({
     meta: [
       { title: `Buy · ${params.slug.replace(/-/g, " ")} · Blym Store` },
