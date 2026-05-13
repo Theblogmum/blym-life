@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /app
+Disallow: /onboarding
+Disallow: /login
+Disallow: /signup
+Disallow: /unsubscribe
+
+Sitemap: https://www.blym.life/sitemap.xml
