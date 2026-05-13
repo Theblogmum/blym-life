@@ -26,7 +26,6 @@ import { Route as AuthenticatedServiceDescriptionRouteImport } from './routes/_a
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
-import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRejectionRecoveryRouteImport } from './routes/_authenticated/rejection-recovery'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
 import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authenticated/profile-audit'
@@ -150,11 +149,6 @@ const AuthenticatedResponseWriterRoute =
     path: '/response-writer',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedRepurposeRoute = AuthenticatedRepurposeRouteImport.update({
-  id: '/repurpose',
-  path: '/repurpose',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedRejectionRecoveryRoute =
   AuthenticatedRejectionRecoveryRouteImport.update({
     id: '/rejection-recovery',
@@ -373,7 +367,6 @@ export interface FileRoutesByFullPath {
   '/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
-  '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
@@ -425,7 +418,6 @@ export interface FileRoutesByTo {
   '/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
-  '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
@@ -479,7 +471,6 @@ export interface FileRoutesById {
   '/_authenticated/profile-audit': typeof AuthenticatedProfileAuditRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
-  '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
@@ -533,7 +524,6 @@ export interface FileRouteTypes {
     | '/profile-audit'
     | '/recycler'
     | '/rejection-recovery'
-    | '/repurpose'
     | '/response-writer'
     | '/seo-keywords'
     | '/series-builder'
@@ -585,7 +575,6 @@ export interface FileRouteTypes {
     | '/profile-audit'
     | '/recycler'
     | '/rejection-recovery'
-    | '/repurpose'
     | '/response-writer'
     | '/seo-keywords'
     | '/series-builder'
@@ -638,7 +627,6 @@ export interface FileRouteTypes {
     | '/_authenticated/profile-audit'
     | '/_authenticated/recycler'
     | '/_authenticated/rejection-recovery'
-    | '/_authenticated/repurpose'
     | '/_authenticated/response-writer'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
@@ -793,13 +781,6 @@ declare module '@tanstack/react-router' {
       path: '/response-writer'
       fullPath: '/response-writer'
       preLoaderRoute: typeof AuthenticatedResponseWriterRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/repurpose': {
-      id: '/_authenticated/repurpose'
-      path: '/repurpose'
-      fullPath: '/repurpose'
-      preLoaderRoute: typeof AuthenticatedRepurposeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/rejection-recovery': {
@@ -1064,7 +1045,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedProfileAuditRoute: typeof AuthenticatedProfileAuditRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRejectionRecoveryRoute: typeof AuthenticatedRejectionRecoveryRoute
-  AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
@@ -1102,7 +1082,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedProfileAuditRoute: AuthenticatedProfileAuditRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRejectionRecoveryRoute: AuthenticatedRejectionRecoveryRoute,
-  AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,

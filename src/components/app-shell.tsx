@@ -44,7 +44,6 @@ const SECTIONS: Section[] = [
           { to: "/film-this", label: "Film Today" },
           { to: "/viral-lab", label: "Viral Lab" },
           { to: "/recycler", label: "Recycler" },
-          { to: "/repurpose", label: "Repurpose 1→10" },
           { to: "/cta-generator", label: "CTA Lines" },
           { to: "/broll", label: "B-Roll Ideas" },
           { to: "/series-builder", label: "Series Builder" },
