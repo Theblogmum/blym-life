@@ -41,7 +41,6 @@ const SECTIONS: Section[] = [
       {
         label: "Create", icon: Sparkles, items: [
           { to: "/generator", label: "Idea Generator" },
-          { to: "/templates", label: "Template Studio" },
           { to: "/film-this", label: "Film Today" },
           { to: "/viral-lab", label: "Viral Lab" },
           { to: "/recycler", label: "Recycler" },
@@ -83,7 +82,6 @@ const SECTIONS: Section[] = [
       {
         label: "Mindset", icon: Heart, items: [
           { to: "/motivation", label: "Daily Motivation" },
-          { to: "/wins", label: "Doing Better" },
           { to: "/rejection-recovery", label: "Rejection Recovery" },
         ],
       },
