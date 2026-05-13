@@ -60,8 +60,8 @@ function StorePage() {
               <Sparkles className="h-3 w-3 text-primary" /> The Blym Shop
             </div>
             <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.02] tracking-tight md:text-6xl lg:text-7xl">
-              Guides &amp; templates<br />
-              <span className="italic text-primary">made for mum creators.</span>
+              The Blog Mum&apos;s<br />
+              <span className="italic text-primary">Creator Hub.</span>
             </h1>
             <p className="mt-5 max-w-lg text-base text-muted-foreground md:text-lg">
               Plug-and-play playbooks, templates and trainings to help you create faster, post smarter and grow with confidence. Instant download after checkout.
