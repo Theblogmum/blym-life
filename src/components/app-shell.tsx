@@ -1,7 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
-  Settings, LogOut, ChevronDown,
+  Settings, LogOut, ChevronDown, ShoppingBag,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
@@ -33,6 +33,7 @@ const SECTIONS: Section[] = [
     groups: [
       { label: "Home", icon: Home, to: "/app" },
       { label: "Planner", icon: Calendar, to: "/planner" },
+      { label: "My Library", icon: ShoppingBag, to: "/library" },
     ],
   },
   {
