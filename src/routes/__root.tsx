@@ -80,6 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Blym — Tell me what to film today" },
+      { name: "google-site-verification", content: "e4D5wUDtvJnS57xxCaD9v4UIPPtJKYJeq8vQN03mACs" },
       { name: "description", content: "AI content studio for mum creators. Get a full filming brief every morning — hook, caption, shot list, post time. Built for real life." },
       { property: "og:title", content: "Blym — Tell me what to film today" },
       { property: "og:description", content: "AI content studio for mum creators. Get a full filming brief every morning — hook, caption, shot list, post time. Built for real life." },
