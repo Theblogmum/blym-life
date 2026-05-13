@@ -114,6 +114,10 @@ function StorePage() {
             {products.map((p: any, idx: number) => {
               const tints = ["var(--surface-peach)", "var(--surface-mint)", "var(--surface-butter)", "var(--surface-sky)", "var(--surface-blush)", "var(--surface-plum)"];
               const tint = tints[idx % tints.length];
+              const isFeatured = idx === 0;
+              const isNew =
+                !!p.created_at &&
+                Date.now() - new Date(p.created_at).getTime() < 30 * 24 * 60 * 60 * 1000;
               return (
                 <Link
                   key={p.id}
@@ -137,6 +141,20 @@ function StorePage() {
                     <div className="absolute left-3 top-3 rounded-full bg-background/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-foreground/70 backdrop-blur">
                       Digital
                     </div>
+                    {(isFeatured || isNew) && (
+                      <div className="absolute right-3 top-3 flex flex-col items-end gap-1.5">
+                        {isFeatured && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-background shadow-sm">
+                            <Sparkles className="h-2.5 w-2.5" /> Featured
+                          </span>
+                        )}
+                        {isNew && (
+                          <span className="rounded-full bg-primary px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground shadow-sm">
+                            New
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
                   <div className="p-5">
                     <h3 className="font-display text-lg font-semibold leading-tight tracking-tight">{p.title}</h3>

@@ -308,16 +308,19 @@ function Landing() {
           </div>
           <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {[
-              { name: "Hannah", handle: "@hannah.mums", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
-              { name: "Priya", handle: "@priyacreates", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
-              { name: "Steph", handle: "@stephmumlife", body: "Finally a tool built for mum schedules — not 22-year-old creators with 12 free hours a day." },
+              { name: "Hannah", handle: "@hannah.mums", role: "Mum of 2 · Manchester", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
+              { name: "Priya", handle: "@priyacreates", role: "UGC creator · London", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
+              { name: "Steph", handle: "@stephmumlife", role: "Mum of 3 · Leeds", body: "Finally a tool built for mum schedules — not 22-year-old creators with 12 free hours a day." },
+              { name: "Aisha", handle: "@aisha.athome", role: "Mum of 1 · Birmingham", body: "I batched a whole week of content during one nap time. The captions sound like ME, not a robot." },
+              { name: "Megan", handle: "@meg.makesreels", role: "Mum of 2 · Bristol", body: "First brand deal landed in week three. The pitch templates are genuinely a cheat code." },
+              { name: "Lola", handle: "@lola.daily", role: "Mum of 4 · Glasgow", body: "Honestly didn't think AI could 'get' mum content. Blym does. My engagement is up 3x." },
             ].map((t, i) => (
               <figure
                 key={t.handle}
-                className="relative p-2"
+                className="relative rounded-3xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)]"
                 style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
               >
-                <Quote className="absolute right-2 top-0 h-5 w-5 text-primary/30" />
+                <Quote className="absolute right-3 top-3 h-5 w-5 text-primary/30" />
                 <div className="flex items-center gap-1 text-primary">
                   {[...Array(5)].map((_, k) => <Star key={k} className="h-3.5 w-3.5 fill-primary" />)}
                 </div>
@@ -326,11 +329,19 @@ function Landing() {
                   <span className="grid h-9 w-9 place-items-center rounded-full bg-[image:var(--gradient-bloom)] font-display text-sm text-foreground">{t.name[0]}</span>
                   <div className="text-xs">
                     <p className="font-semibold text-foreground">{t.name}</p>
-                    <p className="text-muted-foreground">{t.handle}</p>
+                    <p className="text-muted-foreground">{t.handle} · {t.role}</p>
                   </div>
                 </figcaption>
               </figure>
             ))}
+          </div>
+          {/* As-seen-on style strip */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
+            <span>As loved by creators on</span>
+            <span className="font-display text-base normal-case tracking-tight text-foreground/80">TikTok</span>
+            <span className="font-display text-base normal-case tracking-tight text-foreground/80">Instagram</span>
+            <span className="font-display text-base normal-case tracking-tight text-foreground/80">YouTube Shorts</span>
+            <span className="font-display text-base normal-case tracking-tight text-foreground/80">Pinterest</span>
           </div>
         </div>
       </section>

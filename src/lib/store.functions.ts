@@ -14,7 +14,7 @@ function admin() {
 export const listProducts = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await admin()
     .from("digital_products")
-    .select("id, slug, title, description, price_cents, currency, cover_url, sort_order")
+    .select("id, slug, title, description, price_cents, currency, cover_url, sort_order, created_at")
     .eq("active", true)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
