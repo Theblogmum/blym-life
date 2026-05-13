@@ -57,6 +57,7 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAffiliatesRouteImport } from './routes/_authenticated/affiliates'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -316,6 +317,12 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminProductsRoute =
+  AuthenticatedAdminProductsRouteImport.update({
+    id: '/products',
+    path: '/products',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -358,7 +365,7 @@ export interface FileRoutesByFullPath {
   '/store': typeof StoreRouteWithChildren
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
@@ -394,6 +401,7 @@ export interface FileRoutesByFullPath {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/store/$slug': typeof StoreSlugRoute
   '/store/success': typeof StoreSuccessRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -412,7 +420,7 @@ export interface FileRoutesByTo {
   '/store': typeof StoreRouteWithChildren
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/admin': typeof AuthenticatedAdminRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
@@ -448,6 +456,7 @@ export interface FileRoutesByTo {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/store/$slug': typeof StoreSlugRoute
   '/store/success': typeof StoreSuccessRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -468,7 +477,7 @@ export interface FileRoutesById {
   '/store': typeof StoreRouteWithChildren
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
-  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/affiliates': typeof AuthenticatedAffiliatesRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
@@ -504,6 +513,7 @@ export interface FileRoutesById {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/store/$slug': typeof StoreSlugRoute
   '/store/success': typeof StoreSuccessRoute
+  '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -560,6 +570,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/store/$slug'
     | '/store/success'
+    | '/admin/products'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
@@ -614,6 +625,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/store/$slug'
     | '/store/success'
+    | '/admin/products'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
@@ -669,6 +681,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/store/$slug'
     | '/store/success'
+    | '/_authenticated/admin/products'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
@@ -1036,6 +1049,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/products': {
+      id: '/_authenticated/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -1074,8 +1094,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedRouteChildren {
-  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedAffiliatesRoute: typeof AuthenticatedAffiliatesRoute
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
@@ -1111,7 +1142,7 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedAffiliatesRoute: AuthenticatedAffiliatesRoute,
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
