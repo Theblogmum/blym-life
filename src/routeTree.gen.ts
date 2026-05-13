@@ -27,7 +27,6 @@ import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedServiceDescriptionRouteImport } from './routes/_authenticated/service-description'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
-import { Route as AuthenticatedScriptTightenerRouteImport } from './routes/_authenticated/script-tightener'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRepurposeRouteImport } from './routes/_authenticated/repurpose'
 import { Route as AuthenticatedRejectionRecoveryRouteImport } from './routes/_authenticated/rejection-recovery'
@@ -36,11 +35,9 @@ import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authent
 import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authenticated/post-timing'
 import { Route as AuthenticatedPortfolioRouteImport } from './routes/_authenticated/portfolio'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
-import { Route as AuthenticatedPitchGeneratorRouteImport } from './routes/_authenticated/pitch-generator'
 import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
 import { Route as AuthenticatedPackageNamesRouteImport } from './routes/_authenticated/package-names'
-import { Route as AuthenticatedNicheAuditRouteImport } from './routes/_authenticated/niche-audit'
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
@@ -49,11 +46,9 @@ import { Route as AuthenticatedIncomeTrackerRouteImport } from './routes/_authen
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
-import { Route as AuthenticatedFacelessOptimiserRouteImport } from './routes/_authenticated/faceless-optimiser'
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
-import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as AuthenticatedBusinessRouteImport } from './routes/_authenticated/business'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
@@ -161,12 +156,6 @@ const AuthenticatedSeoKeywordsRoute =
     path: '/seo-keywords',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedScriptTightenerRoute =
-  AuthenticatedScriptTightenerRouteImport.update({
-    id: '/script-tightener',
-    path: '/script-tightener',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedResponseWriterRoute =
   AuthenticatedResponseWriterRouteImport.update({
     id: '/response-writer',
@@ -210,12 +199,6 @@ const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
   path: '/planner',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedPitchGeneratorRoute =
-  AuthenticatedPitchGeneratorRouteImport.update({
-    id: '/pitch-generator',
-    path: '/pitch-generator',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedPinOptimiserRoute =
   AuthenticatedPinOptimiserRouteImport.update({
     id: '/pin-optimiser',
@@ -234,11 +217,6 @@ const AuthenticatedPackageNamesRoute =
     path: '/package-names',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedNicheAuditRoute = AuthenticatedNicheAuditRouteImport.update({
-  id: '/niche-audit',
-  path: '/niche-audit',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedMotivationRoute = AuthenticatedMotivationRouteImport.update({
   id: '/motivation',
   path: '/motivation',
@@ -281,12 +259,6 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedFacelessOptimiserRoute =
-  AuthenticatedFacelessOptimiserRouteImport.update({
-    id: '/faceless-optimiser',
-    path: '/faceless-optimiser',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedEngagementBoosterRoute =
   AuthenticatedEngagementBoosterRouteImport.update({
     id: '/engagement-booster',
@@ -305,11 +277,6 @@ const AuthenticatedCtaGeneratorRoute =
     path: '/cta-generator',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
-  id: '/community',
-  path: '/community',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedBusinessRoute = AuthenticatedBusinessRouteImport.update({
   id: '/business',
   path: '/business',
@@ -398,11 +365,9 @@ export interface FileRoutesByFullPath {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
-  '/community': typeof AuthenticatedCommunityRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
-  '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -411,11 +376,9 @@ export interface FileRoutesByFullPath {
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/motivation': typeof AuthenticatedMotivationRoute
-  '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/package-names': typeof AuthenticatedPackageNamesRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
-  '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/portfolio': typeof AuthenticatedPortfolioRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -424,7 +387,6 @@ export interface FileRoutesByFullPath {
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
-  '/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/service-description': typeof AuthenticatedServiceDescriptionRoute
@@ -457,11 +419,9 @@ export interface FileRoutesByTo {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
-  '/community': typeof AuthenticatedCommunityRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
-  '/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -470,11 +430,9 @@ export interface FileRoutesByTo {
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/motivation': typeof AuthenticatedMotivationRoute
-  '/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/package-names': typeof AuthenticatedPackageNamesRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
-  '/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/portfolio': typeof AuthenticatedPortfolioRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -483,7 +441,6 @@ export interface FileRoutesByTo {
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/repurpose': typeof AuthenticatedRepurposeRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
-  '/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/service-description': typeof AuthenticatedServiceDescriptionRoute
@@ -518,11 +475,9 @@ export interface FileRoutesById {
   '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/business': typeof AuthenticatedBusinessRoute
-  '/_authenticated/community': typeof AuthenticatedCommunityRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
-  '/_authenticated/faceless-optimiser': typeof AuthenticatedFacelessOptimiserRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
@@ -531,11 +486,9 @@ export interface FileRoutesById {
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
-  '/_authenticated/niche-audit': typeof AuthenticatedNicheAuditRoute
   '/_authenticated/package-names': typeof AuthenticatedPackageNamesRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
-  '/_authenticated/pitch-generator': typeof AuthenticatedPitchGeneratorRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/portfolio': typeof AuthenticatedPortfolioRoute
   '/_authenticated/post-timing': typeof AuthenticatedPostTimingRoute
@@ -544,7 +497,6 @@ export interface FileRoutesById {
   '/_authenticated/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/_authenticated/repurpose': typeof AuthenticatedRepurposeRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
-  '/_authenticated/script-tightener': typeof AuthenticatedScriptTightenerRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/service-description': typeof AuthenticatedServiceDescriptionRoute
@@ -579,11 +531,9 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
-    | '/community'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
-    | '/faceless-optimiser'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -592,11 +542,9 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/media-kit'
     | '/motivation'
-    | '/niche-audit'
     | '/package-names'
     | '/passive-ideas'
     | '/pin-optimiser'
-    | '/pitch-generator'
     | '/planner'
     | '/portfolio'
     | '/post-timing'
@@ -605,7 +553,6 @@ export interface FileRouteTypes {
     | '/rejection-recovery'
     | '/repurpose'
     | '/response-writer'
-    | '/script-tightener'
     | '/seo-keywords'
     | '/series-builder'
     | '/service-description'
@@ -638,11 +585,9 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
-    | '/community'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
-    | '/faceless-optimiser'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -651,11 +596,9 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/media-kit'
     | '/motivation'
-    | '/niche-audit'
     | '/package-names'
     | '/passive-ideas'
     | '/pin-optimiser'
-    | '/pitch-generator'
     | '/planner'
     | '/portfolio'
     | '/post-timing'
@@ -664,7 +607,6 @@ export interface FileRouteTypes {
     | '/rejection-recovery'
     | '/repurpose'
     | '/response-writer'
-    | '/script-tightener'
     | '/seo-keywords'
     | '/series-builder'
     | '/service-description'
@@ -698,11 +640,9 @@ export interface FileRouteTypes {
     | '/_authenticated/brand-hub'
     | '/_authenticated/broll'
     | '/_authenticated/business'
-    | '/_authenticated/community'
     | '/_authenticated/cta-generator'
     | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
-    | '/_authenticated/faceless-optimiser'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
@@ -711,11 +651,9 @@ export interface FileRouteTypes {
     | '/_authenticated/invoices'
     | '/_authenticated/media-kit'
     | '/_authenticated/motivation'
-    | '/_authenticated/niche-audit'
     | '/_authenticated/package-names'
     | '/_authenticated/passive-ideas'
     | '/_authenticated/pin-optimiser'
-    | '/_authenticated/pitch-generator'
     | '/_authenticated/planner'
     | '/_authenticated/portfolio'
     | '/_authenticated/post-timing'
@@ -724,7 +662,6 @@ export interface FileRouteTypes {
     | '/_authenticated/rejection-recovery'
     | '/_authenticated/repurpose'
     | '/_authenticated/response-writer'
-    | '/_authenticated/script-tightener'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
     | '/_authenticated/service-description'
@@ -889,13 +826,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSeoKeywordsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/script-tightener': {
-      id: '/_authenticated/script-tightener'
-      path: '/script-tightener'
-      fullPath: '/script-tightener'
-      preLoaderRoute: typeof AuthenticatedScriptTightenerRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/response-writer': {
       id: '/_authenticated/response-writer'
       path: '/response-writer'
@@ -952,13 +882,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPlannerRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/pitch-generator': {
-      id: '/_authenticated/pitch-generator'
-      path: '/pitch-generator'
-      fullPath: '/pitch-generator'
-      preLoaderRoute: typeof AuthenticatedPitchGeneratorRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/pin-optimiser': {
       id: '/_authenticated/pin-optimiser'
       path: '/pin-optimiser'
@@ -978,13 +901,6 @@ declare module '@tanstack/react-router' {
       path: '/package-names'
       fullPath: '/package-names'
       preLoaderRoute: typeof AuthenticatedPackageNamesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/niche-audit': {
-      id: '/_authenticated/niche-audit'
-      path: '/niche-audit'
-      fullPath: '/niche-audit'
-      preLoaderRoute: typeof AuthenticatedNicheAuditRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/motivation': {
@@ -1043,13 +959,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/faceless-optimiser': {
-      id: '/_authenticated/faceless-optimiser'
-      path: '/faceless-optimiser'
-      fullPath: '/faceless-optimiser'
-      preLoaderRoute: typeof AuthenticatedFacelessOptimiserRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/engagement-booster': {
       id: '/_authenticated/engagement-booster'
       path: '/engagement-booster'
@@ -1069,13 +978,6 @@ declare module '@tanstack/react-router' {
       path: '/cta-generator'
       fullPath: '/cta-generator'
       preLoaderRoute: typeof AuthenticatedCtaGeneratorRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/community': {
-      id: '/_authenticated/community'
-      path: '/community'
-      fullPath: '/community'
-      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/business': {
@@ -1180,11 +1082,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedBusinessRoute: typeof AuthenticatedBusinessRoute
-  AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
-  AuthenticatedFacelessOptimiserRoute: typeof AuthenticatedFacelessOptimiserRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
@@ -1193,11 +1093,9 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
-  AuthenticatedNicheAuditRoute: typeof AuthenticatedNicheAuditRoute
   AuthenticatedPackageNamesRoute: typeof AuthenticatedPackageNamesRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
   AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
-  AuthenticatedPitchGeneratorRoute: typeof AuthenticatedPitchGeneratorRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedPortfolioRoute: typeof AuthenticatedPortfolioRoute
   AuthenticatedPostTimingRoute: typeof AuthenticatedPostTimingRoute
@@ -1206,7 +1104,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRejectionRecoveryRoute: typeof AuthenticatedRejectionRecoveryRoute
   AuthenticatedRepurposeRoute: typeof AuthenticatedRepurposeRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
-  AuthenticatedScriptTightenerRoute: typeof AuthenticatedScriptTightenerRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedServiceDescriptionRoute: typeof AuthenticatedServiceDescriptionRoute
@@ -1225,11 +1122,9 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedBusinessRoute: AuthenticatedBusinessRoute,
-  AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
-  AuthenticatedFacelessOptimiserRoute: AuthenticatedFacelessOptimiserRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
@@ -1238,11 +1133,9 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
-  AuthenticatedNicheAuditRoute: AuthenticatedNicheAuditRoute,
   AuthenticatedPackageNamesRoute: AuthenticatedPackageNamesRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
   AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
-  AuthenticatedPitchGeneratorRoute: AuthenticatedPitchGeneratorRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedPortfolioRoute: AuthenticatedPortfolioRoute,
   AuthenticatedPostTimingRoute: AuthenticatedPostTimingRoute,
@@ -1251,7 +1144,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRejectionRecoveryRoute: AuthenticatedRejectionRecoveryRoute,
   AuthenticatedRepurposeRoute: AuthenticatedRepurposeRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
-  AuthenticatedScriptTightenerRoute: AuthenticatedScriptTightenerRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedServiceDescriptionRoute: AuthenticatedServiceDescriptionRoute,
