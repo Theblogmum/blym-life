@@ -1,7 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
-  FolderOpen, Users, Star, Settings, LogOut, ChevronDown,
+  FolderOpen, Star, Settings, LogOut, ChevronDown,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
@@ -33,7 +33,6 @@ const SECTIONS: Section[] = [
     groups: [
       { label: "Home", icon: Home, to: "/app" },
       { label: "Planner", icon: Calendar, to: "/planner" },
-      { label: "Community", icon: Users, to: "/community" },
     ],
   },
   {
@@ -47,7 +46,6 @@ const SECTIONS: Section[] = [
           { to: "/viral-lab", label: "Viral Lab" },
           { to: "/recycler", label: "Recycler" },
           { to: "/repurpose", label: "Repurpose 1→10" },
-          { to: "/script-tightener", label: "Script Tightener" },
           { to: "/cta-generator", label: "CTA Lines" },
           { to: "/broll", label: "B-Roll Ideas" },
           { to: "/series-builder", label: "Series Builder" },
@@ -55,7 +53,6 @@ const SECTIONS: Section[] = [
           { to: "/seo-keywords", label: "SEO Keywords" },
           { to: "/bio-optimiser", label: "Bio Optimiser" },
           { to: "/post-timing", label: "Post Timing" },
-          { to: "/faceless-optimiser", label: "Faceless Mode" },
           { to: "/pin-optimiser", label: "Pinterest Pin" },
         ],
       },
@@ -63,10 +60,8 @@ const SECTIONS: Section[] = [
         label: "Grow", icon: TrendingUp, items: [
           { to: "/insights", label: "Insights" },
           { to: "/brand-hub", label: "Brand Hub" },
-          { to: "/niche-audit", label: "Niche Audit" },
           { to: "/profile-audit", label: "Profile Audit" },
           { to: "/flop-analyser", label: "Flop Analyser" },
-          { to: "/pitch-generator", label: "Brand Pitch" },
           { to: "/deliverables-builder", label: "Deliverables" },
           { to: "/usage-rights", label: "Usage Rights" },
           { to: "/media-kit", label: "Media Kit" },

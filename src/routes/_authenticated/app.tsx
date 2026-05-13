@@ -35,7 +35,6 @@ const CATEGORIES = [
     sample: [
       { to: "/viral-lab", label: "Viral Lab" },
       { to: "/generator", label: "Idea Generator" },
-      { to: "/script-tightener", label: "Script Tightener" },
       { to: "/templates", label: "Templates" },
     ],
   },
@@ -49,7 +48,7 @@ const CATEGORIES = [
     sample: [
       { to: "/insights", label: "Insights" },
       { to: "/profile-audit", label: "Profile Audit" },
-      { to: "/pitch-generator", label: "Brand Pitch" },
+      { to: "/brand-hub", label: "Brand Hub" },
       { to: "/media-kit", label: "Media Kit" },
     ],
   },
