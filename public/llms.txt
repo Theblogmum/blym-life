@@ -1,0 +1,10 @@
+# Blym
+
+> Blym is an AI content studio for mum creators. It delivers a personalised daily filming brief — hook, caption, shot list and best post time — built for real life on TikTok and Instagram.
+
+## Pages
+
+- [Home](/): What Blym does, how it works, pricing and reviews.
+- [Terms & Conditions](/terms): The contract for using Blym.
+- [Privacy Notice](/privacy): How Blym collects, uses and protects your data.
+- [Refund Policy](/refund): 7-day money-back guarantee on all paid plans.
