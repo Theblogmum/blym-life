@@ -275,8 +275,8 @@ function Landing() {
                   <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
                     Tell Blym what you filmed — get four ready-to-post captions in your voice, with the right hooks and CTAs.
                   </p>
-                  <Link to="/templates" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
-                    Open the studio <ArrowRight className="h-4 w-4" />
+                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
+                    Open the generator <ArrowRight className="h-4 w-4" />
                   </Link>
                 </>
               }
