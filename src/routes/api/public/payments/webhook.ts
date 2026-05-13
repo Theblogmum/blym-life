@@ -146,8 +146,10 @@ async function handleCheckoutCompleted(
   env: string,
   requestUrl: string
 ) {
-  const userId = (session.metadata?.userId as string) || (session.client_reference_id as string);
-  if (!userId) return;
+  const userId =
+    (session.metadata?.userId as string) || (session.client_reference_id as string) || "";
+  const isDigitalProduct = session.metadata?.kind === "digital_product";
+  if (!userId && !isDigitalProduct) return;
 
   if (session.mode === "subscription") {
     await maybeSendWelcomeEmail(userId, requestUrl);
