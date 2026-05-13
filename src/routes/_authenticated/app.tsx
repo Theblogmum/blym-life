@@ -35,7 +35,6 @@ const CATEGORIES = [
     sample: [
       { to: "/viral-lab", label: "Viral Lab" },
       { to: "/generator", label: "Idea Generator" },
-      { to: "/templates", label: "Templates" },
     ],
   },
   {
@@ -75,7 +74,6 @@ const CATEGORIES = [
     href: "/motivation",
     sample: [
       { to: "/motivation", label: "Daily Motivation" },
-      { to: "/wins", label: "Doing Better" },
       { to: "/rejection-recovery", label: "Rejection Recovery" },
     ],
   },
@@ -380,9 +378,6 @@ function HomePage() {
               <MiniRow icon={Clock} label="You showed up" value={`${postsWeek}×`} />
             </div>
 
-            <Link to="/wins" className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-bold text-primary hover:gap-2 transition-all">
-              See everything you've done <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
           </div>
         </section>
       </div>
