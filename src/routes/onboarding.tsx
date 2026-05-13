@@ -11,7 +11,17 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/onboarding")({
-  head: () => ({ meta: [{ title: "Set up — Blym" }] }),
+  head: () => ({
+    meta: [
+      { title: "Set up your Blym profile — Personalise your daily briefs" },
+      { name: "description", content: "Tell Blym about your niche, platforms and goals so we can tailor your daily filming briefs, captions and content ideas to you." },
+      { property: "og:title", content: "Set up your Blym profile — Personalise your daily briefs" },
+      { property: "og:description", content: "Tell Blym about your niche, platforms and goals so we can tailor your daily filming briefs, captions and content ideas to you." },
+      { property: "og:url", content: "https://www.blym.life/onboarding" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.blym.life/onboarding" }],
+  }),
   component: OnboardingPage,
 });
 
