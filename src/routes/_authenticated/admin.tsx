@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
@@ -69,9 +69,14 @@ function AdminPage() {
             <p className="text-sm text-muted-foreground">See everyone signed up to your studio.</p>
           </div>
         </div>
-        <Button variant="outline" className="rounded-full" onClick={() => usersQ.refetch()} disabled={usersQ.isFetching}>
-          <RefreshCw className={`mr-2 h-4 w-4 ${usersQ.isFetching ? "animate-spin" : ""}`} /> Refresh
-        </Button>
+        <div className="flex gap-2">
+          <Link to="/admin/products">
+            <Button variant="outline" className="rounded-full">Manage products</Button>
+          </Link>
+          <Button variant="outline" className="rounded-full" onClick={() => usersQ.refetch()} disabled={usersQ.isFetching}>
+            <RefreshCw className={`mr-2 h-4 w-4 ${usersQ.isFetching ? "animate-spin" : ""}`} /> Refresh
+          </Button>
+        </div>
       </header>
 
       <section className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
