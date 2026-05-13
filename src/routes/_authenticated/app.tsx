@@ -309,8 +309,8 @@ function HomePage() {
         </section>
 
         {/* TODAY's FOCUS + WINS */}
-        <section className="grid gap-4 lg:grid-cols-3">
-          <div className="relative lg:col-span-2 overflow-hidden rounded-[2rem] bg-[image:var(--gradient-mesh)] p-6 sm:p-8 shadow-[var(--shadow-layered)]">
+        <section className="grid gap-4">
+          <div className="relative overflow-hidden rounded-[2rem] bg-[image:var(--gradient-mesh)] p-6 sm:p-8 shadow-[var(--shadow-layered)]">
             <div aria-hidden className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full opacity-40 blur-3xl" style={{ background: "var(--gradient-warm)" }} />
             <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
             <div className="relative">
@@ -348,30 +348,6 @@ function HomePage() {
               </Link>
             </div>
             </div>
-          </div>
-
-          <div
-            className="relative overflow-hidden rounded-[2rem] p-6 shadow-[var(--shadow-layered)]"
-            style={{
-              background:
-                "linear-gradient(180deg, oklch(0.985 0.012 60), oklch(0.97 0.018 30)), var(--card)",
-            }}
-          >
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/10 to-transparent" />
-            <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-[oklch(0.92_0.06_60)] text-[oklch(0.4_0.14_40)]">
-                <Trophy className="h-3.5 w-3.5" />
-              </span>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-foreground/60">Look what you did</p>
-            </div>
-            <p className="mt-4 text-[42px] font-black leading-none tabular-nums">{postsWeek}</p>
-            <p className="mt-1 text-[12.5px] text-muted-foreground">{postsWeek === 1 ? "post out in the world this week" : "posts out in the world this week"}</p>
-
-            <div className="mt-6 space-y-3 border-t border-border pt-5">
-              <MiniRow icon={Flame} label="Days in a row" value={`${streak}d`} />
-              <MiniRow icon={Clock} label="You showed up" value={`${postsWeek}×`} />
-            </div>
-
           </div>
         </section>
       </div>
