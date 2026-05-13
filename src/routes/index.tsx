@@ -83,6 +83,12 @@ function Landing() {
               {item.label}
             </a>
           ))}
+          <Link
+            to="/store"
+            className="rounded-full px-2.5 py-1.5 text-[13px] font-medium text-muted-foreground transition hover:text-foreground"
+          >
+            Store
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
           {user ? (

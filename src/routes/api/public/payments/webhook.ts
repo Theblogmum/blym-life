@@ -146,8 +146,10 @@ async function handleCheckoutCompleted(
   env: string,
   requestUrl: string
 ) {
-  const userId = (session.metadata?.userId as string) || (session.client_reference_id as string);
-  if (!userId) return;
+  const userId =
+    (session.metadata?.userId as string) || (session.client_reference_id as string) || "";
+  const isDigitalProduct = session.metadata?.kind === "digital_product";
+  if (!userId && !isDigitalProduct) return;
 
   if (session.mode === "subscription") {
     await maybeSendWelcomeEmail(userId, requestUrl);
@@ -168,6 +170,30 @@ async function handleCheckoutCompleted(
       typeof session.payment_intent === "string"
         ? session.payment_intent
         : session.payment_intent?.id ?? session.id;
+
+    // Digital product purchase
+    if (session.metadata?.kind === "digital_product" && session.metadata?.productId) {
+      const buyerEmail =
+        session.customer_details?.email ||
+        (full as any).customer_email ||
+        "";
+      await getSupabase()
+        .from("digital_purchases")
+        .upsert(
+          {
+            user_id: userId || null,
+            email: buyerEmail,
+            product_id: session.metadata.productId,
+            stripe_session_id: session.id,
+            stripe_payment_intent_id: paymentIntentId,
+            amount_cents: session.amount_total ?? null,
+            currency: session.currency ?? null,
+            environment: env,
+          },
+          { onConflict: "stripe_session_id" }
+        );
+      return;
+    }
 
     await getSupabase()
       .from("lifetime_purchases")

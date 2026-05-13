@@ -468,6 +468,101 @@ export type Database = {
         }
         Relationships: []
       }
+      digital_products: {
+        Row: {
+          active: boolean
+          cover_url: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          file_path: string | null
+          id: string
+          price_cents: number
+          slug: string
+          sort_order: number
+          stripe_price_id: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          cover_url?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          file_path?: string | null
+          id?: string
+          price_cents: number
+          slug: string
+          sort_order?: number
+          stripe_price_id?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          cover_url?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          file_path?: string | null
+          id?: string
+          price_cents?: number
+          slug?: string
+          sort_order?: number
+          stripe_price_id?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      digital_purchases: {
+        Row: {
+          amount_cents: number | null
+          created_at: string
+          currency: string | null
+          email: string
+          environment: string
+          id: string
+          product_id: string
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount_cents?: number | null
+          created_at?: string
+          currency?: string | null
+          email: string
+          environment?: string
+          id?: string
+          product_id: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount_cents?: number | null
+          created_at?: string
+          currency?: string | null
+          email?: string
+          environment?: string
+          id?: string
+          product_id?: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "digital_purchases_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "digital_products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_send_log: {
         Row: {
           created_at: string
