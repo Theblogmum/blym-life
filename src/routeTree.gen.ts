@@ -39,6 +39,7 @@ import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authent
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
+import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedIncomeTrackerRouteImport } from './routes/_authenticated/income-tracker'
@@ -219,6 +220,11 @@ const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
   path: '/media-kit',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedLibraryRoute = AuthenticatedLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedInvoicesRoute = AuthenticatedInvoicesRouteImport.update({
   id: '/invoices',
   path: '/invoices',
@@ -368,6 +374,7 @@ export interface FileRoutesByFullPath {
   '/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
@@ -421,6 +428,7 @@ export interface FileRoutesByTo {
   '/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
+  '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
@@ -476,6 +484,7 @@ export interface FileRoutesById {
   '/_authenticated/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
+  '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
@@ -531,6 +540,7 @@ export interface FileRouteTypes {
     | '/income-tracker'
     | '/insights'
     | '/invoices'
+    | '/library'
     | '/media-kit'
     | '/motivation'
     | '/passive-ideas'
@@ -584,6 +594,7 @@ export interface FileRouteTypes {
     | '/income-tracker'
     | '/insights'
     | '/invoices'
+    | '/library'
     | '/media-kit'
     | '/motivation'
     | '/passive-ideas'
@@ -638,6 +649,7 @@ export interface FileRouteTypes {
     | '/_authenticated/income-tracker'
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
+    | '/_authenticated/library'
     | '/_authenticated/media-kit'
     | '/_authenticated/motivation'
     | '/_authenticated/passive-ideas'
@@ -898,6 +910,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMediaKitRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/library': {
+      id: '/_authenticated/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof AuthenticatedLibraryRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/invoices': {
       id: '/_authenticated/invoices'
       path: '/invoices'
@@ -1072,6 +1091,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedIncomeTrackerRoute: typeof AuthenticatedIncomeTrackerRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
+  AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
@@ -1107,6 +1127,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedIncomeTrackerRoute: AuthenticatedIncomeTrackerRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
+  AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
