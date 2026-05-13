@@ -1,7 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
-  FolderOpen, Users, Star, Settings, LogOut, ChevronDown,
+  FolderOpen, Star, Settings, LogOut, ChevronDown,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
