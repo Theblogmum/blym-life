@@ -3,6 +3,17 @@ import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/unsubscribe')({
+  head: () => ({
+    meta: [
+      { title: "Unsubscribe from Blym emails — Manage your preferences" },
+      { name: "description", content: "Confirm your unsubscribe request to stop receiving Blym app emails. You'll still get essential account messages." },
+      { property: "og:title", content: "Unsubscribe from Blym emails" },
+      { property: "og:description", content: "Confirm your unsubscribe request to stop receiving Blym app emails. You'll still get essential account messages." },
+      { property: "og:url", content: "https://www.blym.life/unsubscribe" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.blym.life/unsubscribe" }],
+  }),
   component: UnsubscribePage,
   validateSearch: (s: Record<string, unknown>) => ({ token: (s.token as string) ?? '' }),
 })
