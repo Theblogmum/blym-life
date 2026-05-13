@@ -115,6 +115,7 @@ function Landing() {
       </div>
       </header>
 
+      <main>
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-background">
         {/* Soft, faded backdrop — single subtle wash, no decorative blobs */}
@@ -474,6 +475,7 @@ function Landing() {
           </div>
         </div>
       </section>
+      </main>
 
       <footer className="py-10 text-center text-xs text-muted-foreground">
         <p>Made with care for mum creators · @blym.life</p>

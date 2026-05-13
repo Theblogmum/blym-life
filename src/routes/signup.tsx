@@ -7,7 +7,17 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/signup")({
-  head: () => ({ meta: [{ title: "Sign up — Blym" }] }),
+  head: () => ({
+    meta: [
+      { title: "Sign up for Blym — Daily filming briefs for mum creators" },
+      { name: "description", content: "Create your free Blym account and start getting a personalised daily filming brief — hook, caption, shot list and best time to post." },
+      { property: "og:title", content: "Sign up for Blym — Daily filming briefs for mum creators" },
+      { property: "og:description", content: "Create your free Blym account and start getting a personalised daily filming brief — hook, caption, shot list and best time to post." },
+      { property: "og:url", content: "https://www.blym.life/signup" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.blym.life/signup" }],
+  }),
   component: SignupPage,
 });
 

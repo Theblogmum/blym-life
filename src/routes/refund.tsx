@@ -4,10 +4,13 @@ export const Route = createFileRoute("/refund")({
   head: () => ({
     meta: [
       { title: "Refund Policy — Blym" },
-      { name: "description", content: "7-day money-back guarantee on all paid plans." },
+      { name: "description", content: "Blym's 7-day money-back guarantee on all paid plans — how to request a refund, and what happens after the 7-day window." },
       { name: "robots", content: "index, follow" },
+      { property: "og:title", content: "Refund Policy — Blym" },
+      { property: "og:description", content: "Blym's 7-day money-back guarantee on all paid plans — how to request a refund, and what happens after the 7-day window." },
+      { property: "og:url", content: "https://www.blym.life/refund" },
     ],
-    links: [{ rel: "canonical", href: "https://blym.life/refund" }],
+    links: [{ rel: "canonical", href: "https://www.blym.life/refund" }],
   }),
   component: RefundPage,
 });

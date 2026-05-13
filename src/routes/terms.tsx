@@ -4,10 +4,13 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms & Conditions — Blym" },
-      { name: "description", content: "Terms and conditions for using Blym." },
+      { name: "description", content: "Read the terms and conditions for using Blym — your contract with us, what you can expect, and how the service works." },
       { name: "robots", content: "index, follow" },
+      { property: "og:title", content: "Terms & Conditions — Blym" },
+      { property: "og:description", content: "Read the terms and conditions for using Blym — your contract with us, what you can expect, and how the service works." },
+      { property: "og:url", content: "https://www.blym.life/terms" },
     ],
-    links: [{ rel: "canonical", href: "https://blym.life/terms" }],
+    links: [{ rel: "canonical", href: "https://www.blym.life/terms" }],
   }),
   component: TermsPage,
 });
