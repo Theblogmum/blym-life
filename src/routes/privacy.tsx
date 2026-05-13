@@ -6,8 +6,11 @@ export const Route = createFileRoute("/privacy")({
       { title: "Privacy Notice — Blym" },
       { name: "description", content: "How Blym collects, uses, and protects your personal data." },
       { name: "robots", content: "index, follow" },
+      { property: "og:title", content: "Privacy Notice — Blym" },
+      { property: "og:description", content: "How Blym collects, uses, and protects your personal data — your rights under UK GDPR, who we share data with, and how long we keep it." },
+      { property: "og:url", content: "https://www.blym.life/privacy" },
     ],
-    links: [{ rel: "canonical", href: "https://blym.life/privacy" }],
+    links: [{ rel: "canonical", href: "https://www.blym.life/privacy" }],
   }),
   component: PrivacyPage,
 });
