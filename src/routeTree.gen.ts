@@ -19,10 +19,8 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
-import { Route as AuthenticatedWinsRouteImport } from './routes/_authenticated/wins'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
-import { Route as AuthenticatedTemplatesRouteImport } from './routes/_authenticated/templates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedServiceDescriptionRouteImport } from './routes/_authenticated/service-description'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
@@ -112,11 +110,6 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedWinsRoute = AuthenticatedWinsRouteImport.update({
-  id: '/wins',
-  path: '/wins',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   id: '/viral-lab',
   path: '/viral-lab',
@@ -128,11 +121,6 @@ const AuthenticatedUsageRightsRoute =
     path: '/usage-rights',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedTemplatesRoute = AuthenticatedTemplatesRouteImport.update({
-  id: '/templates',
-  path: '/templates',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -391,10 +379,8 @@ export interface FileRoutesByFullPath {
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/settings': typeof AuthenticatedSettingsRoute
-  '/templates': typeof AuthenticatedTemplatesRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
-  '/wins': typeof AuthenticatedWinsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
@@ -445,10 +431,8 @@ export interface FileRoutesByTo {
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/settings': typeof AuthenticatedSettingsRoute
-  '/templates': typeof AuthenticatedTemplatesRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
-  '/wins': typeof AuthenticatedWinsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
@@ -501,10 +485,8 @@ export interface FileRoutesById {
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
-  '/_authenticated/templates': typeof AuthenticatedTemplatesRoute
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
-  '/_authenticated/wins': typeof AuthenticatedWinsRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
@@ -557,10 +539,8 @@ export interface FileRouteTypes {
     | '/series-builder'
     | '/service-description'
     | '/settings'
-    | '/templates'
     | '/usage-rights'
     | '/viral-lab'
-    | '/wins'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
@@ -611,10 +591,8 @@ export interface FileRouteTypes {
     | '/series-builder'
     | '/service-description'
     | '/settings'
-    | '/templates'
     | '/usage-rights'
     | '/viral-lab'
-    | '/wins'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
@@ -666,10 +644,8 @@ export interface FileRouteTypes {
     | '/_authenticated/series-builder'
     | '/_authenticated/service-description'
     | '/_authenticated/settings'
-    | '/_authenticated/templates'
     | '/_authenticated/usage-rights'
     | '/_authenticated/viral-lab'
-    | '/_authenticated/wins'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
@@ -770,13 +746,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/wins': {
-      id: '/_authenticated/wins'
-      path: '/wins'
-      fullPath: '/wins'
-      preLoaderRoute: typeof AuthenticatedWinsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/viral-lab': {
       id: '/_authenticated/viral-lab'
       path: '/viral-lab'
@@ -789,13 +758,6 @@ declare module '@tanstack/react-router' {
       path: '/usage-rights'
       fullPath: '/usage-rights'
       preLoaderRoute: typeof AuthenticatedUsageRightsRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/templates': {
-      id: '/_authenticated/templates'
-      path: '/templates'
-      fullPath: '/templates'
-      preLoaderRoute: typeof AuthenticatedTemplatesRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/settings': {
@@ -1108,10 +1070,8 @@ interface AuthenticatedRouteChildren {
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedServiceDescriptionRoute: typeof AuthenticatedServiceDescriptionRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
-  AuthenticatedTemplatesRoute: typeof AuthenticatedTemplatesRoute
   AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
-  AuthenticatedWinsRoute: typeof AuthenticatedWinsRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
@@ -1148,10 +1108,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedServiceDescriptionRoute: AuthenticatedServiceDescriptionRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
-  AuthenticatedTemplatesRoute: AuthenticatedTemplatesRoute,
   AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
-  AuthenticatedWinsRoute: AuthenticatedWinsRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(

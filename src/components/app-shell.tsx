@@ -1,7 +1,7 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
-  FolderOpen, Star, Settings, LogOut, ChevronDown,
+  Settings, LogOut, ChevronDown,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
@@ -41,7 +41,6 @@ const SECTIONS: Section[] = [
       {
         label: "Create", icon: Sparkles, items: [
           { to: "/generator", label: "Idea Generator" },
-          { to: "/templates", label: "Template Studio" },
           { to: "/film-this", label: "Film Today" },
           { to: "/viral-lab", label: "Viral Lab" },
           { to: "/recycler", label: "Recycler" },
@@ -83,17 +82,9 @@ const SECTIONS: Section[] = [
       {
         label: "Mindset", icon: Heart, items: [
           { to: "/motivation", label: "Daily Motivation" },
-          { to: "/wins", label: "Doing Better" },
           { to: "/rejection-recovery", label: "Rejection Recovery" },
         ],
       },
-    ],
-  },
-  {
-    eyebrow: "Library",
-    groups: [
-      { label: "Templates", icon: FolderOpen, to: "/templates" },
-      { label: "Wins", icon: Star, to: "/wins" },
     ],
   },
 ];
