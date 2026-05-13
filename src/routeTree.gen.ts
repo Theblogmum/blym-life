@@ -20,6 +20,8 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StoreSuccessRouteImport } from './routes/store.success'
+import { Route as StoreSlugRouteImport } from './routes/store.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
@@ -113,6 +115,16 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const StoreSuccessRoute = StoreSuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
+  getParentRoute: () => StoreRoute,
+} as any)
+const StoreSlugRoute = StoreSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => StoreRoute,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
@@ -337,7 +349,7 @@ export interface FileRoutesByFullPath {
   '/refund': typeof RefundRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/store': typeof StoreRoute
+  '/store': typeof StoreRouteWithChildren
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -373,6 +385,8 @@ export interface FileRoutesByFullPath {
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/store/$slug': typeof StoreSlugRoute
+  '/store/success': typeof StoreSuccessRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -388,7 +402,7 @@ export interface FileRoutesByTo {
   '/refund': typeof RefundRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/store': typeof StoreRoute
+  '/store': typeof StoreRouteWithChildren
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -424,6 +438,8 @@ export interface FileRoutesByTo {
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/store/$slug': typeof StoreSlugRoute
+  '/store/success': typeof StoreSuccessRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -441,7 +457,7 @@ export interface FileRoutesById {
   '/refund': typeof RefundRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/store': typeof StoreRoute
+  '/store': typeof StoreRouteWithChildren
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -477,6 +493,8 @@ export interface FileRoutesById {
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/store/$slug': typeof StoreSlugRoute
+  '/store/success': typeof StoreSuccessRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -530,6 +548,8 @@ export interface FileRouteTypes {
     | '/usage-rights'
     | '/viral-lab'
     | '/email/unsubscribe'
+    | '/store/$slug'
+    | '/store/success'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
@@ -581,6 +601,8 @@ export interface FileRouteTypes {
     | '/usage-rights'
     | '/viral-lab'
     | '/email/unsubscribe'
+    | '/store/$slug'
+    | '/store/success'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
@@ -633,6 +655,8 @@ export interface FileRouteTypes {
     | '/_authenticated/usage-rights'
     | '/_authenticated/viral-lab'
     | '/email/unsubscribe'
+    | '/store/$slug'
+    | '/store/success'
     | '/lovable/email/suppression'
     | '/api/public/hooks/trial-reminders'
     | '/api/public/payments/webhook'
@@ -650,7 +674,7 @@ export interface RootRouteChildren {
   RefundRoute: typeof RefundRoute
   SignupRoute: typeof SignupRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  StoreRoute: typeof StoreRoute
+  StoreRoute: typeof StoreRouteWithChildren
   TermsRoute: typeof TermsRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
@@ -740,6 +764,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/store/success': {
+      id: '/store/success'
+      path: '/success'
+      fullPath: '/store/success'
+      preLoaderRoute: typeof StoreSuccessRouteImport
+      parentRoute: typeof StoreRoute
+    }
+    '/store/$slug': {
+      id: '/store/$slug'
+      path: '/$slug'
+      fullPath: '/store/$slug'
+      preLoaderRoute: typeof StoreSlugRouteImport
+      parentRoute: typeof StoreRoute
     }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
@@ -1091,6 +1129,18 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface StoreRouteChildren {
+  StoreSlugRoute: typeof StoreSlugRoute
+  StoreSuccessRoute: typeof StoreSuccessRoute
+}
+
+const StoreRouteChildren: StoreRouteChildren = {
+  StoreSlugRoute: StoreSlugRoute,
+  StoreSuccessRoute: StoreSuccessRoute,
+}
+
+const StoreRouteWithChildren = StoreRoute._addFileChildren(StoreRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
@@ -1100,7 +1150,7 @@ const rootRouteChildren: RootRouteChildren = {
   RefundRoute: RefundRoute,
   SignupRoute: SignupRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  StoreRoute: StoreRoute,
+  StoreRoute: StoreRouteWithChildren,
   TermsRoute: TermsRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
@@ -1114,3 +1164,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
