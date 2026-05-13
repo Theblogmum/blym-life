@@ -427,51 +427,51 @@ function Landing() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-8">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-anchor p-12 text-center text-white shadow-[var(--shadow-elegant)] sm:p-20">
-          <div className="absolute -top-32 -right-24 h-80 w-80 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
-          <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[image:var(--gradient-bloom)] opacity-20 blur-3xl" aria-hidden />
-          <div className="relative">
-            <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70">
-              <Clock className="h-3.5 w-3.5" /> Tomorrow morning
-            </span>
-            <h2 className="mx-auto mt-6 max-w-3xl font-display text-[36px] font-normal leading-[1.02] tracking-[-0.025em] text-balance sm:text-[64px]">
-              Your brief is already being written.
-            </h2>
-            <p className="mx-auto mt-6 max-w-lg text-[17px] leading-[1.6] text-white/75 text-pretty">
-              Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.
-            </p>
-            <div className="mt-9 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
-              <Link to={ctaPrimary.to}>
-                <Button size="lg" className="w-full rounded-full bg-white px-8 py-6 text-base text-foreground shadow-[var(--shadow-soft)] hover:bg-white/90 sm:w-auto">
-                  {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-              {ctaSecondary && (
-                <Link to={ctaSecondary.to}>
-                  <Button size="lg" variant="ghost" className="w-full rounded-full px-6 py-6 text-base text-white hover:bg-white/10 sm:w-auto">
-                    Sign in
+      <section id="contact" className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+        <div className="grid gap-6 md:grid-cols-2 md:items-stretch">
+          <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-8 text-center text-white shadow-[var(--shadow-elegant)] sm:p-10 flex flex-col">
+            <div className="absolute -top-24 -right-16 h-60 w-60 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
+            <div className="absolute -bottom-24 -left-16 h-60 w-60 rounded-full bg-[image:var(--gradient-bloom)] opacity-20 blur-3xl" aria-hidden />
+            <div className="relative flex flex-1 flex-col">
+              <span className="inline-flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70">
+                <Clock className="h-3.5 w-3.5" /> Tomorrow morning
+              </span>
+              <h2 className="mx-auto mt-4 font-display text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[36px]">
+                Your brief is already being written.
+              </h2>
+              <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-white/75 text-pretty">
+                Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.
+              </p>
+              <div className="mt-auto pt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+                <Link to={ctaPrimary.to}>
+                  <Button size="lg" className="w-full rounded-full bg-white px-6 py-5 text-base text-foreground shadow-[var(--shadow-soft)] hover:bg-white/90 sm:w-auto">
+                    {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
-              )}
+                {ctaSecondary && (
+                  <Link to={ctaSecondary.to}>
+                    <Button size="lg" variant="ghost" className="w-full rounded-full px-5 py-5 text-base text-white hover:bg-white/10 sm:w-auto">
+                      Sign in
+                    </Button>
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="contact" className="mx-auto max-w-3xl px-5 pb-20 sm:px-8">
-        <div className="rounded-[2rem] bg-primary/70 p-8 text-center text-white shadow-[var(--shadow-soft)] sm:p-10">
-          <span className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/85">Get in touch</span>
-          <h2 className="mt-4 font-display text-[28px] font-normal leading-[1.15] tracking-[-0.02em] text-white text-balance sm:text-[36px]">Say hi — we read every message.</h2>
-          <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-white/85 text-pretty">
-            Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
-          </p>
-          <a
-            href="mailto:info@blym.life"
-            className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/90"
-          >
-            info@blym.life
-          </a>
+          <div className="rounded-[2rem] bg-primary/70 p-8 text-center text-white shadow-[var(--shadow-soft)] sm:p-10 flex flex-col">
+            <span className="inline-flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/85">Get in touch</span>
+            <h2 className="mt-4 font-display text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-white text-balance sm:text-[36px]">Say hi — we read every message.</h2>
+            <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-white/85 text-pretty">
+              Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
+            </p>
+            <a
+              href="mailto:info@blym.life"
+              className="mt-auto inline-flex items-center justify-center self-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/90"
+            >
+              info@blym.life
+            </a>
+          </div>
         </div>
       </section>
 
