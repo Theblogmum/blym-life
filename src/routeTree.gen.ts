@@ -22,7 +22,6 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedServiceDescriptionRouteImport } from './routes/_authenticated/service-description'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
@@ -34,7 +33,6 @@ import { Route as AuthenticatedPortfolioRouteImport } from './routes/_authentica
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
 import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
-import { Route as AuthenticatedPackageNamesRouteImport } from './routes/_authenticated/package-names'
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
@@ -125,12 +123,6 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedServiceDescriptionRoute =
-  AuthenticatedServiceDescriptionRouteImport.update({
-    id: '/service-description',
-    path: '/service-description',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedSeriesBuilderRoute =
   AuthenticatedSeriesBuilderRouteImport.update({
     id: '/series-builder',
@@ -191,12 +183,6 @@ const AuthenticatedPassiveIdeasRoute =
   AuthenticatedPassiveIdeasRouteImport.update({
     id: '/passive-ideas',
     path: '/passive-ideas',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedPackageNamesRoute =
-  AuthenticatedPackageNamesRouteImport.update({
-    id: '/package-names',
-    path: '/package-names',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedMotivationRoute = AuthenticatedMotivationRouteImport.update({
@@ -358,7 +344,6 @@ export interface FileRoutesByFullPath {
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/motivation': typeof AuthenticatedMotivationRoute
-  '/package-names': typeof AuthenticatedPackageNamesRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/planner': typeof AuthenticatedPlannerRoute
@@ -370,7 +355,6 @@ export interface FileRoutesByFullPath {
   '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
-  '/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
@@ -409,7 +393,6 @@ export interface FileRoutesByTo {
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/motivation': typeof AuthenticatedMotivationRoute
-  '/package-names': typeof AuthenticatedPackageNamesRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/planner': typeof AuthenticatedPlannerRoute
@@ -421,7 +404,6 @@ export interface FileRoutesByTo {
   '/response-writer': typeof AuthenticatedResponseWriterRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
-  '/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
@@ -462,7 +444,6 @@ export interface FileRoutesById {
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
-  '/_authenticated/package-names': typeof AuthenticatedPackageNamesRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
@@ -474,7 +455,6 @@ export interface FileRoutesById {
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
-  '/_authenticated/service-description': typeof AuthenticatedServiceDescriptionRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
@@ -515,7 +495,6 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/media-kit'
     | '/motivation'
-    | '/package-names'
     | '/passive-ideas'
     | '/pin-optimiser'
     | '/planner'
@@ -527,7 +506,6 @@ export interface FileRouteTypes {
     | '/response-writer'
     | '/seo-keywords'
     | '/series-builder'
-    | '/service-description'
     | '/settings'
     | '/usage-rights'
     | '/viral-lab'
@@ -566,7 +544,6 @@ export interface FileRouteTypes {
     | '/invoices'
     | '/media-kit'
     | '/motivation'
-    | '/package-names'
     | '/passive-ideas'
     | '/pin-optimiser'
     | '/planner'
@@ -578,7 +555,6 @@ export interface FileRouteTypes {
     | '/response-writer'
     | '/seo-keywords'
     | '/series-builder'
-    | '/service-description'
     | '/settings'
     | '/usage-rights'
     | '/viral-lab'
@@ -618,7 +594,6 @@ export interface FileRouteTypes {
     | '/_authenticated/invoices'
     | '/_authenticated/media-kit'
     | '/_authenticated/motivation'
-    | '/_authenticated/package-names'
     | '/_authenticated/passive-ideas'
     | '/_authenticated/pin-optimiser'
     | '/_authenticated/planner'
@@ -630,7 +605,6 @@ export interface FileRouteTypes {
     | '/_authenticated/response-writer'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
-    | '/_authenticated/service-description'
     | '/_authenticated/settings'
     | '/_authenticated/usage-rights'
     | '/_authenticated/viral-lab'
@@ -755,13 +729,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/service-description': {
-      id: '/_authenticated/service-description'
-      path: '/service-description'
-      fullPath: '/service-description'
-      preLoaderRoute: typeof AuthenticatedServiceDescriptionRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/series-builder': {
       id: '/_authenticated/series-builder'
       path: '/series-builder'
@@ -837,13 +804,6 @@ declare module '@tanstack/react-router' {
       path: '/passive-ideas'
       fullPath: '/passive-ideas'
       preLoaderRoute: typeof AuthenticatedPassiveIdeasRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/package-names': {
-      id: '/_authenticated/package-names'
-      path: '/package-names'
-      fullPath: '/package-names'
-      preLoaderRoute: typeof AuthenticatedPackageNamesRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/motivation': {
@@ -1036,7 +996,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
-  AuthenticatedPackageNamesRoute: typeof AuthenticatedPackageNamesRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
   AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
@@ -1048,7 +1007,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
-  AuthenticatedServiceDescriptionRoute: typeof AuthenticatedServiceDescriptionRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
@@ -1073,7 +1031,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
-  AuthenticatedPackageNamesRoute: AuthenticatedPackageNamesRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
   AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
@@ -1085,7 +1042,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
-  AuthenticatedServiceDescriptionRoute: AuthenticatedServiceDescriptionRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
@@ -1116,3 +1072,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

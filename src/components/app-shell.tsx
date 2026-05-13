@@ -74,8 +74,6 @@ const SECTIONS: Section[] = [
           { to: "/invoices", label: "Invoices" },
           { to: "/income-tracker", label: "Income Tracker" },
           { to: "/affiliates", label: "Affiliate Links" },
-          { to: "/package-names", label: "Package Names" },
-          { to: "/service-description", label: "Services" },
         ],
       },
       {
