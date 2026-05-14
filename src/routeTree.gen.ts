@@ -43,6 +43,7 @@ import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedIncomeTrackerRouteImport } from './routes/_authenticated/income-tracker'
+import { Route as AuthenticatedGrowthCoachRouteImport } from './routes/_authenticated/growth-coach'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
@@ -242,6 +243,12 @@ const AuthenticatedIncomeTrackerRoute =
     path: '/income-tracker',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedGrowthCoachRoute =
+  AuthenticatedGrowthCoachRouteImport.update({
+    id: '/growth-coach',
+    path: '/growth-coach',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedGeneratorRoute = AuthenticatedGeneratorRouteImport.update({
   id: '/generator',
   path: '/generator',
@@ -378,6 +385,7 @@ export interface FileRoutesByFullPath {
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
+  '/growth-coach': typeof AuthenticatedGrowthCoachRoute
   '/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
@@ -433,6 +441,7 @@ export interface FileRoutesByTo {
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
+  '/growth-coach': typeof AuthenticatedGrowthCoachRoute
   '/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
@@ -490,6 +499,7 @@ export interface FileRoutesById {
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
+  '/_authenticated/growth-coach': typeof AuthenticatedGrowthCoachRoute
   '/_authenticated/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
@@ -547,6 +557,7 @@ export interface FileRouteTypes {
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
+    | '/growth-coach'
     | '/income-tracker'
     | '/insights'
     | '/invoices'
@@ -602,6 +613,7 @@ export interface FileRouteTypes {
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
+    | '/growth-coach'
     | '/income-tracker'
     | '/insights'
     | '/invoices'
@@ -658,6 +670,7 @@ export interface FileRouteTypes {
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
+    | '/_authenticated/growth-coach'
     | '/_authenticated/income-tracker'
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
@@ -953,6 +966,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIncomeTrackerRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/growth-coach': {
+      id: '/_authenticated/growth-coach'
+      path: '/growth-coach'
+      fullPath: '/growth-coach'
+      preLoaderRoute: typeof AuthenticatedGrowthCoachRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/generator': {
       id: '/_authenticated/generator'
       path: '/generator'
@@ -1110,6 +1130,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
+  AuthenticatedGrowthCoachRoute: typeof AuthenticatedGrowthCoachRoute
   AuthenticatedIncomeTrackerRoute: typeof AuthenticatedIncomeTrackerRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
@@ -1147,6 +1168,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
+  AuthenticatedGrowthCoachRoute: AuthenticatedGrowthCoachRoute,
   AuthenticatedIncomeTrackerRoute: AuthenticatedIncomeTrackerRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
