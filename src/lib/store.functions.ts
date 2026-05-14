@@ -232,7 +232,7 @@ export const adminDeleteProduct = createServerFn({ method: "POST" })
 
 export const adminGetUploadUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { fileName: string; kind: "file" | "cover" }) => d)
+  .inputValidator((d: { fileName: string; kind: "file" | "cover" | "thumbnail" }) => d)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId as string);
     const safeName = data.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
