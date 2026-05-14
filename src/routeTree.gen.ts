@@ -28,6 +28,7 @@ import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
+import { Route as AuthenticatedScheduleRouteImport } from './routes/_authenticated/schedule'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRejectionRecoveryRouteImport } from './routes/_authenticated/rejection-recovery'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
@@ -43,6 +44,7 @@ import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
 import { Route as AuthenticatedIncomeTrackerRouteImport } from './routes/_authenticated/income-tracker'
+import { Route as AuthenticatedGrowthCoachRouteImport } from './routes/_authenticated/growth-coach'
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
@@ -161,6 +163,11 @@ const AuthenticatedSeoKeywordsRoute =
     path: '/seo-keywords',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedScheduleRoute = AuthenticatedScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedResponseWriterRoute =
   AuthenticatedResponseWriterRouteImport.update({
     id: '/response-writer',
@@ -240,6 +247,12 @@ const AuthenticatedIncomeTrackerRoute =
   AuthenticatedIncomeTrackerRouteImport.update({
     id: '/income-tracker',
     path: '/income-tracker',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedGrowthCoachRoute =
+  AuthenticatedGrowthCoachRouteImport.update({
+    id: '/growth-coach',
+    path: '/growth-coach',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedGeneratorRoute = AuthenticatedGeneratorRouteImport.update({
@@ -378,6 +391,7 @@ export interface FileRoutesByFullPath {
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
+  '/growth-coach': typeof AuthenticatedGrowthCoachRoute
   '/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
@@ -393,6 +407,7 @@ export interface FileRoutesByFullPath {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/schedule': typeof AuthenticatedScheduleRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -433,6 +448,7 @@ export interface FileRoutesByTo {
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
+  '/growth-coach': typeof AuthenticatedGrowthCoachRoute
   '/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
@@ -448,6 +464,7 @@ export interface FileRoutesByTo {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/schedule': typeof AuthenticatedScheduleRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -490,6 +507,7 @@ export interface FileRoutesById {
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
+  '/_authenticated/growth-coach': typeof AuthenticatedGrowthCoachRoute
   '/_authenticated/income-tracker': typeof AuthenticatedIncomeTrackerRoute
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
@@ -505,6 +523,7 @@ export interface FileRoutesById {
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/_authenticated/schedule': typeof AuthenticatedScheduleRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -547,6 +566,7 @@ export interface FileRouteTypes {
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
+    | '/growth-coach'
     | '/income-tracker'
     | '/insights'
     | '/invoices'
@@ -562,6 +582,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/rejection-recovery'
     | '/response-writer'
+    | '/schedule'
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
@@ -602,6 +623,7 @@ export interface FileRouteTypes {
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
+    | '/growth-coach'
     | '/income-tracker'
     | '/insights'
     | '/invoices'
@@ -617,6 +639,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/rejection-recovery'
     | '/response-writer'
+    | '/schedule'
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
@@ -658,6 +681,7 @@ export interface FileRouteTypes {
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
+    | '/_authenticated/growth-coach'
     | '/_authenticated/income-tracker'
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
@@ -673,6 +697,7 @@ export interface FileRouteTypes {
     | '/_authenticated/recycler'
     | '/_authenticated/rejection-recovery'
     | '/_authenticated/response-writer'
+    | '/_authenticated/schedule'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
@@ -848,6 +873,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSeoKeywordsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/schedule': {
+      id: '/_authenticated/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof AuthenticatedScheduleRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/response-writer': {
       id: '/_authenticated/response-writer'
       path: '/response-writer'
@@ -951,6 +983,13 @@ declare module '@tanstack/react-router' {
       path: '/income-tracker'
       fullPath: '/income-tracker'
       preLoaderRoute: typeof AuthenticatedIncomeTrackerRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/growth-coach': {
+      id: '/_authenticated/growth-coach'
+      path: '/growth-coach'
+      fullPath: '/growth-coach'
+      preLoaderRoute: typeof AuthenticatedGrowthCoachRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/generator': {
@@ -1110,6 +1149,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
+  AuthenticatedGrowthCoachRoute: typeof AuthenticatedGrowthCoachRoute
   AuthenticatedIncomeTrackerRoute: typeof AuthenticatedIncomeTrackerRoute
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
@@ -1125,6 +1165,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRejectionRecoveryRoute: typeof AuthenticatedRejectionRecoveryRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
+  AuthenticatedScheduleRoute: typeof AuthenticatedScheduleRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -1147,6 +1188,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
+  AuthenticatedGrowthCoachRoute: AuthenticatedGrowthCoachRoute,
   AuthenticatedIncomeTrackerRoute: AuthenticatedIncomeTrackerRoute,
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
@@ -1162,6 +1204,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRejectionRecoveryRoute: AuthenticatedRejectionRecoveryRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
+  AuthenticatedScheduleRoute: AuthenticatedScheduleRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
@@ -1199,13 +1242,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
