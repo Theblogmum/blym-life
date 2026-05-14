@@ -28,6 +28,7 @@ import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenti
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
+import { Route as AuthenticatedScheduleRouteImport } from './routes/_authenticated/schedule'
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRejectionRecoveryRouteImport } from './routes/_authenticated/rejection-recovery'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
@@ -162,6 +163,11 @@ const AuthenticatedSeoKeywordsRoute =
     path: '/seo-keywords',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedScheduleRoute = AuthenticatedScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedResponseWriterRoute =
   AuthenticatedResponseWriterRouteImport.update({
     id: '/response-writer',
@@ -401,6 +407,7 @@ export interface FileRoutesByFullPath {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/schedule': typeof AuthenticatedScheduleRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -457,6 +464,7 @@ export interface FileRoutesByTo {
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/schedule': typeof AuthenticatedScheduleRoute
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
@@ -515,6 +523,7 @@ export interface FileRoutesById {
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
+  '/_authenticated/schedule': typeof AuthenticatedScheduleRoute
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
@@ -573,6 +582,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/rejection-recovery'
     | '/response-writer'
+    | '/schedule'
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
@@ -629,6 +639,7 @@ export interface FileRouteTypes {
     | '/recycler'
     | '/rejection-recovery'
     | '/response-writer'
+    | '/schedule'
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
@@ -686,6 +697,7 @@ export interface FileRouteTypes {
     | '/_authenticated/recycler'
     | '/_authenticated/rejection-recovery'
     | '/_authenticated/response-writer'
+    | '/_authenticated/schedule'
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
@@ -859,6 +871,13 @@ declare module '@tanstack/react-router' {
       path: '/seo-keywords'
       fullPath: '/seo-keywords'
       preLoaderRoute: typeof AuthenticatedSeoKeywordsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/schedule': {
+      id: '/_authenticated/schedule'
+      path: '/schedule'
+      fullPath: '/schedule'
+      preLoaderRoute: typeof AuthenticatedScheduleRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/response-writer': {
@@ -1146,6 +1165,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRejectionRecoveryRoute: typeof AuthenticatedRejectionRecoveryRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
+  AuthenticatedScheduleRoute: typeof AuthenticatedScheduleRoute
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
@@ -1184,6 +1204,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRejectionRecoveryRoute: AuthenticatedRejectionRecoveryRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
+  AuthenticatedScheduleRoute: AuthenticatedScheduleRoute,
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
