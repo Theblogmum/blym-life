@@ -212,6 +212,30 @@ export type Database = {
         }
         Relationships: []
       }
+      coach_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       community_comments: {
         Row: {
           content: string
@@ -689,6 +713,72 @@ export type Database = {
         }
         Relationships: []
       }
+      growth_reports: {
+        Row: {
+          ai_verdict: string | null
+          best_post: string | null
+          created_at: string
+          emailed_at: string | null
+          id: string
+          next_hooks: Json | null
+          summary: string
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          ai_verdict?: string | null
+          best_post?: string | null
+          created_at?: string
+          emailed_at?: string | null
+          id?: string
+          next_hooks?: Json | null
+          summary: string
+          user_id: string
+          week_start: string
+        }
+        Update: {
+          ai_verdict?: string | null
+          best_post?: string | null
+          created_at?: string
+          emailed_at?: string | null
+          id?: string
+          next_hooks?: Json | null
+          summary?: string
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
+      growth_snapshots: {
+        Row: {
+          created_at: string
+          followers: number
+          id: string
+          notes: string | null
+          platform: string
+          snapshot_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          followers?: number
+          id?: string
+          notes?: string | null
+          platform: string
+          snapshot_date?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          followers?: number
+          id?: string
+          notes?: string | null
+          platform?: string
+          snapshot_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       income_entries: {
         Row: {
           amount: number
@@ -821,6 +911,42 @@ export type Database = {
           stripe_customer_id?: string | null
           stripe_payment_intent_id?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      pinterest_tokens: {
+        Row: {
+          access_token: string
+          created_at: string
+          default_board_id: string | null
+          expires_at: string | null
+          refresh_token: string | null
+          scope: string | null
+          updated_at: string
+          user_id: string
+          username: string | null
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          default_board_id?: string | null
+          expires_at?: string | null
+          refresh_token?: string | null
+          scope?: string | null
+          updated_at?: string
+          user_id: string
+          username?: string | null
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          default_board_id?: string | null
+          expires_at?: string | null
+          refresh_token?: string | null
+          scope?: string | null
+          updated_at?: string
+          user_id?: string
+          username?: string | null
         }
         Relationships: []
       }
@@ -979,6 +1105,60 @@ export type Database = {
           kind?: string
           meta?: Json | null
           title?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      scheduled_posts: {
+        Row: {
+          caption: string | null
+          created_at: string
+          error_message: string | null
+          hook: string | null
+          id: string
+          link_url: string | null
+          media_url: string | null
+          pinterest_board_id: string | null
+          platform: string
+          posted_at: string | null
+          reminded_at: string | null
+          scheduled_for: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          error_message?: string | null
+          hook?: string | null
+          id?: string
+          link_url?: string | null
+          media_url?: string | null
+          pinterest_board_id?: string | null
+          platform: string
+          posted_at?: string | null
+          reminded_at?: string | null
+          scheduled_for: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          error_message?: string | null
+          hook?: string | null
+          id?: string
+          link_url?: string | null
+          media_url?: string | null
+          pinterest_board_id?: string | null
+          platform?: string
+          posted_at?: string | null
+          reminded_at?: string | null
+          scheduled_for?: string
+          status?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
