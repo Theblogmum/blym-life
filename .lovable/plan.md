@@ -1,114 +1,97 @@
 
-This is a big scope so I'm staging it across two database migrations and four feature areas. Everything here will go in one delivery unless you'd rather split it.
+# Bloom Growth Coach — full build
 
-## 1. Free model → strict 3-day trial
+Five connected pieces, one new top-nav entry **"Growth Coach"**, plus a Pinterest connection in Settings. Gated behind the existing 3-day trial / paid tier.
 
-Today the system gives free users 3 runs/day forever on every premium tool. I'll change it to:
+## 1. Growth Coach chat (`/_authenticated/growth-coach`)
 
-- **Day 0–3 from signup** (`profiles.trial_started_at`): full unlimited access to generator, viral lab, recycler, UGC pitch, templates, brand outreach.
-- **Day 4+** (free, no subscription): only **basic captions** in the Content Generator. Every other tool, plus hooks/scripts/hashtags inside the generator, shows a hard upgrade card.
-- Premium subscribers (monthly / yearly / lifetime): unchanged, unlimited everything.
-- A trial countdown chip ("2 days left of your trial") appears in the top nav while active; switches to "Captions free · upgrade for the rest" once expired.
+Streaming chat with **Bloom**, your strategist persona. Pulls live context every turn:
+- Creator profile (niche, vibe, platforms, audience, goals)
+- Last 14 days of `posts_logged` (likes, views, saves, hook style)
+- Last 7 `daily_briefs` (filmed vs not)
+- Active `creator_goals`
+- Day of week + time of day
 
-I'll add a `trialStatus()` server helper used by every feature gate, replacing the current `enforceQuota` per-day counter. The `usage_events` table stays for analytics but no longer blocks.
+System prompt frames Bloom as a UK mum-creator strategist: spots patterns ("your last 3 sub-2k reels all opened with a question — try POV"), suggests next move, can call internal tools to draft a hook, generate a caption, or open the scheduler.
 
-## 2. Landing page — visual, not text-heavy
+Stored in new `coach_messages` (user_id, role, content, created_at) so chat history persists.
 
-Rework `src/routes/index.tsx`:
-- Big hero with a generated lifestyle image (mum filming on phone) + bold headline, sub-line, two CTAs.
-- Three feature tiles with icons + 1 sentence each (no paragraphs).
-- "How it works" — 3 steps as illustrated cards.
-- Social-proof strip (placeholder testimonials you can edit).
-- Pricing teaser → links to /settings.
-- FAQ accordion at the bottom (collapsed = visually light).
-- Generated supporting images via the image tool, kept in `src/assets/`.
+## 2. In-app scheduler + reminders (`/_authenticated/schedule`)
 
-App pages also get more breathing room: wider max-width on desktop, more vertical rhythm, a sticky "secondary nav" strip on tool pages with anchors (Generate / Tips / Saved).
+The honest version of "auto-posting" — because IG/TikTok/YouTube don't allow real third-party publishing for personal accounts.
 
-## 3. New: Template Studio (smart templates)
+- New table `scheduled_posts`: id, user_id, platform, caption, hook, media_url (optional), scheduled_for, status (`scheduled|reminded|posted|skipped`), reminded_at, posted_at.
+- Calendar + list view of upcoming posts.
+- "Compose" drawer pre-fills from any saved hook/caption/brief in one click.
+- **Cron** (`/api/public/cron/post-reminders`, runs every 10 min via pg_cron): finds due posts, sends a Resend email with the caption + media link ready to copy/paste, marks `status=reminded`. Optional browser push later.
+- One-click "Mark as posted" → auto-creates a `posts_logged` row to start tracking.
 
-New route `/_authenticated/templates` + nav entry under "Create".
+## 3. Audience-fit scoring
 
-- One textarea: "What do you need?" (e.g. *"reply to a brand offering free product"* or *"promo my new sleep guide"*).
-- AI classifies intent → returns 3–5 ready-to-use options.
-- Each option shows: title, full body (post script OR email/DM), 1-line "why this works", copy/save buttons.
-- Server fn: `generateTemplates` in `src/lib/templates.functions.ts`.
-- Gated behind 3-day trial; basic captions remain the free fallback.
+A small panel inside the Generator + Coach + Scheduler.
+- Paste a hook or caption → server fn scores 0–100 against the creator's profile + recent best performers, returns: score, the one weakest line, one rewritten alternative.
+- Pure AI call, no extra storage.
 
-## 4. New: Brand Hub — directory + Gmail outreach + tracking
+## 4. Weekly growth report
 
-New route `/_authenticated/brand-hub` with three tabs: **Discover**, **My Outreach**, **Inbox status**.
+Every Monday 8am cron emails a 1-screen report:
+- Followers delta (from a tiny `growth_snapshots` table the user fills weekly — 30-sec form in-app)
+- Best post of the week (from `posts_logged`)
+- AI verdict: "Carousels outperformed reels 3:1 — lean carousel next week"
+- 3 ready-to-film hooks for the coming week
+- Stored as a row in `growth_reports` + emailed via Resend.
 
-### Database (migration 1)
-- `brands` (public read, admin write): name, website, category, hq_country, description, logo_url, contact_email, instagram, notes, is_seeded.
-- `user_brands` (private add): user_id, name, website, contact_email, notes — a creator's own additions.
-- `brand_pitches`: id, user_id, brand_id (nullable), user_brand_id (nullable), recipient_email, subject, body, status (`draft|sent|followed_up|replied|bounced|cancelled`), gmail_message_id, gmail_thread_id, sent_at, follow_up_due_at, follow_up_sent_at, replied_at, created_at.
-- Unique partial index on `(user_id, lower(recipient_email))` where status in (`sent`,`followed_up`) → prevents double-sending.
-- RLS: `brands` public-readable; `user_brands` & `brand_pitches` owner-only.
+## 5. Pinterest auto-pin (the only platform that legitimately allows it)
 
-### Seed data
-~50 UK mum-friendly brands (baby/toddler/beauty/home/food) inserted with public PR/marketing emails. You'll get an admin "Add brand" form that uses the `admin` role (already in `app_role`) for adding more.
+- Settings → "Connect Pinterest" → OAuth.
+- New table `pinterest_tokens` (user_id, access_token encrypted, refresh_token, expires_at, board_id).
+- Compose a Pin in-app (image upload, title, description, link, board) → stored in `scheduled_posts` with `platform='pinterest'`.
+- Same cron above, when a Pinterest pin is due → call Pinterest API, mark `status=posted`. **Real auto-publishing.**
 
-### Gmail OAuth (per creator)
+### What I need from you for Pinterest
 
-This is the **biggest external dependency** — and I need to be transparent: the Lovable "Gmail" connector links **your** Gmail, not each creator's. To send pitches from each creator's own address, we need a custom Google OAuth app that each user authorises.
+1. Go to https://developers.pinterest.com → create an app (free, ~5 min).
+2. Set OAuth redirect URI to: `https://blym.life/api/public/pinterest/callback`
+3. Copy **App ID** and **App secret** — I'll prompt for them via the secrets tool when the rest is built.
 
-That means **before I can build the send/reply path**, you'll need to:
-1. Create a Google Cloud project (free).
-2. Enable the Gmail API.
-3. Create OAuth 2.0 Web credentials with redirect URI `https://theblogmumstudio.com/api/public/google/callback`.
-4. Submit the consent screen for verification with the `gmail.send` and `gmail.readonly` scopes (Google review takes ~1–4 weeks; in test mode you can add up to 100 testers immediately).
-5. Add `GOOGLE_OAUTH_CLIENT_ID` and `GOOGLE_OAUTH_CLIENT_SECRET` as secrets.
+Until those secrets are added, the "Connect Pinterest" button will say "Coming soon — admin setup needed" and the scheduler will work for IG/TikTok/YouTube reminders only.
 
-I'll build everything around it now. Until those secrets are added, the "Connect Gmail" button will show a friendly "Coming soon — admin setup needed" state, and pitches save as **drafts** (subject + body + recipient) so creators can copy/paste in the meantime.
+## What I will NOT build (and why)
 
-### Once Gmail is wired
-- `/api/public/google/callback` — OAuth handler, stores refresh token in new `google_tokens` table (RLS owner-only, encrypted column).
-- `sendPitch` server fn → uses creator's refresh token to send via Gmail API → records `gmail_message_id`, `gmail_thread_id`, sets `follow_up_due_at = now() + 4 days`, status `sent`.
-- `checkReplies` cron (pg_cron + new public route, runs every 6h) → for each `sent`/`followed_up` pitch, hits Gmail `users.messages.list?q=rfc822msgid:<id>` on its thread; if any inbound message exists, marks `replied`.
-- `sendFollowUps` cron (daily 9am) → for each pitch where `status='sent'` AND `follow_up_due_at <= now()` AND `replied_at IS NULL`, sends the follow-up template, sets `status='followed_up'` and `follow_up_sent_at`.
-- Double-send guard: before insert/send, query existing pitch to same `(user_id, lower(email))` not in `cancelled`/`replied` → blocks with toast "You've already pitched this brand."
+- Auto-posting to Instagram / TikTok / YouTube. Their APIs don't permit it for personal/creator accounts without Marketing Partner approval (months of review, business accounts only). Anyone who claims otherwise is using brittle reminder hacks. We'll do reminders honestly.
+- "Audience targeting" / boosting. That's paid ads, not organic — out of scope and not what you asked for.
 
-### UI
-- **Discover**: searchable grid of brand cards with "Pitch" button. Opens a side-panel with AI-generated pitch (existing `generatePitch` fn) prefilled, editable, with "Send" or "Save draft".
-- **My Outreach**: table of all pitches with status badges, sent/follow-up dates, brand name, subject preview, "View thread" link.
-- **Inbox status**: simple counters — sent / awaiting reply / replied / follow-ups due.
+## Files (new)
 
-## 5. Top-nav additions
+- `src/routes/_authenticated/growth-coach.tsx`
+- `src/routes/_authenticated/schedule.tsx`
+- `src/routes/api/public/cron/post-reminders.ts`
+- `src/routes/api/public/cron/weekly-report.ts`
+- `src/routes/api/public/pinterest/callback.ts`
+- `src/lib/coach.functions.ts` (streaming chat fn)
+- `src/lib/schedule.functions.ts`
+- `src/lib/audience-fit.functions.ts`
+- `src/lib/growth-report.functions.ts`
+- `src/lib/pinterest.server.ts`
+- `src/components/growth-snapshot-form.tsx`
 
-Adds two items to the "Create" dropdown: **Template Studio**, **Brand Hub**. Trial countdown chip top-right. Mobile menu mirrors.
+## Files (edited)
 
-## Files (new + edited)
+- `src/components/app-shell.tsx` — add "Growth Coach" + "Schedule" nav items
+- `src/routes/_authenticated/settings.tsx` — add "Connect Pinterest" card
 
-**New**
-- `src/routes/_authenticated/templates.tsx`
-- `src/routes/_authenticated/brand-hub.tsx`
-- `src/routes/api/public/google/callback.ts`
-- `src/routes/api/public/cron/follow-ups.ts`
-- `src/routes/api/public/cron/check-replies.ts`
-- `src/lib/templates.functions.ts`
-- `src/lib/brands.functions.ts`
-- `src/lib/pitches.functions.ts`
-- `src/lib/gmail.server.ts`
-- `src/lib/trial.server.ts`
-- `src/components/trial-chip.tsx`
-- `src/components/brand-card.tsx`
-- `src/components/pitch-composer.tsx`
-- `src/assets/landing-hero.jpg` (generated)
-- `src/assets/landing-step-*.jpg` (generated)
+## Migrations (one)
 
-**Edited**
-- `src/routes/index.tsx` (full landing rewrite)
-- `src/components/app-shell.tsx` (nav + trial chip)
-- `src/lib/generator-helpers.server.ts` (replace quota with trial)
-- `src/lib/generator.functions.ts`, `viral-lab`, `recycler`, `ugc-hub` routes (gate change)
-- `src/lib/usage.functions.ts` → `src/lib/trial.functions.ts`
+- `coach_messages`, `scheduled_posts`, `growth_snapshots`, `growth_reports`, `pinterest_tokens` — all with owner-only RLS.
+- pg_cron schedules for the two cron routes.
 
-**Migrations**
-1. Add `trial_started_at` to `profiles` (default `now()`, backfill existing users), then enable on signup trigger.
-2. Create `brands`, `user_brands`, `brand_pitches`, `google_tokens` with RLS, indexes, and seed insert for ~50 brands.
+## Build order
 
-## What I need from you to start
+1. Migration + Coach chat (#1) — biggest "wow" on day one.
+2. Scheduler + reminder cron (#2).
+3. Audience-fit + weekly report (#3, #4).
+4. Pinterest UI stubbed → I ping you for App ID/secret → wire OAuth + publish (#5).
 
-- **Confirm the plan** as a whole.
-- **Confirm**: do I proceed building the Brand Hub UI + drafts flow now, with the Gmail connect button stubbed until you complete the Google Cloud OAuth setup? Or wait on everything until you have the OAuth credentials?
+---
+
+**Confirm and I'll start with the migration + Coach chat.** Or tell me to drop/swap any piece.
