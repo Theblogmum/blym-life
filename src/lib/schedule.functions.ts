@@ -76,8 +76,8 @@ export const updateScheduledPost = createServerFn({ method: "POST" })
       if (v === undefined) continue;
       cleanPatch[k] = v === "" ? null : v;
     }
-    const { error } = await supabase
-      .from("scheduled_posts")
+    const { error } = await (supabase
+      .from("scheduled_posts") as unknown as { update: (p: Record<string, unknown>) => { eq: (a: string, b: string) => { eq: (a: string, b: string) => Promise<{ error: { message: string } | null }> } } })
       .update(cleanPatch)
       .eq("id", id)
       .eq("user_id", userId);
