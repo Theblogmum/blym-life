@@ -33,6 +33,7 @@ type Editing = {
   price_cents: number;
   currency: string;
   cover_url: string | null;
+  thumbnail_url: string | null;
   file_path: string | null;
   active: boolean;
   sort_order: number;
@@ -45,6 +46,7 @@ const empty: Editing = {
   price_cents: 0,
   currency: "usd",
   cover_url: null,
+  thumbnail_url: null,
   file_path: null,
   active: true,
   sort_order: 0,
@@ -71,9 +73,9 @@ function AdminProductsPage() {
   });
 
   const [editing, setEditing] = useState<Editing | null>(null);
-  const [uploading, setUploading] = useState<"file" | "cover" | null>(null);
+  const [uploading, setUploading] = useState<"file" | "cover" | "thumbnail" | null>(null);
 
-  const upload = async (kind: "file" | "cover", file: File) => {
+  const upload = async (kind: "file" | "cover" | "thumbnail", file: File) => {
     setUploading(kind);
     try {
       const { path, token } = await getUploadUrl({ data: { fileName: file.name, kind } });
@@ -82,10 +84,14 @@ function AdminProductsPage() {
       if (kind === "file") {
         setEditing((s) => s && { ...s, file_path: path });
         toast.success("File uploaded");
-      } else {
+      } else if (kind === "cover") {
         const { url } = await getCoverUrl({ data: { path } });
         setEditing((s) => s && { ...s, cover_url: url });
         toast.success("Cover uploaded");
+      } else {
+        const { url } = await getCoverUrl({ data: { path } });
+        setEditing((s) => s && { ...s, thumbnail_url: url });
+        toast.success("Thumbnail uploaded");
       }
     } catch (e: any) {
       toast.error(e?.message ?? "Upload failed");
@@ -147,6 +153,7 @@ function AdminProductsPage() {
               <Button size="sm" variant="outline" onClick={() => setEditing({
                 id: p.id, slug: p.slug, title: p.title, description: p.description ?? "",
                 price_cents: p.price_cents, currency: p.currency, cover_url: p.cover_url,
+                thumbnail_url: p.thumbnail_url ?? null,
                 file_path: p.file_path, active: p.active, sort_order: p.sort_order ?? 0,
               })}>Edit</Button>
               <Button size="sm" variant="ghost" onClick={async () => {
@@ -189,10 +196,21 @@ function AdminProductsPage() {
 
                 <div className="rounded-lg border border-border p-3">
                   <Label>Cover image</Label>
+                  <p className="mt-1 text-[11px] text-muted-foreground">Large image shown on the product page. Recommended 1600×1200 (4:3).</p>
                   {editing.cover_url && <img src={editing.cover_url} alt="" className="mt-2 h-28 w-full rounded object-cover" />}
                   <label className="mt-2 inline-flex cursor-pointer items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs">
                     <Upload className="h-3.5 w-3.5" /> {uploading === "cover" ? "Uploading…" : "Upload cover"}
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && upload("cover", e.target.files[0])} />
+                  </label>
+                </div>
+
+                <div className="rounded-lg border border-border p-3">
+                  <Label>Thumbnail (store grid)</Label>
+                  <p className="mt-1 text-[11px] text-muted-foreground">Square crop shown on the store grid. Recommended 800×800 (1:1). Falls back to the cover if empty.</p>
+                  {editing.thumbnail_url && <img src={editing.thumbnail_url} alt="" className="mt-2 h-28 w-28 rounded object-cover" />}
+                  <label className="mt-2 inline-flex cursor-pointer items-center gap-2 rounded-md border border-border bg-background px-3 py-1.5 text-xs">
+                    <Upload className="h-3.5 w-3.5" /> {uploading === "thumbnail" ? "Uploading…" : "Upload thumbnail"}
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && upload("thumbnail", e.target.files[0])} />
                   </label>
                 </div>
 

@@ -125,10 +125,10 @@ function StorePage() {
                   params={{ slug: p.slug }}
                   className="group relative overflow-hidden rounded-3xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_24px_50px_-24px_rgba(0,0,0,0.25)]"
                 >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden" style={{ background: tint }}>
-                    {p.cover_url ? (
+                  <div className="relative aspect-square w-full overflow-hidden" style={{ background: tint }}>
+                    {(p.thumbnail_url || p.cover_url) ? (
                       <img
-                        src={p.cover_url}
+                        src={p.thumbnail_url || p.cover_url}
                         alt={p.title}
                         loading="lazy"
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"

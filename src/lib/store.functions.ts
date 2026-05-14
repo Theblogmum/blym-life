@@ -14,7 +14,7 @@ function admin() {
 export const listProducts = createServerFn({ method: "GET" }).handler(async () => {
   const { data, error } = await admin()
     .from("digital_products")
-    .select("id, slug, title, description, price_cents, currency, cover_url, sort_order, created_at")
+    .select("id, slug, title, description, price_cents, currency, cover_url, thumbnail_url, sort_order, created_at")
     .eq("active", true)
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: true });
@@ -188,6 +188,7 @@ export const adminUpsertProduct = createServerFn({ method: "POST" })
     price_cents: number;
     currency?: string;
     cover_url?: string | null;
+    thumbnail_url?: string | null;
     file_path?: string | null;
     active?: boolean;
     sort_order?: number;
@@ -201,6 +202,7 @@ export const adminUpsertProduct = createServerFn({ method: "POST" })
       price_cents: data.price_cents,
       currency: data.currency ?? "usd",
       cover_url: data.cover_url ?? null,
+      thumbnail_url: data.thumbnail_url ?? null,
       file_path: data.file_path ?? null,
       active: data.active ?? true,
       sort_order: data.sort_order ?? 0,
@@ -230,7 +232,7 @@ export const adminDeleteProduct = createServerFn({ method: "POST" })
 
 export const adminGetUploadUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: { fileName: string; kind: "file" | "cover" }) => d)
+  .inputValidator((d: { fileName: string; kind: "file" | "cover" | "thumbnail" }) => d)
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId as string);
     const safeName = data.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
