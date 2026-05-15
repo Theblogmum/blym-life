@@ -121,3 +121,46 @@ export const deleteScheduledPost = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+const BulkSeriesInput = z.object({
+  platform: z.enum(PLATFORMS),
+  start_date: z.string().datetime(),
+  cadence_days: z.number().int().min(1).max(14),
+  time_of_day: z.string().regex(/^\d{2}:\d{2}$/), // "HH:MM" local
+  episodes: z.array(z.object({
+    number: z.number().int().optional(),
+    title: z.string().max(300).optional(),
+    hook: z.string().max(500).optional(),
+    caption: z.string().max(3000).optional(),
+    cta: z.string().max(500).optional(),
+  })).min(1).max(60),
+});
+
+export const bulkScheduleSeries = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => BulkSeriesInput.parse(d))
+  .handler(async ({ data, context }) => {
+    const { supabase, userId } = context;
+    const tier = await getUserTier(supabase, userId);
+    if (tier === "free") {
+      throw new Error("Scheduler is unlocked on Pro. Upgrade to plan ahead.");
+    }
+    const start = new Date(data.start_date);
+    const [hh, mm] = data.time_of_day.split(":").map(Number);
+    const rows = data.episodes.map((ep, i) => {
+      const when = new Date(start);
+      when.setDate(when.getDate() + i * data.cadence_days);
+      when.setHours(hh, mm, 0, 0);
+      const fullCaption = [ep.caption, ep.cta ? `\n\n${ep.cta}` : ""].filter(Boolean).join("");
+      return {
+        user_id: userId,
+        platform: data.platform,
+        hook: ep.hook || ep.title || null,
+        caption: fullCaption || null,
+        scheduled_for: when.toISOString(),
+      };
+    });
+    const { error } = await supabase.from("scheduled_posts").insert(rows);
+    if (error) throw new Error(error.message);
+    return { ok: true, count: rows.length };
+  });
