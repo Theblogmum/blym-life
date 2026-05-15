@@ -64,7 +64,9 @@ import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lova
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicHooksWeeklyReportRouteImport } from './routes/api/public/hooks/weekly-report'
 import { Route as ApiPublicHooksTrialRemindersRouteImport } from './routes/api/public/hooks/trial-reminders'
+import { Route as ApiPublicHooksPostRemindersRouteImport } from './routes/api/public/hooks/post-reminders'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -360,10 +362,22 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksWeeklyReportRoute =
+  ApiPublicHooksWeeklyReportRouteImport.update({
+    id: '/api/public/hooks/weekly-report',
+    path: '/api/public/hooks/weekly-report',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksTrialRemindersRoute =
   ApiPublicHooksTrialRemindersRouteImport.update({
     id: '/api/public/hooks/trial-reminders',
     path: '/api/public/hooks/trial-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksPostRemindersRoute =
+  ApiPublicHooksPostRemindersRouteImport.update({
+    id: '/api/public/hooks/post-reminders',
+    path: '/api/public/hooks/post-reminders',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -418,7 +432,9 @@ export interface FileRoutesByFullPath {
   '/store/success': typeof StoreSuccessRoute
   '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/post-reminders': typeof ApiPublicHooksPostRemindersRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
+  '/api/public/hooks/weekly-report': typeof ApiPublicHooksWeeklyReportRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -475,7 +491,9 @@ export interface FileRoutesByTo {
   '/store/success': typeof StoreSuccessRoute
   '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/post-reminders': typeof ApiPublicHooksPostRemindersRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
+  '/api/public/hooks/weekly-report': typeof ApiPublicHooksWeeklyReportRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -534,7 +552,9 @@ export interface FileRoutesById {
   '/store_/success': typeof StoreSuccessRoute
   '/_authenticated/admin_/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/post-reminders': typeof ApiPublicHooksPostRemindersRoute
   '/api/public/hooks/trial-reminders': typeof ApiPublicHooksTrialRemindersRoute
+  '/api/public/hooks/weekly-report': typeof ApiPublicHooksWeeklyReportRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -593,7 +613,9 @@ export interface FileRouteTypes {
     | '/store/success'
     | '/admin/products'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/post-reminders'
     | '/api/public/hooks/trial-reminders'
+    | '/api/public/hooks/weekly-report'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -650,7 +672,9 @@ export interface FileRouteTypes {
     | '/store/success'
     | '/admin/products'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/post-reminders'
     | '/api/public/hooks/trial-reminders'
+    | '/api/public/hooks/weekly-report'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -708,7 +732,9 @@ export interface FileRouteTypes {
     | '/store_/success'
     | '/_authenticated/admin_/products'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/post-reminders'
     | '/api/public/hooks/trial-reminders'
+    | '/api/public/hooks/weekly-report'
     | '/api/public/payments/webhook'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -731,7 +757,9 @@ export interface RootRouteChildren {
   StoreSlugRoute: typeof StoreSlugRoute
   StoreSuccessRoute: typeof StoreSuccessRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicHooksPostRemindersRoute: typeof ApiPublicHooksPostRemindersRoute
   ApiPublicHooksTrialRemindersRoute: typeof ApiPublicHooksTrialRemindersRoute
+  ApiPublicHooksWeeklyReportRoute: typeof ApiPublicHooksWeeklyReportRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
@@ -1125,11 +1153,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/weekly-report': {
+      id: '/api/public/hooks/weekly-report'
+      path: '/api/public/hooks/weekly-report'
+      fullPath: '/api/public/hooks/weekly-report'
+      preLoaderRoute: typeof ApiPublicHooksWeeklyReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/trial-reminders': {
       id: '/api/public/hooks/trial-reminders'
       path: '/api/public/hooks/trial-reminders'
       fullPath: '/api/public/hooks/trial-reminders'
       preLoaderRoute: typeof ApiPublicHooksTrialRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/post-reminders': {
+      id: '/api/public/hooks/post-reminders'
+      path: '/api/public/hooks/post-reminders'
+      fullPath: '/api/public/hooks/post-reminders'
+      preLoaderRoute: typeof ApiPublicHooksPostRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -1233,7 +1275,9 @@ const rootRouteChildren: RootRouteChildren = {
   StoreSlugRoute: StoreSlugRoute,
   StoreSuccessRoute: StoreSuccessRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicHooksPostRemindersRoute: ApiPublicHooksPostRemindersRoute,
   ApiPublicHooksTrialRemindersRoute: ApiPublicHooksTrialRemindersRoute,
+  ApiPublicHooksWeeklyReportRoute: ApiPublicHooksWeeklyReportRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
@@ -1242,13 +1286,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
