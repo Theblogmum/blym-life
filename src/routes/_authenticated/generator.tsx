@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { PageHero, UsageChip } from "@/components/page-hero";
 import { TypingDots, IdeaGeneratedBadge } from "@/components/micro";
 import { PersonaBubble } from "@/components/ai-persona";
+import { AudienceFitPanel } from "@/components/audience-fit-panel";
 
 const KINDS = [
   { v: "hook", l: "Hooks", emoji: "🎣", tip: "Stop the scroll in 2 seconds." },
@@ -162,6 +163,9 @@ function GeneratorPage() {
             {options.map((o, i) => (
               <ResultRow key={`${m.submittedAt}-${i}`} index={i + 1} text={o} delayMs={i * 70} />
             ))}
+          </div>
+          <div className="mt-6">
+            <AudienceFitPanel initialText={options[0] ?? ""} />
           </div>
         </section>
       )}

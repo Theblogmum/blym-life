@@ -10,6 +10,8 @@ import { toast } from "sonner";
 import { listCoachMessages, sendCoachMessage, clearCoachHistory } from "@/lib/coach.functions";
 import { PageHero } from "@/components/page-hero";
 import { PersonaBubble } from "@/components/ai-persona";
+import { GrowthSnapshotForm } from "@/components/growth-snapshot-form";
+import { AudienceFitPanel } from "@/components/audience-fit-panel";
 import { cn } from "@/lib/utils";
 
 const SUGGESTED = [
@@ -182,6 +184,11 @@ function GrowthCoachPage() {
           <QuickLink to="/schedule" icon={Target} label="Schedule a post" />
           <QuickLink to="/generator" icon={Sparkles} label="Idea Generator" />
           <QuickLink to="/insights" icon={MessageCircle} label="Log a post" />
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <GrowthSnapshotForm />
+          <AudienceFitPanel />
         </div>
       </section>
     </div>
