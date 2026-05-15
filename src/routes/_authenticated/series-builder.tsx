@@ -44,6 +44,7 @@ function SeriesBuilderPage() {
   const [pillarFilter, setPillarFilter] = useState<string | null>(null);
   const [series, setSeries] = useState<SeriesData | null>(null);
   const [scheduleOpen, setScheduleOpen] = useState(false);
+  const [savedAt, setSavedAt] = useState<number | null>(null);
 
   // Restore last series from localStorage so navigating away doesn't wipe it
   useEffect(() => {
@@ -54,10 +55,21 @@ function SeriesBuilderPage() {
         if (parsed?.series) {
           setSeries(parsed.series);
           if (parsed.topic) setTopic(parsed.topic);
+          if (parsed.savedAt) setSavedAt(parsed.savedAt);
         }
       }
     } catch { /* ignore */ }
   }, []);
+
+  // Belt-and-braces: persist on every series change too (not just onSuccess)
+  useEffect(() => {
+    if (!series) return;
+    try {
+      const ts = Date.now();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ topic, series, savedAt: ts }));
+      setSavedAt(ts);
+    } catch { /* ignore quota */ }
+  }, [series, topic]);
 
   const usage = useQuery({ queryKey: ["usage", "today"], queryFn: () => fetchUsage() });
   const m = useMutation({
@@ -67,9 +79,6 @@ function SeriesBuilderPage() {
       setOpenIdx(0);
       setPillarFilter(null);
       setSeries(data);
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ topic, series: data, savedAt: Date.now() }));
-      } catch { /* ignore quota */ }
     },
   });
   const premium = !!usage.data?.premium;
@@ -103,6 +112,7 @@ function SeriesBuilderPage() {
 
   const clearSaved = () => {
     setSeries(null);
+    setSavedAt(null);
     try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
   };
 
@@ -150,6 +160,11 @@ function SeriesBuilderPage() {
               <p className="mt-2 text-xs text-foreground/60">
                 This one takes ~30 seconds — we're writing 30 full briefs. Your series is auto-saved on this device, so it won't disappear if you switch tabs.
               </p>
+              {savedAt && (
+                <p className="mt-1 text-xs font-semibold text-primary">
+                  ✓ Auto-saved {new Date(savedAt).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                </p>
+              )}
             </div>
             {locked && (
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">
