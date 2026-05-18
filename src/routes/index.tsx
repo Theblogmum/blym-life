@@ -195,7 +195,7 @@ function Landing() {
       <CreatorJourney />
 
       {/* ============ HOW IT HELPS ============ */}
-      <section id="features" className="relative bg-background py-16 sm:py-[90px]">
+      <section id="features" className="relative bg-background py-14 sm:py-[78px]">
         {/* Floating decorative chips */}
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> New brief daily
@@ -267,7 +267,7 @@ function Landing() {
             ].map((t, i) => (
               <figure
                 key={t.handle}
-                className="relative rounded-3xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)]"
+                className="group relative rounded-3xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.015] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
                 style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
               >
                 <Quote className="absolute right-3 top-3 h-5 w-5 text-primary/30" />
@@ -549,8 +549,8 @@ function PriceCard({
 }) {
   return (
     <div className={highlighted
-      ? "relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)]"
-      : "card-elegant h-full p-5 text-left flex flex-col"}>
+      ? "group relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_30px_80px_-20px_color-mix(in_oklab,var(--primary)_45%,transparent)]"
+      : "group card-elegant h-full p-5 text-left flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"}>
       <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-4 sm:p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
         {highlighted && (
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-background">Most loved</span>
@@ -564,7 +564,7 @@ function PriceCard({
           {features.map((f) => (
             <li key={f} className="flex items-start gap-1.5">
               <span className="mt-0.5 grid h-3 w-3 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2 w-2" /></span>
-              <span className="min-w-0 break-words text-foreground/80">{f}</span>
+              <span className="min-w-0 break-words text-foreground/90">{f}</span>
             </li>
           ))}
         </ul>
@@ -572,7 +572,7 @@ function PriceCard({
           onClick={cta.onClick}
           disabled={cta.disabled}
           size="sm"
-          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-anchor text-anchor-foreground hover:bg-anchor/90" : ""}`}
+          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] ${highlighted ? "bg-anchor text-anchor-foreground hover:bg-anchor/90" : ""}`}
           variant={highlighted ? "default" : "outline"}
         >
           {cta.label}
