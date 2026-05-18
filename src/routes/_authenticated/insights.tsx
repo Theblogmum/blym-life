@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { TrendingUp, Plus } from "lucide-react";
+import { PageHero } from "@/components/page-hero";
 import { toast } from "sonner";
 import { listPosts, logPost } from "@/lib/insights.functions";
 import { EmptyState } from "@/components/empty-state";
@@ -43,85 +43,95 @@ function InsightsPage() {
   const avg = posts.length ? Math.round(posts.reduce((s: number, p: any) => s + (p.views ?? 0), 0) / posts.length) : 0;
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-8">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="rounded-2xl bg-secondary p-2 text-primary"><TrendingUp className="h-5 w-5" /></div>
-          <div>
-            <h1 className="font-display text-3xl font-black">Growth Insights</h1>
-            <p className="text-sm text-muted-foreground">Log what you post. We'll spot what works for YOU.</p>
-          </div>
+    <div>
+      <PageHero
+        icon={TrendingUp}
+        eyebrow="growth insights"
+        title="What's actually working for you."
+        description="log what you post — we'll spot the patterns. small wins compound."
+        variant="mint"
+      />
+      <div className="mx-auto max-w-3xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
+        <div className="mb-6 flex justify-end">
+          <Button onClick={() => setOpen((o) => !o)} className="group rounded-full transition hover:-translate-y-[1px] hover:shadow-[var(--shadow-soft)]">
+            <Plus className="mr-1 h-4 w-4 transition-transform group-hover:rotate-90" />Log post
+          </Button>
         </div>
-        <Button onClick={() => setOpen((o) => !o)} className="rounded-full"><Plus className="mr-1 h-4 w-4" />Log post</Button>
-      </div>
 
-      {open && (
-        <Card className="mt-5 rounded-3xl p-5">
+        {open && (
+        <div className="soft-card mb-6 p-5 sm:p-6">
           <div className="grid gap-3 sm:grid-cols-2">
             <div className="sm:col-span-2"><Label>Description</Label>
-              <Textarea rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div>
+              <Textarea className="mt-1.5 rounded-xl border-border/50" rows={2} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} /></div>
             <div className="sm:col-span-2"><Label>Hook used</Label>
-              <Input value={form.hook} onChange={(e) => setForm({ ...form, hook: e.target.value })} /></div>
+              <Input className="mt-1.5 rounded-xl border-border/50" value={form.hook} onChange={(e) => setForm({ ...form, hook: e.target.value })} /></div>
             <div><Label>Platform</Label>
-              <Input value={form.platform} onChange={(e) => setForm({ ...form, platform: e.target.value })} /></div>
+              <Input className="mt-1.5 rounded-xl border-border/50" value={form.platform} onChange={(e) => setForm({ ...form, platform: e.target.value })} /></div>
             <div><Label>Views</Label>
-              <Input type="number" value={form.views} onChange={(e) => setForm({ ...form, views: +e.target.value })} /></div>
+              <Input className="mt-1.5 rounded-xl border-border/50" type="number" value={form.views} onChange={(e) => setForm({ ...form, views: +e.target.value })} /></div>
             <div><Label>Likes</Label>
-              <Input type="number" value={form.likes} onChange={(e) => setForm({ ...form, likes: +e.target.value })} /></div>
+              <Input className="mt-1.5 rounded-xl border-border/50" type="number" value={form.likes} onChange={(e) => setForm({ ...form, likes: +e.target.value })} /></div>
             <div><Label>Comments</Label>
-              <Input type="number" value={form.comments} onChange={(e) => setForm({ ...form, comments: +e.target.value })} /></div>
+              <Input className="mt-1.5 rounded-xl border-border/50" type="number" value={form.comments} onChange={(e) => setForm({ ...form, comments: +e.target.value })} /></div>
           </div>
-          <Button className="mt-4 rounded-full" disabled={!form.description.trim() || m.isPending} onClick={() => m.mutate()}>
+          <Button className="mt-5 rounded-full transition hover:-translate-y-[1px]" disabled={!form.description.trim() || m.isPending} onClick={() => m.mutate()}>
             {m.isPending ? "Saving…" : "Save post"}
           </Button>
-        </Card>
-      )}
+        </div>
+        )}
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
-        <Stat label="Posts logged" value={posts.length} />
-        <Stat label="Avg views" value={avg.toLocaleString()} />
-        <Stat label="Top post" value={top ? `${(top.views ?? 0).toLocaleString()} views` : "—"} />
-      </div>
+        <div className="grid gap-3 sm:grid-cols-3 sm:gap-3.5">
+          <Stat label="Posts logged" value={posts.length} tint="var(--surface-mint)" />
+          <Stat label="Avg views" value={avg.toLocaleString()} tint="var(--surface-sky)" />
+          <Stat label="Top post" value={top ? `${(top.views ?? 0).toLocaleString()}` : "—"} suffix={top ? "views" : undefined} tint="var(--surface-blush)" />
+        </div>
 
-      <div className="mt-6 space-y-3">
-        {posts.map((p: any) => (
-          <Card key={p.id} className="rounded-2xl p-4">
-            <div className="flex items-center justify-between">
-              <p className="font-medium">{p.description}</p>
-              <span className="text-xs text-muted-foreground">{p.platform}</span>
+        <div className="mt-8 space-y-2.5">
+          {posts.map((p: any) => (
+            <div key={p.id} className="group rounded-2xl border border-border/40 bg-card p-4 sm:p-5 shadow-[var(--shadow-xs)] transition-all duration-500 ease-out hover:-translate-y-[2px] hover:border-border/60 hover:shadow-[var(--shadow-elegant)]">
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-[14px] font-semibold leading-snug text-foreground/90">{p.description}</p>
+                <span className="chip-soft shrink-0">{p.platform}</span>
+              </div>
+              {p.hook && <p className="mt-1.5 text-[12px] italic text-muted-foreground/90">"{p.hook}"</p>}
+              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] font-medium text-foreground/55 tabular-nums">
+                <span>{(p.views ?? 0).toLocaleString()} views</span>
+                <span>{p.likes ?? 0} likes</span>
+                <span>{p.comments ?? 0} comments</span>
+              </div>
             </div>
-            {p.hook && <p className="mt-1 text-xs text-muted-foreground">"{p.hook}"</p>}
-            <div className="mt-2 flex gap-4 text-xs text-muted-foreground">
-              <span>{(p.views ?? 0).toLocaleString()} views</span>
-              <span>{p.likes ?? 0} likes</span>
-              <span>{p.comments ?? 0} comments</span>
-            </div>
-          </Card>
-        ))}
-        {!posts.length && (
+          ))}
+          {!posts.length && (
           <EmptyState
             icon={TrendingUp}
             tone="mint"
             title="No posts logged yet"
             description="Tap Log post to track views, likes and the hook you used. After 3 posts we'll start spotting patterns just for you."
             action={
-              <Button onClick={() => setOpen(true)} className="rounded-full">
+              <Button onClick={() => setOpen(true)} className="rounded-full transition hover:-translate-y-[1px]">
                 <Plus className="mr-1 h-4 w-4" /> Log your first post
               </Button>
             }
             hint="+8 XP per post · combos for posting daily"
           />
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function Stat({ label, value }: { label: string; value: string | number }) {
+function Stat({ label, value, suffix, tint }: { label: string; value: string | number; suffix?: string; tint: string }) {
   return (
-    <Card className="rounded-2xl p-4">
-      <p className="text-xs text-muted-foreground">{label}</p>
-      <p className="mt-1 text-2xl font-display font-black">{value}</p>
-    </Card>
+    <div
+      className="relative overflow-hidden rounded-2xl border border-border/30 p-4 sm:p-5 transition-all duration-500 hover:-translate-y-[2px] hover:shadow-[var(--shadow-elegant)]"
+      style={{ background: `color-mix(in oklab, ${tint} 60%, var(--background))` }}
+    >
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/55">{label}</p>
+      <p className="mt-2 font-display text-[26px] font-bold leading-none tracking-[-0.018em] tabular-nums">
+        {value}
+        {suffix && <span className="ml-1.5 text-[12px] font-semibold tracking-normal text-foreground/55">{suffix}</span>}
+      </p>
+    </div>
   );
 }
