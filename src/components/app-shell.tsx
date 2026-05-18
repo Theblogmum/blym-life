@@ -25,6 +25,7 @@ import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { LowEnergyButton } from "@/components/low-energy-button";
 import { ToolBanner } from "@/components/tool-banner";
 import { EraTheme } from "@/components/era-theme";
+import { PlayerHud } from "@/components/player-hud";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -362,6 +363,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </button>
 
               <div className="ml-auto flex items-center gap-2">
+                <PlayerHud />
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
