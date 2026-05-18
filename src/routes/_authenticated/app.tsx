@@ -195,8 +195,8 @@ function HomePage() {
           {/* magic moment — floating encouragement sticker */}
           <div
             aria-hidden
-            className="sticker-bob pointer-events-none absolute right-6 top-6 hidden select-none lg:block"
-            style={{ ["--sticker-rot" as any]: "-7deg" }}
+            className="sticker-bob pointer-events-none absolute bottom-4 right-8 hidden select-none lg:block"
+            style={{ ["--sticker-rot" as any]: "-6deg" }}
           >
             <div
               className="rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-[0_10px_30px_-12px_oklch(0.66_0.24_350/0.35)] ring-1 ring-white/60 backdrop-blur"
