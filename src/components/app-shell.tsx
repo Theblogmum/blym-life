@@ -3,6 +3,7 @@ import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus, Trophy,
+  Gift,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { LowEnergyButton } from "@/components/low-energy-button";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -33,6 +35,7 @@ const SECTIONS: Section[] = [
     groups: [
       { label: "Today", icon: Home, to: "/app" },
       { label: "My journey", icon: Trophy, to: "/journey" },
+      { label: "Rewards", icon: Gift, to: "/rewards" },
       { label: "Pep talk", icon: MessageCircle, to: "/growth-coach" },
       { label: "Schedule", icon: Calendar, to: "/schedule" },
       { label: "Plan my week", icon: Calendar, to: "/planner" },
@@ -386,6 +389,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </div>
       <MobileBottomNav onSearch={() => setPaletteOpen(true)} />
+      <LowEnergyButton />
     </div>
   );
 }

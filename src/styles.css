@@ -440,4 +440,17 @@
     .typing-dots i, .sparkle-pop, .card-pop, .pulse-glow, .shimmer { animation: none !important; }
     .glow-hover:hover { transform: none; }
   }
+
+  /* ===== Low energy / chaos mode — softer, calmer, less stimulating ===== */
+  .low-energy {
+    --primary: oklch(0.72 0.1 320);
+    --accent: oklch(0.78 0.08 30);
+    --background: oklch(0.985 0.008 280);
+  }
+  .low-energy .wiggle, .low-energy .pulse-glow, .low-energy .float-slow,
+  .low-energy .sparkle-pop, .low-energy .bounce-in, .low-energy .shimmer {
+    animation: none !important;
+  }
+  .low-energy * { transition-duration: 0ms !important; }
+  .low-energy .sticker { box-shadow: 0 2px 0 0 var(--foreground); border-width: 1.5px; }
 }
