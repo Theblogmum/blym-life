@@ -24,6 +24,7 @@ import { useQuery } from "@tanstack/react-query";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { LowEnergyButton } from "@/components/low-energy-button";
+import { ToolBanner } from "@/components/tool-banner";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -389,7 +390,10 @@ export function AppShell({ children }: { children: ReactNode }) {
             </div>
           </header>
 
-          <main className="overflow-x-hidden pb-20 lg:pb-0">{children}</main>
+          <main className="overflow-x-hidden pb-20 lg:pb-0">
+            <ToolBanner />
+            {children}
+          </main>
         </div>
       </div>
       <MobileBottomNav onSearch={() => setPaletteOpen(true)} />
