@@ -157,14 +157,14 @@ function HomePage() {
     <div className="relative pb-8">
       {/* ============ AMBIENT PAGE ATMOSPHERE — soft drifting blooms ============ */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-32 -left-24 h-[520px] w-[520px] rounded-full opacity-[0.55] blur-[120px]"
+        <div className="bloom-drift absolute -top-32 -left-24 h-[520px] w-[520px] rounded-full opacity-[0.55] blur-[120px]"
              style={{ background: "radial-gradient(circle, oklch(0.92 0.1 30 / 0.7), transparent 65%)" }} />
-        <div className="absolute top-[18%] -right-32 h-[600px] w-[600px] rounded-full opacity-[0.5] blur-[140px]"
+        <div className="bloom-drift--slow absolute top-[18%] -right-32 h-[600px] w-[600px] rounded-full opacity-[0.5] blur-[140px]"
              style={{ background: "radial-gradient(circle, oklch(0.9 0.11 340 / 0.65), transparent 65%)" }} />
-        <div className="absolute top-[55%] left-[-10%] h-[640px] w-[640px] rounded-full opacity-[0.42] blur-[150px]"
-             style={{ background: "radial-gradient(circle, oklch(0.9 0.1 85 / 0.55), transparent 65%)" }} />
-        <div className="absolute bottom-[8%] right-[-8%] h-[560px] w-[560px] rounded-full opacity-[0.4] blur-[140px]"
-             style={{ background: "radial-gradient(circle, oklch(0.88 0.1 290 / 0.55), transparent 65%)" }} />
+        <div className="bloom-drift absolute top-[55%] left-[-10%] h-[640px] w-[640px] rounded-full opacity-[0.42] blur-[150px]"
+             style={{ animationDelay: "-6s", background: "radial-gradient(circle, oklch(0.9 0.1 85 / 0.55), transparent 65%)" }} />
+        <div className="bloom-drift--slow absolute bottom-[8%] right-[-8%] h-[560px] w-[560px] rounded-full opacity-[0.4] blur-[140px]"
+             style={{ animationDelay: "-12s", background: "radial-gradient(circle, oklch(0.88 0.1 290 / 0.55), transparent 65%)" }} />
       </div>
 
       {/* ============ HERO: greeting + level card ============ */}
@@ -185,11 +185,24 @@ function HomePage() {
           </div>
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <h1 className="font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:text-[40px]">
+              <h1 className="max-w-[18ch] font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[40px]">
                 {opener}
               </h1>
             </div>
             <TrialPill />
+          </div>
+
+          {/* magic moment — floating encouragement sticker */}
+          <div
+            aria-hidden
+            className="sticker-bob pointer-events-none absolute bottom-4 right-8 hidden select-none lg:block"
+            style={{ ["--sticker-rot" as any]: "-6deg" }}
+          >
+            <div
+              className="rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-[0_10px_30px_-12px_oklch(0.66_0.24_350/0.35)] ring-1 ring-white/60 backdrop-blur"
+            >
+              ✨ you showed up — that's the win
+            </div>
           </div>
 
         </div>
@@ -221,10 +234,10 @@ function HomePage() {
                       className={cn(
                         "group/badge relative flex h-[135px] w-[114px] flex-col items-center justify-center gap-2 overflow-hidden rounded-[1.3rem] p-2.5 text-center transition-all duration-500",
                         got
-                          ? "bg-white/85 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_20px_42px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.7))]"
+                          ? "shimmer-soft bg-white/75 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_24px_48px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.75))]"
                           : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
                       )}
-                      style={got ? ({ ["--badge-glow" as any]: b.glow } as React.CSSProperties) : undefined}
+                      style={got ? ({ ["--badge-glow" as any]: b.glow, ["--shimmer-delay" as any]: `${(b.id.length % 5) * 0.6}s` } as React.CSSProperties) : undefined}
                     >
                       {got && (
                         <>

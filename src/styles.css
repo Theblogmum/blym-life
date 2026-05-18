@@ -73,7 +73,8 @@
   /* Soft warm cream — feels like a sticker book */
   --background: oklch(0.985 0.012 70);
   --foreground: oklch(0.18 0.02 280);
-  --card: oklch(1 0 0);
+  /* Warm translucent cream — replaces sterile white for cohesion with landing */
+  --card: oklch(0.992 0.008 75);
   --card-foreground: oklch(0.13 0.012 20);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.012 20);
@@ -90,8 +91,9 @@
   --anchor: oklch(0.42 0.18 295);
   --anchor-foreground: oklch(1 0 0);
   /* Sidebar active pill — same chunky purple as anchor */
-  --sidebar-active: oklch(0.42 0.18 295);
+  --sidebar-active: linear-gradient(135deg, oklch(0.5 0.2 320), oklch(0.42 0.18 295));
   --sidebar-active-foreground: oklch(1 0 0);
+  --sidebar-active-glow: 0 10px 24px -12px oklch(0.5 0.22 320 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.18);
   /* Sunny butter surfaces */
   --secondary: oklch(0.96 0.05 90);
   --secondary-foreground: oklch(0.18 0.01 20);
@@ -638,6 +640,100 @@
   @media (prefers-reduced-motion: reduce) {
     .typing-dots i, .sparkle-pop, .card-pop, .pulse-glow, .shimmer { animation: none !important; }
     .glow-hover:hover { transform: none; }
+  }
+
+  /* ===== Sanctuary polish — atmospheric sidebar + magic moments ===== */
+
+  /* Glassy translucent sidebar surface — replaces flat bg-card */
+  .glass-sidebar {
+    background:
+      linear-gradient(180deg,
+        color-mix(in oklab, var(--surface-blush) 28%, var(--background)) 0%,
+        color-mix(in oklab, var(--surface-butter) 18%, var(--background)) 55%,
+        color-mix(in oklab, var(--surface-stone) 40%, var(--background)) 100%);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border-right: 1px solid color-mix(in oklab, var(--border) 45%, transparent);
+    box-shadow: inset -1px 0 0 oklch(1 0 0 / 0.35);
+  }
+
+  /* Active sidebar link — warm gradient pill with soft halo */
+  .sidebar-active-pill {
+    background: linear-gradient(135deg, oklch(0.52 0.21 320), oklch(0.42 0.18 295));
+    color: oklch(1 0 0);
+    box-shadow:
+      0 10px 24px -12px oklch(0.5 0.22 320 / 0.55),
+      inset 0 1px 0 oklch(1 0 0 / 0.22);
+    position: relative;
+  }
+  .sidebar-active-pill::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(60% 80% at 0% 50%, oklch(1 0 0 / 0.12), transparent 60%);
+    pointer-events: none;
+  }
+  .sidebar-link {
+    transition: background 280ms ease, color 220ms ease, transform 220ms ease,
+                box-shadow 320ms ease;
+  }
+  .sidebar-link:hover {
+    background: color-mix(in oklab, var(--primary) 7%, transparent);
+    color: var(--foreground);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--primary) 14%, transparent);
+  }
+
+  /* Ambient drifting blooms — used on dashboard backdrop */
+  @keyframes bloom-drift {
+    0%, 100% { transform: translate3d(0,0,0) scale(1); opacity: var(--bloom-o, 0.5); }
+    50%      { transform: translate3d(18px,-22px,0) scale(1.05); opacity: calc(var(--bloom-o, 0.5) + 0.05); }
+  }
+  .bloom-drift { animation: bloom-drift 22s ease-in-out infinite; }
+  .bloom-drift--slow { animation: bloom-drift 34s ease-in-out infinite; }
+
+  /* Soft shimmer sweep (for badges, "magic" surfaces) — subtler than .shimmer */
+  @keyframes shimmer-soft {
+    0%   { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+    35%  { opacity: 0.7; }
+    100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+  }
+  .shimmer-soft {
+    position: relative; overflow: hidden; isolation: isolate;
+  }
+  .shimmer-soft::after {
+    content: "";
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: 40%;
+    background: linear-gradient(90deg,
+      transparent,
+      color-mix(in oklab, white 70%, transparent),
+      transparent);
+    mix-blend-mode: overlay;
+    animation: shimmer-soft 5.5s ease-in-out infinite;
+    animation-delay: var(--shimmer-delay, 0s);
+    pointer-events: none;
+  }
+
+  /* Magic glow — pulsing soft halo for delight surfaces */
+  @keyframes magic-glow {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 0%, transparent),
+                           0 16px 38px -22px color-mix(in oklab, var(--primary) 32%, transparent); }
+    50%      { box-shadow: 0 0 0 6px color-mix(in oklab, var(--primary) 6%, transparent),
+                           0 22px 52px -22px color-mix(in oklab, var(--primary) 46%, transparent); }
+  }
+  .magic-glow { animation: magic-glow 5s ease-in-out infinite; }
+
+  /* Floating emotional sticker — gentle bob + tilt */
+  @keyframes sticker-bob {
+    0%, 100% { transform: translateY(0) rotate(var(--sticker-rot, -8deg)); }
+    50%      { transform: translateY(-7px) rotate(calc(var(--sticker-rot, -8deg) + 2deg)); }
+  }
+  .sticker-bob { animation: sticker-bob 4.5s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bloom-drift, .bloom-drift--slow, .shimmer-soft::after, .magic-glow, .sticker-bob {
+      animation: none !important;
+    }
   }
 
   /* Page route transition — soft fade-up between pages */
