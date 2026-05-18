@@ -7,6 +7,7 @@ import { getMyPurchases, getDownloadUrl } from "@/lib/store.functions";
 import { Button } from "@/components/ui/button";
 import { Download, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
+import { EmptyState } from "@/components/empty-state";
 
 export const Route = createFileRoute("/_authenticated/library")({
   head: () => ({ meta: [{ title: "My Library · Blym" }] }),
@@ -43,11 +44,20 @@ function LibraryPage() {
           {q.isLoading ? (
             <p className="text-muted-foreground">Loading…</p>
           ) : purchases.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-border bg-card p-10 text-center">
-              <ShoppingBag className="mx-auto h-8 w-8 text-muted-foreground" />
-              <p className="mt-3 text-sm text-muted-foreground">No purchases yet.</p>
-              <a href="/store" className="mt-4 inline-block text-sm font-semibold underline">Browse the store →</a>
-            </div>
+            <EmptyState
+              icon={ShoppingBag}
+              tone="butter"
+              title="Your library is waiting"
+              description="Guides and templates you buy will land here, ready to download forever."
+              action={
+                <a
+                  href="/store"
+                  className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background hover:opacity-90"
+                >
+                  Browse the store →
+                </a>
+              }
+            />
           ) : (
             purchases.map((p: any) => (
               <div key={p.id} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4">
