@@ -177,79 +177,50 @@ function Landing() {
       </section>
 
       {/* ============ HOW IT HELPS ============ */}
-      <section className="relative bg-background py-24 sm:py-32">
+      <section id="features" className="relative bg-background py-24 sm:py-32">
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
           <div className="max-w-2xl">
-            <p className="eyebrow">What you can do in Blym</p>
+            <p className="eyebrow">The toolkit</p>
             <h2 className="mt-4 font-display text-[32px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[48px]">
-              Real tools for the bits that actually slow you down.
+              Everything you need to keep creating.
             </h2>
+            <p className="mt-4 max-w-md text-[15px] leading-[1.65] text-muted-foreground">
+              Calm, focused tools for the bits that slow you down. Swipe through →
+            </p>
           </div>
+        </div>
 
-          <div className="mt-16 space-y-24 sm:space-y-32">
-            {/* Row 1 — image right */}
-            <FeatureRow
-              copy={
-                <>
-                  <p className="eyebrow">Generate</p>
-                  <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
-                    Generate Viral Hooks In <span className="italic text-primary">1 Click</span>.
-                  </h3>
-                  <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
-                    No more "Are you tired of…" openers. Just hooks that sound like you on a good day.
-                  </p>
-                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
-                    Try the generator <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </>
-              }
-              image={featBrief}
-              imageSide="right"
-              tint="var(--surface-peach)"
-            />
-
-            {/* Row 2 — image left, slightly offset for asymmetry */}
-            <FeatureRow
-              copy={
-                <>
-                  <p className="eyebrow">Plan</p>
-                  <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
-                    Plan a week of content in <span className="italic text-primary">5 minutes</span>.
-                  </h3>
-                  <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
-                    Drag, drop, done. A full content week — laid out around your real life, not a 22-year-old's calendar.
-                  </p>
-                  <Link to="/planner" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
-                    Open the planner <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </>
-              }
-              image={featBrand}
-              imageSide="left"
-              tint="var(--surface-mint)"
-              offset
-            />
-
-            {/* Row 3 — image right */}
-            <FeatureRow
-              copy={
-                <>
-                  <p className="eyebrow">Create</p>
-                  <h3 className="mt-3 font-display text-[28px] leading-[1.1] tracking-[-0.015em] sm:text-[36px]">
-                    Never stare at a <span className="italic text-primary">blank caption box</span> again.
-                  </h3>
-                  <p className="mt-4 max-w-md text-[16px] leading-[1.65] text-muted-foreground">
-                    Tell Blym what you filmed — get four ready-to-post captions in your voice, with the right hooks and CTAs.
-                  </p>
-                  <Link to="/generator" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground hover:text-anchor">
-                    Open the generator <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </>
-              }
-              image={featGrow}
-              imageSide="right"
-              tint="var(--surface-blush)"
-            />
+        {/* Swipeable horizontal carousel */}
+        <div className="mt-12 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex gap-5 px-5 sm:px-8 snap-x snap-mandatory">
+            {[
+              { icon: Zap, title: "Viral Hooks", body: "Hooks that sound like you on a good day — never \"Are you tired of…\" again.", tint: "var(--surface-peach)", to: "/generator" as const },
+              { icon: MessageSquareText, title: "Captions in your voice", body: "Four ready-to-post captions with the right hooks and CTAs in seconds.", tint: "var(--surface-blush)", to: "/generator" as const },
+              { icon: CalendarDays, title: "Weekly Planner", body: "Drag, drop, done. A full week laid out around your real life.", tint: "var(--surface-mint)", to: "/planner" as const },
+              { icon: Recycle, title: "Recycler", body: "Turn one idea into a week's worth of fresh angles.", tint: "var(--surface-peach)", to: "/app" as const },
+              { icon: LineChart, title: "Insights", body: "See what's working — without doom-scrolling your own analytics.", tint: "var(--surface-mint)", to: "/app" as const },
+              { icon: Trophy, title: "Creator Wins", body: "Celebrate every milestone. Build the receipts for your brand pitches.", tint: "var(--surface-blush)", to: "/app" as const },
+            ].map((c, i) => (
+              <Link
+                key={c.title}
+                to={c.to}
+                className="group relative shrink-0 snap-start w-[78vw] max-w-[320px] sm:w-[320px] rounded-[2rem] border border-border/60 bg-card p-6 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+                style={{ animation: `fade-in 0.5s ease-out ${i * 0.08}s both` }}
+              >
+                <div
+                  className="grid h-14 w-14 place-items-center rounded-2xl text-foreground transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]"
+                  style={{ background: c.tint }}
+                >
+                  <c.icon className="h-6 w-6" />
+                </div>
+                <h3 className="mt-6 font-display text-[22px] leading-[1.15] tracking-[-0.015em]">{c.title}</h3>
+                <p className="mt-2 text-[14px] leading-[1.6] text-muted-foreground text-pretty">{c.body}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-foreground transition-transform duration-300 group-hover:translate-x-1">
+                  Open <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
+            <div className="shrink-0 w-2 sm:w-4" aria-hidden />
           </div>
         </div>
       </section>
@@ -270,9 +241,6 @@ function Landing() {
               { name: "Hannah", handle: "@hannah.mums", role: "Mum of 2 · Manchester", body: "I went from staring at a blank caption box to filming 5 reels in one nap. Genuinely the calmest content tool I've used." },
               { name: "Priya", handle: "@priyacreates", role: "UGC creator · London", body: "The hooks are scary good. Two went viral in my first week. It's like having a content coach in my pocket." },
               { name: "Steph", handle: "@stephmumlife", role: "Mum of 3 · Leeds", body: "Finally a tool built for mum schedules — not 22-year-old creators with 12 free hours a day." },
-              { name: "Aisha", handle: "@aisha.athome", role: "Mum of 1 · Birmingham", body: "I batched a whole week of content during one nap time. The captions sound like ME, not a robot." },
-              { name: "Megan", handle: "@meg.makesreels", role: "Mum of 2 · Bristol", body: "First brand deal landed in week three. The pitch templates are genuinely a cheat code." },
-              { name: "Lola", handle: "@lola.daily", role: "Mum of 4 · Glasgow", body: "Honestly didn't think AI could 'get' mum content. Blym does. My engagement is up 3x." },
             ].map((t, i) => (
               <figure
                 key={t.handle}
