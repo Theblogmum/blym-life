@@ -373,6 +373,39 @@
   }
   .float-slow { animation: float-up 3.5s ease-in-out infinite; }
 
+  /* Drift — floating sticker with subtle rotation */
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(var(--drift-rot, -6deg)); }
+    50%      { transform: translate(0, -10px) rotate(calc(var(--drift-rot, -6deg) + 3deg)); }
+  }
+  .drift { animation: drift 6s ease-in-out infinite; }
+  .drift-slow { animation: drift 9s ease-in-out infinite; }
+
+  /* Slow moving gradient backdrop */
+  @keyframes gradient-drift {
+    0%, 100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  .gradient-drift {
+    background-size: 220% 220%;
+    animation: gradient-drift 18s ease-in-out infinite;
+  }
+
+  /* Sticker — slightly tilted, soft shadow, chunky border */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 9999px;
+    background: var(--card);
+    box-shadow: 0 6px 20px -8px color-mix(in oklab, var(--foreground) 30%, transparent),
+                inset 0 0 0 1px color-mix(in oklab, var(--foreground) 8%, transparent);
+    font-weight: 600;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
   /* Subtle grain overlay (uses inline svg) */
   .grain::after {
     content: "";
