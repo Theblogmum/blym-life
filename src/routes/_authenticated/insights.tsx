@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { TrendingUp, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { listPosts, logPost } from "@/lib/insights.functions";
+import { EmptyState } from "@/components/empty-state";
+import { xpPop } from "@/lib/xp-pop";
 
 export const Route = createFileRoute("/_authenticated/insights")({
   component: InsightsPage,
@@ -28,6 +30,7 @@ function InsightsPage() {
     mutationFn: () => log({ data: form }),
     onSuccess: () => {
       toast.success("Logged");
+      xpPop(8, "post logged");
       setOpen(false);
       setForm({ description: "", platform: "TikTok", views: 0, likes: 0, comments: 0, hook: "" });
       qc.invalidateQueries({ queryKey: ["posts"] });
@@ -96,7 +99,18 @@ function InsightsPage() {
           </Card>
         ))}
         {!posts.length && (
-          <p className="text-center text-sm text-muted-foreground">No posts logged yet.</p>
+          <EmptyState
+            icon={TrendingUp}
+            tone="mint"
+            title="No posts logged yet"
+            description="Tap Log post to track views, likes and the hook you used. After 3 posts we'll start spotting patterns just for you."
+            action={
+              <Button onClick={() => setOpen(true)} className="rounded-full">
+                <Plus className="mr-1 h-4 w-4" /> Log your first post
+              </Button>
+            }
+            hint="+8 XP per post · combos for posting daily"
+          />
         )}
       </div>
     </div>

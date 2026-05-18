@@ -17,6 +17,7 @@ import { listBrands, addUserBrand } from "@/lib/brands.functions";
 import { listPitches, composePitch, savePitchDraft, updatePitchStatus, deletePitch } from "@/lib/pitches.functions";
 import { getUsageToday } from "@/lib/usage.functions";
 import { PageHero, UsageChip } from "@/components/page-hero";
+import { EmptyState } from "@/components/empty-state";
 
 export const Route = createFileRoute("/_authenticated/brand-hub")({
   component: BrandHubPage,
@@ -443,11 +444,13 @@ function OutreachTable({ pitches, onChanged }: { pitches: Pitch[]; onChanged: ()
 
   if (pitches.length === 0) {
     return (
-      <Card className="rounded-3xl p-10 text-center">
-        <Mail className="mx-auto h-8 w-8 text-muted-foreground" />
-        <p className="mt-3 font-display text-lg font-black">No pitches yet</p>
-        <p className="mt-1 text-sm text-muted-foreground">Head to <strong>Discover</strong> and pitch your first brand.</p>
-      </Card>
+      <EmptyState
+        icon={Mail}
+        tone="bloom"
+        title="No pitches yet"
+        description="Head to Discover, pick a brand and send your first pitch. Drafts, sends and follow-ups all land here."
+        hint="+15 XP per pitch sent"
+      />
     );
   }
 

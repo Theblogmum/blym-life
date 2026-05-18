@@ -11,6 +11,8 @@ import { Link2, Plus, Trash2, Copy } from "lucide-react";
 import { toast } from "sonner";
 import { listAffiliates, saveAffiliate, deleteAffiliate } from "@/lib/business.functions";
 import { PageHero } from "@/components/page-hero";
+import { EmptyState } from "@/components/empty-state";
+import { xpPop } from "@/lib/xp-pop";
 
 export const Route = createFileRoute("/_authenticated/affiliates")({ component: Page });
 
@@ -21,7 +23,7 @@ function Page() {
   const qc = useQueryClient();
   const q = useQuery({ queryKey: ["affiliates"], queryFn: () => list() });
   const [form, setForm] = useState(blank());
-  const m = useMutation({ mutationFn: () => save({ data: form }), onSuccess: () => { toast.success("Saved"); setForm(blank()); qc.invalidateQueries({ queryKey: ["affiliates"] }); }, onError: (e: Error) => toast.error(e.message) });
+  const m = useMutation({ mutationFn: () => save({ data: form }), onSuccess: () => { toast.success("Saved"); xpPop(5, "link saved"); setForm(blank()); qc.invalidateQueries({ queryKey: ["affiliates"] }); }, onError: (e: Error) => toast.error(e.message) });
   const dm = useMutation({ mutationFn: (id: string) => del({ data: { id } }), onSuccess: () => { toast.success("Deleted"); qc.invalidateQueries({ queryKey: ["affiliates"] }); } });
   const copy = (s: string) => { navigator.clipboard.writeText(s); toast.success("Copied"); };
   return (
@@ -62,7 +64,15 @@ function Page() {
               </div>
             </Card>
           ))}
-          {q.data && q.data.links.length === 0 && <p className="text-sm text-muted-foreground">No links yet.</p>}
+          {q.data && q.data.links.length === 0 && (
+            <EmptyState
+              icon={Link2}
+              tone="bloom"
+              title="No links yet"
+              description="Add your first brand link on the left. Codes, commissions and categories — all in one tidy place."
+              hint="+5 XP per saved link"
+            />
+          )}
         </div>
       </section>
     </div>
