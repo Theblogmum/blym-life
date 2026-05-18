@@ -438,7 +438,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mt-8 grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="mx-auto mt-8 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3">
         <PriceCard
           name="Free"
           price="£0"
@@ -458,7 +458,7 @@ function PricingPlans() {
         />
         <PriceCard
           name="Creator"
-          price="£9.99"
+          price="£14.99"
           priceSuffix="/mo"
           tagline="The sweet spot for serious creators."
           features={[
@@ -478,9 +478,9 @@ function PricingPlans() {
         <PriceCard
           highlighted
           name="Pro"
-          price="£24.99"
+          price="£27.99"
           priceSuffix="/mo"
-          tagline="For creators serious about growth."
+          tagline="Your always-on AI growth coach."
           features={[
             "Everything in Creator",
             "Full Viral Growth Strategy generator",
@@ -488,45 +488,13 @@ function PricingPlans() {
             "Viral breakdown library + performance scoring",
             "1-click 7-day content batching",
             "Niche domination + repurposing engine",
-            "Weekly AI growth reset",
+            "Personal AI growth coach (chat + critique)",
+            "Brand pitch generator + media kit + invoices",
           ]}
           cta={
             isActive
               ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
               : { label: loading ? "Opening…" : user ? "Upgrade to Pro" : "Start with Pro", onClick: () => buy("pro_monthly"), disabled: loading }
-          }
-        />
-        <PriceCard
-          name="Ultimate"
-          price="£44.99"
-          priceSuffix="/mo"
-          tagline="Your always-on AI growth coach."
-          features={[
-            "Everything in Pro",
-            "Personal AI growth coach (chat + critique)",
-            "30-day done-with-you content plans",
-            "Growth simulation + viral content studio",
-            "Audience psychology + monetisation guidance",
-            "Brand pitch generator + media kit + invoices",
-            "Multi-platform engine + monthly strategy report",
-            "Elite viral templates library",
-            "Priority AI: faster + deeper outputs",
-          ]}
-          cta={
-            isActive
-              ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Go Ultimate" : "Start with Ultimate", onClick: () => buy("ultimate_monthly"), disabled: loading }
-          }
-        />
-        <PriceCard
-          name="Lifetime"
-          price="£299"
-          tagline="One payment. Forever yours."
-          features={["Everything in Ultimate", "Pay once, never again", "All future features included"]}
-          cta={
-            hasLifetime
-              ? { label: "You own this 💛", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Get lifetime" : "Sign up to buy", onClick: () => buy("lifetime_oneoff"), disabled: loading }
           }
         />
       </div>
