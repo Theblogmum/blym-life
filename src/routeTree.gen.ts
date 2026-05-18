@@ -50,6 +50,7 @@ import { Route as AuthenticatedGrowthCoachRouteImport } from './routes/_authenti
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
@@ -286,6 +287,11 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedEngagementBoosterRoute =
   AuthenticatedEngagementBoosterRouteImport.update({
     id: '/engagement-booster',
@@ -422,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/feed': typeof AuthenticatedFeedRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -484,6 +491,7 @@ export interface FileRoutesByTo {
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/feed': typeof AuthenticatedFeedRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -548,6 +556,7 @@ export interface FileRoutesById {
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
@@ -612,6 +621,7 @@ export interface FileRouteTypes {
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
+    | '/feed'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -674,6 +684,7 @@ export interface FileRouteTypes {
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
+    | '/feed'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -737,6 +748,7 @@ export interface FileRouteTypes {
     | '/_authenticated/cta-generator'
     | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
+    | '/_authenticated/feed'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
@@ -1092,6 +1104,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/feed': {
+      id: '/_authenticated/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof AuthenticatedFeedRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/engagement-booster': {
       id: '/_authenticated/engagement-booster'
       path: '/engagement-booster'
@@ -1247,6 +1266,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
+  AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
@@ -1289,6 +1309,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
+  AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
