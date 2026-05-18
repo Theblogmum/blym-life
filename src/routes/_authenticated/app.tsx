@@ -94,6 +94,9 @@ function HomePage() {
 
   useEffect(() => {
     if (me.data?.profile && !me.data.profile.onboarded) navigate({ to: "/onboarding" });
+    else if (typeof window !== "undefined" && me.data?.profile?.onboarded && !localStorage.getItem("blym.onboarded")) {
+      navigate({ to: "/welcome" });
+    }
   }, [me.data, navigate]);
 
   // Mission progress — local persistence per day (will persist to DB later)
