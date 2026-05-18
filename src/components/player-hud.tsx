@@ -34,7 +34,7 @@ export function PlayerHud() {
       </span>
 
       {/* XP bar — hidden on tiny screens */}
-      <span className="hidden xs:flex w-20 sm:w-28 flex-col gap-0.5">
+      <span className="hidden sm:flex w-28 flex-col gap-0.5">
         <span className="flex items-center justify-between text-[9.5px] font-bold uppercase tracking-wider text-foreground/55 leading-none">
           <span className="inline-flex items-center gap-1"><Rocket className="h-2.5 w-2.5" /> Lv {level}</span>
           <span className="tabular-nums">{pct}%</span>
