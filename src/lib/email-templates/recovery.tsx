@@ -22,20 +22,21 @@ export const RecoveryEmail = ({
 }: RecoveryEmailProps) => (
   <Html lang="en" dir="ltr">
     <Head />
-    <Preview>Reset your password for {siteName}</Preview>
+    <Preview>reset your blym password — one click bestie</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Reset your password</Heading>
+        <Heading style={brand}>BLYM</Heading>
+        <Heading style={h1}>reset your password 🔑</Heading>
         <Text style={text}>
-          We received a request to reset your password for {siteName}. Click
-          the button below to choose a new password.
+          we got your password reset request for {siteName}. tap the button
+          below and you'll be back to your daily quests in 30 seconds.
         </Text>
         <Button style={button} href={confirmationUrl}>
-          Reset Password
+          reset my password →
         </Button>
         <Text style={footer}>
-          If you didn't request a password reset, you can safely ignore this
-          email. Your password will not be changed.
+          didn't ask for this? ignore this email and your password stays exactly
+          how it was. no harm done.
         </Text>
       </Container>
     </Body>
@@ -44,26 +45,46 @@ export const RecoveryEmail = ({
 
 export default RecoveryEmail
 
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
+const main = { backgroundColor: '#ffffff', fontFamily: 'Georgia, "Times New Roman", serif' }
+const container = { padding: '32px 28px', maxWidth: '560px' }
+const brand = {
+  fontSize: '13px',
+  fontWeight: 900 as const,
+  letterSpacing: '0.32em',
+  color: '#E07A5F',
+  margin: '0 0 24px',
+  fontFamily: 'Arial, sans-serif',
+}
 const h1 = {
-  fontSize: '22px',
-  fontWeight: 'bold' as const,
-  color: '#000000',
+  fontSize: '28px',
+  fontWeight: 700 as const,
+  color: '#2A2520',
+  lineHeight: '1.15',
   margin: '0 0 20px',
 }
 const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
+  fontSize: '15px',
+  color: '#5C524C',
+  lineHeight: '1.65',
+  margin: '0 0 18px',
+  fontFamily: 'Arial, sans-serif',
 }
 const button = {
-  backgroundColor: '#000000',
+  backgroundColor: '#E07A5F',
   color: '#ffffff',
-  fontSize: '14px',
-  borderRadius: '8px',
-  padding: '12px 20px',
+  fontSize: '15px',
+  fontWeight: 700 as const,
+  borderRadius: '999px',
+  padding: '14px 26px',
   textDecoration: 'none',
+  fontFamily: 'Arial, sans-serif',
+  display: 'inline-block',
+  marginTop: '8px',
 }
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
+const footer = {
+  fontSize: '12px',
+  color: '#8A7E76',
+  margin: '32px 0 0',
+  fontFamily: 'Arial, sans-serif',
+  fontStyle: 'italic' as const,
+}
