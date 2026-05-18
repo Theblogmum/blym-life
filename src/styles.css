@@ -73,7 +73,8 @@
   /* Soft warm cream — feels like a sticker book */
   --background: oklch(0.985 0.012 70);
   --foreground: oklch(0.18 0.02 280);
-  --card: oklch(1 0 0);
+  /* Warm translucent cream — replaces sterile white for cohesion with landing */
+  --card: oklch(0.992 0.008 75);
   --card-foreground: oklch(0.13 0.012 20);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.012 20);
