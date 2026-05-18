@@ -12,7 +12,7 @@ const STOPS = [
 // Hand-tuned positions along the SVG path (in %).
 const POSITIONS = [
   { x: 6,  y: 70 },
-  { x: 22, y: 28 },
+  { x: 22, y: 20 },
   { x: 40, y: 72 },
   { x: 58, y: 26 },
   { x: 76, y: 70 },
