@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
+import { cn } from "@/lib/utils";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
