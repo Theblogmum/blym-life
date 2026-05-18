@@ -366,37 +366,6 @@ function HomePage() {
                 </div>
               </div>
             </div>
-
-            <div
-              className={cn(
-                "relative overflow-hidden rounded-[1.4rem] p-4 shadow-[var(--shadow-layered)] lg:max-w-xs",
-                streak > 0 && "pulse-glow",
-              )}
-              style={{
-                background: streak > 0
-                  ? "linear-gradient(160deg, oklch(0.96 0.06 70), oklch(0.92 0.11 30))"
-                  : "linear-gradient(160deg, oklch(0.98 0.012 70), oklch(0.94 0.02 60))",
-              }}
-            >
-              <p className="text-[8.5px] font-semibold uppercase tracking-[0.2em] text-foreground/60">
-                {streak > 0 ? "streak alive" : "start a streak"}
-              </p>
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-[36px] leading-none">{streak > 0 ? "🔥" : "🌱"}</span>
-                <div>
-                  <p className="font-display text-[28px] font-bold leading-none tabular-nums tracking-[-0.02em]">{streak}</p>
-                  <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-foreground/55">
-                    {streak === 1 ? "day" : "days"}
-                  </p>
-                </div>
-              </div>
-              <p className="mt-3 text-[10.5px] leading-relaxed text-foreground/70">
-                {streak >= 7 ? "you survived the week. proud x"
-                  : streak >= 3 ? "don't break it now girl 🫣"
-                  : streak > 0 ? "tomorrow you keep it going."
-                  : "one post today. that's it. that's the move."}
-              </p>
-            </div>
           </div>
         </section>
 
