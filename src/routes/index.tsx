@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
+import { cn } from "@/lib/utils";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
@@ -133,16 +134,17 @@ function Landing() {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-24 pb-20 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-40 lg:pb-32">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
-            <h1 className="font-display text-[40px] font-normal leading-[1.05] tracking-[-0.025em] text-foreground text-balance sm:text-[56px] lg:text-[64px]">
-              Know what to post before your <span className="italic text-primary">coffee</span> gets cold.
+            <span className="eyebrow">a creator journey, not a dashboard</span>
+            <h1 className="mt-3 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.025em] text-foreground text-balance sm:text-[56px] lg:text-[68px]">
+              From nervous beginner to <span className="text-gradient-game">booked &amp; busy</span>.
             </h1>
             <p className="mt-5 max-w-lg text-[17px] leading-[1.6] text-muted-foreground text-pretty sm:text-[19px]">
-              Hooks, captions, content plans, analysis tools and viral ideas — without the mental load.
+              Blym is the creator app that makes consistency addictive. Daily missions, streaks, XP, level-ups — built for overwhelmed women, mums, and chaotic beginners.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <Link to={ctaPrimary.to}>
-                <Button size="lg" className="rounded-full bg-anchor px-7 py-6 text-base text-anchor-foreground hover:bg-anchor/90">
-                  Start creating <ArrowRight className="h-4 w-4" />
+                <Button size="lg" className="btn-chunky btn-chunky--primary text-base">
+                  Start my journey <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               {ctaSecondary && (
@@ -154,14 +156,14 @@ function Landing() {
               )}
             </div>
             <p className="mt-4 text-[12px] text-muted-foreground">
-              Free forever plan · No card required
+              free to start · no card · level 1 unlocks instantly ✨
             </p>
             {/* Inline stats — directly under CTA so they feel part of the promise */}
             <dl className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-3">
               {[
-                { value: "10,000+", label: "ideas generated" },
+                { value: "10 levels", label: "to unlock" },
+                { value: "🔥 daily", label: "streaks + XP" },
                 { value: "4.9★", label: "creator rating" },
-                { value: "2 mins", label: "to ready-to-post" },
               ].map((s) => (
                 <div key={s.label} className="flex items-baseline gap-2">
                   <dt className="font-display text-xl text-foreground sm:text-2xl">{s.value}</dt>
@@ -171,46 +173,59 @@ function Landing() {
             </dl>
           </div>
 
-          {/* RIGHT — ONE polished mockup. Background fades softly. */}
+          {/* RIGHT — Creator journey game preview */}
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            {/* Soft fade glow behind the single mockup */}
             <div
               aria-hidden
-              className="absolute -inset-10 rounded-[3rem] opacity-40 blur-3xl"
-              style={{ background: "var(--gradient-warm)" }}
+              className="absolute -inset-10 rounded-[3rem] opacity-50 blur-3xl"
+              style={{ background: "var(--gradient-game)" }}
             />
-            <div className="relative overflow-hidden rounded-[2rem] bg-card shadow-[var(--shadow-elegant)]">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-1.5 bg-secondary/40 px-4 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
-                <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
-                <span className="h-2.5 w-2.5 rounded-full bg-foreground/15" />
+            <div className="sticker relative p-6 sm:p-7 bg-card">
+              <div className="flex items-center justify-between">
+                <span className="eyebrow">your journey</span>
+                <span className="streak-chip">🔥 7</span>
               </div>
-              <div className="p-7 sm:p-9">
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">Today's brief · Tuesday</p>
-                <h3 className="mt-3 font-display text-2xl leading-snug text-foreground sm:text-[28px]">
-                  The 30-second mum-hack you'll wish you'd known sooner.
-                </h3>
-                <div className="mt-7 rounded-2xl bg-secondary/40 p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Hook</p>
-                  <p className="mt-2 text-[15px] leading-snug text-foreground">
-                    "POV: it's 6:47am and this hack just saved my morning."
-                  </p>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="grid h-14 w-14 place-items-center rounded-full bg-card border-2 border-foreground shadow-[0_4px_0_0_var(--foreground)] text-2xl wiggle">✨</div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Level 3</p>
+                  <p className="font-display text-lg leading-tight">Hook Addict</p>
                 </div>
-                <div className="mt-3 rounded-2xl bg-secondary/40 p-5">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Caption</p>
-                  <p className="mt-2 text-[14px] leading-relaxed text-foreground/85">
-                    Save this for your future tired self 🫶 Three minutes that change the whole morning.
-                  </p>
+                <span className="ml-auto xp-pill">⚡ 240 XP</span>
+              </div>
+              <div className="mt-3">
+                <div className="flex justify-between text-[11px] text-muted-foreground mb-1"><span>to Level 4</span><span>62%</span></div>
+                <div className="h-3 w-full overflow-hidden rounded-full bg-muted border border-foreground/10">
+                  <div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" style={{ width: "62%" }} />
                 </div>
-                <div className="mt-5 flex items-center justify-between text-[12px] text-muted-foreground">
-                  <span className="inline-flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5" /> Best posted 7:42pm
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 font-semibold text-primary">
-                    <Sparkles className="h-3 w-3" /> Ready to film
-                  </span>
-                </div>
+              </div>
+              <div className="mt-5 space-y-2">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">today's missions</p>
+                {[
+                  { t: "Film one tiny clip", xp: 15, done: true },
+                  { t: "Write 3 hooks", xp: 10, done: true },
+                  { t: "Find a brand to pitch", xp: 20, done: false },
+                ].map((m, i) => (
+                  <div key={i} className={cn(
+                    "flex items-center gap-3 rounded-2xl border-2 border-foreground/80 p-3",
+                    m.done ? "bg-success/15" : "bg-card",
+                  )}>
+                    <div className={cn(
+                      "grid h-7 w-7 place-items-center rounded-full border-2 border-foreground text-sm font-bold",
+                      m.done ? "bg-success text-success-foreground" : "bg-card",
+                    )}>{m.done ? "✓" : ""}</div>
+                    <span className={cn("flex-1 text-sm font-semibold", m.done && "line-through opacity-60")}>{m.t}</span>
+                    <span className="text-xs font-bold text-primary">+{m.xp}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-5 flex gap-2">
+                {["🌱","🐣","🪝","🌪️","✨","💌"].map((e, i) => (
+                  <div key={i} className={cn(
+                    "grid h-9 w-9 place-items-center rounded-full border-2 text-base",
+                    i < 3 ? "border-foreground bg-card shadow-[0_2px_0_0_var(--foreground)]" : "border-border bg-muted opacity-50",
+                  )}>{i < 3 ? e : "🔒"}</div>
+                ))}
               </div>
             </div>
           </div>

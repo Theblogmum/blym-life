@@ -2,7 +2,7 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
-  Menu, Bell, Search, Shield, Command as CommandIcon, Plus,
+  Menu, Bell, Search, Shield, Command as CommandIcon, Plus, Trophy,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,7 @@ const SECTIONS: Section[] = [
     eyebrow: "Daily",
     groups: [
       { label: "Today", icon: Home, to: "/app" },
+      { label: "My journey", icon: Trophy, to: "/journey" },
       { label: "Pep talk", icon: MessageCircle, to: "/growth-coach" },
       { label: "Schedule", icon: Calendar, to: "/schedule" },
       { label: "Plan my week", icon: Calendar, to: "/planner" },
