@@ -510,7 +510,7 @@ function PricingPlans() {
           ]}
           cta={
             isActive
-              ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
               : { label: loading ? "Opening…" : user ? "Go Creator" : "Go Creator", onClick: () => buy("creator_monthly"), disabled: loading }
           }
         />
@@ -532,7 +532,7 @@ function PricingPlans() {
           ]}
           cta={
             isActive
-              ? { label: hasLifetime ? "Included in Lifetime" : "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
               : { label: loading ? "Opening…" : user ? "Upgrade to Pro" : "Start with Pro", onClick: () => buy("pro_monthly"), disabled: loading }
           }
         />
