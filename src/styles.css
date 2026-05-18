@@ -91,8 +91,9 @@
   --anchor: oklch(0.42 0.18 295);
   --anchor-foreground: oklch(1 0 0);
   /* Sidebar active pill — same chunky purple as anchor */
-  --sidebar-active: oklch(0.42 0.18 295);
+  --sidebar-active: linear-gradient(135deg, oklch(0.5 0.2 320), oklch(0.42 0.18 295));
   --sidebar-active-foreground: oklch(1 0 0);
+  --sidebar-active-glow: 0 10px 24px -12px oklch(0.5 0.22 320 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.18);
   /* Sunny butter surfaces */
   --secondary: oklch(0.96 0.05 90);
   --secondary-foreground: oklch(0.18 0.01 20);
