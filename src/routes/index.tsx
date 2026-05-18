@@ -195,7 +195,7 @@ function Landing() {
       <CreatorJourney />
 
       {/* ============ HOW IT HELPS ============ */}
-      <section id="features" className="relative bg-background py-16 sm:py-[90px]">
+      <section id="features" className="relative bg-background py-14 sm:py-[78px]">
         {/* Floating decorative chips */}
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> New brief daily
@@ -267,7 +267,7 @@ function Landing() {
             ].map((t, i) => (
               <figure
                 key={t.handle}
-                className="relative rounded-3xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)]"
+                className="group relative rounded-3xl border border-border/60 bg-card p-5 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.015] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"
                 style={{ animation: `fade-in 0.5s ease-out ${i * 0.12}s both` }}
               >
                 <Quote className="absolute right-3 top-3 h-5 w-5 text-primary/30" />
