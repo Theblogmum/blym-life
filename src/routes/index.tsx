@@ -144,7 +144,7 @@ function Landing() {
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-16 pb-14 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:pt-40 lg:pb-32">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-20 pb-16 sm:px-8 sm:pt-[120px] sm:pb-[120px] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
@@ -195,7 +195,7 @@ function Landing() {
       <CreatorJourney />
 
       {/* ============ HOW IT HELPS ============ */}
-      <section id="features" className="relative bg-background py-24 sm:py-32">
+      <section id="features" className="relative bg-background py-16 sm:py-[90px]">
         {/* Floating decorative chips */}
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> New brief daily
@@ -249,7 +249,7 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-14 sm:py-16">
+      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-16 sm:py-[90px]">
         <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -296,7 +296,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-20">
+      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-16 sm:py-[90px]">
         {/* Wavy top divider */}
         <svg
           aria-hidden
@@ -345,7 +345,7 @@ function Landing() {
       </section>
 
       {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
-      <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-20 sm:py-24">
+      <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-16 sm:py-[90px]">
         <div aria-hidden className="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[image:var(--gradient-aurora)] opacity-40 blur-3xl gradient-drift" />
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute left-[6%] top-16" style={{ ['--drift-rot' as any]: '-6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> Free forever plan
@@ -362,7 +362,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-2xl px-5 py-12 sm:px-8 sm:py-14">
+      <section id="faq" className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-[90px]">
         <p className="eyebrow text-center">FAQ</p>
         <h2 className="mx-auto mt-2 text-center font-display text-[26px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[36px]">
           Things mums ask us
@@ -385,7 +385,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-6xl px-5 pb-24 sm:px-8">
+      <section id="contact" className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-[90px]">
         <div className="grid gap-6 md:grid-cols-2 md:items-stretch">
           <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-8 text-center text-white shadow-[var(--shadow-elegant)] sm:p-10 flex flex-col">
             <div className="absolute -top-24 -right-16 h-60 w-60 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
