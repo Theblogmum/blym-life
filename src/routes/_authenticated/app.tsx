@@ -18,6 +18,7 @@ import { getDailyIdea } from "@/lib/daily-idea.functions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { celebrate as fxCelebrate, pop as fxPop } from "@/lib/celebrate";
+import { registerComboHit } from "@/lib/combo";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
@@ -111,9 +112,12 @@ function HomePage() {
     if (!done[id]) {
       setCelebrate(id);
       setTimeout(() => setCelebrate(null), 1400);
-      // dopamine: small pop per mission, bigger burst when all 3 done
+      // dopamine + combo: chain missions within 90s for an XP multiplier
       const completedCount = Object.values(next).filter(Boolean).length;
+      const mission = MISSIONS.find((m) => m.id === id);
+      const combo = registerComboHit(mission?.xp ?? 0);
       if (completedCount >= 3) fxCelebrate("big");
+      else if (combo.count >= 3) fxCelebrate("normal");
       else fxCelebrate("tiny");
     } else {
       fxPop();
