@@ -175,61 +175,7 @@ function Landing() {
           </div>
 
           {/* RIGHT — Creator journey game preview */}
-          <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-            <div
-              aria-hidden
-              className="absolute -inset-10 rounded-[3rem] opacity-50 blur-3xl"
-              style={{ background: "var(--gradient-game)" }}
-            />
-            <div className="sticker relative p-6 sm:p-7 bg-card">
-              <div className="flex items-center justify-between">
-                <span className="eyebrow">your journey</span>
-                <span className="streak-chip">🔥 7</span>
-              </div>
-              <div className="mt-4 flex items-center gap-3">
-                <div className="grid h-14 w-14 place-items-center rounded-full bg-card border-2 border-foreground shadow-[0_4px_0_0_var(--foreground)] text-2xl wiggle">✨</div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Level 3</p>
-                  <p className="font-display text-lg leading-tight">Hook Addict</p>
-                </div>
-                <span className="ml-auto xp-pill">⚡ 240 XP</span>
-              </div>
-              <div className="mt-3">
-                <div className="flex justify-between text-[11px] text-muted-foreground mb-1"><span>to Level 4</span><span>62%</span></div>
-                <div className="h-3 w-full overflow-hidden rounded-full bg-muted border border-foreground/10">
-                  <div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" style={{ width: "62%" }} />
-                </div>
-              </div>
-              <div className="mt-5 space-y-2">
-                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">today's missions</p>
-                {[
-                  { t: "Film one tiny clip", xp: 15, done: true },
-                  { t: "Write 3 hooks", xp: 10, done: true },
-                  { t: "Find a brand to pitch", xp: 20, done: false },
-                ].map((m, i) => (
-                  <div key={i} className={cn(
-                    "flex items-center gap-3 rounded-2xl border-2 border-foreground/80 p-3",
-                    m.done ? "bg-success/15" : "bg-card",
-                  )}>
-                    <div className={cn(
-                      "grid h-7 w-7 place-items-center rounded-full border-2 border-foreground text-sm font-bold",
-                      m.done ? "bg-success text-success-foreground" : "bg-card",
-                    )}>{m.done ? "✓" : ""}</div>
-                    <span className={cn("flex-1 text-sm font-semibold", m.done && "line-through opacity-60")}>{m.t}</span>
-                    <span className="text-xs font-bold text-primary">+{m.xp}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-5 flex gap-2">
-                {["🌱","🐣","🪝","🌪️","✨","💌"].map((e, i) => (
-                  <div key={i} className={cn(
-                    "grid h-9 w-9 place-items-center rounded-full border-2 text-base",
-                    i < 3 ? "border-foreground bg-card shadow-[0_2px_0_0_var(--foreground)]" : "border-border bg-muted opacity-50",
-                  )}>{i < 3 ? e : "🔒"}</div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <LandingDemo />
         </div>
       </section>
 
