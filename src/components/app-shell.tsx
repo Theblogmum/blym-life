@@ -41,17 +41,21 @@ const SECTIONS: Section[] = [
       { label: "Today", icon: Home, to: "/app" },
       { label: "Daily quests", icon: Target, to: "/quests" },
       { label: "My journey", icon: Trophy, to: "/journey" },
-      { label: "Character sheet", icon: Wand2, to: "/character" },
-      { label: "Leagues", icon: Trophy, to: "/leagues" },
-      { label: "Trophy room", icon: Trophy, to: "/achievements" },
-      { label: "Wins wall", icon: Users, to: "/feed" },
-      { label: "Big firsts", icon: Flag, to: "/milestones" },
-      { label: "My creator type", icon: Wand2, to: "/creator-type" },
-      { label: "Rewards", icon: Gift, to: "/rewards" },
-      { label: "Pep talk", icon: MessageCircle, to: "/growth-coach" },
-      { label: "Schedule", icon: Calendar, to: "/schedule" },
       { label: "Plan my week", icon: Calendar, to: "/planner" },
       { label: "Saved stuff", icon: ShoppingBag, to: "/library" },
+      {
+        label: "Progress", icon: Trophy, items: [
+          { to: "/character", label: "Character sheet" },
+          { to: "/leagues", label: "Leagues" },
+          { to: "/achievements", label: "Trophy room" },
+          { to: "/milestones", label: "Big firsts" },
+          { to: "/feed", label: "Wins wall" },
+          { to: "/creator-type", label: "My creator type" },
+          { to: "/rewards", label: "Rewards" },
+          { to: "/growth-coach", label: "Pep talk" },
+          { to: "/schedule", label: "Schedule" },
+        ],
+      },
     ],
   },
   {
@@ -179,20 +183,20 @@ export function AppShell({ children }: { children: ReactNode }) {
           <button
             onClick={() => setOpenGroups((s) => ({ ...s, [g.label]: !open }))}
             className={cn(
-              "group flex w-full items-center justify-between rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
+              "group flex w-full items-center justify-between rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
               active
                 ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
-                : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
+                : "text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/90",
             )}
           >
-            <span className="flex items-center gap-2.5">
-              <g.icon className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} />
+            <span className="flex items-center gap-3">
+              <g.icon className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} />
               {g.label}
             </span>
-            <ChevronDown className={cn("h-3 w-3 opacity-40 transition-transform", open && "rotate-180")} />
+            <ChevronDown className={cn("h-3 w-3 opacity-35 transition-transform duration-200", open && "rotate-180")} />
           </button>
           {open && (
-            <ul className="mt-1 ml-[1.05rem] space-y-0.5 border-l border-border/60 pl-3">
+            <ul className="mt-1.5 ml-[1.15rem] space-y-1 border-l border-border/40 pl-3">
               {g.items.map((i) => {
                 const a = isActive(i.to);
                 return (
@@ -201,10 +205,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                       to={i.to}
                       onClick={onClick}
                       className={cn(
-                        "block rounded-lg px-2.5 py-1.5 text-[12.5px] transition",
+                        "block rounded-lg px-2.5 py-1.5 text-[12.5px] transition-colors duration-200",
                         a
                           ? "bg-primary/10 font-semibold text-primary"
-                          : "text-foreground/45 hover:bg-foreground/5 hover:text-foreground/85",
+                          : "text-foreground/40 hover:bg-foreground/[0.04] hover:text-foreground/80",
                       )}
                     >
                       {i.label}
@@ -223,13 +227,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         to={g.to!}
         onClick={onClick}
         className={cn(
-          "flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
+          "flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
           active
             ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
-            : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
+            : "text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/90",
         )}
       >
-        <g.icon className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} />
+        <g.icon className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} />
         {g.label}
       </Link>
     );
@@ -257,31 +261,31 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="flex-1 overflow-y-auto px-3 pb-6">
         {SECTIONS.map((s, idx) => (
-          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-8" : "mb-8 mt-2")}>
-            <p className="px-3 pb-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/55">
+          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-10" : "mb-10 mt-2")}>
+            <p className="px-3 pb-4 pt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
               {s.eyebrow}
             </p>
-            <div className="space-y-0.5">
+            <div className="space-y-1">
               {s.groups.map((g) => renderGroup(g, onClick))}
             </div>
           </div>
         ))}
         {isAdmin && (
           <div className="mb-2 mt-2">
-            <p className="px-3 pb-3 pt-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/55">
+            <p className="px-3 pb-4 pt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
               Admin
             </p>
             <Link
               to="/admin"
               onClick={onClick}
               className={cn(
-                "flex items-center gap-2.5 rounded-xl px-3 py-1.5 text-[13px] font-medium transition-all",
+                "flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
                 isActive("/admin")
                   ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
-                  : "text-foreground/55 hover:bg-foreground/5 hover:text-foreground",
+                  : "text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/90",
               )}
             >
-              <Shield className="h-3.5 w-3.5 opacity-70" strokeWidth={1.75} />
+              <Shield className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} />
               Admin
             </Link>
           </div>
@@ -289,7 +293,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       {/* Profile */}
-      <div className="border-t border-border px-3 py-3">
+      <div className="border-t border-border/50 px-3 py-3">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex w-full items-center gap-3 rounded-xl p-2 text-left transition hover:bg-foreground/5">
@@ -343,7 +347,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </CommandDialog>
 
       <div className="flex w-full">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-border bg-card lg:block">
+        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-border/50 bg-card lg:block">
           {sidebarInner()}
         </aside>
 
