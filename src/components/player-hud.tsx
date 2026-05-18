@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Flame, Rocket } from "lucide-react";
 import { getXp } from "@/lib/xp.functions";
 import { cn } from "@/lib/utils";
+import { celebrate } from "@/lib/celebrate";
 
 // 10 BLYM identity titles — must match /app
 const BLYM_LEVELS = [
@@ -17,6 +19,17 @@ export function PlayerHud() {
   const xp = xpQ.data;
   const level = xp?.level ?? 1;
   const streak = xp?.streak ?? 0;
+
+  // Level-up dopamine — fires when level increases (skips first mount).
+  const prevLevel = useRef<number | null>(null);
+  useEffect(() => {
+    if (xp == null) return;
+    if (prevLevel.current != null && xp.level > prevLevel.current) {
+      celebrate("level-up");
+    }
+    prevLevel.current = xp.level;
+  }, [xp]);
+
   const title = BLYM_LEVELS[Math.min(level - 1, 9)];
   const pct = xp
     ? Math.min(100, Math.max(4, Math.round(((xp.xp - xp.prevLevelXp) / Math.max(1, xp.nextLevelXp - xp.prevLevelXp)) * 100)))
