@@ -21,7 +21,7 @@ const POSITIONS = [
 
 export function CreatorJourney() {
   return (
-    <section className="relative overflow-hidden bg-[image:var(--gradient-aurora)] py-16 sm:py-32">
+    <section className="relative overflow-hidden bg-[image:var(--gradient-aurora)] py-16 sm:py-[90px]">
       {/* Drifting backdrop blobs */}
       <div aria-hidden className="absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-[image:var(--gradient-bloom)] opacity-40 blur-3xl gradient-drift" />
       <div aria-hidden className="absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-[image:var(--gradient-mint)] opacity-35 blur-3xl gradient-drift" style={{ animationDelay: "5s" }} />
