@@ -186,7 +186,7 @@ function HomePage() {
           <div className="grid items-start gap-6 lg:grid-cols-[1fr_460px] lg:gap-10">
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-4">
-                <h1 className="max-w-[18ch] font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[40px]">
+                <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[48px]">
                   {opener}
                 </h1>
                 <TrialPill />
