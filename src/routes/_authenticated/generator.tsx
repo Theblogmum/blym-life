@@ -69,24 +69,22 @@ function GeneratorPage() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
       </PageHero>
 
-      <section className="mx-auto max-w-3xl space-y-6 px-5 py-8">
+      <section className="mx-auto max-w-3xl space-y-7 px-5 py-10 sm:px-8">
         <PersonaBubble tone="peach">
           Hey lovely — pick what you need, drop the topic, and I'll write 5 options you can post tonight.
         </PersonaBubble>
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-            First — what should I write?
-          </p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
+          <p className="eyebrow">first — what should i write?</p>
+          <div className="mt-3 flex flex-wrap gap-2">
             {KINDS.map((k) => (
               <button
                 key={k.v}
                 onClick={() => setKind(k.v)}
                 className={cn(
-                  "rounded-full border px-3 py-1.5 text-sm font-medium transition-all",
+                  "rounded-full border px-3.5 py-1.5 text-[13px] font-semibold transition-all duration-300",
                   kind === k.v
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-background text-foreground/70 hover:border-foreground/30",
+                    ? "border-foreground bg-foreground text-background shadow-[var(--shadow-soft)]"
+                    : "border-border/50 bg-card text-foreground/70 hover:-translate-y-[1px] hover:border-foreground/40 hover:text-foreground hover:shadow-[var(--shadow-xs)]",
                 )}
               >
                 <span className="mr-1">{k.emoji}</span>
@@ -97,21 +95,19 @@ function GeneratorPage() {
         </div>
 
         <div>
-          <label className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
-            Now — what's it about?
-          </label>
+          <label className="eyebrow">now — what's it about?</label>
           <Input
-            className="mt-2 h-12 rounded-xl text-base"
+            className="mt-3 h-12 rounded-2xl border-border/50 bg-card text-base shadow-[var(--shadow-xs)] focus-visible:border-foreground/40 focus-visible:ring-0"
             placeholder="Tell me in a sentence — e.g. 'surviving witching hour with a 2-year-old'"
             value={topic}
             onChange={(e) => setTopic(e.target.value)}
           />
-          <div className="mt-2 flex flex-wrap gap-1.5">
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
             {EXAMPLE_TOPICS.map((t) => (
               <button
                 key={t}
                 onClick={() => setTopic(t)}
-                className="rounded-full px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground hover:underline"
+                className="rounded-full bg-foreground/[0.04] px-2.5 py-1 text-[11.5px] text-foreground/65 transition hover:bg-foreground/[0.07] hover:text-foreground"
               >
                 {t}
               </button>
