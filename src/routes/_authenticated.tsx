@@ -2,6 +2,7 @@ import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { AppShell } from "@/components/app-shell";
+import { ComebackDetector } from "@/components/comeback-detector";
 
 export const Route = createFileRoute("/_authenticated")({
   component: AuthGate,
@@ -24,6 +25,7 @@ function AuthGate() {
   }
   return (
     <AppShell>
+      <ComebackDetector />
       <Outlet />
     </AppShell>
   );

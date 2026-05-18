@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Check, Sparkles, Snowflake, Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { NotifyOptIn } from "@/components/notify-opt-in";
 
 export const Route = createFileRoute("/_authenticated/quests")({ component: QuestsPage });
 
@@ -119,6 +120,10 @@ function QuestsPage() {
       <h2 className="font-display text-xl mb-3 flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" /> this week</h2>
       <div className="space-y-3">
         {WEEKLY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
+      </div>
+
+      <div className="mt-8">
+        <NotifyOptIn />
       </div>
     </div>
   );
