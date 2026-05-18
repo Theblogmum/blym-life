@@ -124,11 +124,11 @@ function GeneratorPage() {
 
         <Button
           size="lg"
-          className="h-12 w-full rounded-xl text-base font-bold shadow-[var(--shadow-glow)] sm:w-auto"
+          className="group h-12 w-full rounded-2xl text-[15px] font-semibold tracking-[-0.005em] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[var(--shadow-elegant)] sm:w-auto sm:px-7"
           disabled={!topic.trim() || m.isPending || lockedKind}
           onClick={() => m.mutate()}
         >
-          <Sparkles className={cn("mr-2 h-4 w-4", m.isPending && "animate-spin")} />
+          <Sparkles className={cn("mr-2 h-4 w-4 transition-transform duration-500 group-hover:rotate-12", m.isPending && "animate-spin")} />
           {m.isPending ? (
             <span className="inline-flex items-center gap-2">Bloom is writing <TypingDots /></span>
           ) : (
@@ -137,25 +137,25 @@ function GeneratorPage() {
         </Button>
 
         {lockedKind && (
-          <Card className="flex items-center justify-between gap-3 rounded-2xl border-0 surface-plum p-3 text-sm">
-            <p className="flex items-center gap-2">
-              <Lock className="h-4 w-4" />
+          <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/30 bg-surface-plum p-3.5 text-[13px]">
+            <p className="flex items-center gap-2 text-foreground/85">
+              <Lock className="h-4 w-4 text-foreground/60" />
               Trial ended — captions stay free, but {activeKind?.l.toLowerCase()} are premium.
             </p>
             <Link to="/settings">
-              <Button size="sm" className="rounded-full">Upgrade</Button>
+              <Button size="sm" className="rounded-full transition hover:-translate-y-[1px]">Upgrade</Button>
             </Link>
-          </Card>
+          </div>
         )}
       </section>
 
       {options.length > 0 && (
-        <section className="mx-auto max-w-5xl px-5 pb-10">
-          <div className="mb-4 flex items-center gap-3">
-            <h2 className="font-display text-2xl font-black">Here's what I'd post 👇</h2>
+        <section className="mx-auto max-w-5xl px-5 pb-12 sm:px-8">
+          <div className="mb-5 flex items-center gap-3">
+            <h2 className="section-heading">Here's what I'd post 👇</h2>
             <IdeaGeneratedBadge />
           </div>
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid gap-3 sm:gap-3.5 md:grid-cols-2">
             {options.map((o, i) => (
               <ResultRow key={`${m.submittedAt}-${i}`} index={i + 1} text={o} delayMs={i * 70} />
             ))}
@@ -167,26 +167,27 @@ function GeneratorPage() {
       )}
 
       {options.length === 0 && (
-        <section className="mx-auto max-w-5xl px-5 pb-16">
-          <h2 className="mb-4 font-display text-2xl font-black">Tips that actually work</h2>
-          <div className="grid gap-3 md:grid-cols-3">
+        <section className="mx-auto max-w-5xl px-5 pb-16 sm:px-8">
+          <p className="eyebrow">while you think</p>
+          <h2 className="section-heading mb-5">Tips that actually work</h2>
+          <div className="grid gap-3 sm:gap-3.5 md:grid-cols-3">
             <TipCard
               emoji="⚡"
               title="First 2 seconds = everything"
               body="Open mid-action or with a question. No 'Hi guys, today we're going to…'"
-              surface="surface-mint"
+              surface="bg-surface-mint"
             />
             <TipCard
               emoji="💛"
               title="Be the friend, not the expert"
               body="Write captions like you'd text your group chat. Real beats polished."
-              surface="surface-sky"
+              surface="bg-surface-sky"
             />
             <TipCard
               emoji="🔁"
               title="One idea, three formats"
               body="Generate a hook, then a script, then a caption — all from the same topic."
-              surface="surface-plum"
+              surface="bg-surface-plum"
             />
           </div>
         </section>
@@ -198,15 +199,15 @@ function GeneratorPage() {
 function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; delayMs?: number }) {
   const [copied, setCopied] = useState(false);
   return (
-    <Card
-      className="card-pop glow-hover group flex items-start justify-between gap-3 rounded-3xl border-0 bg-card p-5 shadow-[var(--shadow-soft)]"
+    <div
+      className="card-pop group flex items-start justify-between gap-3 rounded-2xl border border-border/40 bg-card p-5 shadow-[var(--shadow-xs)] transition-all duration-500 ease-out hover:-translate-y-[2px] hover:border-border/60 hover:shadow-[var(--shadow-elegant)]"
       style={{ animationDelay: `${delayMs}ms` }}
     >
       <div className="flex flex-1 gap-3">
-        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-xs font-bold text-white">
+        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-[11px] font-bold text-white shadow-[0_4px_12px_-4px_oklch(0.66_0.24_350/0.45)]">
           {index}
         </span>
-        <p className="flex-1 whitespace-pre-line text-sm leading-relaxed">{text}</p>
+        <p className="flex-1 whitespace-pre-line text-[14px] leading-relaxed text-foreground/90">{text}</p>
       </div>
       <button
         onClick={() => {
@@ -215,12 +216,12 @@ function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; 
           toast.success("Copied to clipboard");
           setTimeout(() => setCopied(false), 1200);
         }}
-        className="rounded-full bg-secondary p-2 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+        className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-foreground/[0.05] text-foreground/65 transition-all duration-300 hover:bg-foreground hover:text-background active:scale-90"
         aria-label="Copy"
       >
         {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
       </button>
-    </Card>
+    </div>
   );
 }
 
@@ -236,10 +237,10 @@ function TipCard({
   surface: string;
 }) {
   return (
-    <Card className={cn("rounded-3xl border-0 p-5", surface)}>
-      <div className="text-2xl">{emoji}</div>
-      <p className="mt-2 font-display text-lg font-black">{title}</p>
-      <p className="mt-1 text-sm text-foreground/70">{body}</p>
-    </Card>
+    <div className={cn("pastel-card p-5", surface)}>
+      <div className="text-[26px] leading-none">{emoji}</div>
+      <p className="mt-3 font-display text-[16px] font-bold leading-tight tracking-[-0.005em]">{title}</p>
+      <p className="mt-1.5 text-[13px] leading-relaxed text-foreground/70">{body}</p>
+    </div>
   );
 }
