@@ -371,7 +371,19 @@ function HomePage() {
 
         {/* ============ TODAY'S MISSIONS ============ */}
         <section className="mb-8 sm:mb-12">
-          <div className="mb-5 flex items-end justify-between gap-3">
+          <div
+            className="relative overflow-hidden rounded-[1.75rem] p-5 sm:p-7"
+            style={{
+              background:
+                "radial-gradient(120% 100% at 0% 0%, oklch(0.95 0.07 350 / 0.55), transparent 60%), radial-gradient(120% 100% at 100% 100%, oklch(0.94 0.06 20 / 0.45), transparent 60%), oklch(0.99 0.012 350 / 0.6)",
+              boxShadow:
+                "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 24px 56px -28px oklch(0.78 0.18 350 / 0.45)",
+            }}
+          >
+            <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.88 0.13 350 / 0.55), transparent 65%)" }} />
+            <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.9 0.1 20 / 0.5), transparent 65%)" }} />
+
+          <div className="relative mb-5 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
               <h2 className="mt-2 font-display text-[24px] font-bold leading-tight tracking-[-0.015em] sm:text-[30px]">
@@ -383,7 +395,7 @@ function HomePage() {
             </div>
           </div>
 
-          <ul className="space-y-2">
+          <ul className="relative space-y-2">
             {MISSIONS.map((m) => {
               const isDone = !!done[m.id];
               const isCelebrating = celebrate === m.id;
