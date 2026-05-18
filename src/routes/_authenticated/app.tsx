@@ -339,10 +339,11 @@ function HomePage() {
           <Link
             to="/film-this"
             className="group relative block overflow-hidden rounded-[2rem] p-7 sm:p-10 shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)]"
-            style={{ background: "linear-gradient(135deg, oklch(0.7 0.22 30) 0%, oklch(0.66 0.24 350) 55%, oklch(0.6 0.2 295) 100%)" }}
+            style={{ background: "linear-gradient(135deg, oklch(0.82 0.13 35) 0%, oklch(0.78 0.12 15) 30%, oklch(0.76 0.13 350) 60%, oklch(0.72 0.13 295) 100%)" }}
           >
-            <div aria-hidden className="absolute -right-10 -top-10 h-64 w-64 rounded-full bg-white/25 blur-3xl" />
-            <div aria-hidden className="absolute -bottom-16 -left-10 h-52 w-52 rounded-full bg-white/10 blur-3xl" />
+            <div aria-hidden className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-white/30 blur-3xl" />
+            <div aria-hidden className="absolute -bottom-20 -left-12 h-60 w-60 rounded-full bg-white/15 blur-3xl" />
+            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.95_0.06_60/0.25),transparent_60%)]" />
             <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
