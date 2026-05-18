@@ -39,12 +39,14 @@ export function CreatorJourney() {
       {/* Journey path */}
       <div className="relative mx-auto mt-10 max-w-6xl px-3 sm:mt-16 sm:px-8">
         <div className="relative aspect-[3/4] sm:aspect-[2/1]">
-          {/* SVG winding path */}
+          {/* Mobile: vertical dashed spine */}
+          <div aria-hidden className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-[repeating-linear-gradient(to_bottom,color-mix(in_oklab,var(--foreground)_18%,transparent)_0_6px,transparent_6px_14px)] sm:hidden" />
+          {/* Desktop: SVG winding path */}
           <svg
             aria-hidden
             viewBox="0 0 1200 600"
             preserveAspectRatio="none"
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 hidden h-full w-full sm:block"
           >
             <defs>
               <linearGradient id="journey-grad" x1="0%" y1="0%" x2="100%" y2="0%">
