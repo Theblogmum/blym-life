@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { AppShell } from "@/components/app-shell";
 import { getMyPurchases, getDownloadUrl } from "@/lib/store.functions";
 import { Button } from "@/components/ui/button";
-import { Download, ShoppingBag } from "lucide-react";
+import { Download, ShoppingBag, BookHeart } from "lucide-react";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/empty-state";
+import { PageHero } from "@/components/page-hero";
 
 export const Route = createFileRoute("/_authenticated/library")({
   head: () => ({ meta: [{ title: "My Library · Blym" }] }),
@@ -35,14 +35,18 @@ function LibraryPage() {
   const purchases = q.data?.purchases ?? [];
 
   return (
-    <AppShell>
-      <div className="mx-auto max-w-4xl px-6 py-10">
-        <h1 className="text-3xl font-semibold tracking-tight">My library</h1>
-        <p className="mt-1 text-sm text-muted-foreground">All your guides and templates, ready to download.</p>
-
-        <div className="mt-8 space-y-3">
+    <div>
+      <PageHero
+        icon={BookHeart}
+        eyebrow="Your library"
+        title="Everything you've collected."
+        description="Guides, templates and unlockables — yours forever, ready to download whenever you need them."
+        variant="butter"
+      />
+      <section className="page-shell">
+        <div className="space-y-3">
           {q.isLoading ? (
-            <p className="text-muted-foreground">Loading…</p>
+            <p className="text-sm text-muted-foreground">Loading…</p>
           ) : purchases.length === 0 ? (
             <EmptyState
               icon={ShoppingBag}
@@ -60,17 +64,17 @@ function LibraryPage() {
             />
           ) : (
             purchases.map((p: any) => (
-              <div key={p.id} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4">
-                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-muted">
+              <div key={p.id} className="soft-card soft-card-hover flex items-center gap-4 p-4">
+                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-muted ring-1 ring-border/40">
                   {p.product?.cover_url && <img src={p.product.cover_url} alt="" className="h-full w-full object-cover" />}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-semibold">{p.product?.title ?? "Product"}</div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="truncate text-[14px] font-semibold tracking-[-0.005em]">{p.product?.title ?? "Product"}</div>
+                  <div className="mt-0.5 text-[12px] text-muted-foreground">
                     Purchased {new Date(p.created_at).toLocaleDateString()}
                   </div>
                 </div>
-                <Button size="sm" onClick={() => download(p.id)} disabled={busy === p.id || !p.product?.file_path}>
+                <Button size="sm" className="rounded-full" onClick={() => download(p.id)} disabled={busy === p.id || !p.product?.file_path}>
                   <Download className="mr-1 h-3.5 w-3.5" />
                   {p.product?.file_path ? (busy === p.id ? "…" : "Download") : "Pending"}
                 </Button>
@@ -78,7 +82,7 @@ function LibraryPage() {
             ))
           )}
         </div>
-      </div>
-    </AppShell>
+      </section>
+    </div>
   );
 }
