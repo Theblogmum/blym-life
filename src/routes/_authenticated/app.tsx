@@ -185,11 +185,24 @@ function HomePage() {
           </div>
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
-              <h1 className="font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:text-[40px]">
+              <h1 className="max-w-[18ch] font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[40px]">
                 {opener}
               </h1>
             </div>
             <TrialPill />
+          </div>
+
+          {/* magic moment — floating encouragement sticker */}
+          <div
+            aria-hidden
+            className="sticker-bob pointer-events-none absolute right-6 top-6 hidden select-none lg:block"
+            style={{ ["--sticker-rot" as any]: "-7deg" }}
+          >
+            <div
+              className="rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-[0_10px_30px_-12px_oklch(0.66_0.24_350/0.35)] ring-1 ring-white/60 backdrop-blur"
+            >
+              ✨ you showed up — that's the win
+            </div>
           </div>
 
         </div>
