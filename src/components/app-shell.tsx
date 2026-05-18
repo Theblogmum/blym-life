@@ -40,6 +40,7 @@ const SECTIONS: Section[] = [
       { label: "Today", icon: Home, to: "/app" },
       { label: "Daily quests", icon: Target, to: "/quests" },
       { label: "My journey", icon: Trophy, to: "/journey" },
+      { label: "Leagues", icon: Trophy, to: "/leagues" },
       { label: "Wins wall", icon: Users, to: "/feed" },
       { label: "Big firsts", icon: Flag, to: "/milestones" },
       { label: "My creator type", icon: Wand2, to: "/creator-type" },
