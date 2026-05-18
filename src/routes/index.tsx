@@ -144,7 +144,7 @@ function Landing() {
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-16 pb-14 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:pt-40 lg:pb-32">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-16 pb-14 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14 lg:pt-40 lg:pb-32">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
