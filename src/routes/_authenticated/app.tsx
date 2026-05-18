@@ -183,25 +183,69 @@ function HomePage() {
           <div className="mb-5">
             <EraRibbon />
           </div>
-          <div className="flex items-start justify-between gap-4">
-            <div className="min-w-0 flex-1">
-              <h1 className="max-w-[18ch] font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[40px]">
-                {opener}
-              </h1>
+          <div className="grid items-start gap-6 lg:grid-cols-[1fr_360px] lg:gap-10">
+            <div className="min-w-0">
+              <div className="flex items-start justify-between gap-4">
+                <h1 className="max-w-[18ch] font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[40px]">
+                  {opener}
+                </h1>
+                <TrialPill />
+              </div>
+              {/* magic moment — floating encouragement sticker (mobile/tablet, under headline) */}
+              <div
+                aria-hidden
+                className="sticker-bob mt-5 inline-flex select-none lg:hidden"
+                style={{ ["--sticker-rot" as any]: "-6deg" }}
+              >
+                <div className="rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-[0_10px_30px_-12px_oklch(0.66_0.24_350/0.35)] ring-1 ring-white/60 backdrop-blur">
+                  ✨ you showed up — that's the win
+                </div>
+              </div>
             </div>
-            <TrialPill />
-          </div>
 
-          {/* magic moment — floating encouragement sticker */}
-          <div
-            aria-hidden
-            className="sticker-bob pointer-events-none absolute bottom-4 right-8 hidden select-none lg:block"
-            style={{ ["--sticker-rot" as any]: "-6deg" }}
-          >
+            {/* CONTENT ROOKIE — slotted into the hero gap on desktop */}
             <div
-              className="rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-[0_10px_30px_-12px_oklch(0.66_0.24_350/0.35)] ring-1 ring-white/60 backdrop-blur"
+              className="relative hidden overflow-hidden rounded-[2rem] p-6 lg:block"
+              style={{
+                background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
+                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
+              }}
             >
-              ✨ you showed up — that's the win
+              <div aria-hidden className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
+              <div aria-hidden className="absolute -bottom-16 -left-10 h-44 w-44 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
+              <div className="relative">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
+                    <Rocket className="h-3 w-3" /> Level {xp?.level ?? 1}
+                  </span>
+                  <span className="text-[11px] font-medium tabular-nums text-foreground/55">
+                    {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
+                  </span>
+                </div>
+                <div className="mt-4 flex items-baseline gap-3">
+                  <span className="text-[36px] leading-none">{lvl.emoji}</span>
+                  <div>
+                    <h2 className="font-display text-[24px] font-bold leading-none tracking-[-0.012em] text-foreground">
+                      {lvl.title}
+                    </h2>
+                    <p className="mt-1.5 text-[12.5px] leading-snug text-foreground/65">{lvl.blurb}</p>
+                  </div>
+                </div>
+                <div className="mt-5">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
+                    <div
+                      className="h-full rounded-full transition-all duration-700"
+                      style={{
+                        width: `${Math.min(100, Math.max(4, xpProgress))}%`,
+                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
+                      }}
+                    />
+                  </div>
+                  <p className="mt-2.5 text-[11.5px] text-foreground/55">
+                    next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
