@@ -346,6 +346,128 @@
     letter-spacing: 0.22em;
     color: var(--primary);
   }
+
+  /* =====================================================================
+   * Shared layout & surface primitives
+   * Use these instead of repeating the same Tailwind chains across pages.
+   * Goal: cohesion, calmer hierarchy, premium feel — matched to landing.
+   * ===================================================================== */
+
+  /* Standard content container — every page body should sit inside this */
+  .page-shell {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1200px;
+    padding-left: 1.25rem;   /* 20px */
+    padding-right: 1.25rem;
+    padding-top: 1rem;
+    padding-bottom: 5rem;    /* room above mobile bottom nav */
+  }
+  @media (min-width: 640px) {
+    .page-shell { padding-left: 2rem; padding-right: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .page-shell { padding-left: 3rem; padding-right: 3rem; padding-bottom: 6rem; }
+  }
+
+  /* Vertical rhythm between sections */
+  .section-block { margin-bottom: 3rem; }
+  @media (min-width: 640px) { .section-block { margin-bottom: 3.5rem; } }
+
+  /* Section header — small eyebrow + display heading */
+  .section-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-size: 1.5rem;   /* 24px */
+    margin-top: 0.5rem;
+  }
+  @media (min-width: 640px) { .section-heading { font-size: 1.875rem; } } /* 30px */
+
+  /* Soft card — the calm baseline card used across the app */
+  .soft-card {
+    background: var(--card);
+    border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-xs);
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                box-shadow 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                border-color 300ms ease;
+  }
+  .soft-card-hover:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklab, var(--border) 90%, transparent);
+    box-shadow: var(--shadow-elegant);
+  }
+
+  /* Soft pastel card — uses one of the surface-* tints; reduced saturation */
+  .pastel-card {
+    border: 1px solid color-mix(in oklab, var(--border) 35%, transparent);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-xs);
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                box-shadow 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
+                border-color 300ms ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .pastel-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--border) 55%, transparent);
+    box-shadow: var(--shadow-elegant);
+  }
+
+  /* Small icon tile — the white-glass square that holds a lucide icon */
+  .icon-tile {
+    display: grid;
+    place-items: center;
+    height: 2.5rem; width: 2.5rem;
+    border-radius: 0.75rem;
+    background: color-mix(in oklab, white 78%, transparent);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px -2px rgba(0,0,0,0.06);
+    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .group:hover > .icon-tile { transform: scale(1.08) rotate(-3deg); }
+
+  /* Tiny pill counter — matches the dashboard "missionsDone/3" chip */
+  .pill-counter {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    border-radius: 9999px;
+    background: var(--foreground);
+    color: var(--background);
+    padding: 0.375rem 0.875rem;
+    font-size: 11.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.005em;
+  }
+
+  /* Soft chip — neutral foreground pill */
+  .chip-soft {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--foreground) 5%, transparent);
+    color: color-mix(in oklab, var(--foreground) 70%, transparent);
+    padding: 0.2rem 0.6rem;
+    font-size: 10.5px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Soft pastel section background utilities — desaturated 78% mix */
+  .bg-surface-peach   { background: color-mix(in oklab, var(--surface-peach)   78%, var(--background)); }
+  .bg-surface-mint    { background: color-mix(in oklab, var(--surface-mint)    78%, var(--background)); }
+  .bg-surface-plum    { background: color-mix(in oklab, var(--surface-plum)    78%, var(--background)); }
+  .bg-surface-butter  { background: color-mix(in oklab, var(--surface-butter)  78%, var(--background)); }
+  .bg-surface-sky     { background: color-mix(in oklab, var(--surface-sky)     78%, var(--background)); }
+  .bg-surface-blush   { background: color-mix(in oklab, var(--surface-blush)   78%, var(--background)); }
+  .bg-surface-rose    { background: color-mix(in oklab, var(--surface-rose)    78%, var(--background)); }
+  .bg-surface-stone   { background: color-mix(in oklab, var(--surface-stone)   78%, var(--background)); }
+  .bg-surface-grape   { background: color-mix(in oklab, var(--surface-grape)   78%, var(--background)); }
+
   /* Aurora hero background for landing/onboarding */
   .bg-aurora { background: var(--gradient-aurora); }
   .bg-mesh { background: var(--gradient-mesh); }
