@@ -5,6 +5,7 @@ import { Check, Sparkles, Snowflake, Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { NotifyOptIn } from "@/components/notify-opt-in";
+import { PageHero } from "@/components/page-hero";
 
 export const Route = createFileRoute("/_authenticated/quests")({ component: QuestsPage });
 
@@ -95,35 +96,75 @@ function QuestsPage() {
   const pct = Math.round((dailyXp / dailyTotal) * 100);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
-      <div className="sticker mb-6 p-6 sm:p-7" style={{ background: "var(--gradient-sunrise)" }}>
-        <p className="eyebrow">today's missions</p>
-        <h1 className="mt-2 font-display text-3xl sm:text-4xl">5 tiny quests, big momentum 🎯</h1>
-        <p className="mt-2 text-muted-foreground">tick them off as you go. low energy? freeze your streak — no guilt allowed.</p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <span className="xp-pill">⚡ {dailyXp} / {dailyTotal} XP today</span>
-          <span className="streak-chip">🔥 keep it alive</span>
-          <button onClick={useFreeze} className="inline-flex items-center gap-1 rounded-full border-2 border-foreground bg-card px-3 py-1 text-xs font-bold shadow-[0_2px_0_0_var(--foreground)] active:translate-y-0.5 active:shadow-none">
-            <Snowflake className="h-3 w-3" /> freeze ({freezes} left)
-          </button>
+    <div>
+      <PageHero
+        icon={Sparkles}
+        eyebrow="today's missions"
+        title="5 tiny quests, big momentum"
+        description="tick them off as you go. low energy? freeze your streak — no guilt allowed."
+        variant="sunrise"
+      />
+      <div className="mx-auto max-w-3xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
+        {/* Progress shelf */}
+        <div className="soft-card mb-10 overflow-hidden p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-surface-butter text-base">⚡</span>
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/55">today's xp</p>
+                <p className="font-display text-[20px] font-bold tabular-nums tracking-[-0.01em]">{dailyXp} <span className="text-foreground/40">/ {dailyTotal}</span></p>
+              </div>
+            </div>
+            <button
+              onClick={useFreeze}
+              className="group inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-card px-3 py-1.5 text-[11.5px] font-semibold text-foreground/75 transition hover:-translate-y-[1px] hover:border-foreground/40 hover:text-foreground hover:shadow-[var(--shadow-xs)]"
+            >
+              <Snowflake className="h-3.5 w-3.5 transition-transform group-hover:rotate-45" /> freeze · {freezes} left
+            </button>
+          </div>
+          <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-foreground/[0.06]">
+            <div
+              className="h-full rounded-full transition-[width] duration-700 ease-out"
+              style={{
+                width: `${Math.max(4, pct)}%`,
+                background: "linear-gradient(90deg, color-mix(in oklab, var(--surface-butter) 65%, var(--foreground) 12%), color-mix(in oklab, var(--surface-peach) 70%, var(--foreground) 14%))",
+              }}
+            />
+          </div>
+          {pct === 100 && (
+            <p className="mt-3 text-[12px] font-medium text-[oklch(0.45_0.14_140)]">all 5 today — soft applause for you 🌿</p>
+          )}
         </div>
-        <div className="mt-4 h-3 w-full overflow-hidden rounded-full border-2 border-foreground bg-card">
-          <div className="h-full bg-primary transition-all" style={{ width: `${pct}%` }} />
+
+        <div className="section-block">
+          <div className="mb-4 flex items-baseline justify-between">
+            <div>
+              <p className="eyebrow">daily</p>
+              <h2 className="section-heading flex items-center gap-2"><Flame className="h-5 w-5 text-primary" /> today's quests</h2>
+            </div>
+            <span className="chip-soft">{DAILY.filter((q) => done[q.id]).length}/{DAILY.length}</span>
+          </div>
+          <div className="space-y-2">
+            {DAILY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
+          </div>
         </div>
-      </div>
 
-      <h2 className="font-display text-xl mb-3 flex items-center gap-2"><Flame className="h-5 w-5 text-primary" /> daily quests</h2>
-      <div className="space-y-3 mb-8">
-        {DAILY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
-      </div>
+        <div className="section-block">
+          <div className="mb-4 flex items-baseline justify-between">
+            <div>
+              <p className="eyebrow">weekly</p>
+              <h2 className="section-heading flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" /> this week</h2>
+            </div>
+            <span className="chip-soft">{WEEKLY.filter((q) => done[q.id]).length}/{WEEKLY.length}</span>
+          </div>
+          <div className="space-y-2">
+            {WEEKLY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
+          </div>
+        </div>
 
-      <h2 className="font-display text-xl mb-3 flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" /> this week</h2>
-      <div className="space-y-3">
-        {WEEKLY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
-      </div>
-
-      <div className="mt-8">
-        <NotifyOptIn />
+        <div className="mt-2">
+          <NotifyOptIn />
+        </div>
       </div>
     </div>
   );
@@ -131,31 +172,45 @@ function QuestsPage() {
 
 function QuestRow({ q, done, onToggle }: { q: Quest; done: boolean; onToggle: () => void }) {
   const Inner = (
-    <div className="flex items-center gap-3 flex-1 min-w-0">
+    <div className="flex items-center gap-3.5 flex-1 min-w-0">
       <div className={cn(
-        "grid h-12 w-12 shrink-0 place-items-center rounded-2xl border-2 border-foreground bg-card text-xl shadow-[0_3px_0_0_var(--foreground)]",
+        "icon-tile h-10 w-10 text-[20px] bg-white/75",
         done && "bounce-in",
       )}>
         {q.emoji}
       </div>
       <div className="flex-1 min-w-0">
-        <p className={cn("font-display text-base leading-tight", done && "line-through text-muted-foreground")}>{q.title}</p>
-        <p className="text-xs text-foreground/70">+{q.xp} XP</p>
+        <p className={cn(
+          "text-[14.5px] font-semibold leading-tight tracking-[-0.005em]",
+          done && "line-through opacity-55",
+        )}>{q.title}</p>
+        <p className="mt-0.5 text-[11.5px] font-semibold text-foreground/55 tabular-nums">+{q.xp} XP</p>
       </div>
     </div>
   );
   return (
-    <div className="sticker p-4 flex items-center gap-3" style={done ? { background: q.tint } : undefined}>
+    <div
+      className={cn(
+        "group relative flex items-center gap-3 overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
+        done
+          ? "border-[oklch(0.78_0.1_155)]/50 bg-[oklch(0.97_0.04_155)]/70"
+          : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]",
+      )}
+      style={done ? { background: `color-mix(in oklab, ${q.tint} 35%, var(--card))` } : undefined}
+    >
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-primary/70 transition-transform duration-300 group-hover:scale-y-100" />
       {q.to ? <Link to={q.to} className="flex-1 min-w-0 flex">{Inner}</Link> : <div className="flex-1 min-w-0 flex">{Inner}</div>}
       <button
         onClick={onToggle}
-        className={cn(
-          "grid h-10 w-10 shrink-0 place-items-center rounded-full border-2 border-foreground transition-transform active:translate-y-0.5",
-          done ? "bg-success text-white shadow-none" : "bg-card shadow-[0_3px_0_0_var(--foreground)]",
-        )}
         aria-label={done ? "mark undone" : "mark done"}
+        className={cn(
+          "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
+          done
+            ? "bg-[oklch(0.6_0.16_155)] text-white scale-105 shadow-[0_4px_14px_-4px_oklch(0.6_0.16_155/0.5)]"
+            : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-foreground group-hover:text-background group-hover:scale-105",
+        )}
       >
-        <Check className="h-5 w-5" />
+        <Check className="h-4 w-4" strokeWidth={3} />
       </button>
     </div>
   );
