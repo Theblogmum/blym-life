@@ -411,7 +411,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           <main className="overflow-x-hidden pb-20 lg:pb-0">
             <ToolBanner />
             <StreakRiskBanner />
-            {children}
+            <div key={path} className="page-enter">
+              {children}
+            </div>
           </main>
         </div>
       </div>
