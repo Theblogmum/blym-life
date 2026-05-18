@@ -257,31 +257,31 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const sidebarInner = (onClick?: () => void) => (
     <div className="flex h-full flex-col">
-      <div className="px-5 pt-6 pb-5">
+      <div className="px-4 pt-5 pb-4">
         <Link to="/app" onClick={onClick} className="block">
-          <img src={logo} alt="Blym" className="h-10 w-auto object-contain" />
+          <img src={logo} alt="Blym" className="h-8 w-auto object-contain" />
         </Link>
       </div>
 
       {/* Search trigger */}
-      <div className="px-3 pb-3">
+      <div className="px-2.5 pb-3">
         <button
           onClick={() => { setPaletteOpen(true); onClick?.(); }}
-          className="flex w-full items-center gap-2 rounded-xl border border-border bg-background px-3 py-2 text-left text-[13px] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
+          className="flex w-full items-center gap-2 rounded-xl border border-border bg-background px-2.5 py-1.5 text-left text-[12.5px] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
         >
           <Search className="h-3.5 w-3.5" />
-          <span className="flex-1">Search tools…</span>
+          <span className="flex-1 truncate">Search…</span>
           <kbd className="rounded-md bg-foreground/8 px-1.5 py-0.5 text-[10px] font-mono font-semibold">⌘K</kbd>
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 pb-6">
+      <div className="flex-1 overflow-y-auto px-2.5 pb-6">
         {SECTIONS.map((s, idx) => (
-          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-10" : "mb-10 mt-2")}>
-            <p className="px-3 pb-4 pt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
+          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-7" : "mb-7 mt-1")}>
+            <p className="px-2.5 pb-3 pt-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
               {s.eyebrow}
             </p>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               {s.groups.map((g) => renderGroup(g, onClick))}
             </div>
           </div>
