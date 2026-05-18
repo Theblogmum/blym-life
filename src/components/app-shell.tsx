@@ -27,6 +27,7 @@ import { ToolBanner } from "@/components/tool-banner";
 import { EraTheme } from "@/components/era-theme";
 import { PlayerHud } from "@/components/player-hud";
 import { getMuted, setMuted, pop } from "@/lib/celebrate";
+import { ComboOverlay } from "@/components/combo-overlay";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -412,6 +413,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
       <MobileBottomNav onSearch={() => setPaletteOpen(true)} />
       <LowEnergyButton />
+      <ComboOverlay />
     </div>
   );
 }
