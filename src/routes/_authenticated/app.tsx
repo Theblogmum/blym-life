@@ -197,6 +197,152 @@ function HomePage() {
 
       <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
 
+        {/* ============ BADGES SHELF (compact, directly under greeting) ============ */}
+        <section className="mb-10 sm:mb-14">
+          <div className="mb-4 flex items-end justify-between">
+            <div>
+              <p className="eyebrow">badges</p>
+              <h2 className="mt-1.5 font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[25px]">
+                you, collected.
+              </h2>
+              <p className="mt-1 text-[11.5px] text-foreground/55">little proofs of who you're becoming.</p>
+            </div>
+            <span className="text-[11px] font-medium tabular-nums text-foreground/60">
+              {earned.length}/{BADGES.length}
+            </span>
+          </div>
+          <div className="-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8">
+            <ul className="flex gap-3">
+              {BADGES.map((b) => {
+                const got = earned.includes(b.id);
+                return (
+                  <li key={b.id} className="shrink-0">
+                    <div
+                      className={cn(
+                        "group/badge relative flex h-[104px] w-[88px] flex-col items-center justify-center gap-1.5 overflow-hidden rounded-[1.1rem] p-2 text-center transition-all duration-500",
+                        got
+                          ? "bg-white/85 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_20px_42px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.7))]"
+                          : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
+                      )}
+                      style={got ? ({ ["--badge-glow" as any]: b.glow } as React.CSSProperties) : undefined}
+                    >
+                      {got && (
+                        <>
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover/badge:opacity-100"
+                            style={{ background: `radial-gradient(circle at 50% 30%, color-mix(in oklab, ${b.glow} 32%, transparent), transparent 68%)` }}
+                          />
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute -top-7 left-1/2 h-14 w-14 -translate-x-1/2 rounded-full opacity-30 blur-2xl transition-all duration-700 group-hover/badge:opacity-95 group-hover/badge:scale-110"
+                            style={{ background: b.glow }}
+                          />
+                        </>
+                      )}
+                      <span className={cn(
+                        "relative text-[28px] leading-none transition-transform duration-500",
+                        got ? "drop-shadow-[0_2px_7px_color-mix(in_oklab,var(--badge-glow,transparent)_50%,transparent)] group-hover/badge:scale-[1.15] group-hover/badge:-rotate-[6deg]" : "opacity-35 saturate-0 grayscale",
+                      )}>
+                        {b.emoji}
+                      </span>
+                      <span className={cn(
+                        "relative px-0.5 text-[10px] font-semibold leading-tight tracking-[-0.005em]",
+                        got ? "text-foreground" : "text-foreground/45",
+                      )}>
+                        {b.label}
+                      </span>
+                      {!got && (
+                        <span className="relative text-[8px] font-medium uppercase tracking-[0.18em] text-foreground/30">soon</span>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+
+        {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
+        <section className="mb-14 sm:mb-20">
+          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5">
+            <div
+              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7"
+              style={{
+                background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
+                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
+              }}
+            >
+              <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
+              <div aria-hidden className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
+              <div className="relative">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
+                    <Rocket className="h-3 w-3" /> Level {xp?.level ?? 1}
+                  </span>
+                  <span className="text-[11px] font-medium tabular-nums text-foreground/55">
+                    {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
+                  </span>
+                </div>
+                <div className="mt-6 flex items-baseline gap-3">
+                  <span className="text-[40px] leading-none">{lvl.emoji}</span>
+                  <div>
+                    <h2 className="font-display text-[26px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[32px]">
+                      {lvl.title}
+                    </h2>
+                    <p className="mt-2 text-[13px] leading-snug text-foreground/65">{lvl.blurb}</p>
+                  </div>
+                </div>
+                <div className="mt-7">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
+                    <div
+                      className="h-full rounded-full transition-all duration-700"
+                      style={{
+                        width: `${Math.min(100, Math.max(4, xpProgress))}%`,
+                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
+                      }}
+                    />
+                  </div>
+                  <p className="mt-3 text-[12px] text-foreground/55">
+                    next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={cn(
+                "relative overflow-hidden rounded-[2rem] p-6 shadow-[var(--shadow-layered)]",
+                streak > 0 && "pulse-glow",
+              )}
+              style={{
+                background: streak > 0
+                  ? "linear-gradient(160deg, oklch(0.96 0.06 70), oklch(0.92 0.11 30))"
+                  : "linear-gradient(160deg, oklch(0.98 0.012 70), oklch(0.94 0.02 60))",
+              }}
+            >
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/60">
+                {streak > 0 ? "streak alive" : "start a streak"}
+              </p>
+              <div className="mt-3 flex items-baseline gap-2.5">
+                <span className="text-[52px] leading-none">{streak > 0 ? "🔥" : "🌱"}</span>
+                <div>
+                  <p className="font-display text-[40px] font-bold leading-none tabular-nums tracking-[-0.02em]">{streak}</p>
+                  <p className="mt-0.5 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-foreground/55">
+                    {streak === 1 ? "day" : "days"}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-4 text-[12.5px] leading-relaxed text-foreground/70">
+                {streak >= 7 ? "you survived the week. proud x"
+                  : streak >= 3 ? "don't break it now girl 🫣"
+                  : streak > 0 ? "tomorrow you keep it going."
+                  : "one post today. that's it. that's the move."}
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ============ TODAY'S MISSIONS ============ */}
         <section className="mb-14 sm:mb-20">
           <div className="mb-5 flex items-end justify-between gap-3">
@@ -326,157 +472,6 @@ function HomePage() {
             ) : (
               <p className="mt-5 text-sm text-muted-foreground">hiding today — tap "another".</p>
             )}
-          </div>
-        </section>
-
-        {/* ============ LEVEL + STREAK CARDS ============ */}
-        <section className="mb-14 sm:mb-20">
-          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5">
-            <div
-              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7"
-              style={{
-                background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
-                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
-              }}
-            >
-              <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
-              <div aria-hidden className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
-              <div className="relative">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
-                    <Rocket className="h-3 w-3" /> Level {xp?.level ?? 1}
-                  </span>
-                  <span className="text-[11px] font-medium tabular-nums text-foreground/55">
-                    {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
-                  </span>
-                </div>
-                <div className="mt-6 flex items-baseline gap-3">
-                  <span className="text-[40px] leading-none">{lvl.emoji}</span>
-                  <div>
-                    <h2 className="font-display text-[26px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[32px]">
-                      {lvl.title}
-                    </h2>
-                    <p className="mt-2 text-[13px] leading-snug text-foreground/65">{lvl.blurb}</p>
-                  </div>
-                </div>
-                <div className="mt-7">
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
-                    <div
-                      className="h-full rounded-full transition-all duration-700"
-                      style={{
-                        width: `${Math.min(100, Math.max(4, xpProgress))}%`,
-                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
-                      }}
-                    />
-                  </div>
-                  <p className="mt-3 text-[12px] text-foreground/55">
-                    next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div
-              className={cn(
-                "relative overflow-hidden rounded-[2rem] p-6 shadow-[var(--shadow-layered)]",
-                streak > 0 && "pulse-glow",
-              )}
-              style={{
-                background: streak > 0
-                  ? "linear-gradient(160deg, oklch(0.96 0.06 70), oklch(0.92 0.11 30))"
-                  : "linear-gradient(160deg, oklch(0.98 0.012 70), oklch(0.94 0.02 60))",
-              }}
-            >
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/60">
-                {streak > 0 ? "streak alive" : "start a streak"}
-              </p>
-              <div className="mt-3 flex items-baseline gap-2.5">
-                <span className="text-[52px] leading-none">{streak > 0 ? "🔥" : "🌱"}</span>
-                <div>
-                  <p className="font-display text-[40px] font-bold leading-none tabular-nums tracking-[-0.02em]">{streak}</p>
-                  <p className="mt-0.5 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-foreground/55">
-                    {streak === 1 ? "day" : "days"}
-                  </p>
-                </div>
-              </div>
-              <p className="mt-4 text-[12.5px] leading-relaxed text-foreground/70">
-                {streak >= 7 ? "you survived the week. proud x"
-                  : streak >= 3 ? "don't break it now girl 🫣"
-                  : streak > 0 ? "tomorrow you keep it going."
-                  : "one post today. that's it. that's the move."}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ BADGES SHELF ============ */}
-        <section className="mb-14 sm:mb-20">
-          <div className="mb-6 flex items-end justify-between">
-            <div>
-              <p className="eyebrow">badges</p>
-              <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
-                you, collected.
-              </h2>
-              <p className="mt-1.5 text-[13px] text-foreground/55">little proofs of who you're becoming.</p>
-            </div>
-            <span className="text-[12px] font-medium tabular-nums text-foreground/60">
-              {earned.length}/{BADGES.length}
-            </span>
-          </div>
-          <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8">
-            <ul className="flex gap-4">
-              {BADGES.map((b) => {
-                const got = earned.includes(b.id);
-                return (
-                  <li key={b.id} className="shrink-0">
-                    <div
-                      className={cn(
-                        "group/badge relative flex h-[148px] w-[124px] flex-col items-center justify-center gap-2.5 overflow-hidden rounded-[1.5rem] p-3 text-center transition-all duration-500",
-                        got
-                          ? "bg-white/85 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_18px_36px_-18px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-2 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_30px_60px_-20px_var(--badge-glow,oklch(0.7_0.15_280/0.7))]"
-                          : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
-                      )}
-                      style={got ? ({ ["--badge-glow" as any]: b.glow } as React.CSSProperties) : undefined}
-                    >
-                      {got && (
-                        <>
-                          <div
-                            aria-hidden
-                            className="pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover/badge:opacity-100"
-                            style={{ background: `radial-gradient(circle at 50% 30%, color-mix(in oklab, ${b.glow} 32%, transparent), transparent 68%)` }}
-                          />
-                          <div
-                            aria-hidden
-                            className="pointer-events-none absolute -top-10 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full opacity-30 blur-2xl transition-all duration-700 group-hover/badge:opacity-95 group-hover/badge:scale-110"
-                            style={{ background: b.glow }}
-                          />
-                          <div
-                            aria-hidden
-                            className="pointer-events-none absolute inset-x-3 top-2 h-px rounded-full opacity-50"
-                            style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.8), transparent)" }}
-                          />
-                        </>
-                      )}
-                      <span className={cn(
-                        "relative text-[40px] leading-none transition-transform duration-500",
-                        got ? "drop-shadow-[0_3px_10px_color-mix(in_oklab,var(--badge-glow,transparent)_50%,transparent)] group-hover/badge:scale-[1.15] group-hover/badge:-rotate-[6deg]" : "opacity-35 saturate-0 grayscale",
-                      )}>
-                        {b.emoji}
-                      </span>
-                      <span className={cn(
-                        "relative px-1 text-[11.5px] font-semibold leading-tight tracking-[-0.005em]",
-                        got ? "text-foreground" : "text-foreground/45",
-                      )}>
-                        {b.label}
-                      </span>
-                      {!got && (
-                        <span className="relative mt-0.5 text-[9px] font-medium uppercase tracking-[0.18em] text-foreground/30">soon</span>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
         </section>
 
