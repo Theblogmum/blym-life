@@ -385,30 +385,30 @@ function Landing() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-6xl px-5 pb-16 sm:px-8 sm:pb-[90px]">
-        <div className="grid gap-6 md:grid-cols-2 md:items-stretch">
-          <div className="relative overflow-hidden rounded-[2rem] bg-anchor p-8 text-center text-white shadow-[var(--shadow-elegant)] sm:p-10 flex flex-col">
+      <section id="contact" className="mx-auto max-w-4xl px-5 pb-16 sm:px-8 sm:pb-[90px]">
+        <div className="grid gap-5 md:grid-cols-2 md:items-stretch">
+          <div className="relative overflow-hidden rounded-[1.5rem] bg-anchor p-6 text-center text-white shadow-[var(--shadow-elegant)] sm:p-7 flex flex-col">
             <div className="absolute -top-24 -right-16 h-60 w-60 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
             <div className="absolute -bottom-24 -left-16 h-60 w-60 rounded-full bg-[image:var(--gradient-bloom)] opacity-20 blur-3xl" aria-hidden />
             <div className="relative flex flex-1 flex-col">
-              <span className="inline-flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/70">
-                <Clock className="h-3.5 w-3.5" /> Tomorrow morning
+              <span className="inline-flex items-center justify-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">
+                <Clock className="h-3 w-3" /> Tomorrow morning
               </span>
-              <h2 className="mx-auto mt-4 font-display text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[36px]">
+              <h2 className="mx-auto mt-3 font-display text-[20px] font-normal leading-[1.1] tracking-[-0.02em] text-balance sm:text-[26px]">
                 Your brief is already being written.
               </h2>
-              <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-white/75 text-pretty">
+              <p className="mx-auto mt-2 max-w-md text-[13px] leading-[1.55] text-white/75 text-pretty">
                 Stop scrolling for ideas. Start filming the right one — calm, clear, on-brand.
               </p>
-              <div className="mt-auto pt-6 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+              <div className="mt-auto pt-4 flex flex-col items-stretch justify-center gap-2 sm:flex-row">
                 <Link to={ctaPrimary.to}>
-                  <Button size="lg" className="w-full rounded-full bg-white px-6 py-5 text-base text-foreground shadow-[var(--shadow-soft)] hover:bg-white/90 sm:w-auto">
+                  <Button size="lg" className="w-full rounded-full bg-white px-5 py-3.5 text-sm text-foreground shadow-[var(--shadow-soft)] hover:bg-white/90 sm:w-auto">
                     {ctaPrimary.label} <ArrowRight className="h-4 w-4" />
                   </Button>
                 </Link>
                 {ctaSecondary && (
                   <Link to={ctaSecondary.to}>
-                    <Button size="lg" variant="ghost" className="w-full rounded-full px-5 py-5 text-base text-white hover:bg-white/10 sm:w-auto">
+                    <Button size="lg" variant="ghost" className="w-full rounded-full px-4 py-3.5 text-sm text-white hover:bg-white/10 sm:w-auto">
                       Sign in
                     </Button>
                   </Link>
@@ -417,15 +417,15 @@ function Landing() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] bg-primary/70 p-8 text-center text-white shadow-[var(--shadow-soft)] sm:p-10 flex flex-col">
-            <span className="inline-flex items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/85">Get in touch</span>
-            <h2 className="mt-4 font-display text-[28px] font-normal leading-[1.1] tracking-[-0.02em] text-white text-balance sm:text-[36px]">Say hi — we read every message.</h2>
-            <p className="mx-auto mt-3 max-w-md text-[15px] leading-[1.6] text-white/85 text-pretty">
+          <div className="rounded-[1.5rem] bg-primary/70 p-6 text-center text-white shadow-[var(--shadow-soft)] sm:p-7 flex flex-col">
+            <span className="inline-flex items-center justify-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/85">Get in touch</span>
+            <h2 className="mt-3 font-display text-[20px] font-normal leading-[1.1] tracking-[-0.02em] text-white text-balance sm:text-[26px]">Say hi — we read every message.</h2>
+            <p className="mx-auto mt-2 max-w-md text-[13px] leading-[1.55] text-white/85 text-pretty">
               Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
             </p>
             <a
               href="mailto:info@blym.life"
-              className="mt-auto inline-flex items-center justify-center self-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-foreground transition hover:bg-white/90"
+              className="mt-auto inline-flex items-center justify-center self-center rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-foreground transition hover:bg-white/90"
             >
               info@blym.life
             </a>
