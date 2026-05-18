@@ -1,0 +1,63 @@
+import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+
+type Tone = "warm" | "bloom" | "mint" | "sky" | "butter" | "blush";
+
+const TONE: Record<Tone, { chip: string; ring: string }> = {
+  warm:   { chip: "surface-peach",  ring: "ring-[oklch(0.85_0.08_30)]" },
+  bloom:  { chip: "surface-plum",   ring: "ring-[oklch(0.85_0.07_340)]" },
+  mint:   { chip: "surface-mint",   ring: "ring-[oklch(0.85_0.07_155)]" },
+  sky:    { chip: "surface-sky",    ring: "ring-[oklch(0.85_0.06_220)]" },
+  butter: { chip: "surface-butter", ring: "ring-[oklch(0.88_0.08_80)]" },
+  blush:  { chip: "surface-blush",  ring: "ring-[oklch(0.85_0.08_10)]" },
+};
+
+export function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  tone = "warm",
+  action,
+  hint,
+  className,
+}: {
+  icon: LucideIcon;
+  title: string;
+  description?: string;
+  tone?: Tone;
+  action?: ReactNode;
+  hint?: string;
+  className?: string;
+}) {
+  const t = TONE[tone];
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-3xl border border-dashed border-border/70 bg-card p-8 text-center",
+        className,
+      )}
+    >
+      <div
+        aria-hidden
+        className={cn(
+          "mx-auto grid h-14 w-14 place-items-center rounded-2xl ring-4 ring-offset-2 ring-offset-card",
+          t.chip,
+          t.ring,
+        )}
+      >
+        <Icon className="h-6 w-6 text-foreground/75" />
+      </div>
+      <p className="mt-4 font-display text-lg font-black leading-tight">{title}</p>
+      {description && (
+        <p className="mx-auto mt-1.5 max-w-sm text-sm text-muted-foreground">{description}</p>
+      )}
+      {action && <div className="mt-5 flex justify-center">{action}</div>}
+      {hint && (
+        <p className="mt-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/80">
+          {hint}
+        </p>
+      )}
+    </div>
+  );
+}
