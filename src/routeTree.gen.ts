@@ -33,6 +33,7 @@ import { Route as AuthenticatedRewardsRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedResponseWriterRouteImport } from './routes/_authenticated/response-writer'
 import { Route as AuthenticatedRejectionRecoveryRouteImport } from './routes/_authenticated/rejection-recovery'
 import { Route as AuthenticatedRecyclerRouteImport } from './routes/_authenticated/recycler'
+import { Route as AuthenticatedQuestsRouteImport } from './routes/_authenticated/quests'
 import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authenticated/profile-audit'
 import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authenticated/post-timing'
 import { Route as AuthenticatedPortfolioRouteImport } from './routes/_authenticated/portfolio'
@@ -195,6 +196,11 @@ const AuthenticatedRejectionRecoveryRoute =
 const AuthenticatedRecyclerRoute = AuthenticatedRecyclerRouteImport.update({
   id: '/recycler',
   path: '/recycler',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedQuestsRoute = AuthenticatedQuestsRouteImport.update({
+  id: '/quests',
+  path: '/quests',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedProfileAuditRoute =
@@ -453,6 +459,7 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof AuthenticatedPortfolioRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
   '/profile-audit': typeof AuthenticatedProfileAuditRoute
+  '/quests': typeof AuthenticatedQuestsRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
@@ -517,6 +524,7 @@ export interface FileRoutesByTo {
   '/portfolio': typeof AuthenticatedPortfolioRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
   '/profile-audit': typeof AuthenticatedProfileAuditRoute
+  '/quests': typeof AuthenticatedQuestsRoute
   '/recycler': typeof AuthenticatedRecyclerRoute
   '/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/response-writer': typeof AuthenticatedResponseWriterRoute
@@ -583,6 +591,7 @@ export interface FileRoutesById {
   '/_authenticated/portfolio': typeof AuthenticatedPortfolioRoute
   '/_authenticated/post-timing': typeof AuthenticatedPostTimingRoute
   '/_authenticated/profile-audit': typeof AuthenticatedProfileAuditRoute
+  '/_authenticated/quests': typeof AuthenticatedQuestsRoute
   '/_authenticated/recycler': typeof AuthenticatedRecyclerRoute
   '/_authenticated/rejection-recovery': typeof AuthenticatedRejectionRecoveryRoute
   '/_authenticated/response-writer': typeof AuthenticatedResponseWriterRoute
@@ -649,6 +658,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/post-timing'
     | '/profile-audit'
+    | '/quests'
     | '/recycler'
     | '/rejection-recovery'
     | '/response-writer'
@@ -713,6 +723,7 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/post-timing'
     | '/profile-audit'
+    | '/quests'
     | '/recycler'
     | '/rejection-recovery'
     | '/response-writer'
@@ -778,6 +789,7 @@ export interface FileRouteTypes {
     | '/_authenticated/portfolio'
     | '/_authenticated/post-timing'
     | '/_authenticated/profile-audit'
+    | '/_authenticated/quests'
     | '/_authenticated/recycler'
     | '/_authenticated/rejection-recovery'
     | '/_authenticated/response-writer'
@@ -995,6 +1007,13 @@ declare module '@tanstack/react-router' {
       path: '/recycler'
       fullPath: '/recycler'
       preLoaderRoute: typeof AuthenticatedRecyclerRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/quests': {
+      id: '/_authenticated/quests'
+      path: '/quests'
+      fullPath: '/quests'
+      preLoaderRoute: typeof AuthenticatedQuestsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/profile-audit': {
@@ -1304,6 +1323,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedPortfolioRoute: typeof AuthenticatedPortfolioRoute
   AuthenticatedPostTimingRoute: typeof AuthenticatedPostTimingRoute
   AuthenticatedProfileAuditRoute: typeof AuthenticatedProfileAuditRoute
+  AuthenticatedQuestsRoute: typeof AuthenticatedQuestsRoute
   AuthenticatedRecyclerRoute: typeof AuthenticatedRecyclerRoute
   AuthenticatedRejectionRecoveryRoute: typeof AuthenticatedRejectionRecoveryRoute
   AuthenticatedResponseWriterRoute: typeof AuthenticatedResponseWriterRoute
@@ -1348,6 +1368,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPortfolioRoute: AuthenticatedPortfolioRoute,
   AuthenticatedPostTimingRoute: AuthenticatedPostTimingRoute,
   AuthenticatedProfileAuditRoute: AuthenticatedProfileAuditRoute,
+  AuthenticatedQuestsRoute: AuthenticatedQuestsRoute,
   AuthenticatedRecyclerRoute: AuthenticatedRecyclerRoute,
   AuthenticatedRejectionRecoveryRoute: AuthenticatedRejectionRecoveryRoute,
   AuthenticatedResponseWriterRoute: AuthenticatedResponseWriterRoute,
