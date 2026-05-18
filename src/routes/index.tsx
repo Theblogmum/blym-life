@@ -57,7 +57,7 @@ function Landing() {
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
       <header className="sticky top-0 z-40 bg-background/70 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -144,25 +144,25 @@ function Landing() {
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-24 pb-20 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-40 lg:pb-32">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-16 pb-14 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-40 lg:pb-32">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
-            <h1 className="mt-3 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.025em] text-foreground text-balance sm:text-[56px] lg:text-[68px]">
+            <h1 className="mt-3 font-display text-[34px] font-bold leading-[1.05] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[68px]">
               From nervous beginner to <span className="text-gradient-game">booked &amp; busy</span>.
             </h1>
-            <p className="mt-5 max-w-lg text-[18px] leading-[1.5] text-muted-foreground text-pretty sm:text-[20px]">
+            <p className="mt-4 max-w-lg text-[16px] leading-[1.5] text-muted-foreground text-pretty sm:text-[20px]">
               The creator app that makes consistency addictive.
             </p>
-            <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <Link to={ctaPrimary.to}>
-                <Button size="lg" className="btn-chunky btn-chunky--primary text-base">
+            <div className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+              <Link to={ctaPrimary.to} className="w-full sm:w-auto">
+                <Button size="lg" className="btn-chunky btn-chunky--primary w-full text-base sm:w-auto">
                   Start my journey <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               {ctaSecondary && (
-                <Link to={ctaSecondary.to}>
-                  <Button size="lg" variant="ghost" className="rounded-full px-5 py-6 text-base text-muted-foreground hover:text-foreground">
+                <Link to={ctaSecondary.to} className="w-full sm:w-auto">
+                  <Button size="lg" variant="ghost" className="w-full rounded-full px-5 py-6 text-base text-muted-foreground hover:text-foreground sm:w-auto">
                     {ctaSecondary.label}
                   </Button>
                 </Link>
@@ -172,14 +172,14 @@ function Landing() {
               free to start · no card · level 1 unlocks instantly ✨
             </p>
             {/* Inline stats — directly under CTA so they feel part of the promise */}
-            <dl className="mt-10 flex flex-wrap items-center gap-x-10 gap-y-3">
+            <dl className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-10">
               {[
                 { value: "10 levels", label: "to unlock" },
                 { value: "🔥 daily", label: "streaks + XP" },
                 { value: "4.9★", label: "creator rating" },
               ].map((s) => (
                 <div key={s.label} className="flex items-baseline gap-2">
-                  <dt className="font-display text-xl text-foreground sm:text-2xl">{s.value}</dt>
+                  <dt className="font-display text-lg text-foreground sm:text-2xl">{s.value}</dt>
                   <dd className="text-[12px] text-muted-foreground">{s.label}</dd>
                 </div>
               ))}

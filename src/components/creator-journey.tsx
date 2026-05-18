@@ -21,7 +21,7 @@ const POSITIONS = [
 
 export function CreatorJourney() {
   return (
-    <section className="relative overflow-hidden bg-[image:var(--gradient-aurora)] py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-[image:var(--gradient-aurora)] py-16 sm:py-32">
       {/* Drifting backdrop blobs */}
       <div aria-hidden className="absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-[image:var(--gradient-bloom)] opacity-40 blur-3xl gradient-drift" />
       <div aria-hidden className="absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-[image:var(--gradient-mint)] opacity-35 blur-3xl gradient-drift" style={{ animationDelay: "5s" }} />
@@ -37,14 +37,16 @@ export function CreatorJourney() {
       </div>
 
       {/* Journey path */}
-      <div className="relative mx-auto mt-16 max-w-6xl px-5 sm:px-8">
-        <div className="relative aspect-[16/7] sm:aspect-[2/1]">
-          {/* SVG winding path */}
+      <div className="relative mx-auto mt-10 max-w-6xl px-3 sm:mt-16 sm:px-8">
+        <div className="relative aspect-[3/4] sm:aspect-[2/1]">
+          {/* Mobile: vertical dashed spine */}
+          <div aria-hidden className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-[repeating-linear-gradient(to_bottom,color-mix(in_oklab,var(--foreground)_18%,transparent)_0_6px,transparent_6px_14px)] sm:hidden" />
+          {/* Desktop: SVG winding path */}
           <svg
             aria-hidden
             viewBox="0 0 1200 600"
             preserveAspectRatio="none"
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 hidden h-full w-full sm:block"
           >
             <defs>
               <linearGradient id="journey-grad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -77,24 +79,33 @@ export function CreatorJourney() {
           {/* Milestone nodes */}
           {STOPS.map((s, i) => {
             const pos = POSITIONS[i];
+            // On mobile, stack milestones vertically along a centered axis instead of left→right
+            const mobileY = 6 + i * 17; // 6, 23, 40, 57, 74, 91
+            const mobileX = i % 2 === 0 ? 28 : 72;
             return (
               <div
                 key={s.label}
-                className="absolute -translate-x-1/2 -translate-y-1/2 milestone-pop"
-                style={{ left: `${pos.x}%`, top: `${pos.y}%`, ['--i' as string]: i }}
+                className="absolute -translate-x-1/2 -translate-y-1/2 milestone-pop sm:!left-[var(--lx)] sm:!top-[var(--ly)]"
+                style={{
+                  left: `${mobileX}%`,
+                  top: `${mobileY}%`,
+                  ['--lx' as string]: `${pos.x}%`,
+                  ['--ly' as string]: `${pos.y}%`,
+                  ['--i' as string]: i,
+                }}
               >
                 <div className="flex flex-col items-center gap-2">
                   <div
-                    className="relative grid h-14 w-14 place-items-center rounded-2xl text-foreground shadow-[var(--shadow-elegant)] ring-4 ring-background sm:h-16 sm:w-16"
+                    className="relative grid h-12 w-12 place-items-center rounded-2xl text-foreground shadow-[var(--shadow-elegant)] ring-4 ring-background sm:h-16 sm:w-16"
                     style={{ background: s.tint, transform: `rotate(${i % 2 === 0 ? -4 : 4}deg)` }}
                   >
-                    <s.icon className="h-6 w-6 sm:h-7 sm:w-7" />
-                    <span className="absolute -top-2 -right-2 grid h-6 w-6 place-items-center rounded-full bg-anchor text-[10px] font-bold text-anchor-foreground shadow-[var(--shadow-soft)]">
+                    <s.icon className="h-5 w-5 sm:h-7 sm:w-7" />
+                    <span className="absolute -top-2 -right-2 grid h-5 w-5 place-items-center rounded-full bg-anchor text-[9px] font-bold text-anchor-foreground shadow-[var(--shadow-soft)] sm:h-6 sm:w-6 sm:text-[10px]">
                       {i + 1}
                     </span>
                   </div>
                   <div className="text-center">
-                    <p className="font-display text-[13px] font-semibold leading-tight text-foreground sm:text-[15px]">{s.label}</p>
+                    <p className="font-display text-[12px] font-semibold leading-tight text-foreground sm:text-[15px]">{s.label}</p>
                     <p className="hidden text-[11px] text-muted-foreground sm:block">{s.sub}</p>
                   </div>
                 </div>
