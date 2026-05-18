@@ -3,16 +3,13 @@ import { type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
-  Heart, Star, ArrowRight, Quote,
+  Heart, Star, ArrowRight, Quote, Zap, CalendarDays, MessageSquareText, Recycle, LineChart, Trophy,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
-import featBrief from "@/assets/feature-brief.jpg";
-import featBrand from "@/assets/feature-brand.jpg";
-import featGrow from "@/assets/feature-grow.jpg";
 import { LandingDemo } from "@/components/landing-demo";
 
 export const Route = createFileRoute("/")({
