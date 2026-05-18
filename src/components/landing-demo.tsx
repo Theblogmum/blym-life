@@ -59,7 +59,7 @@ export function LandingDemo() {
   };
 
   return (
-    <div className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-[440px]">
+    <div className="relative mx-auto w-full min-w-0 max-w-sm sm:max-w-md">
       <div
         aria-hidden
         className="absolute -inset-10 rounded-[3rem] opacity-50 blur-3xl transition-opacity duration-700"
