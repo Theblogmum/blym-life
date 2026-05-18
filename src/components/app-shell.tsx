@@ -2,11 +2,10 @@ import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
-  Menu, Bell, Search, Shield, Command as CommandIcon, Plus, Trophy,
+  Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
   Gift, Users, Flag, Wand2, Target,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
   DropdownMenuSeparator, DropdownMenuTrigger,
