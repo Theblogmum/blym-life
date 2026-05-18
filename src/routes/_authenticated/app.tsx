@@ -433,29 +433,50 @@ function HomePage() {
               {earned.length}/{BADGES.length}
             </span>
           </div>
-          <div className="-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8">
-            <ul className="flex gap-3">
+          <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8">
+            <ul className="flex gap-3.5">
               {BADGES.map((b) => {
                 const got = earned.includes(b.id);
                 return (
                   <li key={b.id} className="shrink-0">
                     <div
                       className={cn(
-                        "flex h-[108px] w-[96px] flex-col items-center justify-center gap-2 rounded-2xl p-2.5 text-center transition-all duration-300",
+                        "group/badge relative flex h-[116px] w-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl p-2.5 text-center transition-all duration-500",
                         got
-                          ? "bg-card border border-border/50 shadow-[var(--shadow-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
-                          : "border border-dashed border-border/60 bg-foreground/[0.02]",
+                          ? "border border-border/40 bg-card shadow-[var(--shadow-soft)] hover:-translate-y-1.5 hover:border-border/60 hover:shadow-[0_18px_40px_-18px_var(--badge-glow,oklch(0.7_0.15_280/0.55))]"
+                          : "border border-dashed border-border/40 bg-foreground/[0.015] hover:border-border/55 hover:bg-foreground/[0.03]",
                       )}
+                      style={got ? ({ ["--badge-glow" as any]: b.glow } as React.CSSProperties) : undefined}
                     >
-                      <span className={cn("text-[30px] leading-none", !got && "grayscale opacity-25")}>
-                        {got ? b.emoji : "🔒"}
+                      {got && (
+                        <>
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover/badge:opacity-100"
+                            style={{ background: `radial-gradient(circle at 50% 35%, color-mix(in oklab, ${b.glow} 28%, transparent), transparent 65%)` }}
+                          />
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute -top-8 left-1/2 h-16 w-16 -translate-x-1/2 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover/badge:opacity-90"
+                            style={{ background: b.glow }}
+                          />
+                        </>
+                      )}
+                      <span className={cn(
+                        "relative text-[30px] leading-none transition-transform duration-500",
+                        got ? "drop-shadow-[0_2px_8px_color-mix(in_oklab,var(--badge-glow,transparent)_45%,transparent)] group-hover/badge:scale-110 group-hover/badge:-rotate-[4deg]" : "opacity-40 saturate-50",
+                      )}>
+                        {got ? b.emoji : b.emoji}
                       </span>
                       <span className={cn(
-                        "px-1 text-[10.5px] font-semibold leading-tight",
-                        got ? "text-foreground" : "text-foreground/40",
+                        "relative px-1 text-[10.5px] font-semibold leading-tight tracking-[-0.005em]",
+                        got ? "text-foreground" : "text-foreground/45",
                       )}>
                         {b.label}
                       </span>
+                      {!got && (
+                        <span className="relative mt-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-foreground/35">locked</span>
+                      )}
                     </div>
                   </li>
                 );
