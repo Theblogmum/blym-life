@@ -14,19 +14,36 @@ import { AuthProvider } from "@/hooks/use-auth";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4">
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-70"
+        style={{ background: "radial-gradient(60% 50% at 50% 30%, oklch(0.94 0.06 30 / 0.7), transparent 70%), radial-gradient(40% 40% at 80% 80%, oklch(0.92 0.08 340 / 0.55), transparent 70%)" }}
+      />
+      <div className="relative max-w-lg text-center">
+        <div className="mx-auto mb-6 inline-flex h-20 w-20 items-center justify-center rounded-3xl border-2 border-foreground/15 bg-card text-5xl shadow-[8px_8px_0_-2px_oklch(0.2_0.01_20/0.08)]">
+          🗺️
+        </div>
+        <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-muted-foreground/70">404 · off the map</p>
+        <h1 className="mt-3 font-display text-[clamp(2.4rem,6vw,3.4rem)] font-black leading-[1.05] tracking-tight text-foreground">
+          you wandered off the map bestie
+        </h1>
+        <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+          this page doesn't exist (yet). but your daily quests, fresh ideas
+          and brand pitches are still waiting back at base camp.
         </p>
-        <div className="mt-6">
+        <div className="mt-7 flex flex-wrap justify-center gap-2">
+          <Link
+            to="/app"
+            className="inline-flex h-11 items-center justify-center rounded-2xl bg-[image:var(--gradient-warm)] px-5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-glow)] transition hover:-translate-y-0.5"
+          >
+            take me home →
+          </Link>
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex h-11 items-center justify-center rounded-2xl border border-border bg-card px-5 text-sm font-semibold text-foreground transition hover:border-foreground/30"
           >
-            Go home
+            visit landing page
           </Link>
         </div>
       </div>
