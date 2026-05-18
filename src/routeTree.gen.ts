@@ -40,6 +40,7 @@ import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
+import { Route as AuthenticatedMilestonesRouteImport } from './routes/_authenticated/milestones'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedJourneyRouteImport } from './routes/_authenticated/journey'
@@ -50,9 +51,11 @@ import { Route as AuthenticatedGrowthCoachRouteImport } from './routes/_authenti
 import { Route as AuthenticatedGeneratorRouteImport } from './routes/_authenticated/generator'
 import { Route as AuthenticatedFlopAnalyserRouteImport } from './routes/_authenticated/flop-analyser'
 import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticated/film-this'
+import { Route as AuthenticatedFeedRouteImport } from './routes/_authenticated/feed'
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
+import { Route as AuthenticatedCreatorTypeRouteImport } from './routes/_authenticated/creator-type'
 import { Route as AuthenticatedBusinessRouteImport } from './routes/_authenticated/business'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
@@ -232,6 +235,11 @@ const AuthenticatedMotivationRoute = AuthenticatedMotivationRouteImport.update({
   path: '/motivation',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedMilestonesRoute = AuthenticatedMilestonesRouteImport.update({
+  id: '/milestones',
+  path: '/milestones',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
   id: '/media-kit',
   path: '/media-kit',
@@ -285,6 +293,11 @@ const AuthenticatedFilmThisRoute = AuthenticatedFilmThisRouteImport.update({
   path: '/film-this',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedFeedRoute = AuthenticatedFeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedEngagementBoosterRoute =
   AuthenticatedEngagementBoosterRouteImport.update({
     id: '/engagement-booster',
@@ -301,6 +314,12 @@ const AuthenticatedCtaGeneratorRoute =
   AuthenticatedCtaGeneratorRouteImport.update({
     id: '/cta-generator',
     path: '/cta-generator',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCreatorTypeRoute =
+  AuthenticatedCreatorTypeRouteImport.update({
+    id: '/creator-type',
+    path: '/creator-type',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedBusinessRoute = AuthenticatedBusinessRouteImport.update({
@@ -411,9 +430,11 @@ export interface FileRoutesByFullPath {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
+  '/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/feed': typeof AuthenticatedFeedRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -424,6 +445,7 @@ export interface FileRoutesByFullPath {
   '/journey': typeof AuthenticatedJourneyRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
+  '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
@@ -472,9 +494,11 @@ export interface FileRoutesByTo {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
+  '/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/feed': typeof AuthenticatedFeedRoute
   '/film-this': typeof AuthenticatedFilmThisRoute
   '/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/generator': typeof AuthenticatedGeneratorRoute
@@ -485,6 +509,7 @@ export interface FileRoutesByTo {
   '/journey': typeof AuthenticatedJourneyRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
+  '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
@@ -535,9 +560,11 @@ export interface FileRoutesById {
   '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/business': typeof AuthenticatedBusinessRoute
+  '/_authenticated/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
+  '/_authenticated/feed': typeof AuthenticatedFeedRoute
   '/_authenticated/film-this': typeof AuthenticatedFilmThisRoute
   '/_authenticated/flop-analyser': typeof AuthenticatedFlopAnalyserRoute
   '/_authenticated/generator': typeof AuthenticatedGeneratorRoute
@@ -548,6 +575,7 @@ export interface FileRoutesById {
   '/_authenticated/journey': typeof AuthenticatedJourneyRoute
   '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
+  '/_authenticated/milestones': typeof AuthenticatedMilestonesRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
@@ -598,9 +626,11 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
+    | '/creator-type'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
+    | '/feed'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -611,6 +641,7 @@ export interface FileRouteTypes {
     | '/journey'
     | '/library'
     | '/media-kit'
+    | '/milestones'
     | '/motivation'
     | '/passive-ideas'
     | '/pin-optimiser'
@@ -659,9 +690,11 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
+    | '/creator-type'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
+    | '/feed'
     | '/film-this'
     | '/flop-analyser'
     | '/generator'
@@ -672,6 +705,7 @@ export interface FileRouteTypes {
     | '/journey'
     | '/library'
     | '/media-kit'
+    | '/milestones'
     | '/motivation'
     | '/passive-ideas'
     | '/pin-optimiser'
@@ -721,9 +755,11 @@ export interface FileRouteTypes {
     | '/_authenticated/brand-hub'
     | '/_authenticated/broll'
     | '/_authenticated/business'
+    | '/_authenticated/creator-type'
     | '/_authenticated/cta-generator'
     | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
+    | '/_authenticated/feed'
     | '/_authenticated/film-this'
     | '/_authenticated/flop-analyser'
     | '/_authenticated/generator'
@@ -734,6 +770,7 @@ export interface FileRouteTypes {
     | '/_authenticated/journey'
     | '/_authenticated/library'
     | '/_authenticated/media-kit'
+    | '/_authenticated/milestones'
     | '/_authenticated/motivation'
     | '/_authenticated/passive-ideas'
     | '/_authenticated/pin-optimiser'
@@ -1009,6 +1046,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMotivationRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/milestones': {
+      id: '/_authenticated/milestones'
+      path: '/milestones'
+      fullPath: '/milestones'
+      preLoaderRoute: typeof AuthenticatedMilestonesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/media-kit': {
       id: '/_authenticated/media-kit'
       path: '/media-kit'
@@ -1079,6 +1123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFilmThisRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/feed': {
+      id: '/_authenticated/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof AuthenticatedFeedRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/engagement-booster': {
       id: '/_authenticated/engagement-booster'
       path: '/engagement-booster'
@@ -1098,6 +1149,13 @@ declare module '@tanstack/react-router' {
       path: '/cta-generator'
       fullPath: '/cta-generator'
       preLoaderRoute: typeof AuthenticatedCtaGeneratorRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/creator-type': {
+      id: '/_authenticated/creator-type'
+      path: '/creator-type'
+      fullPath: '/creator-type'
+      preLoaderRoute: typeof AuthenticatedCreatorTypeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/business': {
@@ -1223,9 +1281,11 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedBusinessRoute: typeof AuthenticatedBusinessRoute
+  AuthenticatedCreatorTypeRoute: typeof AuthenticatedCreatorTypeRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
+  AuthenticatedFeedRoute: typeof AuthenticatedFeedRoute
   AuthenticatedFilmThisRoute: typeof AuthenticatedFilmThisRoute
   AuthenticatedFlopAnalyserRoute: typeof AuthenticatedFlopAnalyserRoute
   AuthenticatedGeneratorRoute: typeof AuthenticatedGeneratorRoute
@@ -1236,6 +1296,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedJourneyRoute: typeof AuthenticatedJourneyRoute
   AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
+  AuthenticatedMilestonesRoute: typeof AuthenticatedMilestonesRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
   AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
@@ -1264,9 +1325,11 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedBusinessRoute: AuthenticatedBusinessRoute,
+  AuthenticatedCreatorTypeRoute: AuthenticatedCreatorTypeRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
+  AuthenticatedFeedRoute: AuthenticatedFeedRoute,
   AuthenticatedFilmThisRoute: AuthenticatedFilmThisRoute,
   AuthenticatedFlopAnalyserRoute: AuthenticatedFlopAnalyserRoute,
   AuthenticatedGeneratorRoute: AuthenticatedGeneratorRoute,
@@ -1277,6 +1340,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedJourneyRoute: AuthenticatedJourneyRoute,
   AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
+  AuthenticatedMilestonesRoute: AuthenticatedMilestonesRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
   AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,

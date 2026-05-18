@@ -3,7 +3,7 @@ import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Plus, Trophy,
-  Gift,
+  Gift, Users, Flag, Wand2,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,9 @@ const SECTIONS: Section[] = [
     groups: [
       { label: "Today", icon: Home, to: "/app" },
       { label: "My journey", icon: Trophy, to: "/journey" },
+      { label: "Wins wall", icon: Users, to: "/feed" },
+      { label: "Big firsts", icon: Flag, to: "/milestones" },
+      { label: "My creator type", icon: Wand2, to: "/creator-type" },
       { label: "Rewards", icon: Gift, to: "/rewards" },
       { label: "Pep talk", icon: MessageCircle, to: "/growth-coach" },
       { label: "Schedule", icon: Calendar, to: "/schedule" },
