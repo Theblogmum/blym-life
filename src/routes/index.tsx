@@ -152,7 +152,7 @@ function Landing() {
               From nervous beginner to <span className="text-gradient-game">booked &amp; busy</span>.
             </h1>
             <p className="mt-4 max-w-lg text-[16px] leading-[1.5] text-muted-foreground text-pretty sm:text-[20px]">
-              The creator app that makes consistency addictive.
+              The creator app making showing up easier.
             </p>
             <div className="mt-7 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
               <Link to={ctaPrimary.to} className="w-full sm:w-auto">
