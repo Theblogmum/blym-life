@@ -47,14 +47,14 @@ const MISSIONS = [
 ];
 
 const QUICK_TOOLS = [
-  { to: "/viral-lab", label: "Hook lab", icon: Flame, tint: "var(--surface-peach)", iconColor: "text-[oklch(0.55_0.22_8)]" },
-  { to: "/generator", label: "Script me", icon: Wand2, tint: "var(--surface-blush)", iconColor: "text-[oklch(0.55_0.22_340)]" },
-  { to: "/generator", label: "Caption it", icon: MessageSquare, tint: "var(--surface-butter)", iconColor: "text-[oklch(0.5_0.16_60)]" },
-  { to: "/planner", label: "Plan week", icon: Calendar, tint: "var(--surface-sky)", iconColor: "text-[oklch(0.5_0.16_220)]" },
-  { to: "/brand-hub", label: "Find brands", icon: Trophy, tint: "var(--surface-mint)", iconColor: "text-[oklch(0.45_0.14_155)]" },
-  { to: "/motivation", label: "Pep talk", icon: Heart, tint: "var(--surface-rose)", iconColor: "text-[oklch(0.55_0.22_10)]" },
-  { to: "/insights", label: "What worked", icon: TrendingUp, tint: "var(--surface-grape)", iconColor: "text-[oklch(0.5_0.18_280)]" },
-  { to: "/business", label: "Get paid", icon: DollarSign, tint: "var(--surface-stone)", iconColor: "text-[oklch(0.45_0.14_140)]" },
+  { to: "/viral-lab",  label: "Hook lab",     hint: "scroll-stoppers",  icon: Flame,         glow: "oklch(0.78 0.18 25)"  },
+  { to: "/generator",  label: "Script me",    hint: "writes the words", icon: Wand2,         glow: "oklch(0.72 0.22 340)" },
+  { to: "/generator",  label: "Caption it",   hint: "post-ready lines", icon: MessageSquare, glow: "oklch(0.78 0.16 75)"  },
+  { to: "/planner",    label: "Plan week",    hint: "calm the chaos",   icon: Calendar,      glow: "oklch(0.72 0.16 225)" },
+  { to: "/brand-hub",  label: "Find brands",  hint: "people who pay",   icon: Trophy,        glow: "oklch(0.7 0.16 150)"  },
+  { to: "/motivation", label: "Pep talk",     hint: "a gentle hand",    icon: Heart,         glow: "oklch(0.74 0.18 15)"  },
+  { to: "/insights",   label: "What worked",  hint: "follow the wins",  icon: TrendingUp,    glow: "oklch(0.7 0.18 285)"  },
+  { to: "/business",   label: "Get paid",     hint: "the receipts",     icon: DollarSign,    glow: "oklch(0.68 0.16 145)" },
 ];
 
 // Badge catalog — identity-driven, collectible
@@ -155,12 +155,24 @@ function HomePage() {
 
   return (
     <div className="relative pb-8">
+      {/* ============ AMBIENT PAGE ATMOSPHERE — soft drifting blooms ============ */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-24 h-[520px] w-[520px] rounded-full opacity-[0.55] blur-[120px]"
+             style={{ background: "radial-gradient(circle, oklch(0.92 0.1 30 / 0.7), transparent 65%)" }} />
+        <div className="absolute top-[18%] -right-32 h-[600px] w-[600px] rounded-full opacity-[0.5] blur-[140px]"
+             style={{ background: "radial-gradient(circle, oklch(0.9 0.11 340 / 0.65), transparent 65%)" }} />
+        <div className="absolute top-[55%] left-[-10%] h-[640px] w-[640px] rounded-full opacity-[0.42] blur-[150px]"
+             style={{ background: "radial-gradient(circle, oklch(0.9 0.1 85 / 0.55), transparent 65%)" }} />
+        <div className="absolute bottom-[8%] right-[-8%] h-[560px] w-[560px] rounded-full opacity-[0.4] blur-[140px]"
+             style={{ background: "radial-gradient(circle, oklch(0.88 0.1 290 / 0.55), transparent 65%)" }} />
+      </div>
+
       {/* ============ HERO: greeting + level card ============ */}
       <section className="relative overflow-hidden">
         <div
           aria-hidden
           className="absolute inset-0"
-          style={{ background: "var(--era-grad)", opacity: 0.38 }}
+          style={{ background: "var(--era-grad)", opacity: 0.28 }}
         />
         <div
           aria-hidden
@@ -259,9 +271,57 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
+
+        {/* ============ FILM THIS NOW — CINEMATIC HERO FEATURE ============ */}
+        <section className="mb-14 sm:mb-20">
+          <Link
+            to="/film-this"
+            className="group relative block overflow-hidden rounded-[2.5rem] transition-all duration-500 hover:-translate-y-1"
+            style={{
+              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 30px 60px -28px oklch(0.66 0.24 350 / 0.55), 0 60px 120px -50px oklch(0.42 0.18 295 / 0.5)",
+            }}
+          >
+            {/* atmospheric layers */}
+            <div aria-hidden className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-white/35 blur-[100px]" />
+            <div aria-hidden className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-white/20 blur-[100px]" />
+            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
+            <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-overlay"
+                 style={{ background: "radial-gradient(60% 50% at 80% 30%, white, transparent 60%)" }} />
+
+            <div className="relative grid gap-8 p-7 sm:p-12 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-12 lg:p-16">
+              <div className="min-w-0">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
+                  <Sparkles className="h-3 w-3" /> today's instant idea
+                </span>
+                <h2 className="mt-5 font-display text-[44px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[64px] lg:text-[78px]">
+                  Film this.
+                  <br />
+                  <span className="italic font-serif font-normal">Now.</span>
+                </h2>
+                <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/85 sm:text-[16.5px]">
+                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-5 sm:justify-end">
+                <div className="hidden lg:block max-w-[180px] text-right text-[12.5px] leading-relaxed text-white/75">
+                  the antidote to <span className="italic">"i'll post tomorrow"</span>
+                </div>
+                <div className="relative">
+                  <div aria-hidden className="absolute inset-0 -m-3 rounded-full bg-white/20 blur-xl transition-opacity duration-500 group-hover:opacity-100 opacity-60" />
+                  <div className="relative grid h-20 w-20 place-items-center rounded-3xl bg-white text-foreground shadow-[0_18px_40px_-12px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-24 sm:w-24">
+                    <Camera className="h-9 w-9 sm:h-11 sm:w-11" strokeWidth={2} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </section>
+
         {/* ============ TODAY'S MISSIONS ============ */}
-        <section className="mb-12 sm:mb-14">
+        <section className="mb-14 sm:mb-20">
           <div className="mb-5 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
@@ -334,41 +394,13 @@ function HomePage() {
           </ul>
         </section>
 
-        {/* ============ FILM THIS NOW giant CTA ============ */}
-        <section className="mb-12 sm:mb-14">
-          <Link
-            to="/film-this"
-            className="group relative block overflow-hidden rounded-[2rem] p-7 sm:p-10 shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)]"
-            style={{ background: "linear-gradient(135deg, oklch(0.82 0.13 35) 0%, oklch(0.78 0.12 15) 30%, oklch(0.76 0.13 350) 60%, oklch(0.72 0.13 295) 100%)" }}
-          >
-            <div aria-hidden className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-white/30 blur-3xl" />
-            <div aria-hidden className="absolute -bottom-20 -left-12 h-60 w-60 rounded-full bg-white/15 blur-3xl" />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.95_0.06_60/0.25),transparent_60%)]" />
-            <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="min-w-0">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
-                  <Sparkles className="h-3 w-3" /> instant idea
-                </span>
-                <h2 className="mt-4 font-display text-[32px] font-bold leading-[1.04] tracking-[-0.018em] text-white sm:text-[46px]">
-                  Film this. Now.
-                </h2>
-                <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-white/85">
-                  one tap. a hook, a shot list, a caption. before you overthink it.
-                </p>
-              </div>
-              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-white text-foreground shadow-[var(--shadow-soft)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-4deg] sm:h-20 sm:w-20">
-                <Camera className="h-7 w-7 sm:h-9 sm:w-9" strokeWidth={2} />
-              </div>
-            </div>
-          </Link>
-        </section>
-
         {/* ============ DAILY IDEA ============ */}
-        <section className="mb-12 sm:mb-14">
+        <section className="mb-14 sm:mb-20">
           <div
-            className="relative overflow-hidden rounded-[2rem] border border-border/50 p-6 sm:p-8 shadow-[var(--shadow-soft)]"
+            className="relative overflow-hidden rounded-[2rem] p-7 sm:p-10"
             style={{
-              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.96 0.05 60 / 0.55), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.94 0.07 340 / 0.4), transparent 55%), var(--card)",
+              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.05 60 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.95 0.07 340 / 0.55), transparent 55%), color-mix(in oklab, var(--card) 92%, transparent)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.03), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.2)",
             }}
           >
             <div className="flex items-center justify-between gap-2">
@@ -377,7 +409,7 @@ function HomePage() {
                   <Sparkles className="h-3 w-3" />
                 </span>
                 <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-foreground/65">
-                  today's free idea
+                  another idea on the house
                 </p>
               </div>
               <Button
@@ -421,30 +453,31 @@ function HomePage() {
         </section>
 
         {/* ============ BADGES SHELF ============ */}
-        <section className="mb-12 sm:mb-14">
-          <div className="mb-5 flex items-end justify-between">
+        <section className="mb-14 sm:mb-20">
+          <div className="mb-6 flex items-end justify-between">
             <div>
               <p className="eyebrow">badges</p>
-              <h2 className="mt-2 font-display text-[24px] font-bold leading-tight tracking-[-0.015em] sm:text-[30px]">
+              <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
                 you, collected.
               </h2>
+              <p className="mt-1.5 text-[13px] text-foreground/55">little proofs of who you're becoming.</p>
             </div>
             <span className="text-[12px] font-medium tabular-nums text-foreground/60">
               {earned.length}/{BADGES.length}
             </span>
           </div>
           <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8">
-            <ul className="flex gap-3.5">
+            <ul className="flex gap-4">
               {BADGES.map((b) => {
                 const got = earned.includes(b.id);
                 return (
                   <li key={b.id} className="shrink-0">
                     <div
                       className={cn(
-                        "group/badge relative flex h-[116px] w-[100px] flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl p-2.5 text-center transition-all duration-500",
+                        "group/badge relative flex h-[148px] w-[124px] flex-col items-center justify-center gap-2.5 overflow-hidden rounded-[1.5rem] p-3 text-center transition-all duration-500",
                         got
-                          ? "border border-border/40 bg-card shadow-[var(--shadow-soft)] hover:-translate-y-1.5 hover:border-border/60 hover:shadow-[0_18px_40px_-18px_var(--badge-glow,oklch(0.7_0.15_280/0.55))]"
-                          : "border border-dashed border-border/40 bg-foreground/[0.015] hover:border-border/55 hover:bg-foreground/[0.03]",
+                          ? "bg-white/85 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_18px_36px_-18px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-2 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_30px_60px_-20px_var(--badge-glow,oklch(0.7_0.15_280/0.7))]"
+                          : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
                       )}
                       style={got ? ({ ["--badge-glow" as any]: b.glow } as React.CSSProperties) : undefined}
                     >
@@ -452,30 +485,35 @@ function HomePage() {
                         <>
                           <div
                             aria-hidden
-                            className="pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover/badge:opacity-100"
-                            style={{ background: `radial-gradient(circle at 50% 35%, color-mix(in oklab, ${b.glow} 28%, transparent), transparent 65%)` }}
+                            className="pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover/badge:opacity-100"
+                            style={{ background: `radial-gradient(circle at 50% 30%, color-mix(in oklab, ${b.glow} 32%, transparent), transparent 68%)` }}
                           />
                           <div
                             aria-hidden
-                            className="pointer-events-none absolute -top-8 left-1/2 h-16 w-16 -translate-x-1/2 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover/badge:opacity-90"
+                            className="pointer-events-none absolute -top-10 left-1/2 h-20 w-20 -translate-x-1/2 rounded-full opacity-30 blur-2xl transition-all duration-700 group-hover/badge:opacity-95 group-hover/badge:scale-110"
                             style={{ background: b.glow }}
+                          />
+                          <div
+                            aria-hidden
+                            className="pointer-events-none absolute inset-x-3 top-2 h-px rounded-full opacity-50"
+                            style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.8), transparent)" }}
                           />
                         </>
                       )}
                       <span className={cn(
-                        "relative text-[30px] leading-none transition-transform duration-500",
-                        got ? "drop-shadow-[0_2px_8px_color-mix(in_oklab,var(--badge-glow,transparent)_45%,transparent)] group-hover/badge:scale-110 group-hover/badge:-rotate-[4deg]" : "opacity-40 saturate-50",
+                        "relative text-[40px] leading-none transition-transform duration-500",
+                        got ? "drop-shadow-[0_3px_10px_color-mix(in_oklab,var(--badge-glow,transparent)_50%,transparent)] group-hover/badge:scale-[1.15] group-hover/badge:-rotate-[6deg]" : "opacity-35 saturate-0 grayscale",
                       )}>
-                        {got ? b.emoji : b.emoji}
+                        {b.emoji}
                       </span>
                       <span className={cn(
-                        "relative px-1 text-[10.5px] font-semibold leading-tight tracking-[-0.005em]",
+                        "relative px-1 text-[11.5px] font-semibold leading-tight tracking-[-0.005em]",
                         got ? "text-foreground" : "text-foreground/45",
                       )}>
                         {b.label}
                       </span>
                       {!got && (
-                        <span className="relative mt-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-foreground/35">locked</span>
+                        <span className="relative mt-0.5 text-[9px] font-medium uppercase tracking-[0.18em] text-foreground/30">soon</span>
                       )}
                     </div>
                   </li>
@@ -485,33 +523,58 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ============ QUICK TOOLS — playful grid ============ */}
-        <section className="mb-12 sm:mb-14">
-          <div className="mb-5">
+        {/* ============ QUICK TOOLS — premium glass grid ============ */}
+        <section className="mb-14 sm:mb-20">
+          <div className="mb-6">
             <p className="eyebrow">need a hand?</p>
-            <h2 className="mt-2 font-display text-[24px] font-bold leading-tight tracking-[-0.015em] sm:text-[30px]">
+            <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
               your toolkit.
             </h2>
+            <p className="mt-1.5 text-[13px] text-foreground/55">eight quiet shortcuts. pick the one that feels right.</p>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-3.5">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {QUICK_TOOLS.map((t) => (
               <Link
                 key={t.label + t.to}
                 to={t.to}
-                className="group relative flex h-[124px] flex-col justify-between overflow-hidden rounded-2xl border border-border/35 p-4 shadow-[var(--shadow-xs)] transition-all duration-500 ease-out hover:-translate-y-[3px] hover:border-border/55 hover:shadow-[var(--shadow-elegant)] sm:p-[18px]"
-                style={{ background: `color-mix(in oklab, ${t.tint} 78%, var(--background))` }}
+                className="group relative flex h-[152px] flex-col justify-between overflow-hidden rounded-[1.4rem] p-4 transition-all duration-500 ease-out hover:-translate-y-[4px] sm:p-5"
+                style={{
+                  background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
+                  backdropFilter: "blur(8px)",
+                  boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 12px 28px -16px oklch(0.13 0.012 20 / 0.18)",
+                  ["--tool-glow" as any]: t.glow,
+                }}
               >
+                {/* hover wash in the tool's signature color */}
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{ background: "radial-gradient(circle at 30% 0%, color-mix(in oklab, white 35%, transparent), transparent 65%)" }}
+                  className="pointer-events-none absolute -bottom-12 left-1/2 h-32 w-40 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
+                  style={{ background: t.glow }}
                 />
-                <span className={cn("relative grid h-10 w-10 place-items-center rounded-xl bg-white/75 backdrop-blur-sm shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out group-hover:scale-[1.08] group-hover:-rotate-[3deg]", t.iconColor)}>
-                  <t.icon className="h-[18px] w-[18px]" strokeWidth={2} />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-[1.4rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${t.glow} 35%, transparent)` }}
+                />
+
+                <span
+                  className="relative grid h-11 w-11 place-items-center rounded-2xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
+                  style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
+                >
+                  <t.icon className="h-[18px] w-[18px]" strokeWidth={2.25} />
                 </span>
-                <span className="relative text-[13.5px] font-semibold leading-tight tracking-[-0.005em] text-foreground/90">
-                  {t.label}
-                </span>
+
+                <div className="relative">
+                  <p className="text-[14px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
+                    {t.label}
+                  </p>
+                  <p className="mt-1 text-[11.5px] leading-snug text-foreground/55">{t.hint}</p>
+                </div>
+
+                <ArrowRight
+                  aria-hidden
+                  className="absolute right-4 top-4 h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
+                />
               </Link>
             ))}
           </div>
@@ -541,36 +604,62 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
   const goal = 5;
   const pct = Math.min(100, Math.round((postsWeek / goal) * 100));
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-border/50 bg-card p-6 sm:p-8 shadow-[var(--shadow-soft)]">
-      <div className="flex items-center justify-between">
-        <p className="eyebrow">this week</p>
-        <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-foreground/70">
-          <Flame className="h-3.5 w-3.5 text-[oklch(0.6_0.2_30)]" /> {streak}d
-        </span>
+    <div
+      className="relative overflow-hidden rounded-[2.25rem] p-7 sm:p-10"
+      style={{
+        background: "radial-gradient(120% 90% at 10% 0%, oklch(0.95 0.08 75 / 0.65), transparent 55%), radial-gradient(120% 90% at 100% 100%, oklch(0.92 0.09 340 / 0.5), transparent 55%), oklch(1 0 0 / 0.6)",
+        backdropFilter: "blur(10px)",
+        boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.75), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 24px 60px -28px oklch(0.66 0.24 350 / 0.22)",
+      }}
+    >
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">this week</p>
+          <p className="mt-3 font-display text-[56px] font-bold leading-[0.92] tabular-nums tracking-[-0.025em] sm:text-[72px]">
+            {postsWeek}
+            <span className="ml-2 text-[16px] font-normal text-foreground/45">/ {goal}</span>
+          </p>
+          <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/65 max-w-xs">
+            {pct >= 100 ? "you hit your rhythm. so proud of you x"
+              : postsWeek === 0 ? "no posts yet — and that's okay. one tiny one resets everything."
+              : `${pct}% there. tiny progress still counts.`}
+          </p>
+        </div>
+        <div className="text-right">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/65 px-3 py-1.5 text-[12px] font-semibold text-foreground/75 backdrop-blur ring-1 ring-white/60 shadow-[0_4px_14px_-6px_oklch(0.6_0.2_30/0.4)]">
+            <Flame className="h-3.5 w-3.5 text-[oklch(0.6_0.2_30)]" /> {streak}d streak
+          </span>
+        </div>
       </div>
-      <p className="mt-4 font-display text-[44px] font-bold leading-none tabular-nums tracking-[-0.02em]">
-        {postsWeek}
-        <span className="ml-2 text-[14px] font-normal text-foreground/55">/ {goal} posts</span>
-      </p>
-      <p className="mt-2.5 text-[13px] leading-relaxed text-muted-foreground">
-        {pct >= 100 ? "you hit your rhythm. proud of you x"
-          : postsWeek === 0 ? "no posts yet — and that's okay. one tiny one resets everything."
-          : `${pct}% there. tiny progress still counts.`}
-      </p>
-      <div className="mt-6 flex items-end justify-between gap-2">
+
+      <div className="mt-8 flex items-end justify-between gap-2 sm:gap-3">
         {days.map((d, i) => (
-          <div key={i} className="flex flex-1 flex-col items-center gap-2">
-            <span
-              className={
-                d.filled
-                  ? "h-10 w-full rounded-lg bg-[image:var(--gradient-warm)] shadow-[var(--shadow-soft)]"
-                  : d.isToday
-                  ? "h-10 w-full rounded-lg border-2 border-dashed border-foreground/30 bg-foreground/[0.04]"
-                  : "h-10 w-full rounded-lg bg-foreground/[0.06]"
-              }
-              aria-hidden
-            />
-            <span className={`text-[10.5px] font-medium ${d.isToday ? "text-foreground" : "text-foreground/50"}`}>
+          <div key={i} className="flex flex-1 flex-col items-center gap-2.5">
+            <div className="relative w-full">
+              {d.filled && (
+                <div
+                  aria-hidden
+                  className="absolute -inset-1 rounded-2xl opacity-60 blur-md"
+                  style={{ background: "linear-gradient(180deg, oklch(0.88 0.13 30 / 0.6), oklch(0.72 0.22 350 / 0.4))" }}
+                />
+              )}
+              <span
+                className={cn(
+                  "relative block w-full rounded-2xl transition-all duration-500",
+                  d.filled
+                    ? "h-14 sm:h-16 shadow-[inset_0_1px_0_oklch(1_0_0/0.6),0_6px_16px_-8px_oklch(0.66_0.24_350/0.5)]"
+                    : d.isToday
+                    ? "h-14 sm:h-16 bg-white/55 ring-2 ring-dashed ring-foreground/25"
+                    : "h-10 sm:h-12 bg-foreground/[0.06]",
+                )}
+                style={d.filled ? { background: "linear-gradient(180deg, oklch(0.9 0.12 60), oklch(0.74 0.2 25), oklch(0.68 0.22 350))" } : undefined}
+                aria-hidden
+              />
+            </div>
+            <span className={cn(
+              "text-[10.5px] font-semibold uppercase tracking-[0.12em]",
+              d.isToday ? "text-foreground" : "text-foreground/45",
+            )}>
               {d.label}
             </span>
           </div>
