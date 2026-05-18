@@ -59,6 +59,7 @@ import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_au
 import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
 import { Route as AuthenticatedCreatorTypeRouteImport } from './routes/_authenticated/creator-type'
+import { Route as AuthenticatedCharacterRouteImport } from './routes/_authenticated/character'
 import { Route as AuthenticatedBusinessRouteImport } from './routes/_authenticated/business'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
@@ -341,6 +342,11 @@ const AuthenticatedCreatorTypeRoute =
     path: '/creator-type',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCharacterRoute = AuthenticatedCharacterRouteImport.update({
+  id: '/character',
+  path: '/character',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedBusinessRoute = AuthenticatedBusinessRouteImport.update({
   id: '/business',
   path: '/business',
@@ -456,6 +462,7 @@ export interface FileRoutesByFullPath {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
+  '/character': typeof AuthenticatedCharacterRoute
   '/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
@@ -524,6 +531,7 @@ export interface FileRoutesByTo {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
+  '/character': typeof AuthenticatedCharacterRoute
   '/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
@@ -594,6 +602,7 @@ export interface FileRoutesById {
   '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/business': typeof AuthenticatedBusinessRoute
+  '/_authenticated/character': typeof AuthenticatedCharacterRoute
   '/_authenticated/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
@@ -664,6 +673,7 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
+    | '/character'
     | '/creator-type'
     | '/cta-generator'
     | '/deliverables-builder'
@@ -732,6 +742,7 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
+    | '/character'
     | '/creator-type'
     | '/cta-generator'
     | '/deliverables-builder'
@@ -801,6 +812,7 @@ export interface FileRouteTypes {
     | '/_authenticated/brand-hub'
     | '/_authenticated/broll'
     | '/_authenticated/business'
+    | '/_authenticated/character'
     | '/_authenticated/creator-type'
     | '/_authenticated/cta-generator'
     | '/_authenticated/deliverables-builder'
@@ -1228,6 +1240,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCreatorTypeRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/character': {
+      id: '/_authenticated/character'
+      path: '/character'
+      fullPath: '/character'
+      preLoaderRoute: typeof AuthenticatedCharacterRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/business': {
       id: '/_authenticated/business'
       path: '/business'
@@ -1359,6 +1378,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedBusinessRoute: typeof AuthenticatedBusinessRoute
+  AuthenticatedCharacterRoute: typeof AuthenticatedCharacterRoute
   AuthenticatedCreatorTypeRoute: typeof AuthenticatedCreatorTypeRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
@@ -1407,6 +1427,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedBusinessRoute: AuthenticatedBusinessRoute,
+  AuthenticatedCharacterRoute: AuthenticatedCharacterRoute,
   AuthenticatedCreatorTypeRoute: AuthenticatedCreatorTypeRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
