@@ -47,14 +47,14 @@ const MISSIONS = [
 ];
 
 const QUICK_TOOLS = [
-  { to: "/viral-lab", label: "Hook lab", icon: Flame, tint: "var(--surface-peach)", iconColor: "text-[oklch(0.55_0.22_8)]" },
-  { to: "/generator", label: "Script me", icon: Wand2, tint: "var(--surface-blush)", iconColor: "text-[oklch(0.55_0.22_340)]" },
-  { to: "/generator", label: "Caption it", icon: MessageSquare, tint: "var(--surface-butter)", iconColor: "text-[oklch(0.5_0.16_60)]" },
-  { to: "/planner", label: "Plan week", icon: Calendar, tint: "var(--surface-sky)", iconColor: "text-[oklch(0.5_0.16_220)]" },
-  { to: "/brand-hub", label: "Find brands", icon: Trophy, tint: "var(--surface-mint)", iconColor: "text-[oklch(0.45_0.14_155)]" },
-  { to: "/motivation", label: "Pep talk", icon: Heart, tint: "var(--surface-rose)", iconColor: "text-[oklch(0.55_0.22_10)]" },
-  { to: "/insights", label: "What worked", icon: TrendingUp, tint: "var(--surface-grape)", iconColor: "text-[oklch(0.5_0.18_280)]" },
-  { to: "/business", label: "Get paid", icon: DollarSign, tint: "var(--surface-stone)", iconColor: "text-[oklch(0.45_0.14_140)]" },
+  { to: "/viral-lab",  label: "Hook lab",     hint: "scroll-stoppers",  icon: Flame,         glow: "oklch(0.78 0.18 25)"  },
+  { to: "/generator",  label: "Script me",    hint: "writes the words", icon: Wand2,         glow: "oklch(0.72 0.22 340)" },
+  { to: "/generator",  label: "Caption it",   hint: "post-ready lines", icon: MessageSquare, glow: "oklch(0.78 0.16 75)"  },
+  { to: "/planner",    label: "Plan week",    hint: "calm the chaos",   icon: Calendar,      glow: "oklch(0.72 0.16 225)" },
+  { to: "/brand-hub",  label: "Find brands",  hint: "people who pay",   icon: Trophy,        glow: "oklch(0.7 0.16 150)"  },
+  { to: "/motivation", label: "Pep talk",     hint: "a gentle hand",    icon: Heart,         glow: "oklch(0.74 0.18 15)"  },
+  { to: "/insights",   label: "What worked",  hint: "follow the wins",  icon: TrendingUp,    glow: "oklch(0.7 0.18 285)"  },
+  { to: "/business",   label: "Get paid",     hint: "the receipts",     icon: DollarSign,    glow: "oklch(0.68 0.16 145)" },
 ];
 
 // Badge catalog — identity-driven, collectible
