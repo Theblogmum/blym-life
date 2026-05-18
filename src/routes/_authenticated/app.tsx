@@ -453,6 +453,7 @@ function HomePage() {
               );
             })}
           </ul>
+          </div>
         </section>
 
         {/* ============ DAILY IDEA ============ */}
