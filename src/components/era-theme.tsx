@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function EraTheme() {
   useEffect(() => {
@@ -30,8 +30,11 @@ const ERA_META: Record<string, { emoji: string; label: string }> = {
 };
 
 export function EraRibbon() {
-  const era = typeof document !== "undefined" ? document.documentElement.dataset.era : undefined;
-  const meta = ERA_META[era ?? "soft"] ?? ERA_META.soft;
+  const [era, setEra] = useState<string>("soft");
+  useEffect(() => {
+    setEra(localStorage.getItem("blym.era") || "soft");
+  }, []);
+  const meta = ERA_META[era] ?? ERA_META.soft;
   return (
     <div
       className="sticker inline-flex items-center gap-2 px-4 py-2 text-sm font-bold"
