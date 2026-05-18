@@ -19,16 +19,6 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
-function OnboardingGate() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!localStorage.getItem("blym.onboarded")) {
-      navigate({ to: "/welcome", replace: true });
-    }
-  }, [navigate]);
-  return null;
-}
 
 // BLYM creator path — 10 levels, identity-first
 const BLYM_LEVELS = [
