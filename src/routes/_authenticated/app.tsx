@@ -493,18 +493,23 @@ function HomePage() {
               your toolkit.
             </h2>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-3.5">
             {QUICK_TOOLS.map((t) => (
               <Link
                 key={t.label + t.to}
                 to={t.to}
-                className="group relative flex flex-col gap-3.5 rounded-2xl border border-border/40 p-5 shadow-[var(--shadow-xs)] transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[var(--shadow-elegant)]"
-                style={{ background: t.tint }}
+                className="group relative flex h-[124px] flex-col justify-between overflow-hidden rounded-2xl border border-border/35 p-4 shadow-[var(--shadow-xs)] transition-all duration-500 ease-out hover:-translate-y-[3px] hover:border-border/55 hover:shadow-[var(--shadow-elegant)] sm:p-[18px]"
+                style={{ background: `color-mix(in oklab, ${t.tint} 78%, var(--background))` }}
               >
-                <span className={cn("grid h-11 w-11 place-items-center rounded-xl bg-white/85 backdrop-blur transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]", t.iconColor)}>
-                  <t.icon className="h-5 w-5" strokeWidth={2} />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ background: "radial-gradient(circle at 30% 0%, color-mix(in oklab, white 35%, transparent), transparent 65%)" }}
+                />
+                <span className={cn("relative grid h-10 w-10 place-items-center rounded-xl bg-white/75 backdrop-blur-sm shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06)] transition-all duration-500 ease-out group-hover:scale-[1.08] group-hover:-rotate-[3deg]", t.iconColor)}>
+                  <t.icon className="h-[18px] w-[18px]" strokeWidth={2} />
                 </span>
-                <span className="text-[14px] font-semibold leading-tight tracking-[-0.005em] text-foreground">
+                <span className="relative text-[13.5px] font-semibold leading-tight tracking-[-0.005em] text-foreground/90">
                   {t.label}
                 </span>
               </Link>
