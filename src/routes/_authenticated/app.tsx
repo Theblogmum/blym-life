@@ -274,7 +274,7 @@ function HomePage() {
             </div>
           </div>
 
-          <ul className="space-y-3">
+          <ul className="space-y-2">
             {MISSIONS.map((m) => {
               const isDone = !!done[m.id];
               const isCelebrating = celebrate === m.id;
@@ -282,46 +282,47 @@ function HomePage() {
                 <li key={m.id}>
                   <div
                     className={cn(
-                      "group relative overflow-hidden rounded-2xl border p-4 transition-all duration-300 sm:p-5",
+                      "group relative overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
                       isDone
-                        ? "border-[oklch(0.78_0.1_155)]/70 bg-[oklch(0.97_0.04_155)]"
-                        : "border-border/60 bg-card hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-[var(--shadow-elegant)]",
+                        ? "border-[oklch(0.78_0.1_155)]/50 bg-[oklch(0.97_0.04_155)]/70"
+                        : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:bg-card hover:shadow-[var(--shadow-elegant)]",
                     )}
                   >
                     {isCelebrating && (
                       <div className="pointer-events-none absolute inset-0 grid place-items-center sparkle-pop">
-                        <span className="text-[44px]">✨</span>
+                        <span className="text-[40px]">✨</span>
                       </div>
                     )}
-                    <div className="flex items-center gap-4">
+                    <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-primary/70 transition-transform duration-300 group-hover:scale-y-100" />
+                    <div className="flex items-center gap-3.5">
                       <button
                         onClick={() => toggleMission(m.id)}
                         aria-label={isDone ? "Mark undone" : "Mark done"}
                         className={cn(
-                          "grid h-11 w-11 shrink-0 place-items-center rounded-xl transition-all duration-300",
+                          "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
                           isDone
-                            ? "bg-[oklch(0.6_0.16_155)] text-white scale-105"
-                            : "bg-foreground/[0.06] text-foreground/70 hover:bg-foreground hover:text-background",
+                            ? "bg-[oklch(0.6_0.16_155)] text-white scale-105 shadow-[0_4px_14px_-4px_oklch(0.6_0.16_155/0.5)]"
+                            : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-foreground group-hover:text-background group-hover:scale-105",
                         )}
                       >
-                        {isDone ? <Check className="h-5 w-5" strokeWidth={3} /> : <m.icon className="h-5 w-5" strokeWidth={2} />}
+                        {isDone ? <Check className="h-4 w-4" strokeWidth={3} /> : <m.icon className="h-4 w-4" strokeWidth={2.25} />}
                       </button>
                       <div className="min-w-0 flex-1">
                         <p className={cn(
-                          "text-[15.5px] font-semibold leading-tight tracking-[-0.005em]",
-                          isDone && "line-through opacity-60",
+                          "text-[14.5px] font-semibold leading-tight tracking-[-0.005em]",
+                          isDone && "line-through opacity-55",
                         )}>
                           {m.label}
                         </p>
-                        <p className="mt-1 text-[12.5px] text-muted-foreground">{m.hint}</p>
+                        <p className="mt-0.5 text-[12px] text-muted-foreground/90 line-clamp-1">{m.hint}</p>
                       </div>
-                      <div className="flex shrink-0 items-center gap-2">
-                        <span className="rounded-full bg-foreground/[0.06] px-2.5 py-1 text-[10.5px] font-semibold tabular-nums text-foreground/70">
+                      <div className="flex shrink-0 items-center gap-1.5">
+                        <span className="rounded-full bg-foreground/[0.05] px-2 py-0.5 text-[10.5px] font-semibold tabular-nums text-foreground/65">
                           +{m.xp} XP
                         </span>
                         <Link to={m.to}>
-                          <Button size="sm" variant="ghost" className="h-9 rounded-lg px-2.5 text-[12px] text-foreground/70 hover:text-foreground">
-                            Go <ArrowRight className="ml-0.5 h-3 w-3" />
+                          <Button size="sm" variant="ghost" className="group/btn h-8 rounded-lg px-2 text-[12px] text-foreground/65 hover:bg-foreground/[0.04] hover:text-foreground">
+                            Go <ArrowRight className="ml-0.5 h-3 w-3 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
                           </Button>
                         </Link>
                       </div>
