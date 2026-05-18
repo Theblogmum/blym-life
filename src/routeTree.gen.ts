@@ -40,6 +40,7 @@ import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
+import { Route as AuthenticatedMilestonesRouteImport } from './routes/_authenticated/milestones'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedJourneyRouteImport } from './routes/_authenticated/journey'
@@ -232,6 +233,11 @@ const AuthenticatedPassiveIdeasRoute =
 const AuthenticatedMotivationRoute = AuthenticatedMotivationRouteImport.update({
   id: '/motivation',
   path: '/motivation',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedMilestonesRoute = AuthenticatedMilestonesRouteImport.update({
+  id: '/milestones',
+  path: '/milestones',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
@@ -439,6 +445,7 @@ export interface FileRoutesByFullPath {
   '/journey': typeof AuthenticatedJourneyRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
+  '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
@@ -502,6 +509,7 @@ export interface FileRoutesByTo {
   '/journey': typeof AuthenticatedJourneyRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
+  '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
@@ -567,6 +575,7 @@ export interface FileRoutesById {
   '/_authenticated/journey': typeof AuthenticatedJourneyRoute
   '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
+  '/_authenticated/milestones': typeof AuthenticatedMilestonesRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
   '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
@@ -632,6 +641,7 @@ export interface FileRouteTypes {
     | '/journey'
     | '/library'
     | '/media-kit'
+    | '/milestones'
     | '/motivation'
     | '/passive-ideas'
     | '/pin-optimiser'
@@ -695,6 +705,7 @@ export interface FileRouteTypes {
     | '/journey'
     | '/library'
     | '/media-kit'
+    | '/milestones'
     | '/motivation'
     | '/passive-ideas'
     | '/pin-optimiser'
@@ -759,6 +770,7 @@ export interface FileRouteTypes {
     | '/_authenticated/journey'
     | '/_authenticated/library'
     | '/_authenticated/media-kit'
+    | '/_authenticated/milestones'
     | '/_authenticated/motivation'
     | '/_authenticated/passive-ideas'
     | '/_authenticated/pin-optimiser'
@@ -1034,6 +1046,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMotivationRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/milestones': {
+      id: '/_authenticated/milestones'
+      path: '/milestones'
+      fullPath: '/milestones'
+      preLoaderRoute: typeof AuthenticatedMilestonesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/media-kit': {
       id: '/_authenticated/media-kit'
       path: '/media-kit'
@@ -1277,6 +1296,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedJourneyRoute: typeof AuthenticatedJourneyRoute
   AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
+  AuthenticatedMilestonesRoute: typeof AuthenticatedMilestonesRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
   AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
@@ -1320,6 +1340,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedJourneyRoute: AuthenticatedJourneyRoute,
   AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
+  AuthenticatedMilestonesRoute: AuthenticatedMilestonesRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
   AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
