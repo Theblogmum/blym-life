@@ -576,34 +576,3 @@ function PriceCard({
   );
 }
 
-function FeatureRow({
-  copy, image, imageSide, tint, offset,
-}: {
-  copy: ReactNode;
-  image: string;
-  imageSide: "left" | "right";
-  tint: string;
-  offset?: boolean;
-}) {
-  const imageFirst = imageSide === "left";
-  return (
-    <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-      <div className={imageFirst ? "lg:order-1" : "lg:order-2"}>
-        <div
-          className={`relative overflow-hidden rounded-[2rem] shadow-[var(--shadow-elegant)] ${offset ? "lg:translate-y-6" : ""}`}
-          style={{ background: tint }}
-        >
-          <img
-            src={image}
-            alt=""
-            loading="lazy"
-            width={1024}
-            height={768}
-            className="h-full w-full object-cover"
-          />
-        </div>
-      </div>
-      <div className={imageFirst ? "lg:order-2" : "lg:order-1"}>{copy}</div>
-    </div>
-  );
-}
