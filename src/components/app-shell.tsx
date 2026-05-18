@@ -29,6 +29,7 @@ import { PlayerHud } from "@/components/player-hud";
 import { getMuted, setMuted, pop } from "@/lib/celebrate";
 import { ComboOverlay } from "@/components/combo-overlay";
 import { StreakRiskBanner } from "@/components/streak-risk-banner";
+import { MomentumPebble } from "@/components/momentum-pebble";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -425,6 +426,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <MobileBottomNav onSearch={() => setPaletteOpen(true)} />
       <LowEnergyButton />
       <ComboOverlay />
+      <MomentumPebble />
     </div>
   );
 }
