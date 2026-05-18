@@ -13,6 +13,7 @@ import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
 import { getXp } from "@/lib/xp.functions";
 import { TrialPill } from "@/components/trial-pill";
+import { EraRibbon } from "@/components/era-theme";
 import { getDailyIdea } from "@/lib/daily-idea.functions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -148,12 +149,17 @@ function HomePage() {
         <div
           aria-hidden
           className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(80% 60% at 10% 10%, oklch(0.95 0.06 18 / 0.7), transparent 55%), radial-gradient(70% 55% at 95% 0%, oklch(0.93 0.07 340 / 0.55), transparent 60%), linear-gradient(180deg, oklch(0.995 0.003 30), oklch(0.99 0.006 30))",
-          }}
+          style={{ background: "var(--era-grad)", opacity: 0.55 }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(180deg, transparent, var(--background))" }}
         />
         <div className="relative mx-auto max-w-[1200px] px-4 pb-6 pt-6 lg:px-10 lg:pb-10 lg:pt-9">
+          <div className="mb-4">
+            <EraRibbon />
+          </div>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/55">
