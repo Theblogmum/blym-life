@@ -2,7 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Sparkles, Sunrise, Lightbulb, Heart, NotebookPen, ScrollText, RefreshCw } from "lucide-react";
 import { dailyMotivation } from "@/lib/generator.functions";
 import { getUsageToday } from "@/lib/usage.functions";
