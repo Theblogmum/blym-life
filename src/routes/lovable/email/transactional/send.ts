@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { render as renderAsync } from '@react-email/components'
+import { render } from '@react-email/components'
 import { createClient } from '@supabase/supabase-js'
 import { createFileRoute } from '@tanstack/react-router'
 import { TEMPLATES } from '@/lib/email-templates/registry'
 
 // Configuration baked in at scaffold time
-const SITE_NAME = "theblogmumstudio"
+const SITE_NAME = "blym-life"
 // SENDER_DOMAIN is the verified sender subdomain FQDN (e.g., "notify.example.com").
 // It MUST match the subdomain delegated to Lovable's nameservers. NEVER use the root domain.
 const SENDER_DOMAIN = "notify.blym.life"
@@ -253,8 +253,8 @@ export const Route = createFileRoute("/lovable/email/transactional/send")({
 
         // 4. Render React Email template to HTML and plain text
         const element = React.createElement(template.component, templateData)
-        const html = await renderAsync(element)
-        const plainText = await renderAsync(element, { plainText: true })
+        const html = await render(element)
+        const plainText = await render(element, { plainText: true })
 
         // Resolve subject — supports static string or dynamic function
         const resolvedSubject =
