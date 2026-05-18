@@ -162,10 +162,7 @@ function HomePage() {
           </div>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-foreground/55">
-                today's vibe
-              </p>
-              <h1 className="mt-2 font-display text-[26px] font-black leading-[1.1] tracking-tight sm:text-[36px]">
+              <h1 className="font-display text-[26px] font-black leading-[1.1] tracking-tight sm:text-[36px]">
                 {opener}
               </h1>
             </div>
