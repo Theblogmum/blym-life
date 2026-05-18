@@ -564,7 +564,7 @@ function PriceCard({
           {features.map((f) => (
             <li key={f} className="flex items-start gap-1.5">
               <span className="mt-0.5 grid h-3 w-3 shrink-0 place-items-center rounded-full bg-primary/15 text-primary"><Check className="h-2 w-2" /></span>
-              <span className="min-w-0 break-words text-foreground/80">{f}</span>
+              <span className="min-w-0 break-words text-foreground/90">{f}</span>
             </li>
           ))}
         </ul>
