@@ -322,9 +322,9 @@ function HomePage() {
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
         <section className="mb-14 sm:mb-20">
-          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5">
+          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-1">
             <div
-              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7"
+              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7 lg:hidden"
               style={{
                 background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
                 boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
