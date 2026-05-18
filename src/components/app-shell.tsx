@@ -25,6 +25,7 @@ import { checkIsAdmin } from "@/lib/admin.functions";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { LowEnergyButton } from "@/components/low-energy-button";
 import { ToolBanner } from "@/components/tool-banner";
+import { EraTheme } from "@/components/era-theme";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -307,6 +308,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen w-full bg-background">
+      <EraTheme />
       <DunningBanner />
 
       {/* Cmd+K Palette */}
