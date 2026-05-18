@@ -3,7 +3,7 @@ import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
-  Gift, Users, Flag, Wand2, Target,
+  Gift, Users, Flag, Wand2, Target, Volume2, VolumeX,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import {
@@ -26,6 +26,7 @@ import { LowEnergyButton } from "@/components/low-energy-button";
 import { ToolBanner } from "@/components/tool-banner";
 import { EraTheme } from "@/components/era-theme";
 import { PlayerHud } from "@/components/player-hud";
+import { getMuted, setMuted, pop } from "@/lib/celebrate";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -106,6 +107,14 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [muted, setMutedState] = useState(false);
+  useEffect(() => { setMutedState(getMuted()); }, []);
+  const toggleMute = () => {
+    const next = !muted;
+    setMuted(next);
+    setMutedState(next);
+    if (!next) pop();
+  };
 
   const checkAdmin = useServerFn(checkIsAdmin);
   const adminQ = useQuery({
@@ -364,6 +373,13 @@ export function AppShell({ children }: { children: ReactNode }) {
 
               <div className="ml-auto flex items-center gap-2">
                 <PlayerHud />
+                <button
+                  onClick={toggleMute}
+                  aria-label={muted ? "Unmute sounds" : "Mute sounds"}
+                  className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card text-foreground/70 hover:text-foreground"
+                >
+                  {muted ? <VolumeX className="h-4 w-4" strokeWidth={1.75} /> : <Volume2 className="h-4 w-4" strokeWidth={1.75} />}
+                </button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button
