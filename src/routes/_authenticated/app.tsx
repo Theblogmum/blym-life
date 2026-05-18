@@ -475,7 +475,6 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ============ LEVEL + STREAK CARDS ============ */}
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
         <section className="mb-14 sm:mb-20">
           <div className="mb-6">
