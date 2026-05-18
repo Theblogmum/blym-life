@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Settings as SettingsIcon, LogOut, Sparkles, Check, ExternalLink } from "lucide-react";
+import { Settings as SettingsIcon, LogOut, Sparkles, ExternalLink } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
@@ -12,6 +12,7 @@ import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { createPortalSession } from "@/utils/payments.functions";
 import { useState } from "react";
 import { PinterestConnectCard } from "@/components/pinterest-connect-card";
+import { PageHero } from "@/components/page-hero";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   component: SettingsPage,
@@ -51,13 +52,16 @@ function SettingsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-5 py-8">
-      <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-secondary p-2 text-primary"><SettingsIcon className="h-5 w-5" /></div>
-        <h1 className="font-display text-3xl font-black">Settings</h1>
-      </div>
-
-      <Card className="mt-6 rounded-3xl p-5">
+    <div>
+      <PageHero
+        icon={SettingsIcon}
+        eyebrow="Settings"
+        title="Your account, your way."
+        description="Manage your plan, profile and integrations. Tiny changes, big difference."
+        variant="butter"
+      />
+      <section className="mx-auto max-w-2xl px-5 py-8 space-y-5">
+      <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
         <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Account</p>
         <p className="mt-1 font-medium">{user?.email}</p>
         <p className="mt-1 text-sm text-muted-foreground">Plan: <span className="font-semibold capitalize text-foreground">{tier}</span></p>
@@ -70,7 +74,7 @@ function SettingsPage() {
       </Card>
 
       {isActive && subscription && !hasLifetime && (
-        <Card className="mt-5 rounded-3xl p-5">
+        <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Subscription</p>
           <p className="mt-1 font-medium capitalize">{subscription.status}{subscription.cancel_at_period_end ? " · cancels at period end" : ""}</p>
           {subscription.current_period_end && (
@@ -85,24 +89,22 @@ function SettingsPage() {
       )}
 
       {hasLifetime && (
-        <Card className="mt-5 rounded-3xl p-5">
+        <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Lifetime member</p>
           <p className="mt-1 font-medium">You have permanent Premium access. Thank you 💛</p>
         </Card>
       )}
 
-      <div className="mt-5">
-        <PinterestConnectCard />
-      </div>
+      <PinterestConnectCard />
 
       {!isActive && (
-        <Card className="mt-5 rounded-3xl border-0 bg-[image:var(--gradient-warm)] p-[2px]">
-          <div className="rounded-[calc(theme(borderRadius.3xl)-2px)] bg-card p-5">
+        <Card className="rounded-[1.6rem] border-0 bg-[image:var(--gradient-warm)] p-[2px] shadow-[var(--shadow-elegant)]">
+          <div className="rounded-[1.5rem] bg-card p-6">
             <div className="flex items-center gap-2 text-primary">
               <Sparkles className="h-4 w-4" />
               <p className="text-[11px] font-semibold uppercase tracking-wider">Upgrade your plan</p>
             </div>
-            <p className="mt-2 font-display text-2xl font-black">Pick the plan that fits where you are.</p>
+            <p className="mt-2 font-display text-[22px] font-bold tracking-[-0.015em]">Pick the plan that fits where you are.</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-border p-4">
                 <p className="font-display text-lg font-bold">Creator · £9.99/mo</p>
@@ -126,6 +128,7 @@ function SettingsPage() {
           </div>
         </Card>
       )}
+      </section>
     </div>
   );
 }
