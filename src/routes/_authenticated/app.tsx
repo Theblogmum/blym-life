@@ -321,37 +321,37 @@ function HomePage() {
         </section>
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
-        <section className="mb-14 sm:mb-20">
-          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-1">
+        <section className="mb-14 sm:mb-20 lg:hidden">
+          <div className="grid gap-4">
             <div
-              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7 lg:hidden"
+              className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
               style={{
                 background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
                 boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
               }}
             >
-              <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
-              <div aria-hidden className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
+              <div aria-hidden className="absolute -right-20 -top-20 h-80 w-80 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
+              <div aria-hidden className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
               <div className="relative">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
-                    <Rocket className="h-3 w-3" /> Level {xp?.level ?? 1}
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
+                    <Rocket className="h-4 w-4" /> Level {xp?.level ?? 1}
                   </span>
-                  <span className="text-[11px] font-medium tabular-nums text-foreground/55">
+                  <span className="text-[14px] font-medium tabular-nums text-foreground/55">
                     {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
                   </span>
                 </div>
-                <div className="mt-6 flex items-baseline gap-3">
-                  <span className="text-[40px] leading-none">{lvl.emoji}</span>
+                <div className="mt-8 flex items-baseline gap-4">
+                  <span className="text-[58px] leading-none">{lvl.emoji}</span>
                   <div>
-                    <h2 className="font-display text-[26px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[32px]">
+                    <h2 className="font-display text-[36px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[44px]">
                       {lvl.title}
                     </h2>
-                    <p className="mt-2 text-[13px] leading-snug text-foreground/65">{lvl.blurb}</p>
+                    <p className="mt-3 text-[16px] leading-snug text-foreground/65">{lvl.blurb}</p>
                   </div>
                 </div>
-                <div className="mt-7">
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
+                <div className="mt-9">
+                  <div className="h-3 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{
@@ -360,7 +360,7 @@ function HomePage() {
                       }}
                     />
                   </div>
-                  <p className="mt-3 text-[12px] text-foreground/55">
+                  <p className="mt-4 text-[15px] text-foreground/55">
                     next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
                   </p>
                 </div>
