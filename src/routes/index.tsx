@@ -549,8 +549,8 @@ function PriceCard({
 }) {
   return (
     <div className={highlighted
-      ? "relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)]"
-      : "card-elegant h-full p-5 text-left flex flex-col"}>
+      ? "group relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_30px_80px_-20px_color-mix(in_oklab,var(--primary)_45%,transparent)]"
+      : "group card-elegant h-full p-5 text-left flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"}>
       <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-4 sm:p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
         {highlighted && (
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-background">Most loved</span>
@@ -572,7 +572,7 @@ function PriceCard({
           onClick={cta.onClick}
           disabled={cta.disabled}
           size="sm"
-          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap ${highlighted ? "bg-anchor text-anchor-foreground hover:bg-anchor/90" : ""}`}
+          className={`mt-4 w-full rounded-full px-3 text-[12px] font-semibold whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] ${highlighted ? "bg-anchor text-anchor-foreground hover:bg-anchor/90" : ""}`}
           variant={highlighted ? "default" : "outline"}
         >
           {cta.label}
