@@ -199,10 +199,10 @@ export function AppShell({ children }: { children: ReactNode }) {
           <button
             onClick={() => setOpenGroups((s) => ({ ...s, [g.label]: !open }))}
             className={cn(
-              "group flex w-full items-center justify-between rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
+              "sidebar-link group flex w-full items-center justify-between rounded-xl px-3 py-2 text-[13px] font-medium tracking-[-0.005em]",
               active
-                ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
-                : "text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/90",
+                ? "sidebar-active-pill"
+                : "text-foreground/55 hover:text-foreground",
             )}
           >
             <span className="flex items-center gap-3">
@@ -221,10 +221,10 @@ export function AppShell({ children }: { children: ReactNode }) {
                       to={i.to}
                       onClick={onClick}
                       className={cn(
-                        "block rounded-lg px-2.5 py-1.5 text-[12.5px] transition-colors duration-200",
+                        "block rounded-lg px-2.5 py-1.5 text-[12.5px] transition-all duration-200",
                         a
-                          ? "bg-primary/10 font-semibold text-primary"
-                          : "text-foreground/40 hover:bg-foreground/[0.04] hover:text-foreground/80",
+                          ? "bg-[color-mix(in_oklab,var(--primary)_12%,transparent)] font-semibold text-primary shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--primary)_18%,transparent)]"
+                          : "text-foreground/50 hover:bg-foreground/[0.04] hover:text-foreground/85",
                       )}
                     >
                       {i.label}
@@ -243,10 +243,10 @@ export function AppShell({ children }: { children: ReactNode }) {
         to={g.to!}
         onClick={onClick}
         className={cn(
-          "flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
+          "sidebar-link flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium tracking-[-0.005em]",
           active
-            ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
-            : "text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/90",
+            ? "sidebar-active-pill"
+            : "text-foreground/55 hover:text-foreground",
         )}
       >
         <g.icon className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} />
