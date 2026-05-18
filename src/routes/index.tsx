@@ -349,31 +349,6 @@ function Landing() {
       </section>
 
       {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
-      <section id="features" className="relative bg-background px-5 py-24 sm:px-8 sm:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="eyebrow">And there's more inside</p>
-          <h2 className="mx-auto mt-5 max-w-3xl font-display text-[36px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
-            A whole creator studio — quietly powerful.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-[17px] leading-[1.65] text-muted-foreground text-pretty">
-            Viral Lab, Recycler, Insights, Revenue Hub, Wins — the calm tools that make a real creator business.
-          </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-2">
-            {[
-              "Viral Lab", "Weekly Planner", "Recycler", "Template Studio",
-              "Content Ideas", "Insights", "Revenue Hub", "Creator Wins",
-            ].map((label) => (
-              <span
-                key={label}
-                className="rounded-full bg-secondary/60 px-4 py-1.5 text-[13px] font-medium text-foreground/80"
-              >
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section id="pricing" className="bg-[image:var(--gradient-stone)] py-20 sm:py-24">
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
