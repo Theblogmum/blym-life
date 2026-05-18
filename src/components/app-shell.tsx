@@ -4,6 +4,7 @@ import {
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
   Gift, Users, Flag, Wand2, Target, Volume2, VolumeX,
+  PanelLeftClose, PanelLeft,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import {
@@ -117,6 +118,20 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("blym.sidebar.open");
+      if (saved !== null) setSidebarOpen(saved === "1");
+    } catch {}
+  }, []);
+  const toggleSidebar = () => {
+    setSidebarOpen((o) => {
+      const next = !o;
+      try { localStorage.setItem("blym.sidebar.open", next ? "1" : "0"); } catch {}
+      return next;
+    });
+  };
   const [muted, setMutedState] = useState(false);
   useEffect(() => { setMutedState(getMuted()); }, []);
   const toggleMute = () => {
@@ -348,14 +363,16 @@ export function AppShell({ children }: { children: ReactNode }) {
       </CommandDialog>
 
       <div className="flex w-full">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-border/50 bg-card lg:block">
-          {sidebarInner()}
-        </aside>
+        {sidebarOpen && (
+          <aside className="sticky top-0 hidden h-screen w-60 shrink-0 border-r border-border/50 bg-card lg:block">
+            {sidebarInner()}
+          </aside>
+        )}
 
         {mobileOpen && (
           <>
             <div className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} />
-            <aside className="fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-card shadow-2xl lg:hidden">
+            <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card shadow-2xl lg:hidden">
               {sidebarInner(() => setMobileOpen(false))}
             </aside>
           </>
@@ -370,6 +387,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                 aria-label="Open menu"
               >
                 <Menu className="h-4 w-4" />
+              </button>
+              <button
+                className="hidden lg:grid h-9 w-9 place-items-center rounded-lg border border-border bg-card text-foreground/70 hover:text-foreground"
+                onClick={toggleSidebar}
+                aria-label={sidebarOpen ? "Hide sidebar" : "Show sidebar"}
+                title={sidebarOpen ? "Hide sidebar" : "Show sidebar"}
+              >
+                {sidebarOpen ? <PanelLeftClose className="h-4 w-4" strokeWidth={1.75} /> : <PanelLeft className="h-4 w-4" strokeWidth={1.75} />}
               </button>
 
               <button
