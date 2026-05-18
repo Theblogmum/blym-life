@@ -37,7 +37,7 @@ export function EraRibbon() {
   const meta = ERA_META[era] ?? ERA_META.soft;
   return (
     <div
-      className="sticker inline-flex items-center gap-2 px-4 py-2 text-sm font-bold"
+      className="chip-sticker inline-flex items-center gap-2 px-4 py-2 text-sm font-bold"
       style={{ background: "var(--era-grad)" }}
     >
       <span className="text-lg">{meta.emoji}</span>
