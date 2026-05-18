@@ -131,16 +131,16 @@ function Landing() {
         />
         {/* Floating stickers — hero */}
         <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-          <span className="sticker drift absolute left-[4%] top-[28%] text-foreground" style={{ ['--drift-rot' as any]: '-8deg', animationDelay: '0.4s' }}>
+          <span className="chip-sticker drift absolute left-[4%] top-[28%] text-foreground" style={{ ['--drift-rot' as any]: '-8deg', animationDelay: '0.4s' }}>
             <Flame className="h-3.5 w-3.5 text-[color:var(--accent)]" /> 7-day streak
           </span>
-          <span className="sticker drift-slow absolute left-[8%] top-[62%]" style={{ ['--drift-rot' as any]: '5deg', background: 'var(--surface-peach)' }}>
+          <span className="chip-sticker drift-slow absolute left-[8%] top-[62%]" style={{ ['--drift-rot' as any]: '5deg', background: 'var(--surface-peach)' }}>
             <Sparkles className="h-3.5 w-3.5" /> +120 XP
           </span>
-          <span className="sticker drift absolute right-[2%] top-[18%]" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)', animationDelay: '1.1s' }}>
+          <span className="chip-sticker drift absolute right-[2%] top-[18%]" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)', animationDelay: '1.1s' }}>
             <Crown className="h-3.5 w-3.5" /> Level 4 unlocked
           </span>
-          <span className="sticker drift-slow absolute right-[6%] bottom-[10%]" style={{ ['--drift-rot' as any]: '-4deg', background: 'var(--surface-blush)' }}>
+          <span className="chip-sticker drift-slow absolute right-[6%] bottom-[10%]" style={{ ['--drift-rot' as any]: '-4deg', background: 'var(--surface-blush)' }}>
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
@@ -197,10 +197,10 @@ function Landing() {
       {/* ============ HOW IT HELPS ============ */}
       <section id="features" className="relative bg-background py-24 sm:py-32">
         {/* Floating decorative chips */}
-        <span aria-hidden className="sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
+        <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> New brief daily
         </span>
-        <span aria-hidden className="sticker drift-slow hidden md:inline-flex absolute left-[6%] bottom-12" style={{ ['--drift-rot' as any]: '-5deg', background: 'var(--surface-peach)' }}>
+        <span aria-hidden className="chip-sticker drift-slow hidden md:inline-flex absolute left-[6%] bottom-12" style={{ ['--drift-rot' as any]: '-5deg', background: 'var(--surface-peach)' }}>
           <Flame className="h-3.5 w-3.5 text-[color:var(--accent)]" /> Streak saved
         </span>
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -309,10 +309,10 @@ function Landing() {
         <div aria-hidden className="absolute right-[-4rem] top-20 h-72 w-72 rounded-full bg-[image:var(--gradient-bloom)] opacity-30 blur-3xl gradient-drift" />
         <div aria-hidden className="absolute left-[-3rem] bottom-10 h-60 w-60 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl gradient-drift" style={{ animationDelay: '4s' }} />
         {/* Floating stickers around the steps */}
-        <span aria-hidden className="sticker drift hidden md:inline-flex absolute left-[10%] top-32" style={{ ['--drift-rot' as any]: '-7deg' }}>
+        <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute left-[10%] top-32" style={{ ['--drift-rot' as any]: '-7deg' }}>
           <Sparkles className="h-3.5 w-3.5" /> 2 min setup
         </span>
-        <span aria-hidden className="sticker drift-slow hidden md:inline-flex absolute right-[8%] bottom-24" style={{ ['--drift-rot' as any]: '5deg', background: 'var(--surface-blush)' }}>
+        <span aria-hidden className="chip-sticker drift-slow hidden md:inline-flex absolute right-[8%] bottom-24" style={{ ['--drift-rot' as any]: '5deg', background: 'var(--surface-blush)' }}>
           <Heart className="h-3.5 w-3.5 text-primary" fill="currentColor" /> Built for mums
         </span>
         <div className="relative mx-auto max-w-5xl px-5 text-center sm:px-8">
@@ -347,10 +347,10 @@ function Landing() {
       {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
       <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-20 sm:py-24">
         <div aria-hidden className="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[image:var(--gradient-aurora)] opacity-40 blur-3xl gradient-drift" />
-        <span aria-hidden className="sticker drift hidden md:inline-flex absolute left-[6%] top-16" style={{ ['--drift-rot' as any]: '-6deg', background: 'var(--surface-mint)' }}>
+        <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute left-[6%] top-16" style={{ ['--drift-rot' as any]: '-6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> Free forever plan
         </span>
-        <span aria-hidden className="sticker drift-slow hidden md:inline-flex absolute right-[6%] top-24" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-peach)' }}>
+        <span aria-hidden className="chip-sticker drift-slow hidden md:inline-flex absolute right-[6%] top-24" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-peach)' }}>
           <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Cancel anytime
         </span>
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
