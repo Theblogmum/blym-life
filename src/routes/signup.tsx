@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { sendTransactionalEmail } from "@/lib/email/send";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -31,7 +32,7 @@ function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -41,6 +42,14 @@ function SignupPage() {
     });
     setLoading(false);
     if (error) return toast.error(error.message);
+    // Fire welcome email (idempotent on user id)
+    const uid = data.user?.id ?? email;
+    sendTransactionalEmail({
+      templateName: "welcome",
+      recipientEmail: email,
+      idempotencyKey: `welcome-${uid}`,
+      templateData: { name },
+    });
     toast.success("Check your email to confirm.");
     navigate({ to: "/onboarding" });
   };
