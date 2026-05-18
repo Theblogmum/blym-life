@@ -219,7 +219,7 @@ function HomePage() {
                   <li key={b.id} className="shrink-0">
                     <div
                       className={cn(
-                        "group/badge relative flex h-[104px] w-[88px] flex-col items-center justify-center gap-1.5 overflow-hidden rounded-[1.1rem] p-2 text-center transition-all duration-500",
+                        "group/badge relative flex h-[135px] w-[114px] flex-col items-center justify-center gap-2 overflow-hidden rounded-[1.3rem] p-2.5 text-center transition-all duration-500",
                         got
                           ? "bg-white/85 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_20px_42px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.7))]"
                           : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
@@ -241,19 +241,19 @@ function HomePage() {
                         </>
                       )}
                       <span className={cn(
-                        "relative text-[28px] leading-none transition-transform duration-500",
+                        "relative text-[36px] leading-none transition-transform duration-500",
                         got ? "drop-shadow-[0_2px_7px_color-mix(in_oklab,var(--badge-glow,transparent)_50%,transparent)] group-hover/badge:scale-[1.15] group-hover/badge:-rotate-[6deg]" : "opacity-35 saturate-0 grayscale",
                       )}>
                         {b.emoji}
                       </span>
                       <span className={cn(
-                        "relative px-0.5 text-[10px] font-semibold leading-tight tracking-[-0.005em]",
+                        "relative px-0.5 text-[13px] font-semibold leading-tight tracking-[-0.005em]",
                         got ? "text-foreground" : "text-foreground/45",
                       )}>
                         {b.label}
                       </span>
                       {!got && (
-                        <span className="relative text-[8px] font-medium uppercase tracking-[0.18em] text-foreground/30">soon</span>
+                        <span className="relative text-[10px] font-medium uppercase tracking-[0.18em] text-foreground/30">soon</span>
                       )}
                     </div>
                   </li>
