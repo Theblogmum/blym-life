@@ -17,7 +17,7 @@ import { EraRibbon } from "@/components/era-theme";
 import { getDailyIdea } from "@/lib/daily-idea.functions";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { celebrate, pop } from "@/lib/celebrate";
+import { celebrate as fxCelebrate, pop as fxPop } from "@/lib/celebrate";
 
 export const Route = createFileRoute("/_authenticated/app")({ component: HomePage });
 
@@ -113,10 +113,10 @@ function HomePage() {
       setTimeout(() => setCelebrate(null), 1400);
       // dopamine: small pop per mission, bigger burst when all 3 done
       const completedCount = Object.values(next).filter(Boolean).length;
-      if (completedCount >= 3) celebrate("big");
-      else celebrate("tiny");
+      if (completedCount >= 3) fxCelebrate("big");
+      else fxCelebrate("tiny");
     } else {
-      pop();
+      fxPop();
     }
   };
 
