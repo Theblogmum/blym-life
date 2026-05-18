@@ -613,59 +613,59 @@ function ConsistencyWidget({ postsWeek, streak }: { postsWeek: number; streak: n
   const pct = Math.min(100, Math.round((postsWeek / goal) * 100));
   return (
     <div
-      className="relative overflow-hidden rounded-[2.25rem] p-7 sm:p-10"
+      className="relative overflow-hidden rounded-[1.6rem] p-4 sm:p-5"
       style={{
         background: "radial-gradient(120% 90% at 10% 0%, oklch(0.95 0.08 75 / 0.65), transparent 55%), radial-gradient(120% 90% at 100% 100%, oklch(0.92 0.09 340 / 0.5), transparent 55%), oklch(1 0 0 / 0.6)",
         backdropFilter: "blur(10px)",
         boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.75), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 24px 60px -28px oklch(0.66 0.24 350 / 0.22)",
       }}
     >
-      <div className="flex items-end justify-between gap-4">
+      <div className="flex items-end justify-between gap-3">
         <div>
           <p className="eyebrow">this week</p>
-          <p className="mt-3 font-display text-[56px] font-bold leading-[0.92] tabular-nums tracking-[-0.025em] sm:text-[72px]">
+          <p className="mt-1.5 font-display text-[28px] font-bold leading-[0.92] tabular-nums tracking-[-0.025em] sm:text-[36px]">
             {postsWeek}
-            <span className="ml-2 text-[16px] font-normal text-foreground/45">/ {goal}</span>
+            <span className="ml-1.5 text-[11px] font-normal text-foreground/45">/ {goal}</span>
           </p>
-          <p className="mt-2 text-[13.5px] leading-relaxed text-foreground/65 max-w-xs">
+          <p className="mt-1.5 text-[11px] leading-relaxed text-foreground/65 max-w-xs">
             {pct >= 100 ? "you hit your rhythm. so proud of you x"
               : postsWeek === 0 ? "no posts yet — and that's okay. one tiny one resets everything."
               : `${pct}% there. tiny progress still counts.`}
           </p>
         </div>
         <div className="text-right">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/65 px-3 py-1.5 text-[12px] font-semibold text-foreground/75 backdrop-blur ring-1 ring-white/60 shadow-[0_4px_14px_-6px_oklch(0.6_0.2_30/0.4)]">
-            <Flame className="h-3.5 w-3.5 text-[oklch(0.6_0.2_30)]" /> {streak}d streak
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/65 px-2 py-0.5 text-[10px] font-semibold text-foreground/75 backdrop-blur ring-1 ring-white/60 shadow-[0_3px_10px_-5px_oklch(0.6_0.2_30/0.4)]">
+            <Flame className="h-3 w-3 text-[oklch(0.6_0.2_30)]" /> {streak}d streak
           </span>
         </div>
       </div>
 
-      <div className="mt-8 flex items-end justify-between gap-2 sm:gap-3">
+      <div className="mt-4 flex items-end justify-between gap-1.5 sm:gap-2">
         {days.map((d, i) => (
-          <div key={i} className="flex flex-1 flex-col items-center gap-2.5">
+          <div key={i} className="flex flex-1 flex-col items-center gap-1.5">
             <div className="relative w-full">
               {d.filled && (
                 <div
                   aria-hidden
-                  className="absolute -inset-1 rounded-2xl opacity-60 blur-md"
+                  className="absolute -inset-0.5 rounded-xl opacity-60 blur-md"
                   style={{ background: "linear-gradient(180deg, oklch(0.88 0.13 30 / 0.6), oklch(0.72 0.22 350 / 0.4))" }}
                 />
               )}
               <span
                 className={cn(
-                  "relative block w-full rounded-2xl transition-all duration-500",
+                  "relative block w-full rounded-xl transition-all duration-500",
                   d.filled
-                    ? "h-14 sm:h-16 shadow-[inset_0_1px_0_oklch(1_0_0/0.6),0_6px_16px_-8px_oklch(0.66_0.24_350/0.5)]"
+                    ? "h-7 sm:h-8 shadow-[inset_0_1px_0_oklch(1_0_0/0.6),0_4px_10px_-6px_oklch(0.66_0.24_350/0.5)]"
                     : d.isToday
-                    ? "h-14 sm:h-16 bg-white/55 ring-2 ring-dashed ring-foreground/25"
-                    : "h-10 sm:h-12 bg-foreground/[0.06]",
+                    ? "h-7 sm:h-8 bg-white/55 ring-2 ring-dashed ring-foreground/25"
+                    : "h-5 sm:h-6 bg-foreground/[0.06]",
                 )}
                 style={d.filled ? { background: "linear-gradient(180deg, oklch(0.9 0.12 60), oklch(0.74 0.2 25), oklch(0.68 0.22 350))" } : undefined}
                 aria-hidden
               />
             </div>
             <span className={cn(
-              "text-[10.5px] font-semibold uppercase tracking-[0.12em]",
+              "text-[8.5px] font-semibold uppercase tracking-[0.12em]",
               d.isToday ? "text-foreground" : "text-foreground/45",
             )}>
               {d.label}
