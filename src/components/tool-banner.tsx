@@ -42,19 +42,16 @@ export function ToolBanner() {
   const tool = TOOLS[path];
   if (!tool) return null;
   return (
-    <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-6">
-      <div className="sticker p-5 sm:p-6" style={{ background: tool.tint }}>
-        <div className="flex items-start gap-4">
-          <div className="grid h-14 w-14 sm:h-16 sm:w-16 shrink-0 place-items-center rounded-2xl border-2 border-foreground bg-card text-3xl shadow-[0_4px_0_0_var(--foreground)]">
-            {tool.emoji}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="eyebrow">tool unlocked</p>
-            <h1 className="mt-1 font-display text-2xl sm:text-3xl leading-tight">{tool.title}</h1>
-            <p className="mt-1 text-sm text-foreground/80">{tool.sub}</p>
-          </div>
-          <span className="xp-pill shrink-0 hidden sm:inline-flex">⚡ +{tool.xp} XP</span>
+    <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-5">
+      <div className="flex items-center gap-3 rounded-2xl border-2 border-foreground bg-card px-4 py-3 shadow-[0_3px_0_0_var(--foreground)]" style={{ background: tool.tint }}>
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border-2 border-foreground bg-card text-xl">
+          {tool.emoji}
+        </span>
+        <div className="flex-1 min-w-0">
+          <h1 className="font-display text-lg sm:text-xl leading-tight truncate">{tool.title}</h1>
+          <p className="text-xs text-foreground/70 truncate">{tool.sub}</p>
         </div>
+        <span className="xp-pill shrink-0 hidden sm:inline-flex text-xs">+{tool.xp} XP</span>
       </div>
     </div>
   );
