@@ -4,6 +4,7 @@ import {
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
   Gift, Users, Flag, Wand2, Target, Volume2, VolumeX,
+  PanelLeftClose, PanelLeft,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import {
@@ -117,6 +118,20 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("blym.sidebar.open");
+      if (saved !== null) setSidebarOpen(saved === "1");
+    } catch {}
+  }, []);
+  const toggleSidebar = () => {
+    setSidebarOpen((o) => {
+      const next = !o;
+      try { localStorage.setItem("blym.sidebar.open", next ? "1" : "0"); } catch {}
+      return next;
+    });
+  };
   const [muted, setMutedState] = useState(false);
   useEffect(() => { setMutedState(getMuted()); }, []);
   const toggleMute = () => {
@@ -242,31 +257,31 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const sidebarInner = (onClick?: () => void) => (
     <div className="flex h-full flex-col">
-      <div className="px-5 pt-6 pb-5">
+      <div className="px-4 pt-5 pb-4">
         <Link to="/app" onClick={onClick} className="block">
-          <img src={logo} alt="Blym" className="h-10 w-auto object-contain" />
+          <img src={logo} alt="Blym" className="h-8 w-auto object-contain" />
         </Link>
       </div>
 
       {/* Search trigger */}
-      <div className="px-3 pb-3">
+      <div className="px-2.5 pb-3">
         <button
           onClick={() => { setPaletteOpen(true); onClick?.(); }}
-          className="flex w-full items-center gap-2 rounded-xl border border-border bg-background px-3 py-2 text-left text-[13px] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
+          className="flex w-full items-center gap-2 rounded-xl border border-border bg-background px-2.5 py-1.5 text-left text-[12.5px] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
         >
           <Search className="h-3.5 w-3.5" />
-          <span className="flex-1">Search tools…</span>
+          <span className="flex-1 truncate">Search…</span>
           <kbd className="rounded-md bg-foreground/8 px-1.5 py-0.5 text-[10px] font-mono font-semibold">⌘K</kbd>
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 pb-6">
+      <div className="flex-1 overflow-y-auto px-2.5 pb-6">
         {SECTIONS.map((s, idx) => (
-          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-10" : "mb-10 mt-2")}>
-            <p className="px-3 pb-4 pt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
+          <div key={s.eyebrow} className={cn(idx === 0 ? "mb-7" : "mb-7 mt-1")}>
+            <p className="px-2.5 pb-3 pt-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
               {s.eyebrow}
             </p>
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               {s.groups.map((g) => renderGroup(g, onClick))}
             </div>
           </div>
@@ -348,14 +363,16 @@ export function AppShell({ children }: { children: ReactNode }) {
       </CommandDialog>
 
       <div className="flex w-full">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-border/50 bg-card lg:block">
-          {sidebarInner()}
-        </aside>
+        {sidebarOpen && (
+          <aside className="sticky top-0 hidden h-screen w-60 shrink-0 border-r border-border/50 bg-card lg:block">
+            {sidebarInner()}
+          </aside>
+        )}
 
         {mobileOpen && (
           <>
             <div className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} />
-            <aside className="fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-card shadow-2xl lg:hidden">
+            <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card shadow-2xl lg:hidden">
               {sidebarInner(() => setMobileOpen(false))}
             </aside>
           </>
@@ -370,6 +387,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                 aria-label="Open menu"
               >
                 <Menu className="h-4 w-4" />
+              </button>
+              <button
+                className="hidden lg:grid h-9 w-9 place-items-center rounded-lg border border-border bg-card text-foreground/70 hover:text-foreground"
+                onClick={toggleSidebar}
+                aria-label={sidebarOpen ? "Hide sidebar" : "Show sidebar"}
+                title={sidebarOpen ? "Hide sidebar" : "Show sidebar"}
+              >
+                {sidebarOpen ? <PanelLeftClose className="h-4 w-4" strokeWidth={1.75} /> : <PanelLeft className="h-4 w-4" strokeWidth={1.75} />}
               </button>
 
               <button
