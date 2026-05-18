@@ -69,8 +69,8 @@ export function CreatorJourney() {
               stroke="url(#journey-grad)"
               strokeWidth="5"
               strokeLinecap="round"
+              pathLength={1}
               className="path-draw"
-              style={{ ['--path-len' as string]: '2600' }}
             />
           </svg>
 
