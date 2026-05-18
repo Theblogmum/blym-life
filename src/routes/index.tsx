@@ -10,6 +10,7 @@ import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
+import { CreatorJourney } from "@/components/creator-journey";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -150,8 +151,8 @@ function Landing() {
             <h1 className="mt-3 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.025em] text-foreground text-balance sm:text-[56px] lg:text-[68px]">
               From nervous beginner to <span className="text-gradient-game">booked &amp; busy</span>.
             </h1>
-            <p className="mt-5 max-w-lg text-[17px] leading-[1.6] text-muted-foreground text-pretty sm:text-[19px]">
-              Blym is the creator app that makes consistency addictive. Daily missions, streaks, XP, level-ups — built for overwhelmed women, mums, and chaotic beginners.
+            <p className="mt-5 max-w-lg text-[18px] leading-[1.5] text-muted-foreground text-pretty sm:text-[20px]">
+              The creator app that makes consistency addictive.
             </p>
             <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
               <Link to={ctaPrimary.to}>
@@ -190,6 +191,9 @@ function Landing() {
         </div>
       </section>
 
+      {/* ============ THE JOURNEY MAP — signature moment ============ */}
+      <CreatorJourney />
+
       {/* ============ HOW IT HELPS ============ */}
       <section id="features" className="relative bg-background py-24 sm:py-32">
         {/* Floating decorative chips */}
@@ -205,9 +209,7 @@ function Landing() {
             <h2 className="mt-4 font-display text-[32px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[48px]">
               Everything you need to keep creating.
             </h2>
-            <p className="mt-4 max-w-md text-[15px] leading-[1.65] text-muted-foreground">
-              Calm, focused tools for the bits that slow you down. Swipe through →
-            </p>
+            <p className="mt-3 text-[14px] font-medium text-muted-foreground">Swipe →</p>
           </div>
         </div>
 
@@ -320,9 +322,9 @@ function Landing() {
           </h2>
           <div className="mt-14 grid gap-10 sm:grid-cols-3 sm:gap-8">
             {[
-              { icon: Heart, t: "Tell us your vibe", b: "2-minute setup: niche, kids' ages, what you want to be known for.", tint: "var(--surface-blush)" },
-              { icon: Wand2, t: "Get today's brief", b: "Each morning we hand you ONE concrete idea built for your real life.", tint: "var(--surface-peach)" },
-              { icon: Camera, t: "Film it & post", b: "Hook, caption, shot list, best post time — all done. You just press record.", tint: "var(--surface-mint)" },
+              { icon: Heart, t: "Tell us your vibe", b: "2-minute setup.", tint: "var(--surface-blush)" },
+              { icon: Wand2, t: "Get today's brief", b: "One idea, built for you.", tint: "var(--surface-peach)" },
+              { icon: Camera, t: "Film it & post", b: "Press record. Done.", tint: "var(--surface-mint)" },
             ].map((s, i) => (
               <div
                 key={s.t}
