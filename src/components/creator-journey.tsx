@@ -12,11 +12,11 @@ const STOPS = [
 // Hand-tuned positions along the SVG path (in %).
 const POSITIONS = [
   { x: 6,  y: 70 },
-  { x: 22, y: 20 },
+  { x: 22, y: 15 },
   { x: 40, y: 72 },
   { x: 58, y: 26 },
   { x: 76, y: 70 },
-  { x: 94, y: 30 },
+  { x: 92, y: 40 },
 ];
 
 export function CreatorJourney() {
