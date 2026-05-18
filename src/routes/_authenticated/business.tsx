@@ -2,13 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Briefcase, Wallet, Receipt, Target, Users, Calculator, Check, Trash2, Plus, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
+import { PageHero } from "@/components/page-hero";
 import {
   getBusinessHub,
   saveTaxRate,
@@ -39,44 +40,45 @@ function BusinessPage() {
   const refresh = () => qc.invalidateQueries({ queryKey: ["business-hub"] });
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-8">
-      <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-secondary p-2 text-primary"><Briefcase className="h-5 w-5" /></div>
-        <div>
-          <h1 className="font-display text-3xl font-black">Business Mode</h1>
-          <p className="text-sm text-muted-foreground">Your money, clients, outreach and tax — in one view.</p>
-        </div>
-      </div>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <PageHero
+        icon={Briefcase}
+        eyebrow="business mode"
+        title="Your money, calmly."
+        description="income, clients, outreach and tax — in one soft view."
+        variant="mint"
+      />
+      <div className="mx-auto max-w-6xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
+      <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-4">
         <Stat icon={Wallet} label="Income · this month" value={`£${(d?.incomeThisMonth ?? 0).toLocaleString()}`} sub={`£${(d?.incomeThisYear ?? 0).toLocaleString()} YTD`} />
         <Stat icon={Receipt} label="Invoices outstanding" value={`£${(d?.outstanding ?? 0).toLocaleString()}`} sub={`£${(d?.paidThisMonth ?? 0).toLocaleString()} paid this month`} />
         <Stat icon={Target} label="Outreach (month)" value={`${d?.outreachDoneMonth ?? 0}${outreachGoal ? ` / ${outreachGoal}` : ""}`} sub={`${d?.followUps.filter(f=>!f.done).length ?? 0} open follow-ups`} />
         <Stat icon={Calculator} label="Set aside for tax" value={`£${(d?.setAside ?? 0).toLocaleString()}`} sub={`${d?.taxRate ?? 0}% of YTD income`} />
       </div>
 
-      <div className="mt-6 grid gap-5 lg:grid-cols-2">
+      <div className="mt-8 grid gap-4 lg:grid-cols-2">
         <IncomeGoalCard current={d?.incomeThisMonth ?? 0} target={Number(incomeGoal)} pct={incomePct} onSaved={refresh} />
         <OutreachGoalCard done={d?.outreachDoneMonth ?? 0} target={Number(outreachGoal)} pct={outreachPct} onSaved={refresh} />
       </div>
 
-      <div className="mt-6 grid gap-5 lg:grid-cols-2">
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <InvoicesOverview invoices={d?.invoices ?? []} />
         <TaxCard rate={d?.taxRate ?? 0} reminders={d?.taxReminders ?? []} onChanged={refresh} />
       </div>
 
       <ClientsCard clients={d?.clients ?? []} onChanged={refresh} />
+      </div>
     </div>
   );
 }
 
 function Stat({ icon: Icon, label, value, sub }: any) {
   return (
-    <Card className="rounded-3xl p-4">
-      <div className="flex items-center gap-1.5 text-muted-foreground"><Icon className="h-3.5 w-3.5" /><p className="text-[10px] font-bold uppercase tracking-wider">{label}</p></div>
-      <p className="mt-1 font-display text-2xl font-black">{value}</p>
-      <p className="text-xs text-muted-foreground">{sub}</p>
-    </Card>
+    <div className="soft-card soft-card-hover p-4 sm:p-5">
+      <div className="flex items-center gap-1.5 text-foreground/55"><Icon className="h-3.5 w-3.5" /><p className="text-[10px] font-bold uppercase tracking-[0.18em]">{label}</p></div>
+      <p className="mt-1.5 font-display text-[22px] font-bold leading-none tracking-[-0.015em] tabular-nums">{value}</p>
+      <p className="mt-1 text-[11.5px] text-muted-foreground/90">{sub}</p>
+    </div>
   );
 }
 
