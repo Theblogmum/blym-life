@@ -192,133 +192,10 @@ function HomePage() {
             <TrialPill />
           </div>
 
-          {/* LEVEL CARD — the heartbeat */}
-          <div className="mt-8 grid gap-4 sm:grid-cols-3 sm:gap-5">
-            {/* Big level/XP card */}
-            <div
-              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7 shadow-[var(--shadow-layered)]"
-              style={{ background: "linear-gradient(135deg, oklch(0.24 0.05 295), oklch(0.16 0.04 290))" }}
-            >
-              <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-40 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
-              <div aria-hidden className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-25 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
-              <div className="relative">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/85 backdrop-blur">
-                    <Rocket className="h-3 w-3" /> Level {xp?.level ?? 1}
-                  </span>
-                  <span className="text-[11px] font-medium tabular-nums text-white/60">
-                    {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
-                  </span>
-                </div>
-                <div className="mt-6 flex items-baseline gap-3">
-                  <span className="text-[40px] leading-none">{lvl.emoji}</span>
-                  <div>
-                    <h2 className="font-display text-[26px] font-bold leading-none tracking-[-0.012em] text-white sm:text-[32px]">
-                      {lvl.title}
-                    </h2>
-                    <p className="mt-2 text-[13px] leading-snug text-white/65">{lvl.blurb}</p>
-                  </div>
-                </div>
-                <div className="mt-7">
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/10">
-                    <div
-                      className="h-full rounded-full transition-all duration-700"
-                      style={{
-                        width: `${Math.min(100, Math.max(4, xpProgress))}%`,
-                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
-                      }}
-                    />
-                  </div>
-                  <p className="mt-3 text-[12px] text-white/60">
-                    next up: <span className="font-semibold text-white/90">{nextLvl.title}</span> {nextLvl.emoji}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Streak flame card */}
-            <div
-              className={cn(
-                "relative overflow-hidden rounded-[2rem] p-6 shadow-[var(--shadow-layered)]",
-                streak > 0 && "pulse-glow",
-              )}
-              style={{
-                background: streak > 0
-                  ? "linear-gradient(160deg, oklch(0.96 0.06 70), oklch(0.92 0.11 30))"
-                  : "linear-gradient(160deg, oklch(0.98 0.012 70), oklch(0.94 0.02 60))",
-              }}
-            >
-              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/60">
-                {streak > 0 ? "streak alive" : "start a streak"}
-              </p>
-              <div className="mt-3 flex items-baseline gap-2.5">
-                <span className="text-[52px] leading-none">{streak > 0 ? "🔥" : "🌱"}</span>
-                <div>
-                  <p className="font-display text-[40px] font-bold leading-none tabular-nums tracking-[-0.02em]">{streak}</p>
-                  <p className="mt-0.5 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-foreground/55">
-                    {streak === 1 ? "day" : "days"}
-                  </p>
-                </div>
-              </div>
-              <p className="mt-4 text-[12.5px] leading-relaxed text-foreground/70">
-                {streak >= 7 ? "you survived the week. proud x"
-                  : streak >= 3 ? "don't break it now girl 🫣"
-                  : streak > 0 ? "tomorrow you keep it going."
-                  : "one post today. that's it. that's the move."}
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
       <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
-
-        {/* ============ FILM THIS NOW — CINEMATIC HERO FEATURE ============ */}
-        <section className="mb-14 sm:mb-20">
-          <Link
-            to="/film-this"
-            className="group relative block overflow-hidden rounded-[2.5rem] transition-all duration-500 hover:-translate-y-1"
-            style={{
-              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
-              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 30px 60px -28px oklch(0.66 0.24 350 / 0.55), 0 60px 120px -50px oklch(0.42 0.18 295 / 0.5)",
-            }}
-          >
-            {/* atmospheric layers */}
-            <div aria-hidden className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-white/35 blur-[100px]" />
-            <div aria-hidden className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-white/20 blur-[100px]" />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
-            <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-overlay"
-                 style={{ background: "radial-gradient(60% 50% at 80% 30%, white, transparent 60%)" }} />
-
-            <div className="relative grid gap-8 p-7 sm:p-12 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-12 lg:p-16">
-              <div className="min-w-0">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
-                  <Sparkles className="h-3 w-3" /> today's instant idea
-                </span>
-                <h2 className="mt-5 font-display text-[44px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[64px] lg:text-[78px]">
-                  Film this.
-                  <br />
-                  <span className="italic font-serif font-normal">Now.</span>
-                </h2>
-                <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/85 sm:text-[16.5px]">
-                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-5 sm:justify-end">
-                <div className="hidden lg:block max-w-[180px] text-right text-[12.5px] leading-relaxed text-white/75">
-                  the antidote to <span className="italic">"i'll post tomorrow"</span>
-                </div>
-                <div className="relative">
-                  <div aria-hidden className="absolute inset-0 -m-3 rounded-full bg-white/20 blur-xl transition-opacity duration-500 group-hover:opacity-100 opacity-60" />
-                  <div className="relative grid h-20 w-20 place-items-center rounded-3xl bg-white text-foreground shadow-[0_18px_40px_-12px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-24 sm:w-24">
-                    <Camera className="h-9 w-9 sm:h-11 sm:w-11" strokeWidth={2} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </section>
 
         {/* ============ TODAY'S MISSIONS ============ */}
         <section className="mb-14 sm:mb-20">
@@ -452,6 +329,86 @@ function HomePage() {
           </div>
         </section>
 
+        {/* ============ LEVEL + STREAK CARDS ============ */}
+        <section className="mb-14 sm:mb-20">
+          <div className="grid gap-4 sm:grid-cols-3 sm:gap-5">
+            <div
+              className="relative col-span-2 overflow-hidden rounded-[2rem] p-6 sm:p-7"
+              style={{
+                background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
+                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
+              }}
+            >
+              <div aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
+              <div aria-hidden className="absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
+              <div className="relative">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
+                    <Rocket className="h-3 w-3" /> Level {xp?.level ?? 1}
+                  </span>
+                  <span className="text-[11px] font-medium tabular-nums text-foreground/55">
+                    {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
+                  </span>
+                </div>
+                <div className="mt-6 flex items-baseline gap-3">
+                  <span className="text-[40px] leading-none">{lvl.emoji}</span>
+                  <div>
+                    <h2 className="font-display text-[26px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[32px]">
+                      {lvl.title}
+                    </h2>
+                    <p className="mt-2 text-[13px] leading-snug text-foreground/65">{lvl.blurb}</p>
+                  </div>
+                </div>
+                <div className="mt-7">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
+                    <div
+                      className="h-full rounded-full transition-all duration-700"
+                      style={{
+                        width: `${Math.min(100, Math.max(4, xpProgress))}%`,
+                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
+                      }}
+                    />
+                  </div>
+                  <p className="mt-3 text-[12px] text-foreground/55">
+                    next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={cn(
+                "relative overflow-hidden rounded-[2rem] p-6 shadow-[var(--shadow-layered)]",
+                streak > 0 && "pulse-glow",
+              )}
+              style={{
+                background: streak > 0
+                  ? "linear-gradient(160deg, oklch(0.96 0.06 70), oklch(0.92 0.11 30))"
+                  : "linear-gradient(160deg, oklch(0.98 0.012 70), oklch(0.94 0.02 60))",
+              }}
+            >
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/60">
+                {streak > 0 ? "streak alive" : "start a streak"}
+              </p>
+              <div className="mt-3 flex items-baseline gap-2.5">
+                <span className="text-[52px] leading-none">{streak > 0 ? "🔥" : "🌱"}</span>
+                <div>
+                  <p className="font-display text-[40px] font-bold leading-none tabular-nums tracking-[-0.02em]">{streak}</p>
+                  <p className="mt-0.5 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-foreground/55">
+                    {streak === 1 ? "day" : "days"}
+                  </p>
+                </div>
+              </div>
+              <p className="mt-4 text-[12.5px] leading-relaxed text-foreground/70">
+                {streak >= 7 ? "you survived the week. proud x"
+                  : streak >= 3 ? "don't break it now girl 🫣"
+                  : streak > 0 ? "tomorrow you keep it going."
+                  : "one post today. that's it. that's the move."}
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ============ BADGES SHELF ============ */}
         <section className="mb-14 sm:mb-20">
           <div className="mb-6 flex items-end justify-between">
@@ -578,6 +535,49 @@ function HomePage() {
               </Link>
             ))}
           </div>
+        </section>
+
+        {/* ============ FILM THIS NOW (compact, same shape) ============ */}
+        <section className="mb-14 sm:mb-20">
+          <Link
+            to="/film-this"
+            className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
+            style={{
+              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 18px 36px -20px oklch(0.66 0.24 350 / 0.5), 0 36px 72px -36px oklch(0.42 0.18 295 / 0.45)",
+            }}
+          >
+            <div aria-hidden className="absolute -right-16 -top-20 h-60 w-60 rounded-full bg-white/35 blur-[70px]" />
+            <div aria-hidden className="absolute -bottom-20 -left-12 h-48 w-48 rounded-full bg-white/20 blur-[70px]" />
+            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
+
+            <div className="relative grid gap-5 p-5 sm:p-7 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-8 lg:p-10">
+              <div className="min-w-0">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
+                  <Sparkles className="h-2.5 w-2.5" /> today's instant idea
+                </span>
+                <h2 className="mt-3 font-display text-[28px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[40px] lg:text-[48px]">
+                  Film this.
+                  <span className="italic font-serif font-normal"> Now.</span>
+                </h2>
+                <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-white/85 sm:text-[13.5px]">
+                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 sm:justify-end">
+                <div className="hidden lg:block max-w-[160px] text-right text-[11px] leading-relaxed text-white/75">
+                  the antidote to <span className="italic">"i'll post tomorrow"</span>
+                </div>
+                <div className="relative">
+                  <div aria-hidden className="absolute inset-0 -m-2 rounded-full bg-white/20 blur-lg opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-white text-foreground shadow-[0_12px_28px_-10px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-14 sm:w-14">
+                    <Camera className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
         </section>
 
         {/* ============ THIS WEEK ============ */}
