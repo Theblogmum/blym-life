@@ -34,27 +34,33 @@ export function PageHero({
 }) {
   const v = VARIANT_ACCENT[variant];
   return (
-    <section className="relative border-b border-border/50 bg-background">
-      {/* Slim accent bar instead of giant gradient panel */}
-      <div aria-hidden className={cn("absolute inset-x-0 top-0 h-1", v.strip)} />
-      <div className="relative mx-auto max-w-5xl px-5 py-6 sm:py-8">
-        <div className="flex items-start gap-3 sm:gap-4">
-          <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-xl text-foreground/80", v.chip)}>
-            <Icon className="h-5 w-5" />
+    <section className="relative border-b border-border/30 bg-background">
+      {/* Slim accent bar */}
+      <div aria-hidden className={cn("absolute inset-x-0 top-0 h-[3px] opacity-90", v.strip)} />
+      {/* Whisper of pastel haze */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{ background: "radial-gradient(60% 80% at 0% 0%, color-mix(in oklab, var(--surface-blush) 40%, transparent), transparent 60%), radial-gradient(40% 70% at 100% 0%, color-mix(in oklab, var(--surface-mint) 32%, transparent), transparent 60%)" }}
+      />
+      <div className="relative mx-auto max-w-5xl px-5 py-7 sm:px-8 sm:py-10">
+        <div className="flex items-start gap-3.5 sm:gap-4">
+          <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-foreground/80 shadow-[var(--shadow-xs)]", v.chip)}>
+            <Icon className="h-5 w-5" strokeWidth={2} />
           </div>
           <div className="flex-1 min-w-0">
             {eyebrow && (
-              <p className={cn("text-[10px] font-bold uppercase tracking-[0.18em]", v.eyebrow)}>
+              <p className={cn("text-[10px] font-bold uppercase tracking-[0.2em]", v.eyebrow)}>
                 {eyebrow}
               </p>
             )}
-            <h1 className="mt-0.5 font-display text-2xl font-black leading-tight sm:text-3xl">
+            <h1 className="mt-1.5 font-display text-[26px] font-bold leading-[1.08] tracking-[-0.02em] sm:text-[34px]">
               {title}
             </h1>
-            <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground sm:text-base">
+            <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground/95 sm:text-[15px]">
               {description}
             </p>
-            {children && <div className="mt-3">{children}</div>}
+            {children && <div className="mt-4">{children}</div>}
           </div>
         </div>
       </div>
