@@ -29,60 +29,60 @@ type Section = { eyebrow: string; groups: Group[] };
 
 const SECTIONS: Section[] = [
   {
-    eyebrow: "Essentials",
+    eyebrow: "Daily",
     groups: [
-      { label: "Home", icon: Home, to: "/app" },
-      { label: "Growth Coach", icon: MessageCircle, to: "/growth-coach" },
+      { label: "Today", icon: Home, to: "/app" },
+      { label: "Pep talk", icon: MessageCircle, to: "/growth-coach" },
       { label: "Schedule", icon: Calendar, to: "/schedule" },
-      { label: "Planner", icon: Calendar, to: "/planner" },
-      { label: "My Library", icon: ShoppingBag, to: "/library" },
+      { label: "Plan my week", icon: Calendar, to: "/planner" },
+      { label: "Saved stuff", icon: ShoppingBag, to: "/library" },
     ],
   },
   {
-    eyebrow: "Toolkit",
+    eyebrow: "Make stuff",
     groups: [
       {
         label: "Create", icon: Sparkles, items: [
-          { to: "/generator", label: "Idea Generator" },
-          { to: "/film-this", label: "Film Today" },
-          { to: "/viral-lab", label: "Viral Lab" },
-          { to: "/recycler", label: "Recycler" },
-          { to: "/cta-generator", label: "CTA Lines" },
-          { to: "/broll", label: "B-Roll Ideas" },
-          { to: "/series-builder", label: "Series Builder" },
-          { to: "/response-writer", label: "DM Replies" },
-          { to: "/seo-keywords", label: "SEO Keywords" },
-          { to: "/bio-optimiser", label: "Bio Optimiser" },
-          { to: "/post-timing", label: "Post Timing" },
-          { to: "/pin-optimiser", label: "Pinterest Pin" },
+          { to: "/generator", label: "Give me an idea" },
+          { to: "/film-this", label: "Film this now" },
+          { to: "/viral-lab", label: "Hook lab" },
+          { to: "/recycler", label: "Recycle old posts" },
+          { to: "/cta-generator", label: "CTA lines" },
+          { to: "/broll", label: "B-roll ideas" },
+          { to: "/series-builder", label: "Build a series" },
+          { to: "/response-writer", label: "DM replies" },
+          { to: "/seo-keywords", label: "SEO keywords" },
+          { to: "/bio-optimiser", label: "Fix my bio" },
+          { to: "/post-timing", label: "When to post" },
+          { to: "/pin-optimiser", label: "Pinterest pin" },
         ],
       },
       {
         label: "Grow", icon: TrendingUp, items: [
-          { to: "/insights", label: "Insights" },
-          { to: "/brand-hub", label: "Brand Hub" },
-          { to: "/profile-audit", label: "Profile Audit" },
-          { to: "/flop-analyser", label: "Flop Analyser" },
+          { to: "/insights", label: "What worked" },
+          { to: "/brand-hub", label: "Brands to pitch" },
+          { to: "/profile-audit", label: "Audit my profile" },
+          { to: "/flop-analyser", label: "Why it flopped" },
           { to: "/deliverables-builder", label: "Deliverables" },
-          { to: "/usage-rights", label: "Usage Rights" },
-          { to: "/media-kit", label: "Media Kit" },
+          { to: "/usage-rights", label: "Usage rights" },
+          { to: "/media-kit", label: "Media kit" },
           { to: "/portfolio", label: "Portfolio" },
-          { to: "/passive-ideas", label: "Passive Ideas" },
-          { to: "/engagement-booster", label: "Engagement" },
+          { to: "/passive-ideas", label: "Passive income" },
+          { to: "/engagement-booster", label: "Boost engagement" },
         ],
       },
       {
         label: "Monetise", icon: DollarSign, items: [
-          { to: "/business", label: "Business Mode" },
-          { to: "/invoices", label: "Invoices" },
-          { to: "/income-tracker", label: "Income Tracker" },
-          { to: "/affiliates", label: "Affiliate Links" },
+          { to: "/business", label: "Business mode" },
+          { to: "/invoices", label: "Send an invoice" },
+          { to: "/income-tracker", label: "Track the money" },
+          { to: "/affiliates", label: "Affiliate links" },
         ],
       },
       {
         label: "Mindset", icon: Heart, items: [
-          { to: "/motivation", label: "Daily Motivation" },
-          { to: "/rejection-recovery", label: "Rejection Recovery" },
+          { to: "/motivation", label: "Daily pep talk" },
+          { to: "/rejection-recovery", label: "Rejection recovery" },
         ],
       },
     ],
@@ -335,7 +335,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <header className="sticky top-0 z-30 border-b border-border/60 bg-background/85 backdrop-blur-xl">
             <div className="flex h-14 items-center gap-3 px-5 lg:px-8">
               <button
-                className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card lg:hidden"
+                  className="grid h-9 w-9 place-items-center rounded-lg border border-border bg-card lg:hidden"
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
               >
@@ -347,14 +347,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                 className="hidden md:flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3 text-[13px] text-muted-foreground transition hover:border-foreground/30 hover:text-foreground"
               >
                 <Search className="h-3.5 w-3.5" />
-                <span>Search anything</span>
+                <span>Find anything</span>
                 <kbd className="ml-2 rounded bg-foreground/8 px-1.5 py-0.5 text-[10px] font-mono font-semibold">⌘K</kbd>
               </button>
 
               <div className="ml-auto flex items-center gap-2">
                 <Link to="/generator">
                   <Button size="sm" className="h-9 rounded-lg bg-anchor text-anchor-foreground hover:bg-anchor/90">
-                    <Plus className="mr-1 h-3.5 w-3.5" /> Create
+                    <Plus className="mr-1 h-3.5 w-3.5" /> Make something
                   </Button>
                 </Link>
                 <DropdownMenu>
@@ -368,12 +368,12 @@ export function AppShell({ children }: { children: ReactNode }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-72 rounded-xl">
                     <DropdownMenuLabel className="text-xs text-muted-foreground">
-                      Notifications
+                      what's up
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <div className="px-3 py-6 text-center text-sm text-muted-foreground">
-                      You're all caught up ✨
-                      <div className="mt-1 text-[11px]">No new notifications</div>
+                      all caught up ✨
+                      <div className="mt-1 text-[11px]">nothing new today</div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
