@@ -234,10 +234,10 @@ function HomePage() {
                       className={cn(
                         "group/badge relative flex h-[135px] w-[114px] flex-col items-center justify-center gap-2 overflow-hidden rounded-[1.3rem] p-2.5 text-center transition-all duration-500",
                         got
-                          ? "bg-white/85 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_20px_42px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.7))]"
+                          ? "shimmer-soft bg-white/75 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_24px_48px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.75))]"
                           : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
                       )}
-                      style={got ? ({ ["--badge-glow" as any]: b.glow } as React.CSSProperties) : undefined}
+                      style={got ? ({ ["--badge-glow" as any]: b.glow, ["--shimmer-delay" as any]: `${(b.id.length % 5) * 0.6}s` } as React.CSSProperties) : undefined}
                     >
                       {got && (
                         <>
