@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import featBrief from "@/assets/feature-brief.jpg";
 import featBrand from "@/assets/feature-brand.jpg";
 import featGrow from "@/assets/feature-grow.jpg";
+import { LandingDemo } from "@/components/landing-demo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
