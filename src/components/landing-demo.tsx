@@ -50,12 +50,7 @@ export function LandingDemo() {
   useEffect(() => {
     if (allDone && !leveledUp) {
       setLeveledUp(true);
-      // burst from the card's center
-      const rect = cardRef.current?.getBoundingClientRect();
-      const origin = rect
-        ? { x: (rect.left + rect.width / 2) / window.innerWidth, y: (rect.top + rect.height / 2) / window.innerHeight }
-        : undefined;
-      celebrate("level-up", origin);
+      celebrate("level-up");
     }
   }, [allDone, leveledUp]);
 
