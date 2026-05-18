@@ -144,11 +144,11 @@ function Landing() {
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-16 pb-14 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-16 lg:pt-40 lg:pb-32">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-16 pb-14 sm:px-8 sm:pt-32 sm:pb-28 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:pt-40 lg:pb-32">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
-            <h1 className="mt-3 font-display text-[34px] font-bold leading-[1.05] tracking-[-0.02em] text-foreground text-balance sm:text-[56px] lg:text-[68px]">
+            <h1 className="mt-3 font-display text-[34px] font-bold leading-[1.05] tracking-[-0.02em] text-foreground text-balance sm:text-[52px] lg:text-[60px] xl:text-[68px]">
               From nervous beginner to <span className="text-gradient-game">booked &amp; busy</span>.
             </h1>
             <p className="mt-4 max-w-lg text-[16px] leading-[1.5] text-muted-foreground text-pretty sm:text-[20px]">
