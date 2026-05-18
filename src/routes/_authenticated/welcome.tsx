@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowRight, Sparkles, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { NotifyOptIn } from "@/components/notify-opt-in";
 
 export const Route = createFileRoute("/_authenticated/welcome")({ component: WelcomePage });
 
@@ -154,6 +155,9 @@ function WelcomePage() {
           <div className="mt-4 flex flex-wrap justify-center gap-2">
             <span className="xp-pill">⚡ +25 XP welcome bonus</span>
             <span className="streak-chip">🔥 day 1 unlocked</span>
+          </div>
+          <div className="mt-5 text-left">
+            <NotifyOptIn />
           </div>
         </div>
       ),
