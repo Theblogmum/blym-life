@@ -155,12 +155,24 @@ function HomePage() {
 
   return (
     <div className="relative pb-8">
+      {/* ============ AMBIENT PAGE ATMOSPHERE — soft drifting blooms ============ */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-24 h-[520px] w-[520px] rounded-full opacity-[0.55] blur-[120px]"
+             style={{ background: "radial-gradient(circle, oklch(0.92 0.1 30 / 0.7), transparent 65%)" }} />
+        <div className="absolute top-[18%] -right-32 h-[600px] w-[600px] rounded-full opacity-[0.5] blur-[140px]"
+             style={{ background: "radial-gradient(circle, oklch(0.9 0.11 340 / 0.65), transparent 65%)" }} />
+        <div className="absolute top-[55%] left-[-10%] h-[640px] w-[640px] rounded-full opacity-[0.42] blur-[150px]"
+             style={{ background: "radial-gradient(circle, oklch(0.9 0.1 85 / 0.55), transparent 65%)" }} />
+        <div className="absolute bottom-[8%] right-[-8%] h-[560px] w-[560px] rounded-full opacity-[0.4] blur-[140px]"
+             style={{ background: "radial-gradient(circle, oklch(0.88 0.1 290 / 0.55), transparent 65%)" }} />
+      </div>
+
       {/* ============ HERO: greeting + level card ============ */}
       <section className="relative overflow-hidden">
         <div
           aria-hidden
           className="absolute inset-0"
-          style={{ background: "var(--era-grad)", opacity: 0.38 }}
+          style={{ background: "var(--era-grad)", opacity: 0.28 }}
         />
         <div
           aria-hidden
@@ -259,9 +271,57 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
+
+        {/* ============ FILM THIS NOW — CINEMATIC HERO FEATURE ============ */}
+        <section className="mb-14 sm:mb-20">
+          <Link
+            to="/film-this"
+            className="group relative block overflow-hidden rounded-[2.5rem] transition-all duration-500 hover:-translate-y-1"
+            style={{
+              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 30px 60px -28px oklch(0.66 0.24 350 / 0.55), 0 60px 120px -50px oklch(0.42 0.18 295 / 0.5)",
+            }}
+          >
+            {/* atmospheric layers */}
+            <div aria-hidden className="absolute -right-24 -top-32 h-96 w-96 rounded-full bg-white/35 blur-[100px]" />
+            <div aria-hidden className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-white/20 blur-[100px]" />
+            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
+            <div aria-hidden className="absolute inset-0 opacity-[0.18] mix-blend-overlay"
+                 style={{ background: "radial-gradient(60% 50% at 80% 30%, white, transparent 60%)" }} />
+
+            <div className="relative grid gap-8 p-7 sm:p-12 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-12 lg:p-16">
+              <div className="min-w-0">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
+                  <Sparkles className="h-3 w-3" /> today's instant idea
+                </span>
+                <h2 className="mt-5 font-display text-[44px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[64px] lg:text-[78px]">
+                  Film this.
+                  <br />
+                  <span className="italic font-serif font-normal">Now.</span>
+                </h2>
+                <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/85 sm:text-[16.5px]">
+                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-5 sm:justify-end">
+                <div className="hidden lg:block max-w-[180px] text-right text-[12.5px] leading-relaxed text-white/75">
+                  the antidote to <span className="italic">"i'll post tomorrow"</span>
+                </div>
+                <div className="relative">
+                  <div aria-hidden className="absolute inset-0 -m-3 rounded-full bg-white/20 blur-xl transition-opacity duration-500 group-hover:opacity-100 opacity-60" />
+                  <div className="relative grid h-20 w-20 place-items-center rounded-3xl bg-white text-foreground shadow-[0_18px_40px_-12px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-24 sm:w-24">
+                    <Camera className="h-9 w-9 sm:h-11 sm:w-11" strokeWidth={2} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </section>
+
         {/* ============ TODAY'S MISSIONS ============ */}
-        <section className="mb-12 sm:mb-14">
+        <section className="mb-14 sm:mb-20">
           <div className="mb-5 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
@@ -334,41 +394,13 @@ function HomePage() {
           </ul>
         </section>
 
-        {/* ============ FILM THIS NOW giant CTA ============ */}
-        <section className="mb-12 sm:mb-14">
-          <Link
-            to="/film-this"
-            className="group relative block overflow-hidden rounded-[2rem] p-7 sm:p-10 shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-glow)]"
-            style={{ background: "linear-gradient(135deg, oklch(0.82 0.13 35) 0%, oklch(0.78 0.12 15) 30%, oklch(0.76 0.13 350) 60%, oklch(0.72 0.13 295) 100%)" }}
-          >
-            <div aria-hidden className="absolute -right-16 -top-16 h-72 w-72 rounded-full bg-white/30 blur-3xl" />
-            <div aria-hidden className="absolute -bottom-20 -left-12 h-60 w-60 rounded-full bg-white/15 blur-3xl" />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,oklch(0.95_0.06_60/0.25),transparent_60%)]" />
-            <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="min-w-0">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white backdrop-blur">
-                  <Sparkles className="h-3 w-3" /> instant idea
-                </span>
-                <h2 className="mt-4 font-display text-[32px] font-bold leading-[1.04] tracking-[-0.018em] text-white sm:text-[46px]">
-                  Film this. Now.
-                </h2>
-                <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-white/85">
-                  one tap. a hook, a shot list, a caption. before you overthink it.
-                </p>
-              </div>
-              <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-white text-foreground shadow-[var(--shadow-soft)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[-4deg] sm:h-20 sm:w-20">
-                <Camera className="h-7 w-7 sm:h-9 sm:w-9" strokeWidth={2} />
-              </div>
-            </div>
-          </Link>
-        </section>
-
         {/* ============ DAILY IDEA ============ */}
-        <section className="mb-12 sm:mb-14">
+        <section className="mb-14 sm:mb-20">
           <div
-            className="relative overflow-hidden rounded-[2rem] border border-border/50 p-6 sm:p-8 shadow-[var(--shadow-soft)]"
+            className="relative overflow-hidden rounded-[2rem] p-7 sm:p-10"
             style={{
-              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.96 0.05 60 / 0.55), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.94 0.07 340 / 0.4), transparent 55%), var(--card)",
+              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.05 60 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.95 0.07 340 / 0.55), transparent 55%), color-mix(in oklab, var(--card) 92%, transparent)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.03), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.2)",
             }}
           >
             <div className="flex items-center justify-between gap-2">
@@ -377,7 +409,7 @@ function HomePage() {
                   <Sparkles className="h-3 w-3" />
                 </span>
                 <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-foreground/65">
-                  today's free idea
+                  another idea on the house
                 </p>
               </div>
               <Button
