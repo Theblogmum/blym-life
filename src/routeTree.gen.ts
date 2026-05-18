@@ -53,6 +53,7 @@ import { Route as AuthenticatedFilmThisRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedEngagementBoosterRouteImport } from './routes/_authenticated/engagement-booster'
 import { Route as AuthenticatedDeliverablesBuilderRouteImport } from './routes/_authenticated/deliverables-builder'
 import { Route as AuthenticatedCtaGeneratorRouteImport } from './routes/_authenticated/cta-generator'
+import { Route as AuthenticatedCreatorTypeRouteImport } from './routes/_authenticated/creator-type'
 import { Route as AuthenticatedBusinessRouteImport } from './routes/_authenticated/business'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
@@ -303,6 +304,12 @@ const AuthenticatedCtaGeneratorRoute =
     path: '/cta-generator',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCreatorTypeRoute =
+  AuthenticatedCreatorTypeRouteImport.update({
+    id: '/creator-type',
+    path: '/creator-type',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedBusinessRoute = AuthenticatedBusinessRouteImport.update({
   id: '/business',
   path: '/business',
@@ -411,6 +418,7 @@ export interface FileRoutesByFullPath {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
+  '/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
@@ -472,6 +480,7 @@ export interface FileRoutesByTo {
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
+  '/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
@@ -535,6 +544,7 @@ export interface FileRoutesById {
   '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/business': typeof AuthenticatedBusinessRoute
+  '/_authenticated/creator-type': typeof AuthenticatedCreatorTypeRoute
   '/_authenticated/cta-generator': typeof AuthenticatedCtaGeneratorRoute
   '/_authenticated/deliverables-builder': typeof AuthenticatedDeliverablesBuilderRoute
   '/_authenticated/engagement-booster': typeof AuthenticatedEngagementBoosterRoute
@@ -598,6 +608,7 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
+    | '/creator-type'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
@@ -659,6 +670,7 @@ export interface FileRouteTypes {
     | '/brand-hub'
     | '/broll'
     | '/business'
+    | '/creator-type'
     | '/cta-generator'
     | '/deliverables-builder'
     | '/engagement-booster'
@@ -721,6 +733,7 @@ export interface FileRouteTypes {
     | '/_authenticated/brand-hub'
     | '/_authenticated/broll'
     | '/_authenticated/business'
+    | '/_authenticated/creator-type'
     | '/_authenticated/cta-generator'
     | '/_authenticated/deliverables-builder'
     | '/_authenticated/engagement-booster'
@@ -1100,6 +1113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCtaGeneratorRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/creator-type': {
+      id: '/_authenticated/creator-type'
+      path: '/creator-type'
+      fullPath: '/creator-type'
+      preLoaderRoute: typeof AuthenticatedCreatorTypeRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/business': {
       id: '/_authenticated/business'
       path: '/business'
@@ -1223,6 +1243,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedBusinessRoute: typeof AuthenticatedBusinessRoute
+  AuthenticatedCreatorTypeRoute: typeof AuthenticatedCreatorTypeRoute
   AuthenticatedCtaGeneratorRoute: typeof AuthenticatedCtaGeneratorRoute
   AuthenticatedDeliverablesBuilderRoute: typeof AuthenticatedDeliverablesBuilderRoute
   AuthenticatedEngagementBoosterRoute: typeof AuthenticatedEngagementBoosterRoute
@@ -1264,6 +1285,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedBusinessRoute: AuthenticatedBusinessRoute,
+  AuthenticatedCreatorTypeRoute: AuthenticatedCreatorTypeRoute,
   AuthenticatedCtaGeneratorRoute: AuthenticatedCtaGeneratorRoute,
   AuthenticatedDeliverablesBuilderRoute: AuthenticatedDeliverablesBuilderRoute,
   AuthenticatedEngagementBoosterRoute: AuthenticatedEngagementBoosterRoute,
@@ -1328,3 +1350,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
