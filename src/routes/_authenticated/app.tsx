@@ -255,7 +255,7 @@ function HomePage() {
       <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
 
         {/* ============ BADGES SHELF (compact, directly under greeting) ============ */}
-        <section className="mb-10 sm:mb-14">
+        <section className="mb-6 sm:mb-9">
           <div className="mb-4 flex items-end justify-between">
             <div>
               <p className="eyebrow">badges</p>
@@ -321,7 +321,7 @@ function HomePage() {
         </section>
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
-        <section className="mb-14 sm:mb-20 lg:hidden">
+        <section className="mb-8 sm:mb-12 lg:hidden">
           <div className="grid gap-4">
             <div
               className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
@@ -370,7 +370,7 @@ function HomePage() {
         </section>
 
         {/* ============ TODAY'S MISSIONS ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <div className="mb-5 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
@@ -444,7 +444,7 @@ function HomePage() {
         </section>
 
         {/* ============ DAILY IDEA ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <div
             className="relative overflow-hidden rounded-[2rem] p-7 sm:p-10"
             style={{
@@ -502,7 +502,7 @@ function HomePage() {
         </section>
 
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <div className="mb-6">
             <p className="eyebrow">need a hand?</p>
             <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
@@ -559,7 +559,7 @@ function HomePage() {
         </section>
 
         {/* ============ FILM THIS NOW (compact, same shape) ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <Link
             to="/film-this"
             className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
