@@ -323,24 +323,24 @@ function Landing() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-3xl px-5 py-20 sm:px-8 sm:py-24">
+      <section id="faq" className="mx-auto max-w-2xl px-5 py-12 sm:px-8 sm:py-14">
         <p className="eyebrow text-center">FAQ</p>
-        <h2 className="mx-auto mt-4 text-center font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[52px]">
+        <h2 className="mx-auto mt-2 text-center font-display text-[26px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[36px]">
           Things mums ask us
         </h2>
-        <div className="mt-10 space-y-3">
+        <div className="mt-6 space-y-1">
           {[
             { q: "Do I need to be on camera?", a: "Nope. Most briefs work as voiceover, hands-only or text-on-screen." },
             { q: "What platforms is it for?", a: "TikTok and Instagram Reels. Briefs are designed for short-form vertical video." },
             { q: "How long does setup take?", a: "About 2 minutes. Tell us your niche, kids' ages and goal and you're in." },
             { q: "Can I cancel anytime?", a: "Yes — one click in Settings. No awkward emails." },
           ].map((f) => (
-            <details key={f.q} className="group rounded-2xl px-2 py-5 border-b border-border/50 [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex cursor-pointer items-center justify-between text-[15px] font-medium leading-snug text-foreground">
+            <details key={f.q} className="group px-1 py-3 border-b border-border/50 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 text-[14px] font-medium leading-snug text-foreground">
                 {f.q}
-                <span className="grid h-7 w-7 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform group-open:rotate-45">+</span>
+                <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-3 text-[14px] leading-[1.65] text-muted-foreground text-pretty">{f.a}</p>
+              <p className="mt-2 text-[13.5px] leading-[1.6] text-muted-foreground text-pretty">{f.a}</p>
             </details>
           ))}
         </div>
