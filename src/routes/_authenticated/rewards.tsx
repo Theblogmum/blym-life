@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getXp } from "@/lib/xp.functions";
-import { Lock, Sparkles, Gift } from "lucide-react";
+import { Lock, Sparkles, Gift, Check } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
