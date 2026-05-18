@@ -59,13 +59,13 @@ export function LandingDemo() {
   };
 
   return (
-    <div className="relative mx-auto w-full min-w-0 max-w-sm sm:max-w-md">
+    <div className="relative mx-auto w-full min-w-0 max-w-sm sm:max-w-md lg:max-w-md">
       <div
         aria-hidden
         className="absolute -inset-10 rounded-[3rem] opacity-50 blur-3xl transition-opacity duration-700"
         style={{ background: "var(--gradient-game)", opacity: leveledUp ? 0.85 : 0.5 }}
       />
-      <div className="sticker relative p-5 sm:p-7 bg-card">
+      <div className="sticker relative w-full min-w-0 max-w-full p-5 sm:p-7 bg-card">
         {/* try-it tag */}
         <div
           className="absolute -top-3 left-6 inline-flex h-6 items-center gap-1 rounded-full bg-foreground px-2.5 text-[10px] font-black uppercase tracking-[0.16em] text-background shadow-[2px_2px_0_0_oklch(0.2_0.01_20/0.2)]"
