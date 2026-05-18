@@ -278,7 +278,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex-1 overflow-y-auto px-2.5 pb-6">
         {SECTIONS.map((s, idx) => (
           <div key={s.eyebrow} className={cn(idx === 0 ? "mb-7" : "mb-7 mt-1")}>
-            <p className="px-2.5 pb-3 pt-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
+            <p className="px-3 pb-2.5 pt-1 text-[9px] font-semibold uppercase tracking-[0.28em] text-foreground/35">
               {s.eyebrow}
             </p>
             <div className="space-y-0.5">
@@ -288,17 +288,17 @@ export function AppShell({ children }: { children: ReactNode }) {
         ))}
         {isAdmin && (
           <div className="mb-2 mt-2">
-            <p className="px-3 pb-4 pt-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/45">
+            <p className="px-3 pb-2.5 pt-1 text-[9px] font-semibold uppercase tracking-[0.28em] text-foreground/35">
               Admin
             </p>
             <Link
               to="/admin"
               onClick={onClick}
               className={cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-200",
+                "sidebar-link flex items-center gap-3 rounded-xl px-3 py-2 text-[13px] font-medium tracking-[-0.005em]",
                 isActive("/admin")
-                  ? "bg-[var(--sidebar-active)] text-[var(--sidebar-active-foreground)] shadow-[0_1px_2px_oklch(0.2_0.01_20/0.08)]"
-                  : "text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/90",
+                  ? "sidebar-active-pill"
+                  : "text-foreground/55 hover:text-foreground",
               )}
             >
               <Shield className="h-3.5 w-3.5 opacity-60" strokeWidth={1.75} />
@@ -364,7 +364,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <div className="flex w-full">
         {sidebarOpen && (
-          <aside className="sticky top-0 hidden h-screen w-60 shrink-0 border-r border-border/50 bg-card lg:block">
+          <aside className="sticky top-0 hidden h-screen w-60 shrink-0 glass-sidebar lg:block">
             {sidebarInner()}
           </aside>
         )}
@@ -372,7 +372,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {mobileOpen && (
           <>
             <div className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm lg:hidden" onClick={() => setMobileOpen(false)} />
-            <aside className="fixed inset-y-0 left-0 z-50 w-64 border-r border-border bg-card shadow-2xl lg:hidden">
+            <aside className="fixed inset-y-0 left-0 z-50 w-64 glass-sidebar shadow-2xl lg:hidden">
               {sidebarInner(() => setMobileOpen(false))}
             </aside>
           </>
