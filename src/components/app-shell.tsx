@@ -28,6 +28,7 @@ import { EraTheme } from "@/components/era-theme";
 import { PlayerHud } from "@/components/player-hud";
 import { getMuted, setMuted, pop } from "@/lib/celebrate";
 import { ComboOverlay } from "@/components/combo-overlay";
+import { StreakRiskBanner } from "@/components/streak-risk-banner";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -409,6 +410,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <main className="overflow-x-hidden pb-20 lg:pb-0">
             <ToolBanner />
+            <StreakRiskBanner />
             {children}
           </main>
         </div>
