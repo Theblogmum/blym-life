@@ -11,6 +11,8 @@ import { Receipt, Plus, Trash2, Printer } from "lucide-react";
 import { toast } from "sonner";
 import { listInvoices, saveInvoice, deleteInvoice, type InvoiceItem } from "@/lib/business.functions";
 import { PageHero } from "@/components/page-hero";
+import { EmptyState } from "@/components/empty-state";
+import { xpPop } from "@/lib/xp-pop";
 
 export const Route = createFileRoute("/_authenticated/invoices")({ component: Page });
 
@@ -33,7 +35,7 @@ function Page() {
   const [form, setForm] = useState<Form>(blank());
   const [editing, setEditing] = useState(false);
 
-  const m = useMutation({ mutationFn: () => save({ data: form }), onSuccess: () => { toast.success("Saved"); setForm(blank()); setEditing(false); qc.invalidateQueries({ queryKey: ["invoices"] }); }, onError: (e: Error) => toast.error(e.message) });
+  const m = useMutation({ mutationFn: () => save({ data: form }), onSuccess: () => { toast.success("Saved"); if (!editing) xpPop(10, "invoice ready"); setForm(blank()); setEditing(false); qc.invalidateQueries({ queryKey: ["invoices"] }); }, onError: (e: Error) => toast.error(e.message) });
   const dm = useMutation({ mutationFn: (id: string) => del({ data: { id } }), onSuccess: () => { toast.success("Deleted"); qc.invalidateQueries({ queryKey: ["invoices"] }); } });
 
   const subtotal = form.items.reduce((a, i) => a + i.quantity * i.unit_price, 0);
@@ -108,7 +110,15 @@ function Page() {
               </div>
             </Card>
           ))}
-          {q.data && q.data.invoices.length === 0 && <p className="text-sm text-muted-foreground">No invoices yet.</p>}
+          {q.data && q.data.invoices.length === 0 && (
+            <EmptyState
+              icon={Receipt}
+              tone="warm"
+              title="No invoices yet"
+              description="Fill the form on the left and hit Save. Your invoice will be ready to print or email in seconds."
+              hint="+10 XP per invoice"
+            />
+          )}
         </div>
       </section>
     </div>
