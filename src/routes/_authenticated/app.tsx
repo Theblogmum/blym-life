@@ -369,7 +369,7 @@ function HomePage() {
 
             <div
               className={cn(
-                "relative overflow-hidden rounded-[1.4rem] p-4 shadow-[var(--shadow-layered)]",
+                "relative overflow-hidden rounded-[1.4rem] p-4 shadow-[var(--shadow-layered)] lg:max-w-xs",
                 streak > 0 && "pulse-glow",
               )}
               style={{
