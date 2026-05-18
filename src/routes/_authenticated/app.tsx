@@ -186,7 +186,7 @@ function HomePage() {
           <div className="grid items-start gap-6 lg:grid-cols-[1fr_460px] lg:gap-10">
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-4">
-                <h1 className="max-w-[18ch] font-display text-[28px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[40px]">
+                <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[48px]">
                   {opener}
                 </h1>
                 <TrialPill />
@@ -255,7 +255,7 @@ function HomePage() {
       <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
 
         {/* ============ BADGES SHELF (compact, directly under greeting) ============ */}
-        <section className="mb-10 sm:mb-14">
+        <section className="mb-6 sm:mb-9">
           <div className="mb-4 flex items-end justify-between">
             <div>
               <p className="eyebrow">badges</p>
@@ -321,7 +321,7 @@ function HomePage() {
         </section>
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
-        <section className="mb-14 sm:mb-20 lg:hidden">
+        <section className="mb-8 sm:mb-12 lg:hidden">
           <div className="grid gap-4">
             <div
               className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
@@ -370,8 +370,20 @@ function HomePage() {
         </section>
 
         {/* ============ TODAY'S MISSIONS ============ */}
-        <section className="mb-14 sm:mb-20">
-          <div className="mb-5 flex items-end justify-between gap-3">
+        <section className="mb-8 sm:mb-12">
+          <div
+            className="relative overflow-hidden rounded-[1.75rem] p-5 sm:p-7"
+            style={{
+              background:
+                "radial-gradient(120% 100% at 0% 0%, oklch(0.95 0.07 350 / 0.55), transparent 60%), radial-gradient(120% 100% at 100% 100%, oklch(0.94 0.06 20 / 0.45), transparent 60%), oklch(0.99 0.012 350 / 0.6)",
+              boxShadow:
+                "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 24px 56px -28px oklch(0.78 0.18 350 / 0.45)",
+            }}
+          >
+            <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.88 0.13 350 / 0.55), transparent 65%)" }} />
+            <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.9 0.1 20 / 0.5), transparent 65%)" }} />
+
+          <div className="relative mb-5 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
               <h2 className="mt-2 font-display text-[24px] font-bold leading-tight tracking-[-0.015em] sm:text-[30px]">
@@ -383,7 +395,7 @@ function HomePage() {
             </div>
           </div>
 
-          <ul className="space-y-2">
+          <ul className="relative space-y-2">
             {MISSIONS.map((m) => {
               const isDone = !!done[m.id];
               const isCelebrating = celebrate === m.id;
@@ -441,10 +453,11 @@ function HomePage() {
               );
             })}
           </ul>
+          </div>
         </section>
 
         {/* ============ DAILY IDEA ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <div
             className="relative overflow-hidden rounded-[2rem] p-7 sm:p-10"
             style={{
@@ -502,7 +515,7 @@ function HomePage() {
         </section>
 
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <div className="mb-6">
             <p className="eyebrow">need a hand?</p>
             <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
@@ -559,7 +572,7 @@ function HomePage() {
         </section>
 
         {/* ============ FILM THIS NOW (compact, same shape) ============ */}
-        <section className="mb-14 sm:mb-20">
+        <section className="mb-8 sm:mb-12">
           <Link
             to="/film-this"
             className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
