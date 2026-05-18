@@ -414,8 +414,8 @@
     animation: gradient-drift 18s ease-in-out infinite;
   }
 
-  /* Sticker — slightly tilted, soft shadow, chunky border */
-  .sticker {
+  /* Chip sticker — small floating pill (different from .sticker card above) */
+  .chip-sticker {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
