@@ -5,8 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import {
-  Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight,
-  MessageSquare, TrendingUp, DollarSign, Trophy, Check,
+  Sparkles, Flame, ArrowRight, DollarSign, Check,
   Camera, Send, PenLine, Rocket, HeartHandshake,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
