@@ -165,7 +165,7 @@ function StorePage() {
                       <span className="font-display text-xl font-semibold text-foreground">
                         {fmt(p.price_cents, p.currency)}
                       </span>
-                      <Button size="sm" className="rounded-full bg-foreground text-background hover:bg-foreground/90">
+                      <Button size="sm" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/85">
                         View <ArrowRightTiny />
                       </Button>
                     </div>
