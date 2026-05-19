@@ -7,15 +7,13 @@ import { Progress } from "@/components/ui/progress";
 import {
   Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight,
   MessageSquare, TrendingUp, DollarSign, Trophy, Check,
-  Camera, Send, PenLine, Rocket, RefreshCw,
+  Camera, Send, PenLine, Rocket, HeartHandshake,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
 import { getXp } from "@/lib/xp.functions";
 import { TrialPill } from "@/components/trial-pill";
 import { EraRibbon } from "@/components/era-theme";
-import { getDailyIdea } from "@/lib/daily-idea.functions";
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { celebrate as fxCelebrate, pop as fxPop } from "@/lib/celebrate";
 import { registerComboHit } from "@/lib/combo";
@@ -46,32 +44,23 @@ const MISSIONS = [
   { id: "pitch", label: "Find a brand to pitch", hint: "Just one. We'll help.", icon: Send, xp: 20, to: "/brand-hub" },
 ];
 
+// Only the BEST emotional/value tools — quiet shortcuts, not a tool drawer.
 const QUICK_TOOLS = [
-  { to: "/viral-lab",  label: "Hook lab",     hint: "scroll-stoppers",  icon: Flame,         glow: "oklch(0.78 0.18 25)"  },
-  { to: "/generator",  label: "Script me",    hint: "writes the words", icon: Wand2,         glow: "oklch(0.72 0.22 340)" },
-  { to: "/generator",  label: "Caption it",   hint: "post-ready lines", icon: MessageSquare, glow: "oklch(0.78 0.16 75)"  },
-  { to: "/planner",    label: "Plan week",    hint: "calm the chaos",   icon: Calendar,      glow: "oklch(0.72 0.16 225)" },
-  { to: "/brand-hub",  label: "Find brands",  hint: "people who pay",   icon: Trophy,        glow: "oklch(0.7 0.16 150)"  },
-  { to: "/motivation", label: "Pep talk",     hint: "a gentle hand",    icon: Heart,         glow: "oklch(0.74 0.18 15)"  },
-  { to: "/insights",   label: "What worked",  hint: "follow the wins",  icon: TrendingUp,    glow: "oklch(0.7 0.18 285)"  },
-  { to: "/business",   label: "Get paid",     hint: "the receipts",     icon: DollarSign,    glow: "oklch(0.68 0.16 145)" },
+  { to: "/film-this",          label: "Film this now",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
+  { to: "/viral-lab",          label: "Hook lab",          hint: "scroll-stoppers",   icon: Flame,          glow: "oklch(0.78 0.18 25)"  },
+  { to: "/rejection-recovery", label: "Rejection recovery", hint: "soft reply, sent", icon: HeartHandshake, glow: "oklch(0.72 0.22 340)" },
+  { to: "/business",           label: "Track money",       hint: "the receipts",      icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
 ];
 
 function HomePage() {
   const fetchDash = useServerFn(getDashboard);
   const fetchMe = useServerFn(getMe);
   const fetchXp = useServerFn(getXp);
-  const fetchIdea = useServerFn(getDailyIdea);
   const navigate = useNavigate();
 
   const me = useQuery({ queryKey: ["me"], queryFn: () => fetchMe() });
   const dash = useQuery({ queryKey: ["dashboard"], queryFn: () => fetchDash() });
   const xpQ = useQuery({ queryKey: ["xp"], queryFn: () => fetchXp() });
-  const idea = useQuery({
-    queryKey: ["daily-idea", new Date().toISOString().slice(0, 10)],
-    queryFn: () => fetchIdea(),
-    staleTime: 1000 * 60 * 60 * 6,
-  });
 
   useEffect(() => {
     if (me.data?.profile && !me.data.profile.onboarded) navigate({ to: "/onboarding" });
