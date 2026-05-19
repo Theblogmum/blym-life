@@ -367,7 +367,7 @@ function HomePage() {
         </section>
 
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section>
+        <section className="mb-6 sm:mb-9">
           <div className="mb-4 flex items-end justify-between gap-3">
             <h2 className="font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[24px]">
               your quick access
@@ -379,7 +379,7 @@ function HomePage() {
               <Link
                 key={t.label + t.to}
                 to={t.to}
-                className="group relative flex h-[116px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-3.5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-4"
+                className="group relative flex h-[174px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-6"
                 style={{
                   background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
                   backdropFilter: "blur(8px)",
@@ -400,22 +400,22 @@ function HomePage() {
                 />
 
                 <span
-                  className="relative grid h-9 w-9 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
+                  className="relative grid h-12 w-12 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
                   style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
                 >
-                  <t.icon className="h-4 w-4" strokeWidth={2.25} />
+                  <t.icon className="h-5 w-5" strokeWidth={2.25} />
                 </span>
 
                 <div className="relative">
-                  <p className="text-[13px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
+                  <p className="text-[15px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
                     {t.label}
                   </p>
-                  <p className="mt-0.5 text-[11px] leading-snug text-foreground/55">{t.hint}</p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-foreground/55">{t.hint}</p>
                 </div>
 
                 <ArrowRight
                   aria-hidden
-                  className="absolute right-3 top-3 h-3 w-3 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
+                  className="absolute right-4 top-4 h-4 w-4 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
                 />
               </Link>
             ))}
