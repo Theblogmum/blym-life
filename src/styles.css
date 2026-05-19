@@ -852,6 +852,108 @@
     .premium-card:hover { transform: none; }
   }
 
+  /* ===== Editorial atmosphere — break the "form in a box" feeling ===== */
+
+  /* Section atmosphere — soft warm wash sitting behind content groups.
+     Wrap a section in this instead of dropping cards on bare background. */
+  .section-atmosphere {
+    position: relative;
+    border-radius: var(--radius-3xl);
+    padding: 1.75rem 1.25rem;
+    background:
+      radial-gradient(80% 60% at 0% 0%, color-mix(in oklab, var(--surface-blush) 30%, transparent), transparent 60%),
+      radial-gradient(70% 60% at 100% 100%, color-mix(in oklab, var(--surface-butter) 24%, transparent), transparent 60%),
+      linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+    border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+    box-shadow: var(--shadow-soft);
+  }
+  @media (min-width: 640px) { .section-atmosphere { padding: 2rem 1.75rem; } }
+
+  /* Editorial label — small chip-eyebrow above section headings */
+  .editorial-label {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--surface-blush) 50%, transparent);
+    border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+    color: color-mix(in oklab, var(--primary) 80%, var(--foreground));
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.22em;
+  }
+
+  /* Editorial display heading — for hero-style section titles */
+  .editorial-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+    max-width: 22ch;
+  }
+
+  /* ===== Premium loading states ===== */
+
+  /* Soft breathing skeleton — replaces flat animate-pulse */
+  @keyframes skeleton-breathe {
+    0%, 100% { opacity: 0.6; }
+    50%      { opacity: 0.95; }
+  }
+  .skeleton-soft {
+    background: linear-gradient(110deg,
+      color-mix(in oklab, var(--surface-blush) 28%, var(--secondary)) 0%,
+      color-mix(in oklab, var(--surface-butter) 22%, var(--secondary)) 50%,
+      color-mix(in oklab, var(--surface-blush) 28%, var(--secondary)) 100%);
+    background-size: 220% 100%;
+    border-radius: 0.75rem;
+    animation: skeleton-breathe 2.4s ease-in-out infinite, gradient-drift 6s ease-in-out infinite;
+  }
+
+  /* Premium loading orb — for centered "thinking" states */
+  .loading-orb {
+    position: relative;
+    display: inline-grid; place-items: center;
+    width: 56px; height: 56px;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 30% 30%,
+        color-mix(in oklab, var(--primary) 55%, transparent),
+        color-mix(in oklab, var(--primary) 18%, transparent) 60%,
+        transparent 75%);
+  }
+  .loading-orb::before {
+    content: ""; position: absolute; inset: -6px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, color-mix(in oklab, var(--primary) 30%, transparent), transparent 70%);
+    filter: blur(10px);
+    animation: breathe 2.4s ease-in-out infinite;
+  }
+
+  /* ===== Hover polish primitives ===== */
+
+  /* Lift — subtle, satisfying. Apply to any card-like element. */
+  .hover-lift {
+    transition: transform var(--duration-base) var(--ease-soft),
+                box-shadow var(--duration-base) var(--ease-soft);
+  }
+  .hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-elegant); }
+
+  /* Tint — adds a warm rose halo on hover, for interactive surfaces */
+  .hover-bloom {
+    transition: box-shadow var(--duration-base) var(--ease-soft),
+                border-color var(--duration-base) var(--ease-soft);
+  }
+  .hover-bloom:hover {
+    box-shadow:
+      0 1px 2px oklch(0.2 0.01 20 / 0.04),
+      0 22px 50px -22px color-mix(in oklab, var(--primary) 40%, transparent);
+    border-color: color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-soft, .loading-orb::before { animation: none !important; }
+    .hover-lift:hover { transform: none; }
+  }
+
   /* ===== Low energy / chaos mode — softer, calmer, less stimulating ===== */
   .low-energy {
     --primary: oklch(0.72 0.1 320);
