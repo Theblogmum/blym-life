@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getXp } from "@/lib/xp.functions";
 import { getDashboard } from "@/lib/dashboard.functions";
-import { Lock, Flame, ArrowRight, ArrowDown, Check, Compass, CornerDownRight, CornerDownLeft } from "lucide-react";
+import { Lock, Flame, ArrowRight, ArrowDown, Check, Compass } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageHero } from "@/components/page-hero";
 
