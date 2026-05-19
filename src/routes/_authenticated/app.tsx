@@ -279,8 +279,64 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ============ TODAY'S MISSIONS ============ */}
+        {/* ============ QUICK TOOLS — premium glass grid ============ */}
         <section className="mb-6 sm:mb-9">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <h2 className="font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[24px]">
+              your quick access
+            </h2>
+            <p className="text-[11.5px] text-foreground/50">only the best</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {QUICK_TOOLS.map((t) => (
+              <Link
+                key={t.label + t.to}
+                to={t.to}
+                className="group relative flex h-[174px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-6"
+                style={{
+                  background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
+                  backdropFilter: "blur(8px)",
+                  boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 12px 28px -16px oklch(0.13 0.012 20 / 0.18)",
+                  ["--tool-glow" as any]: t.glow,
+                }}
+              >
+                {/* hover wash in the tool's signature color */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-12 left-1/2 h-32 w-40 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
+                  style={{ background: t.glow }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-[1.25rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${t.glow} 35%, transparent)` }}
+                />
+
+                <span
+                  className="relative grid h-12 w-12 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
+                  style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
+                >
+                  <t.icon className="h-5 w-5" strokeWidth={2.25} />
+                </span>
+
+                <div className="relative">
+                  <p className="text-[15px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
+                    {t.label}
+                  </p>
+                  <p className="mt-0.5 text-[13px] leading-snug text-foreground/55">{t.hint}</p>
+                </div>
+
+                <ArrowRight
+                  aria-hidden
+                  className="absolute right-4 top-4 h-4 w-4 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
+                />
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ============ TODAY'S MISSIONS ============ */}
+        <section>
           <div
             className="relative overflow-hidden rounded-[1.75rem] p-4 sm:p-6"
             style={{
@@ -363,62 +419,6 @@ function HomePage() {
               );
             })}
           </ul>
-          </div>
-        </section>
-
-        {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section>
-          <div className="mb-4 flex items-end justify-between gap-3">
-            <h2 className="font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[24px]">
-              your quick access
-            </h2>
-            <p className="text-[11.5px] text-foreground/50">only the best</p>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-            {QUICK_TOOLS.map((t) => (
-              <Link
-                key={t.label + t.to}
-                to={t.to}
-                className="group relative flex h-[116px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-3.5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-4"
-                style={{
-                  background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
-                  backdropFilter: "blur(8px)",
-                  boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 12px 28px -16px oklch(0.13 0.012 20 / 0.18)",
-                  ["--tool-glow" as any]: t.glow,
-                }}
-              >
-                {/* hover wash in the tool's signature color */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-12 left-1/2 h-32 w-40 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
-                  style={{ background: t.glow }}
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-[1.25rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${t.glow} 35%, transparent)` }}
-                />
-
-                <span
-                  className="relative grid h-9 w-9 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
-                  style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
-                >
-                  <t.icon className="h-4 w-4" strokeWidth={2.25} />
-                </span>
-
-                <div className="relative">
-                  <p className="text-[13px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
-                    {t.label}
-                  </p>
-                  <p className="mt-0.5 text-[11px] leading-snug text-foreground/55">{t.hint}</p>
-                </div>
-
-                <ArrowRight
-                  aria-hidden
-                  className="absolute right-3 top-3 h-3 w-3 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
-                />
-              </Link>
-            ))}
           </div>
         </section>
 
