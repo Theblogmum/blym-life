@@ -195,6 +195,7 @@ function QuestRow({ q, done, glow, onToggle }: { q: Quest; done: boolean; glow?:
         done
           ? "border-[oklch(0.78_0.1_155)]/50 bg-[oklch(0.97_0.04_155)]/70"
           : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]",
+        glow && "card-glow-blush",
       )}
       style={done ? { background: `color-mix(in oklab, ${q.tint} 35%, var(--card))` } : undefined}
     >
