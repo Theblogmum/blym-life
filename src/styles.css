@@ -746,6 +746,97 @@
     .page-enter { animation: none !important; }
   }
 
+  /* ===== Premium polish layer — global cohesion with the landing page ===== */
+
+  /* Breathing — used on empty-state icons & ambient affordances */
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.04); opacity: 0.92; }
+  }
+  .breathe { animation: breathe 4.5s ease-in-out infinite; }
+
+  /* Premium card — elevated, warm, hover-lifts. Use for hero/primary surfaces. */
+  .premium-card {
+    position: relative;
+    background:
+      linear-gradient(180deg,
+        color-mix(in oklab, var(--surface-blush) 14%, var(--card)) 0%,
+        var(--card) 60%);
+    border: 1px solid color-mix(in oklab, var(--border) 55%, transparent);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-layered);
+    transition:
+      transform 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 480ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 300ms ease;
+  }
+  .premium-card:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklab, var(--primary) 22%, transparent);
+    box-shadow:
+      var(--shadow-layered),
+      0 30px 70px -34px color-mix(in oklab, var(--primary) 42%, transparent);
+  }
+
+  /* Soft input — warmer border + rose focus glow, taller padding */
+  .soft-input {
+    border-radius: 0.875rem;
+    border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+    background: color-mix(in oklab, var(--card) 92%, transparent);
+    transition: border-color 200ms ease, box-shadow 240ms ease, background 200ms ease;
+  }
+  .soft-input:hover {
+    border-color: color-mix(in oklab, var(--border) 100%, transparent);
+  }
+  .soft-input:focus,
+  .soft-input:focus-visible {
+    outline: none;
+    border-color: color-mix(in oklab, var(--primary) 55%, transparent);
+    box-shadow:
+      0 0 0 4px color-mix(in oklab, var(--primary) 14%, transparent),
+      inset 0 1px 0 oklch(1 0 0 / 0.4);
+    background: var(--card);
+  }
+
+  /* Bloom conversation bubble — Bloom-the-coach speaking, premium feel */
+  .bloom-bubble {
+    position: relative;
+    background:
+      linear-gradient(135deg,
+        color-mix(in oklab, var(--surface-blush) 50%, var(--card)) 0%,
+        color-mix(in oklab, var(--surface-plum) 28%, var(--card)) 100%);
+    border: 1px solid color-mix(in oklab, var(--primary) 18%, transparent);
+    border-radius: 1.5rem 1.5rem 1.5rem 0.5rem;
+    box-shadow:
+      0 1px 2px oklch(0.13 0.012 20 / 0.04),
+      0 18px 46px -22px color-mix(in oklab, var(--primary) 38%, transparent);
+  }
+
+  /* Mood gradients — used on Daily Pep Talk hero, rotates by day */
+  .mood-monday    { background: linear-gradient(135deg, oklch(0.94 0.09 30), oklch(0.9 0.12 350)); }
+  .mood-tuesday   { background: linear-gradient(135deg, oklch(0.94 0.1 90), oklch(0.91 0.1 40)); }
+  .mood-wednesday { background: linear-gradient(135deg, oklch(0.92 0.09 150), oklch(0.93 0.1 90)); }
+  .mood-thursday  { background: linear-gradient(135deg, oklch(0.91 0.07 225), oklch(0.92 0.09 280)); }
+  .mood-friday    { background: linear-gradient(135deg, oklch(0.91 0.08 320), oklch(0.9 0.13 350)); }
+  .mood-saturday  { background: linear-gradient(135deg, oklch(0.93 0.1 60), oklch(0.9 0.13 20)); }
+  .mood-sunday    { background: linear-gradient(135deg, oklch(0.94 0.06 10), oklch(0.92 0.09 340)); }
+
+  /* Save-flash — quick scale + glow pulse on successful save mutations */
+  @keyframes save-flash {
+    0%   { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in oklab, var(--success) 0%, transparent); }
+    40%  { transform: scale(1.02); box-shadow: 0 0 0 8px color-mix(in oklab, var(--success) 18%, transparent); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+  }
+  .save-flash { animation: save-flash 620ms ease-out; }
+
+  /* Stagger helper — set --i on each child, get 70ms delays */
+  .stagger > * { animation-delay: calc(var(--i, 0) * 70ms); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .breathe, .save-flash { animation: none !important; }
+    .premium-card:hover { transform: none; }
+  }
+
   /* ===== Low energy / chaos mode — softer, calmer, less stimulating ===== */
   .low-energy {
     --primary: oklch(0.72 0.1 320);
