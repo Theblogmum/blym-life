@@ -3,7 +3,6 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -49,24 +48,32 @@ function BusinessPage() {
         variant="mint"
       />
       <div className="mx-auto max-w-6xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
-      <div className="grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-4">
-        <Stat icon={Wallet} label="Income · this month" value={`£${(d?.incomeThisMonth ?? 0).toLocaleString()}`} sub={`£${(d?.incomeThisYear ?? 0).toLocaleString()} YTD`} />
-        <Stat icon={Receipt} label="Invoices outstanding" value={`£${(d?.outstanding ?? 0).toLocaleString()}`} sub={`£${(d?.paidThisMonth ?? 0).toLocaleString()} paid this month`} />
-        <Stat icon={Target} label="Outreach (month)" value={`${d?.outreachDoneMonth ?? 0}${outreachGoal ? ` / ${outreachGoal}` : ""}`} sub={`${d?.followUps.filter(f=>!f.done).length ?? 0} open follow-ups`} />
-        <Stat icon={Calculator} label="Set aside for tax" value={`£${(d?.setAside ?? 0).toLocaleString()}`} sub={`${d?.taxRate ?? 0}% of YTD income`} />
-      </div>
+        <div className="stagger grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-4">
+          <div className="card-pop" style={{ ["--i" as string]: 0 }}><Stat icon={Wallet} label="Income · this month" value={`£${(d?.incomeThisMonth ?? 0).toLocaleString()}`} sub={`£${(d?.incomeThisYear ?? 0).toLocaleString()} YTD`} /></div>
+          <div className="card-pop" style={{ ["--i" as string]: 1 }}><Stat icon={Receipt} label="Invoices outstanding" value={`£${(d?.outstanding ?? 0).toLocaleString()}`} sub={`£${(d?.paidThisMonth ?? 0).toLocaleString()} paid this month`} /></div>
+          <div className="card-pop" style={{ ["--i" as string]: 2 }}><Stat icon={Target} label="Outreach (month)" value={`${d?.outreachDoneMonth ?? 0}${outreachGoal ? ` / ${outreachGoal}` : ""}`} sub={`${d?.followUps.filter(f=>!f.done).length ?? 0} open follow-ups`} /></div>
+          <div className="card-pop" style={{ ["--i" as string]: 3 }}><Stat icon={Calculator} label="Set aside for tax" value={`£${(d?.setAside ?? 0).toLocaleString()}`} sub={`${d?.taxRate ?? 0}% of YTD income`} /></div>
+        </div>
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-2">
-        <IncomeGoalCard current={d?.incomeThisMonth ?? 0} target={Number(incomeGoal)} pct={incomePct} onSaved={refresh} />
-        <OutreachGoalCard done={d?.outreachDoneMonth ?? 0} target={Number(outreachGoal)} pct={outreachPct} onSaved={refresh} />
-      </div>
+        <div className="stagger mt-6 grid gap-4 lg:grid-cols-2">
+          <div className="card-pop" style={{ ["--i" as string]: 0 }}>
+            <IncomeGoalCard current={d?.incomeThisMonth ?? 0} target={Number(incomeGoal)} pct={incomePct} onSaved={refresh} />
+          </div>
+          <div className="card-pop" style={{ ["--i" as string]: 1 }}>
+            <OutreachGoalCard done={d?.outreachDoneMonth ?? 0} target={Number(outreachGoal)} pct={outreachPct} onSaved={refresh} />
+          </div>
+        </div>
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-2">
-        <InvoicesOverview invoices={d?.invoices ?? []} />
-        <TaxCard rate={d?.taxRate ?? 0} reminders={d?.taxReminders ?? []} onChanged={refresh} />
-      </div>
+        <div className="stagger mt-4 grid gap-4 lg:grid-cols-2">
+          <div className="card-pop" style={{ ["--i" as string]: 0 }}>
+            <InvoicesOverview invoices={d?.invoices ?? []} />
+          </div>
+          <div className="card-pop" style={{ ["--i" as string]: 1 }}>
+            <TaxCard rate={d?.taxRate ?? 0} reminders={d?.taxReminders ?? []} onChanged={refresh} />
+          </div>
+        </div>
 
-      <ClientsCard clients={d?.clients ?? []} onChanged={refresh} />
+        <ClientsCard clients={d?.clients ?? []} onChanged={refresh} />
       </div>
     </div>
   );
@@ -94,16 +101,16 @@ function IncomeGoalCard({ current, target, pct, onSaved }: { current: number; ta
     onSuccess: () => { toast.success("Income goal saved"); onSaved(); },
   });
   return (
-    <Card className="rounded-3xl p-5">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Monthly income goal</p>
-      <p className="mt-1 font-display text-2xl font-black">£{current.toLocaleString()}{target ? <span className="text-muted-foreground"> / £{target.toLocaleString()}</span> : null}</p>
+    <div className="premium-card p-5 sm:p-6">
+      <span className="editorial-label"><Wallet className="h-3 w-3" /> Monthly income goal</span>
+      <p className="mt-3 font-display text-[26px] font-bold leading-none tracking-[-0.02em] tabular-nums">£{current.toLocaleString()}{target ? <span className="text-muted-foreground/80"> / £{target.toLocaleString()}</span> : null}</p>
       {target > 0 && <ProgressBar pct={pct} />}
-      <div className="mt-4 flex items-end gap-2">
-        <div className="flex-1"><Label className="text-xs">Set goal (£)</Label><Input type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="2000" /></div>
+      <div className="mt-5 flex items-end gap-2">
+        <div className="flex-1"><Label className="text-xs text-muted-foreground/80">Set goal (£)</Label><Input type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="2000" className="soft-input mt-1" /></div>
         <Button className="rounded-full" onClick={() => m.mutate()} disabled={m.isPending}>Save</Button>
       </div>
-      <Link to="/income-tracker" className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-primary">Open income tracker <ArrowRight className="h-3 w-3" /></Link>
-    </Card>
+      <Link to="/income-tracker" className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:gap-1.5">Open income tracker <ArrowRight className="h-3 w-3" /></Link>
+    </div>
   );
 }
 
@@ -115,34 +122,34 @@ function OutreachGoalCard({ done, target, pct, onSaved }: { done: number; target
     onSuccess: () => { toast.success("Outreach target saved"); onSaved(); },
   });
   return (
-    <Card className="rounded-3xl p-5">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Monthly outreach target</p>
-      <p className="mt-1 font-display text-2xl font-black">{done}{target ? <span className="text-muted-foreground"> / {target}</span> : null}</p>
+    <div className="premium-card p-5 sm:p-6">
+      <span className="editorial-label"><Target className="h-3 w-3" /> Monthly outreach target</span>
+      <p className="mt-3 font-display text-[26px] font-bold leading-none tracking-[-0.02em] tabular-nums">{done}{target ? <span className="text-muted-foreground/80"> / {target}</span> : null}</p>
       {target > 0 && <ProgressBar pct={pct} />}
-      <div className="mt-4 flex items-end gap-2">
-        <div className="flex-1"><Label className="text-xs">Pitches per month</Label><Input type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="20" /></div>
+      <div className="mt-5 flex items-end gap-2">
+        <div className="flex-1"><Label className="text-xs text-muted-foreground/80">Pitches per month</Label><Input type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="20" className="soft-input mt-1" /></div>
         <Button className="rounded-full" onClick={() => m.mutate()} disabled={m.isPending}>Save</Button>
       </div>
-      <p className="mt-2 text-xs text-muted-foreground">Counts completed follow-ups. Add new ones from your Home dashboard.</p>
-    </Card>
+      <p className="mt-3 text-xs text-muted-foreground/80">Counts completed follow-ups. Add new ones from your Home dashboard.</p>
+    </div>
   );
 }
 
 function InvoicesOverview({ invoices }: { invoices: any[] }) {
   return (
-    <Card className="rounded-3xl p-5">
+    <div className="premium-card p-5 sm:p-6">
       <div className="flex items-center justify-between">
-        <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Invoice overview</p>
-        <Link to="/invoices" className="text-xs font-semibold text-primary">All invoices →</Link>
+        <span className="editorial-label"><Receipt className="h-3 w-3" /> Invoice overview</span>
+        <Link to="/invoices" className="text-xs font-semibold text-primary transition hover:opacity-80">All invoices →</Link>
       </div>
       {invoices.length === 0 ? (
-        <p className="mt-3 text-sm text-muted-foreground">No invoices yet. <Link to="/invoices" className="font-semibold text-primary">Create one</Link>.</p>
+        <p className="mt-4 text-sm text-muted-foreground/85">No invoices yet. <Link to="/invoices" className="font-semibold text-primary">Create one</Link>.</p>
       ) : (
-        <ul className="mt-3 space-y-2">
+        <ul className="mt-4 space-y-2">
           {invoices.slice(0, 6).map(i => {
             const total = Array.isArray(i.items) ? i.items.reduce((s: number, it: any) => s + Number(it.qty ?? 1) * Number(it.unit_price ?? it.price ?? 0), 0) : 0;
             return (
-              <li key={i.id} className="flex items-center justify-between rounded-2xl bg-secondary/40 px-3 py-2 text-sm">
+              <li key={i.id} className="flex items-center justify-between rounded-2xl border border-border/40 bg-secondary/35 px-3 py-2 text-sm transition hover:border-border/70 hover:bg-secondary/55">
                 <span className="min-w-0 truncate"><span className="font-semibold">{i.brand_name}</span> · <span className="text-muted-foreground">{i.issue_date}</span></span>
                 <span className="flex items-center gap-2"><span>£{total.toLocaleString()}</span><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase ${i.status === "paid" ? "bg-emerald-500/15 text-emerald-600" : i.status === "sent" ? "bg-amber-500/15 text-amber-600" : "bg-muted text-muted-foreground"}`}>{i.status}</span></span>
               </li>
@@ -150,7 +157,7 @@ function InvoicesOverview({ invoices }: { invoices: any[] }) {
           })}
         </ul>
       )}
-    </Card>
+    </div>
   );
 }
 
@@ -171,17 +178,17 @@ function TaxCard({ rate, reminders, onChanged }: { rate: number; reminders: any[
   });
 
   return (
-    <Card className="rounded-3xl p-5">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Tax reminders</p>
-      <div className="mt-3 flex items-end gap-2">
-        <div className="w-32"><Label className="text-xs">Set-aside %</Label><Input type="number" value={r} onChange={e => setR(e.target.value)} placeholder="20" /></div>
+    <div className="premium-card p-5 sm:p-6">
+      <span className="editorial-label"><Calculator className="h-3 w-3" /> Tax reminders</span>
+      <div className="mt-4 flex items-end gap-2">
+        <div className="w-32"><Label className="text-xs text-muted-foreground/80">Set-aside %</Label><Input type="number" value={r} onChange={e => setR(e.target.value)} placeholder="20" className="soft-input mt-1" /></div>
         <Button variant="outline" className="rounded-full" onClick={() => rateMut.mutate()} disabled={rateMut.isPending}>Save rate</Button>
       </div>
 
       <div className="mt-4 grid gap-2 sm:grid-cols-[1fr_140px_120px_auto]">
-        <Input placeholder="Title (e.g. Self assessment)" value={title} onChange={e => setTitle(e.target.value)} />
-        <Input type="date" value={due} onChange={e => setDue(e.target.value)} />
-        <Input type="number" placeholder="£ amount" value={amount} onChange={e => setAmount(e.target.value)} />
+        <Input placeholder="Title (e.g. Self assessment)" value={title} onChange={e => setTitle(e.target.value)} className="soft-input" />
+        <Input type="date" value={due} onChange={e => setDue(e.target.value)} className="soft-input" />
+        <Input type="number" placeholder="£ amount" value={amount} onChange={e => setAmount(e.target.value)} className="soft-input" />
         <Button className="rounded-full" onClick={() => addMut.mutate()} disabled={!title || !due || addMut.isPending}><Plus className="h-4 w-4" /></Button>
       </div>
 
@@ -190,7 +197,7 @@ function TaxCard({ rate, reminders, onChanged }: { rate: number; reminders: any[
           {reminders.map(rem => {
             const overdue = !rem.done && new Date(rem.due_date) < new Date();
             return (
-              <li key={rem.id} className="flex items-center gap-2 rounded-2xl bg-secondary/40 px-3 py-2 text-sm">
+              <li key={rem.id} className="flex items-center gap-2 rounded-2xl border border-border/40 bg-secondary/35 px-3 py-2 text-sm transition hover:border-border/70 hover:bg-secondary/55">
                 <button onClick={async () => { await toggle({ data: { id: rem.id, done: !rem.done } }); onChanged(); }} className={`grid h-5 w-5 place-items-center rounded-full border-2 ${rem.done ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/30"}`}>
                   {rem.done && <Check className="h-3 w-3" />}
                 </button>
@@ -203,7 +210,7 @@ function TaxCard({ rate, reminders, onChanged }: { rate: number; reminders: any[
           })}
         </ul>
       )}
-    </Card>
+    </div>
   );
 }
 
@@ -222,31 +229,31 @@ function ClientsCard({ clients, onChanged }: { clients: any[]; onChanged: () => 
   });
 
   return (
-    <Card className="mt-6 rounded-3xl p-5">
+    <div className="premium-card mt-6 p-5 sm:p-6">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2"><Users className="h-4 w-4 text-primary" /><p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Clients</p></div>
+        <span className="editorial-label"><Users className="h-3 w-3" /> Clients</span>
         <Button size="sm" className="rounded-full" onClick={() => setOpen(o => !o)}>{open ? "Cancel" : <><Plus className="mr-1 h-4 w-4" /> Add client</>}</Button>
       </div>
 
       {open && (
         <div className="mt-4 grid gap-2 sm:grid-cols-2">
-          <Input placeholder="Brand name" value={name} onChange={e => setName(e.target.value)} />
-          <Input placeholder="Contact name" value={contact} onChange={e => setContact(e.target.value)} />
-          <Input placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
-          <select className="h-10 rounded-md border bg-background px-3 text-sm" value={status} onChange={e => setStatus(e.target.value)}>
+          <Input placeholder="Brand name" value={name} onChange={e => setName(e.target.value)} className="soft-input" />
+          <Input placeholder="Contact name" value={contact} onChange={e => setContact(e.target.value)} className="soft-input" />
+          <Input placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} className="soft-input" />
+          <select className="soft-input h-10 px-3 text-sm" value={status} onChange={e => setStatus(e.target.value)}>
             <option value="lead">Lead</option><option value="active">Active</option><option value="past">Past</option>
           </select>
-          <Textarea className="sm:col-span-2" placeholder="Notes (rates, contact rhythm, gifting…)" rows={2} value={notes} onChange={e => setNotes(e.target.value)} />
+          <Textarea className="soft-input sm:col-span-2" placeholder="Notes (rates, contact rhythm, gifting…)" rows={2} value={notes} onChange={e => setNotes(e.target.value)} />
           <Button className="rounded-full sm:col-span-2" onClick={() => m.mutate()} disabled={!name || m.isPending}>Save client</Button>
         </div>
       )}
 
       {clients.length === 0 ? (
-        <p className="mt-3 text-sm text-muted-foreground">No clients yet. Add brands you've worked with or want to pitch.</p>
+        <p className="mt-4 text-sm text-muted-foreground/85">No clients yet. Add brands you've worked with or want to pitch.</p>
       ) : (
-        <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+        <ul className="mt-5 grid gap-2 sm:grid-cols-2">
           {clients.map(c => (
-            <li key={c.id} className="rounded-2xl bg-secondary/40 p-3 text-sm">
+            <li key={c.id} className="rounded-2xl border border-border/40 bg-secondary/35 p-3 text-sm transition hover:border-border/70 hover:bg-secondary/55">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <p className="font-semibold">{c.name}</p>
@@ -262,6 +269,6 @@ function ClientsCard({ clients, onChanged }: { clients: any[]; onChanged: () => 
           ))}
         </ul>
       )}
-    </Card>
+    </div>
   );
 }
