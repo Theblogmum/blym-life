@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getXp } from "@/lib/xp.functions";
 import { getDashboard } from "@/lib/dashboard.functions";
-import { Lock, Sparkles, Flame, ArrowRight, Check, Compass } from "lucide-react";
+import { Lock, Flame, ArrowRight, ArrowDown, Check, Compass } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PageHero } from "@/components/page-hero";
 
@@ -48,97 +48,125 @@ function JourneyPage() {
         description="every post, hook, pitch and tiny win moves you forward. you're not behind — you're building."
         variant="blush"
       />
-      <div className="mx-auto max-w-3xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
+      <div className="mx-auto max-w-3xl px-5 pt-5 pb-10 sm:px-8 sm:pt-6">
         {/* Stat shelf */}
-        <div className="soft-card mb-10 grid grid-cols-3 gap-2 p-4 sm:p-5">
+        <div className="soft-card mb-5 grid grid-cols-3 gap-2 p-3 sm:p-4">
           <StatTile label="xp" value={`${xp}`} emoji="⚡" tint="var(--surface-butter)" />
           <StatTile label="streak" value={`${streak}d`} emoji="🔥" tint="var(--surface-peach)" />
           <StatTile label="level" value={`${currentLevel}/10`} emoji="✨" tint="var(--surface-blush)" />
         </div>
 
-        {/* Roadmap path */}
-        <div className="relative">
-        {/* connecting line */}
-        <div aria-hidden className="absolute left-[28px] top-8 bottom-8 w-[3px] rounded-full bg-gradient-to-b from-primary/30 via-accent/20 to-border/40" />
-
-        <ol className="space-y-3.5">
-          {LEVELS.map((lvl) => {
+        {/* Map — compact zigzag with arrows pointing to the next tile */}
+        <ol className="grid grid-cols-2 gap-x-3 gap-y-2 sm:gap-x-4 sm:gap-y-3">
+          {LEVELS.map((lvl, idx) => {
             const unlocked = xp >= lvl.xp;
             const isCurrent = lvl.n === currentLevel;
             const isNext = lvl.n === currentLevel + 1;
-            const progress = isNext
-              ? Math.min(100, Math.round(((xp - LEVELS[currentLevel - 1].xp) / (lvl.xp - LEVELS[currentLevel - 1].xp)) * 100))
-              : unlocked ? 100 : 0;
+            const row = Math.floor(idx / 2);
+            const rightCol = idx % 2 === 1;
+            // zigzag flow: even rows go L→R, odd rows go R→L
+            const flowsRight = row % 2 === 0;
+            const isRowStart = (flowsRight && !rightCol) || (!flowsRight && rightCol);
+            const isRowEnd = !isRowStart;
+            const isLast = idx === LEVELS.length - 1;
+            // arrow to the right neighbour in same row
+            const showInlineArrow = !isRowEnd && !isLast;
+            // arrow dropping down to the next row from the end of this row
+            const showDownArrow = isRowEnd && !isLast;
+            // place tile in grid: right-to-left rows reverse column order visually
+            const colStart = flowsRight ? (rightCol ? 2 : 1) : (rightCol ? 1 : 2);
 
             return (
-              <li key={lvl.n} className="relative pl-[72px]">
-                {/* Level node */}
+              <li
+                key={lvl.n}
+                className="relative"
+                style={{ gridColumnStart: colStart, gridRow: row + 1 }}
+              >
                 <div className={cn(
-                  "absolute left-0 top-2 grid h-[56px] w-[56px] place-items-center rounded-2xl text-[26px] transition-all duration-500",
-                  unlocked
-                    ? "bg-card border border-border/50 shadow-[var(--shadow-soft)]"
-                    : "bg-foreground/[0.025] border border-dashed border-border/45",
-                  isCurrent && "shadow-[0_18px_40px_-18px_oklch(0.66_0.24_350/0.45)] border-primary/30",
-                )}>
-                  {unlocked ? (
-                    <span className={cn("drop-shadow-[0_2px_6px_rgba(0,0,0,0.06)]", isCurrent && "wiggle")}>{lvl.emoji}</span>
-                  ) : (
-                    <Lock className="h-4 w-4 text-foreground/35" />
-                  )}
-                </div>
-
-                {/* Card */}
-                <div className={cn(
-                  "group relative overflow-hidden rounded-2xl border p-4 sm:p-5 transition-all duration-500",
+                  "group relative h-full overflow-hidden rounded-xl border p-2.5 sm:p-3 transition-all duration-300",
                   isCurrent
-                    ? "border-primary/30 bg-card shadow-[var(--shadow-soft)]"
+                    ? "border-primary/35 bg-card shadow-[var(--shadow-soft)]"
                     : unlocked
-                      ? "border-border/40 bg-card shadow-[var(--shadow-xs)] hover:-translate-y-[2px] hover:border-border/60 hover:shadow-[var(--shadow-elegant)]"
-                      : "border-border/30 bg-foreground/[0.015]",
+                      ? "border-border/45 bg-card shadow-[var(--shadow-xs)] hover:-translate-y-[1px] hover:border-border/70 hover:shadow-[var(--shadow-elegant)]"
+                      : "border-dashed border-border/40 bg-foreground/[0.015]",
                 )}>
                   {isCurrent && (
-                    <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70" style={{ background: "radial-gradient(60% 100% at 0% 0%, color-mix(in oklab, var(--surface-blush) 35%, transparent), transparent 60%)" }} />
+                    <div aria-hidden className="pointer-events-none absolute inset-0 opacity-70" style={{ background: "radial-gradient(80% 100% at 0% 0%, color-mix(in oklab, var(--surface-blush) 38%, transparent), transparent 60%)" }} />
                   )}
-                  <div className="relative flex flex-wrap items-center gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/45">Level {lvl.n}</span>
-                    {isCurrent && <span className="rounded-full bg-foreground px-2.5 py-0.5 text-[10.5px] font-semibold text-background">you are here</span>}
-                    {unlocked && !isCurrent && <span className="inline-flex items-center gap-1 text-[10.5px] font-semibold text-[oklch(0.5_0.16_155)]"><Check className="h-3 w-3" strokeWidth={3} /> unlocked</span>}
-                  </div>
-                  <h3 className={cn("relative mt-1.5 font-display text-[17px] font-bold leading-tight tracking-[-0.01em]", !unlocked && "text-foreground/55")}>{lvl.title}</h3>
-                  <p className={cn("relative mt-1 text-[13px] leading-relaxed", unlocked ? "text-muted-foreground/95" : "text-foreground/45")}>{lvl.blurb}</p>
-
-                  <div className="relative mt-3 flex items-start gap-2 text-[11.5px]">
-                    <Sparkles className="mt-0.5 h-3 w-3 shrink-0 text-accent" />
-                    <span className="text-foreground/70"><span className="font-semibold text-foreground/85">unlocks:</span> {lvl.unlocks}</span>
+                  <div className="relative flex items-start gap-2.5">
+                    <div className={cn(
+                      "grid h-9 w-9 shrink-0 place-items-center rounded-lg text-[18px] transition-transform",
+                      unlocked ? "bg-white/70 ring-1 ring-white/60" : "bg-foreground/[0.04]",
+                      isCurrent && "wiggle ring-primary/30",
+                    )}>
+                      {unlocked ? lvl.emoji : <Lock className="h-3.5 w-3.5 text-foreground/40" />}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[9px] font-bold uppercase tracking-[0.16em] text-foreground/45">L{lvl.n}</span>
+                        {isCurrent && <span className="rounded-full bg-foreground px-1.5 py-px text-[9px] font-semibold text-background">here</span>}
+                        {unlocked && !isCurrent && <Check className="h-2.5 w-2.5 text-[oklch(0.5_0.16_155)]" strokeWidth={3.5} />}
+                      </div>
+                      <h3 className={cn("mt-0.5 font-display text-[12.5px] font-bold leading-tight tracking-[-0.01em] truncate", !unlocked && "text-foreground/55")}>
+                        {lvl.title}
+                      </h3>
+                      <p className="mt-0.5 text-[10px] font-semibold tabular-nums text-foreground/45">{lvl.xp} XP</p>
+                    </div>
                   </div>
 
                   {isNext && (
-                    <div className="relative mt-4">
-                      <div className="mb-1.5 flex justify-between text-[11px] font-medium tabular-nums text-foreground/55">
-                        <span>{xp - LEVELS[currentLevel - 1].xp} / {lvl.xp - LEVELS[currentLevel - 1].xp} XP</span>
-                        <span>{progress}%</span>
+                    <div className="relative mt-2">
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-foreground/[0.06]">
+                        <div
+                          className="h-full rounded-full transition-[width] duration-700 ease-out"
+                          style={{
+                            width: `${Math.max(4, Math.min(100, Math.round(((xp - LEVELS[currentLevel - 1].xp) / (lvl.xp - LEVELS[currentLevel - 1].xp)) * 100)))}%`,
+                            background: "linear-gradient(90deg, color-mix(in oklab, var(--surface-blush) 65%, var(--foreground) 14%), color-mix(in oklab, var(--surface-mint) 65%, var(--foreground) 12%))",
+                          }}
+                        />
                       </div>
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-foreground/[0.06]">
-                        <div className="h-full rounded-full transition-[width] duration-700 ease-out" style={{ width: `${Math.max(4, progress)}%`, background: "linear-gradient(90deg, color-mix(in oklab, var(--surface-blush) 65%, var(--foreground) 14%), color-mix(in oklab, var(--surface-mint) 65%, var(--foreground) 12%))" }} />
-                      </div>
-                      <Link to="/app" className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-semibold text-primary transition hover:gap-1.5">
-                        do today's missions <ArrowRight className="h-3.5 w-3.5" />
-                      </Link>
                     </div>
                   )}
-
-                  {!unlocked && !isNext && (
-                    <p className="relative mt-3 text-[11.5px] text-foreground/45"><Lock className="mr-1 inline h-3 w-3" />Reach {lvl.xp} XP to unlock</p>
-                  )}
                 </div>
+
+                {/* arrow into the next tile, same row */}
+                {showInlineArrow && (
+                  <div
+                    aria-hidden
+                    className={cn(
+                      "pointer-events-none absolute top-1/2 z-10 -translate-y-1/2",
+                      flowsRight ? "-right-3 sm:-right-4" : "-left-3 sm:-left-4",
+                    )}
+                  >
+                    <ArrowRight
+                      className={cn(
+                        "h-4 w-4 text-foreground/35",
+                        !flowsRight && "rotate-180",
+                      )}
+                      strokeWidth={2.25}
+                    />
+                  </div>
+                )}
+
+                {/* arrow dropping down to the next row */}
+                {showDownArrow && (
+                  <div aria-hidden className="pointer-events-none absolute -bottom-2.5 right-1/2 z-10 translate-x-1/2 sm:-bottom-3">
+                    <ArrowDown className="h-4 w-4 text-foreground/35" strokeWidth={2.25} />
+                  </div>
+                )}
               </li>
             );
           })}
         </ol>
-        </div>
+
+        {isNextCTA(xp, currentLevel) && (
+          <Link to="/app" className="mt-5 inline-flex items-center gap-1 text-[12.5px] font-semibold text-primary transition hover:gap-1.5">
+            do today's missions <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        )}
 
         {/* Footer encouragement */}
-        <div className="pastel-card bg-surface-mint mt-10 p-6 text-center">
+        <div className="pastel-card bg-surface-mint mt-6 p-5 text-center">
           <Flame className="mx-auto h-7 w-7 text-foreground/65" strokeWidth={1.75} />
           <p className="mt-2 font-display text-[16px] font-bold tracking-[-0.005em]">tiny progress still counts ✨</p>
           <p className="mt-1 text-[13px] text-foreground/65">come back tomorrow. your streak's waiting.</p>
@@ -146,6 +174,10 @@ function JourneyPage() {
       </div>
     </div>
   );
+}
+
+function isNextCTA(xp: number, currentLevel: number) {
+  return currentLevel < LEVELS.length && xp < LEVELS[currentLevel].xp;
 }
 
 function StatTile({ label, value, emoji, tint }: { label: string; value: string; emoji: string; tint: string }) {
