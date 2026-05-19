@@ -1,4 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
@@ -53,65 +54,123 @@ function Landing() {
   void loading;
   void navigate;
 
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const ctaPrimary = user ? { to: "/app" as const, label: "Create my content" } : { to: "/signup" as const, label: "Create my content — free" };
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
-      <header className="sticky top-0 z-40 bg-background/70 backdrop-blur-2xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
-        <Link to="/" className="flex items-center gap-2 font-display text-base font-semibold tracking-tight text-foreground">
+      <header
+        className={cn(
+          "sticky top-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
+          scrolled
+            ? "bg-background/55 backdrop-blur-2xl backdrop-saturate-150 border-b border-border/40 shadow-[0_1px_0_0_oklch(1_0_0/0.6)_inset,0_8px_24px_-12px_oklch(0.3_0.05_20/0.18)]"
+            : "bg-background/30 backdrop-blur-xl border-b border-transparent",
+        )}
+      >
+        {/* Whisper of warm gradient bleeding from hero */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-70"
+          style={{ background: "radial-gradient(60% 120% at 15% 0%, color-mix(in oklab, var(--surface-blush) 28%, transparent), transparent 60%), radial-gradient(45% 100% at 90% 0%, color-mix(in oklab, var(--surface-peach) 22%, transparent), transparent 65%)" }}
+        />
+      <div className={cn(
+        "relative mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-8 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
+        scrolled ? "py-2.5" : "py-4",
+      )}>
+        <Link
+          to="/"
+          className="group flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em] text-foreground"
+        >
           <span className="sr-only">Blym</span>
-          <span aria-hidden>Blym</span>
+          <span
+            aria-hidden
+            className="relative bg-[image:var(--gradient-bloom)] bg-clip-text text-transparent transition-all duration-300 group-hover:tracking-tight"
+          >
+            Blym
+          </span>
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[image:var(--gradient-warm)] shadow-[0_0_0_3px_oklch(1_0_0/0.6),0_0_12px_2px_color-mix(in_oklab,var(--surface-blush)_60%,transparent)] transition-transform duration-300 group-hover:scale-125" />
         </Link>
-        {/* Tight, balanced nav */}
-        <nav className="hidden items-center gap-1 text-sm sm:flex">
+        {/* Centred nav with refined link treatment */}
+        <nav className="hidden items-center gap-0.5 text-sm sm:flex">
           {[
             { href: "#features", label: "Features" },
             { href: "#how", label: "How it works" },
-            { href: "#features", label: "Examples" },
             { href: "#pricing", label: "Pricing" },
             { href: "#testimonials", label: "Reviews" },
           ].map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="rounded-full px-2.5 py-1.5 text-[13px] font-medium text-muted-foreground transition hover:text-foreground"
+              className="group relative rounded-full px-3.5 py-2 text-[13px] font-semibold tracking-tight text-foreground/65 transition-colors duration-300 hover:text-foreground"
             >
-              {item.label}
+              <span className="relative">
+                {item.label}
+                <span
+                  aria-hidden
+                  className="absolute -bottom-0.5 left-1/2 h-[1.5px] w-0 -translate-x-1/2 rounded-full bg-[image:var(--gradient-bloom)] transition-[width] duration-300 ease-out group-hover:w-full"
+                />
+              </span>
             </a>
           ))}
           <Link
             to="/store"
-            className="rounded-full px-2.5 py-1.5 text-[13px] font-medium text-muted-foreground transition hover:text-foreground"
+            className="group relative rounded-full px-3.5 py-2 text-[13px] font-semibold tracking-tight text-foreground/65 transition-colors duration-300 hover:text-foreground"
           >
-            Store
+            <span className="relative">
+              Store
+              <span
+                aria-hidden
+                className="absolute -bottom-0.5 left-1/2 h-[1.5px] w-0 -translate-x-1/2 rounded-full bg-[image:var(--gradient-bloom)] transition-[width] duration-300 ease-out group-hover:w-full"
+              />
+            </span>
           </Link>
         </nav>
         <div className="flex items-center gap-2">
           {user ? (
-            <Link to="/app">
+            <Link to="/app" className="group">
               <Button
                 size="lg"
-                className="rounded-full bg-secondary px-5 text-[13px] font-semibold text-foreground shadow-[var(--shadow-soft)] hover:bg-secondary/80"
+                className="relative overflow-hidden rounded-full bg-[image:var(--gradient-bloom)] px-5 text-[13px] font-bold text-primary-foreground shadow-[0_6px_20px_-6px_color-mix(in_oklab,var(--surface-blush)_80%,transparent),0_1px_0_0_oklch(1_0_0/0.4)_inset] hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-6px_color-mix(in_oklab,var(--surface-blush)_90%,transparent),0_1px_0_0_oklch(1_0_0/0.5)_inset]"
               >
-                Open studio <ArrowRight className="h-3.5 w-3.5" />
+                <span className="relative z-10 inline-flex items-center gap-1.5">
+                  Open studio
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+                <span
+                  aria-hidden
+                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+                />
               </Button>
             </Link>
           ) : (
             <>
               <Link to="/login" className="hidden sm:inline-flex">
-                <Button variant="ghost" size="sm" className="rounded-full text-[13px] text-muted-foreground hover:text-foreground">
+                <Button variant="ghost" size="sm" className="rounded-full px-3.5 text-[13px] font-semibold text-foreground/65 hover:bg-foreground/[0.04] hover:text-foreground">
                   Sign in
                 </Button>
               </Link>
-              <Link to="/signup">
+              <Link to="/signup" className="group">
                 <Button
                   size="lg"
-                  className="rounded-full bg-anchor px-5 text-[13px] font-semibold text-anchor-foreground shadow-[var(--shadow-soft)] hover:bg-anchor/90"
+                  className="relative overflow-hidden rounded-full bg-anchor px-5 text-[13px] font-bold text-anchor-foreground shadow-[0_6px_20px_-6px_oklch(0.2_0.04_280/0.45),0_1px_0_0_oklch(1_0_0/0.18)_inset] hover:-translate-y-0.5 hover:bg-anchor hover:shadow-[0_12px_28px_-6px_oklch(0.2_0.04_280/0.55),0_1px_0_0_oklch(1_0_0/0.22)_inset]"
                 >
-                  Start free <ArrowRight className="h-3.5 w-3.5" />
+                  <span className="relative z-10 inline-flex items-center gap-1.5">
+                    Start free
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </span>
+                  <span
+                    aria-hidden
+                    className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
+                  />
                 </Button>
               </Link>
             </>
