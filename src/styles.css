@@ -406,14 +406,14 @@
   .soft-card {
     background: var(--card);
     border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
-    border-radius: 1rem;
-    box-shadow: var(--shadow-xs);
-    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
-                box-shadow 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
-                border-color 300ms ease;
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--duration-base) var(--ease-soft),
+                box-shadow var(--duration-base) var(--ease-soft),
+                border-color 240ms ease;
   }
   .soft-card-hover:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: color-mix(in oklab, var(--border) 90%, transparent);
     box-shadow: var(--shadow-elegant);
   }
@@ -430,7 +430,7 @@
     overflow: hidden;
   }
   .pastel-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     border-color: color-mix(in oklab, var(--border) 55%, transparent);
     box-shadow: var(--shadow-elegant);
   }
@@ -752,12 +752,13 @@
 
   /* Page route transition — soft fade-up between pages */
   @keyframes page-enter {
-    0% { opacity: 0; transform: translateY(6px); }
+    0% { opacity: 0; transform: translateY(8px); filter: blur(2px); }
+    60% { filter: blur(0); }
     100% { opacity: 1; transform: translateY(0); }
   }
-  .page-enter { animation: page-enter 280ms cubic-bezier(0.2, 0.9, 0.3, 1.02) both; }
+  .page-enter { animation: page-enter var(--duration-page) var(--ease-soft) both; }
   @media (prefers-reduced-motion: reduce) {
-    .page-enter { animation: none !important; }
+    .page-enter { animation: none !important; filter: none !important; }
   }
 
   /* ===== Premium polish layer — global cohesion with the landing page ===== */
