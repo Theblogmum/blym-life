@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight,
   MessageSquare, TrendingUp, DollarSign, Trophy, Check,
-  Camera, Send, PenLine, Rocket,
+  Camera, Send, PenLine, Rocket, RefreshCw,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
@@ -55,18 +55,6 @@ const QUICK_TOOLS = [
   { to: "/motivation", label: "Pep talk",     hint: "a gentle hand",    icon: Heart,         glow: "oklch(0.74 0.18 15)"  },
   { to: "/insights",   label: "What worked",  hint: "follow the wins",  icon: TrendingUp,    glow: "oklch(0.7 0.18 285)"  },
   { to: "/business",   label: "Get paid",     hint: "the receipts",     icon: DollarSign,    glow: "oklch(0.68 0.16 145)" },
-];
-
-// Badge catalog — identity-driven, collectible
-const BADGES = [
-  { id: "first_post", label: "First Post", emoji: "🎬", glow: "oklch(0.75 0.16 30)", check: (d: any) => (d?.posts_last_7 ?? 0) > 0 || (d?.portfolio_recent?.length ?? 0) > 0 },
-  { id: "streak_3", label: "3-Day Streak", emoji: "🔥", glow: "oklch(0.7 0.2 45)", check: (d: any) => (d?.streak ?? 0) >= 3 },
-  { id: "streak_7", label: "Week Strong", emoji: "⚡", glow: "oklch(0.78 0.18 85)", check: (d: any) => (d?.streak ?? 0) >= 7 },
-  { id: "posted_thru_fear", label: "Posted Thru Fear", emoji: "🦋", glow: "oklch(0.72 0.15 220)", check: (d: any) => (d?.posts_last_7 ?? 0) >= 1 },
-  { id: "consistent", label: "Chaotic but Consistent", emoji: "💫", glow: "oklch(0.72 0.16 295)", check: (d: any) => (d?.posts_last_7 ?? 0) >= 3 },
-  { id: "first_pitch", label: "First Pitch", emoji: "💌", glow: "oklch(0.75 0.14 350)", check: () => false },
-  { id: "paid", label: "Got Paid", emoji: "💸", glow: "oklch(0.7 0.16 155)", check: (d: any) => (d?.income_this_month ?? 0) > 0 },
-  { id: "nap_hustler", label: "Nap-Time Hustler", emoji: "☕", glow: "oklch(0.7 0.12 60)", check: () => false },
 ];
 
 function HomePage() {
