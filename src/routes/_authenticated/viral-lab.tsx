@@ -52,7 +52,7 @@ function ViralLab() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-plum px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
               Drop the trend in here
@@ -176,7 +176,7 @@ function Section({
   surface: string;
 }) {
   return (
-    <Card className={cn("rounded-3xl border-0 p-5", surface)}>
+    <Card glow className={cn("rounded-3xl border-0 p-5", surface)}>
       <div className="text-xl">{emoji}</div>
       <p className="mt-2 font-display text-base font-black">{title}</p>
       <p className="mt-2 text-sm leading-relaxed text-foreground/80">{children}</p>

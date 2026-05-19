@@ -32,7 +32,7 @@ function Page() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-3xl px-5 py-10">
-        <Card className="rounded-3xl p-6 grid gap-4">
+        <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="space-y-1.5"><Label>Goal of media kit</Label><Input value={goal} onChange={(e) => setGoal(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. Land paid Aldi-style brand deals" /></div>
           <div className="space-y-1.5"><Label>Stats</Label><Textarea rows={3} value={stats} onChange={(e) => setStats(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. IG 18k followers, 45k avg reel views, 6% engagement" /></div>
           <div className="space-y-1.5"><Label>Rates</Label><Textarea rows={3} value={rates} onChange={(e) => setRates(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. Reel £450, story set £200, UGC £350" /></div>
@@ -45,16 +45,16 @@ function Page() {
       {m.data && (
         <section className="mx-auto max-w-3xl space-y-4 px-5 pb-12">
           <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tagline</p><p className="mt-1 font-display text-2xl font-black">{m.data.tagline}</p></Card>
-          <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">About</p><p className="mt-2 text-sm leading-relaxed">{m.data.about}</p></Card>
+          <Card glow className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">About</p><p className="mt-2 text-sm leading-relaxed">{m.data.about}</p></Card>
           <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Audience</p><p className="mt-2 text-sm leading-relaxed">{m.data.audience_summary}</p></Card>
-          <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Stats</p>
+          <Card glow className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Stats</p>
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">{m.data.stats_block.map((s, i) => <div key={i} className="rounded-2xl bg-secondary/50 p-3 text-sm font-semibold">{s}</div>)}</div></Card>
           <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Services</p>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">{m.data.services.map((s, i) => (<div key={i} className="rounded-2xl bg-secondary/40 p-3"><p className="text-sm font-bold">{s.name}</p><p className="text-xs text-muted-foreground">{s.description}</p><p className="mt-1 text-sm font-semibold text-primary">From {s.price_from}</p></div>))}</div></Card>
-          <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Testimonial prompts</p>
+          <Card glow className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Testimonial prompts</p>
             <ul className="mt-3 space-y-2 text-sm">{m.data.testimonial_prompts.map((t, i) => <li key={i} className="rounded-2xl bg-secondary/40 p-3">{t}</li>)}</ul></Card>
           <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">CTA</p><p className="mt-2 text-sm font-semibold">{m.data.cta}</p></Card>
-          <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Design brief</p><p className="mt-2 text-sm leading-relaxed">{m.data.design_brief}</p></Card>
+          <Card glow className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Design brief</p><p className="mt-2 text-sm leading-relaxed">{m.data.design_brief}</p></Card>
         </section>
       )}
     </div>

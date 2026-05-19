@@ -34,7 +34,7 @@ function Page() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="rounded-3xl p-6 grid gap-4">
+        <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1.5"><Label>Base content fee (£)</Label><Input type="number" value={base} onChange={(e) => setBase(parseInt(e.target.value || "0"))} className="rounded-xl bg-secondary/40" /></div>
             <div className="space-y-1.5"><Label>Duration (months)</Label><Input type="number" value={duration} onChange={(e) => setDuration(parseInt(e.target.value || "1"))} className="rounded-xl bg-secondary/40" /></div>
@@ -62,12 +62,12 @@ function Page() {
               <div className="rounded-2xl bg-primary/10 p-3"><div className="text-2xl font-black text-primary">£{m.data.suggested_total_gbp}</div><div className="text-[10px] font-bold uppercase tracking-wider">Total</div></div>
             </div>
           </Card>
-          <Card className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">Breakdown</h3>
+          <Card glow className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">Breakdown</h3>
             <ul className="space-y-2 text-sm">{m.data.breakdown.map((b, i) => (<li key={i} className="rounded-2xl bg-secondary/40 p-3"><div className="flex justify-between font-semibold"><span>{b.factor}</span><span>{b.multiplier}×</span></div><p className="text-xs text-foreground/70 mt-1">{b.impact}</p></li>))}</ul></Card>
           <Card className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-2">Negotiation script</h3>
             <p className="text-sm whitespace-pre-wrap leading-relaxed">{m.data.negotiation_script}</p></Card>
           {m.data.red_flags.length > 0 && (
-            <Card className="rounded-3xl p-5 bg-amber-50"><h3 className="font-display text-lg font-black mb-3 flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-amber-700" /> Red flags</h3>
+            <Card glow className="rounded-3xl p-5 bg-amber-50"><h3 className="font-display text-lg font-black mb-3 flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-amber-700" /> Red flags</h3>
               <ul className="space-y-2 text-sm">{m.data.red_flags.map((x, i) => <li key={i} className="rounded-2xl bg-amber-100 text-amber-900 p-3">{x}</li>)}</ul></Card>)}
         </section>
       )}

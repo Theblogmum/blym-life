@@ -32,7 +32,7 @@ function Page() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="rounded-3xl p-6 grid gap-4">
+        <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="space-y-1.5"><Label>Brand</Label><Input value={brand} onChange={(e) => setBrand(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. Aldi" /></div>
           <div className="space-y-1.5"><Label>Their budget (optional)</Label><Input value={budget} onChange={(e) => setBudget(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. £1500" /></div>
           <div className="space-y-1.5"><Label>Campaign goal</Label><Textarea rows={3} value={goal} onChange={(e) => setGoal(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. Drive sales of new toddler snacks" /></div>
@@ -47,7 +47,7 @@ function Page() {
           <Card className="rounded-3xl p-5"><p className="text-sm">{m.data.summary}</p></Card>
           <div className="grid gap-4 md:grid-cols-3">
             {m.data.packages.map((p, i) => (
-              <Card key={i} className="rounded-3xl p-5">
+              <Card glow key={i} className="rounded-3xl p-5">
                 <span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">{p.tier}</span>
                 <p className="mt-2 text-2xl font-black">{p.price_range}</p>
                 <ul className="mt-3 space-y-1.5 text-sm">{p.deliverables.map((d, j) => <li key={j} className="rounded-xl bg-secondary/40 p-2">{d}</li>)}</ul>
@@ -56,11 +56,11 @@ function Page() {
           </div>
           <Card className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">Timeline</h3>
             <ul className="space-y-2 text-sm">{m.data.timeline.map((x, i) => <li key={i} className="rounded-2xl bg-secondary/40 p-3">{x}</li>)}</ul></Card>
-          <Card className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">NOT included</h3>
+          <Card glow className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">NOT included</h3>
             <ul className="space-y-2 text-sm">{m.data.exclusions.map((x, i) => <li key={i} className="rounded-2xl bg-rose-50 text-rose-900 p-3">{x}</li>)}</ul></Card>
           <Card className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">Add-ons</h3>
             <ul className="space-y-2 text-sm">{m.data.add_ons.map((x, i) => <li key={i} className="rounded-2xl bg-secondary/40 p-3">{x}</li>)}</ul></Card>
-          <Card className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">Contract clauses</h3>
+          <Card glow className="rounded-3xl p-5"><h3 className="font-display text-lg font-black mb-3">Contract clauses</h3>
             <ul className="space-y-2 text-sm">{m.data.contract_clauses.map((x, i) => <li key={i} className="rounded-2xl bg-secondary/40 p-3">{x}</li>)}</ul></Card>
         </section>
       )}

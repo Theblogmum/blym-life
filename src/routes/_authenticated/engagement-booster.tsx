@@ -58,7 +58,7 @@ function EngagementBoosterPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Your post</p>
           </div>
@@ -152,7 +152,7 @@ function ListCard({
   items: string[];
 }) {
   return (
-    <Card className="rounded-3xl p-5">
+    <Card glow className="rounded-3xl p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-start gap-2">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-2xl bg-secondary text-primary">

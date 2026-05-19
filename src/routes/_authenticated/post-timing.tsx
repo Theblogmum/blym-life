@@ -55,7 +55,7 @@ function PostTimingPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Your audience</p>
           </div>
@@ -129,7 +129,7 @@ function PostTimingPage() {
             <p className="mt-2 text-sm leading-relaxed">{m.data.summary}</p>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <Sun className="h-4 w-4 text-primary" />
               <h3 className="font-display text-lg font-black">Best posting windows</h3>
@@ -161,7 +161,7 @@ function PostTimingPage() {
             </ul>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-primary" />
               <h3 className="font-display text-lg font-black">Your 7-day schedule</h3>
@@ -197,7 +197,7 @@ function PostTimingPage() {
             </ul>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <Lightbulb className="h-4 w-4 text-primary" />
               <h3 className="font-display text-lg font-black">Timing tips</h3>

@@ -33,7 +33,7 @@ function Page() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-3xl px-5 py-10">
-        <Card className="rounded-3xl p-6 grid gap-4">
+        <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="space-y-1.5"><Label>Audience</Label><Textarea rows={2} value={audience} onChange={(e) => setAudience(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. UK first-time mums in maternity leave" /></div>
           <div className="space-y-1.5"><Label>Existing skills</Label><Textarea rows={2} value={skills} onChange={(e) => setSkills(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. weaning, batch cooking, video editing" /></div>
           <div className="space-y-1.5"><Label>Price range (optional)</Label><Input value={price} onChange={(e) => setPrice(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. £9–£49" /></div>
@@ -60,7 +60,7 @@ function Page() {
               </Card>
             ))}
           </div>
-          <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Your first 5 steps</p>
+          <Card glow className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Your first 5 steps</p>
             <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm">{m.data.first_steps.map((s, i) => <li key={i}>{s}</li>)}</ol></Card>
         </section>
       )}

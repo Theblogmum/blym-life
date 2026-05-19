@@ -62,7 +62,7 @@ function ProfileAuditPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Your profile</p>
           </div>
@@ -173,7 +173,7 @@ function ProfileAuditPage() {
             </div>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <h3 className="font-display text-lg font-black">Scorecard</h3>
             <div className="mt-3 grid gap-2">
               {Object.entries(m.data.scores).map(([k, v]) => (
@@ -194,7 +194,7 @@ function ProfileAuditPage() {
                 ))}
               </ul>
             </Card>
-            <Card className="rounded-3xl p-5">
+            <Card glow className="rounded-3xl p-5">
               <div className="flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 text-amber-600" />
                 <h3 className="font-display text-lg font-black">Weaknesses</h3>
@@ -226,7 +226,7 @@ function ProfileAuditPage() {
             </ul>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-primary" />
               <h3 className="font-display text-lg font-black">30-day growth plan</h3>
