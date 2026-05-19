@@ -288,9 +288,9 @@ function HomePage() {
         </section>
 
         {/* ============ TODAY'S MISSIONS ============ */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-9">
           <div
-            className="relative overflow-hidden rounded-[1.75rem] p-5 sm:p-7"
+            className="relative overflow-hidden rounded-[1.75rem] p-4 sm:p-6"
             style={{
               background:
                 "radial-gradient(120% 100% at 0% 0%, oklch(0.95 0.07 350 / 0.55), transparent 60%), radial-gradient(120% 100% at 100% 100%, oklch(0.94 0.06 20 / 0.45), transparent 60%), oklch(0.99 0.012 350 / 0.6)",
@@ -301,10 +301,10 @@ function HomePage() {
             <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.88 0.13 350 / 0.55), transparent 65%)" }} />
             <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.9 0.1 20 / 0.5), transparent 65%)" }} />
 
-          <div className="relative mb-5 flex items-end justify-between gap-3">
+          <div className="relative mb-4 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
-              <h2 className="mt-2 font-display text-[24px] font-bold leading-tight tracking-[-0.015em] sm:text-[30px]">
+              <h2 className="mt-1.5 font-display text-[22px] font-bold leading-tight tracking-[-0.015em] sm:text-[27px]">
                 3 tiny wins. pick any.
               </h2>
             </div>
@@ -375,9 +375,9 @@ function HomePage() {
         </section>
 
         {/* ============ DAILY IDEA ============ */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-9">
           <div
-            className="relative overflow-hidden rounded-[2rem] p-7 sm:p-10"
+            className="relative overflow-hidden rounded-[2rem] p-6 sm:p-8"
             style={{
               background: "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.05 60 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.95 0.07 340 / 0.55), transparent 55%), color-mix(in oklab, var(--card) 92%, transparent)",
               boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.03), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.2)",
@@ -389,16 +389,17 @@ function HomePage() {
                   <Sparkles className="h-3 w-3" />
                 </span>
                 <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-foreground/65">
-                  another idea on the house
+                  today's idea
                 </p>
               </div>
               <Button
                 size="sm"
                 variant="ghost"
-                className="h-8 rounded-full px-3 text-[11.5px] text-foreground/70 hover:text-foreground"
+                className="h-8 w-8 rounded-full p-0 text-foreground/60 hover:text-foreground"
                 onClick={() => idea.refetch()}
+                aria-label="New idea"
               >
-                another
+                <RefreshCw className="h-3.5 w-3.5" />
               </Button>
             </div>
 
@@ -408,17 +409,17 @@ function HomePage() {
                 <Skeleton className="h-4 w-1/3" />
               </div>
             ) : idea.data ? (
-              <div className="mt-5">
-                <p className="font-display text-[22px] font-semibold leading-snug tracking-[-0.012em] text-balance sm:text-[28px]">
+              <div className="mt-4">
+                <p className="max-w-[28ch] font-display text-[22px] font-semibold leading-snug tracking-[-0.012em] text-balance sm:max-w-[32ch] sm:text-[28px]">
                   "{idea.data.idea.hook}"
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-2.5">
                   <span className="rounded-full bg-foreground/[0.08] px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
                     {idea.data.idea.format}
                   </span>
-                  <span className="text-[12.5px] text-muted-foreground">{idea.data.idea.why}</span>
+                  <span className="max-w-[44ch] text-[12.5px] text-muted-foreground">{idea.data.idea.why}</span>
                 </div>
-                <div className="mt-6">
+                <div className="mt-5">
                   <Link to="/generator">
                     <Button size="sm" className="h-10 rounded-full bg-foreground px-4 text-[13px] text-background transition-all duration-200 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-[var(--shadow-soft)]">
                       <Wand2 className="mr-1.5 h-3.5 w-3.5" /> make it a script
@@ -427,26 +428,25 @@ function HomePage() {
                 </div>
               </div>
             ) : (
-              <p className="mt-5 text-sm text-muted-foreground">hiding today — tap "another".</p>
+              <p className="mt-4 text-sm text-muted-foreground">hiding today — tap refresh.</p>
             )}
           </div>
         </section>
 
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section className="mb-8 sm:mb-12">
-          <div className="mb-6">
-            <p className="eyebrow">need a hand?</p>
-            <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
-              your toolkit.
+        <section className="mb-6 sm:mb-9">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <h2 className="font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[24px]">
+              your toolkit
             </h2>
-            <p className="mt-1.5 text-[13px] text-foreground/55">eight quiet shortcuts. pick the one that feels right.</p>
+            <p className="text-[11.5px] text-foreground/50">quiet shortcuts</p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {QUICK_TOOLS.map((t) => (
               <Link
                 key={t.label + t.to}
                 to={t.to}
-                className="group relative flex h-[152px] flex-col justify-between overflow-hidden rounded-[1.4rem] p-4 transition-all duration-500 ease-out hover:-translate-y-[4px] sm:p-5"
+                className="group relative flex h-[116px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-3.5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-4"
                 style={{
                   background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
                   backdropFilter: "blur(8px)",
@@ -462,27 +462,27 @@ function HomePage() {
                 />
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-[1.4rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  className="pointer-events-none absolute inset-0 rounded-[1.25rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${t.glow} 35%, transparent)` }}
                 />
 
                 <span
-                  className="relative grid h-11 w-11 place-items-center rounded-2xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
+                  className="relative grid h-9 w-9 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
                   style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
                 >
-                  <t.icon className="h-[18px] w-[18px]" strokeWidth={2.25} />
+                  <t.icon className="h-4 w-4" strokeWidth={2.25} />
                 </span>
 
                 <div className="relative">
-                  <p className="text-[14px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
+                  <p className="text-[13px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
                     {t.label}
                   </p>
-                  <p className="mt-1 text-[11.5px] leading-snug text-foreground/55">{t.hint}</p>
+                  <p className="mt-0.5 text-[11px] leading-snug text-foreground/55">{t.hint}</p>
                 </div>
 
                 <ArrowRight
                   aria-hidden
-                  className="absolute right-4 top-4 h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
+                  className="absolute right-3 top-3 h-3 w-3 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
                 />
               </Link>
             ))}
@@ -490,7 +490,7 @@ function HomePage() {
         </section>
 
         {/* ============ FILM THIS NOW (compact, same shape) ============ */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-9">
           <Link
             to="/film-this"
             className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
