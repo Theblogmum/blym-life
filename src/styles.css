@@ -154,8 +154,14 @@
 
   /* Shadows — diffuse, layered, premium */
   --shadow-xs: 0 1px 2px oklch(0.2 0.01 20 / 0.04);
-  --shadow-soft: 0 1px 2px oklch(0.2 0.01 20 / 0.04), 0 8px 24px -12px oklch(0.2 0.01 20 / 0.08);
-  --shadow-elegant: 0 1px 2px oklch(0.2 0.01 20 / 0.04), 0 24px 60px -28px oklch(0.2 0.01 20 / 0.18);
+  --shadow-soft:
+    0 1px 1px oklch(0.2 0.01 20 / 0.04),
+    0 2px 4px -2px oklch(0.2 0.01 20 / 0.05),
+    0 12px 28px -14px oklch(0.66 0.18 350 / 0.08);
+  --shadow-elegant:
+    0 1px 2px oklch(0.2 0.01 20 / 0.04),
+    0 6px 14px -6px oklch(0.2 0.01 20 / 0.06),
+    0 28px 64px -28px oklch(0.66 0.2 350 / 0.18);
   --shadow-glow: 0 30px 80px -30px oklch(0.66 0.24 350 / 0.5);
   /* Signature chunky "press-down" shadow — Duolingo style */
   --shadow-pop: 0 4px 0 0 oklch(0.42 0.18 295);
@@ -167,11 +173,19 @@
   /* Layered ambient depth — multiple stacked shadows for premium lift without borders */
   --shadow-layered:
     0 1px 1px oklch(0.13 0.012 20 / 0.04),
-    0 4px 10px -4px oklch(0.13 0.012 20 / 0.06),
-    0 18px 40px -18px oklch(0.13 0.012 20 / 0.14),
-    0 40px 80px -40px oklch(0.66 0.24 350 / 0.16);
+    0 3px 8px -3px oklch(0.13 0.012 20 / 0.05),
+    0 14px 32px -14px oklch(0.13 0.012 20 / 0.10),
+    0 36px 72px -32px oklch(0.66 0.24 350 / 0.18),
+    inset 0 1px 0 oklch(1 0 0 / 0.55);
   /* Soft inner highlight to give cards a subtle 'lit from above' feel */
   --shadow-inner-top: inset 0 1px 0 oklch(1 0 0 / 0.6);
+
+  /* Premium motion tokens — consistent easing & duration across the app */
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --duration-quick: 180ms;
+  --duration-base: 320ms;
+  --duration-page: 480ms;
 }
 
 .dark {
@@ -392,14 +406,14 @@
   .soft-card {
     background: var(--card);
     border: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
-    border-radius: 1rem;
-    box-shadow: var(--shadow-xs);
-    transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
-                box-shadow 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
-                border-color 300ms ease;
+    border-radius: 1.25rem;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--duration-base) var(--ease-soft),
+                box-shadow var(--duration-base) var(--ease-soft),
+                border-color 240ms ease;
   }
   .soft-card-hover:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     border-color: color-mix(in oklab, var(--border) 90%, transparent);
     box-shadow: var(--shadow-elegant);
   }
@@ -416,7 +430,7 @@
     overflow: hidden;
   }
   .pastel-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
     border-color: color-mix(in oklab, var(--border) 55%, transparent);
     box-shadow: var(--shadow-elegant);
   }
@@ -741,9 +755,9 @@
     0% { opacity: 0; transform: translateY(6px); }
     100% { opacity: 1; transform: translateY(0); }
   }
-  .page-enter { animation: page-enter 280ms cubic-bezier(0.2, 0.9, 0.3, 1.02) both; }
+  .page-enter { animation: page-enter var(--duration-page) var(--ease-soft) both; }
   @media (prefers-reduced-motion: reduce) {
-    .page-enter { animation: none !important; }
+    .page-enter { animation: none !important; filter: none !important; }
   }
 
   /* ===== Premium polish layer — global cohesion with the landing page ===== */
@@ -835,6 +849,108 @@
   @media (prefers-reduced-motion: reduce) {
     .breathe, .save-flash { animation: none !important; }
     .premium-card:hover { transform: none; }
+  }
+
+  /* ===== Editorial atmosphere — break the "form in a box" feeling ===== */
+
+  /* Section atmosphere — soft warm wash sitting behind content groups.
+     Wrap a section in this instead of dropping cards on bare background. */
+  .section-atmosphere {
+    position: relative;
+    border-radius: var(--radius-3xl);
+    padding: 1.75rem 1.25rem;
+    background:
+      radial-gradient(80% 60% at 0% 0%, color-mix(in oklab, var(--surface-blush) 30%, transparent), transparent 60%),
+      radial-gradient(70% 60% at 100% 100%, color-mix(in oklab, var(--surface-butter) 24%, transparent), transparent 60%),
+      linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card));
+    border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+    box-shadow: var(--shadow-soft);
+  }
+  @media (min-width: 640px) { .section-atmosphere { padding: 2rem 1.75rem; } }
+
+  /* Editorial label — small chip-eyebrow above section headings */
+  .editorial-label {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--surface-blush) 50%, transparent);
+    border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+    color: color-mix(in oklab, var(--primary) 80%, var(--foreground));
+    font-size: 10px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.22em;
+  }
+
+  /* Editorial display heading — for hero-style section titles */
+  .editorial-heading {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.022em;
+    font-size: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+    max-width: 22ch;
+  }
+
+  /* ===== Premium loading states ===== */
+
+  /* Soft breathing skeleton — replaces flat animate-pulse */
+  @keyframes skeleton-breathe {
+    0%, 100% { opacity: 0.6; }
+    50%      { opacity: 0.95; }
+  }
+  .skeleton-soft {
+    background: linear-gradient(110deg,
+      color-mix(in oklab, var(--surface-blush) 28%, var(--secondary)) 0%,
+      color-mix(in oklab, var(--surface-butter) 22%, var(--secondary)) 50%,
+      color-mix(in oklab, var(--surface-blush) 28%, var(--secondary)) 100%);
+    background-size: 220% 100%;
+    border-radius: 0.75rem;
+    animation: skeleton-breathe 2.4s ease-in-out infinite, gradient-drift 6s ease-in-out infinite;
+  }
+
+  /* Premium loading orb — for centered "thinking" states */
+  .loading-orb {
+    position: relative;
+    display: inline-grid; place-items: center;
+    width: 56px; height: 56px;
+    border-radius: 9999px;
+    background:
+      radial-gradient(circle at 30% 30%,
+        color-mix(in oklab, var(--primary) 55%, transparent),
+        color-mix(in oklab, var(--primary) 18%, transparent) 60%,
+        transparent 75%);
+  }
+  .loading-orb::before {
+    content: ""; position: absolute; inset: -6px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, color-mix(in oklab, var(--primary) 30%, transparent), transparent 70%);
+    filter: blur(10px);
+    animation: breathe 2.4s ease-in-out infinite;
+  }
+
+  /* ===== Hover polish primitives ===== */
+
+  /* Lift — subtle, satisfying. Apply to any card-like element. */
+  .hover-lift {
+    transition: transform var(--duration-base) var(--ease-soft),
+                box-shadow var(--duration-base) var(--ease-soft);
+  }
+  .hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-elegant); }
+
+  /* Tint — adds a warm rose halo on hover, for interactive surfaces */
+  .hover-bloom {
+    transition: box-shadow var(--duration-base) var(--ease-soft),
+                border-color var(--duration-base) var(--ease-soft);
+  }
+  .hover-bloom:hover {
+    box-shadow:
+      0 1px 2px oklch(0.2 0.01 20 / 0.04),
+      0 22px 50px -22px color-mix(in oklab, var(--primary) 40%, transparent);
+    border-color: color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-soft, .loading-orb::before { animation: none !important; }
+    .hover-lift:hover { transform: none; }
   }
 
   /* ===== Low energy / chaos mode — softer, calmer, less stimulating ===== */

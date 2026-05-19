@@ -43,9 +43,9 @@ export function PageHero({
         className="pointer-events-none absolute inset-0 opacity-60"
         style={{ background: "radial-gradient(60% 80% at 0% 0%, color-mix(in oklab, var(--surface-blush) 40%, transparent), transparent 60%), radial-gradient(40% 70% at 100% 0%, color-mix(in oklab, var(--surface-mint) 32%, transparent), transparent 60%)" }}
       />
-      <div className="relative mx-auto max-w-5xl px-5 py-7 sm:px-8 sm:py-10">
+      <div className="relative mx-auto max-w-5xl px-5 py-8 sm:px-8 sm:py-12">
         <div className="flex items-start gap-3.5 sm:gap-4">
-          <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-foreground/80 shadow-[var(--shadow-xs)]", v.chip)}>
+          <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-foreground/80 shadow-[var(--shadow-soft)] ring-1 ring-white/40", v.chip)}>
             <Icon className="h-5 w-5" strokeWidth={2} />
           </div>
           <div className="flex-1 min-w-0">
@@ -54,13 +54,13 @@ export function PageHero({
                 {eyebrow}
               </p>
             )}
-            <h1 className="mt-1.5 font-display text-[26px] font-bold leading-[1.08] tracking-[-0.02em] sm:text-[34px]">
+            <h1 className="mt-2 font-display text-[28px] font-bold leading-[1.04] tracking-[-0.022em] sm:text-[36px]" style={{ maxWidth: "26ch" }}>
               {title}
             </h1>
-            <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground/95 sm:text-[15px]">
+            <p className="mt-2.5 max-w-[60ch] text-[13.5px] leading-relaxed text-muted-foreground/95 sm:text-[15px]">
               {description}
             </p>
-            {children && <div className="mt-4">{children}</div>}
+            {children && <div className="mt-5">{children}</div>}
           </div>
         </div>
       </div>
