@@ -106,7 +106,7 @@ function QuestsPage() {
       />
       <div className="mx-auto max-w-3xl px-5 pt-4 pb-10 sm:px-8 sm:pt-5">
         {/* Progress shelf */}
-        <div className="soft-card mb-5 overflow-hidden p-4 sm:p-5">
+        <div className="soft-card card-glow-blush mb-5 overflow-hidden p-4 sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-surface-butter text-base">⚡</span>
