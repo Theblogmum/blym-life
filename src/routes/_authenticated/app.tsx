@@ -163,11 +163,11 @@ function HomePage() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(180deg, transparent, var(--background))" }}
         />
-        <div className="relative mx-auto max-w-[1200px] px-5 pb-8 pt-8 sm:px-8 lg:px-12 lg:pb-14 lg:pt-12">
-          <div className="mb-5">
+        <div className="relative mx-auto max-w-[1200px] px-5 pb-6 pt-7 sm:px-8 lg:px-12 lg:pb-10 lg:pt-10">
+          <div className="mb-4">
             <EraRibbon />
           </div>
-          <div className="grid items-start gap-6 lg:grid-cols-[1fr_460px] lg:gap-10">
+          <div className="grid items-start gap-5 lg:grid-cols-[1fr_460px] lg:gap-8">
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-4">
                 <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[48px]">
@@ -236,10 +236,10 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-[1200px] px-5 pb-16 pt-2 sm:px-8 lg:px-12">
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
-        <section className="mb-8 sm:mb-12 lg:hidden">
+        <section className="mb-6 sm:mb-9 lg:hidden">
           <div className="grid gap-4">
             <div
               className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
