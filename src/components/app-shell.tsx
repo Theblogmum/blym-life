@@ -348,7 +348,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <CommandDialog open={paletteOpen} onOpenChange={setPaletteOpen}>
         <CommandInput placeholder="Jump to a tool, page, or feature…" />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>nothing matches — try a shorter word ✨</CommandEmpty>
           {groupedForPalette.map(([heading, items]) => (
             <CommandGroup key={heading} heading={heading}>
               {items.map((i) => (

@@ -153,7 +153,7 @@ function InvoicesOverview({ invoices }: { invoices: any[] }) {
         <Link to="/invoices" className="text-xs font-semibold text-primary transition hover:opacity-80">All invoices →</Link>
       </div>
       {invoices.length === 0 ? (
-        <p className="mt-4 text-sm text-muted-foreground/85">No invoices yet. <Link to="/invoices" className="font-semibold text-primary">Create one</Link>.</p>
+        <p className="mt-4 text-sm text-muted-foreground/85">your paid era starts here. <Link to="/invoices" className="font-semibold text-primary">send your first invoice →</Link></p>
       ) : (
         <ul className="mt-4 space-y-2">
           {invoices.slice(0, 6).map(i => {

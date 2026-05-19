@@ -68,8 +68,8 @@ function Page() {
             <EmptyState
               icon={Link2}
               tone="bloom"
-              title="No links yet"
-              description="Add your first brand link on the left. Codes, commissions and categories — all in one tidy place."
+              title="your link library starts now"
+              description="add your first brand link on the left. codes, commissions, categories — one tidy little money map."
               hint="+5 XP per saved link"
             />
           )}

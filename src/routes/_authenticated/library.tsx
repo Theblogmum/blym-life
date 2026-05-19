@@ -51,8 +51,8 @@ function LibraryPage() {
             <EmptyState
               icon={ShoppingBag}
               tone="butter"
-              title="Your library is waiting"
-              description="Guides and templates you buy will land here, ready to download forever."
+              title="your shelf is waiting ✨"
+              description="guides and templates you buy land here — yours to download forever, anytime you need a nudge."
               action={
                 <a
                   href="/store"

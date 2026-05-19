@@ -105,8 +105,8 @@ function InsightsPage() {
           <EmptyState
             icon={TrendingUp}
             tone="mint"
-            title="No posts logged yet"
-            description="Tap Log post to track views, likes and the hook you used. After 3 posts we'll start spotting patterns just for you."
+            title="your first win goes here ✨"
+            description="log one post — views, likes, the hook you used. after three we start spotting patterns made just for you."
             action={
               <Button onClick={() => setOpen(true)} className="rounded-full transition hover:-translate-y-[1px]">
                 <Plus className="mr-1 h-4 w-4" /> Log your first post
