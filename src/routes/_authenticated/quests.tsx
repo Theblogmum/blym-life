@@ -145,7 +145,7 @@ function QuestsPage() {
             <span className="chip-soft">{DAILY.filter((q) => done[q.id]).length}/{DAILY.length}</span>
           </div>
           <div className="space-y-1.5">
-            {DAILY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
+            {DAILY.map((q, i) => <QuestRow key={q.id} q={q} done={!!done[q.id]} glow={i % 2 === 0} onToggle={() => toggle(q)} />)}
           </div>
         </div>
 
@@ -158,7 +158,7 @@ function QuestsPage() {
             <span className="chip-soft">{WEEKLY.filter((q) => done[q.id]).length}/{WEEKLY.length}</span>
           </div>
           <div className="space-y-1.5">
-            {WEEKLY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
+            {WEEKLY.map((q, i) => <QuestRow key={q.id} q={q} done={!!done[q.id]} glow={i === 1} onToggle={() => toggle(q)} />)}
           </div>
         </div>
 
