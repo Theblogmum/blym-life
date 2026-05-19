@@ -111,7 +111,7 @@ function BrandHubPage() {
 
           {/* DISCOVER */}
           <TabsContent value="discover" className="mt-5 space-y-4">
-            <Card className="rounded-3xl p-4">
+            <Card glow className="rounded-3xl p-4">
               <div className="flex flex-wrap items-center gap-2">
                 <div className="relative flex-1 min-w-[200px]">
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -191,7 +191,7 @@ function BrandHubPage() {
               <StatCard label="Followed up" value={counts.followed} variant="surface-peach" />
               <StatCard label="Replied" value={counts.replied} variant="surface-plum" />
             </div>
-            <Card className="mt-4 rounded-3xl p-5 text-sm text-muted-foreground">
+            <Card glow className="mt-4 rounded-3xl p-5 text-sm text-muted-foreground">
               <p className="font-semibold text-foreground">Heads up</p>
               <p className="mt-1">Pitches save as <strong>drafts</strong> here so you can copy/paste into Gmail or your email tool. Auto-send + reply tracking will switch on when Gmail integration is connected (admin setup pending).</p>
             </Card>
@@ -226,7 +226,7 @@ function BrandCard({
   brand, mine, onPitch, disabled,
 }: { brand: Brand; mine?: boolean; onPitch: () => void; disabled?: boolean }) {
   return (
-    <Card className="flex flex-col rounded-3xl p-5">
+    <Card glow className="flex flex-col rounded-3xl p-5">
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="font-display text-lg font-black leading-tight">{brand.name}</p>

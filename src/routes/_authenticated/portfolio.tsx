@@ -31,7 +31,7 @@ function Page() {
     <div>
       <PageHero icon={Briefcase} eyebrow="Show off" title="Your portfolio." description="Save the work you're proud of with metrics, ready to drop into a media kit or pitch." variant="sunrise" />
       <section className="mx-auto grid max-w-5xl gap-6 px-5 py-10 lg:grid-cols-[1fr_360px]">
-        <Card className="rounded-3xl p-6">
+        <Card glow className="rounded-3xl p-6">
           <h2 className="font-display text-xl font-black">Add piece</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5"><Label>Title</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="rounded-xl bg-secondary/40" /></div>

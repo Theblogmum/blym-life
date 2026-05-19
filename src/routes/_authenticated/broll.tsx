@@ -65,7 +65,7 @@ function BrollPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
               What are you filming?
@@ -142,7 +142,7 @@ function BrollPage() {
             </ol>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <Camera className="h-4 w-4 text-primary" />
               <h3 className="font-display text-lg font-black">Camera angles</h3>
@@ -172,7 +172,7 @@ function BrollPage() {
             </ul>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <div className="flex items-center gap-2">
               <Palette className="h-4 w-4 text-primary" />
               <h3 className="font-display text-lg font-black">Aesthetic direction</h3>

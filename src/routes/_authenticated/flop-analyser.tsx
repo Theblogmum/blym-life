@@ -72,7 +72,7 @@ function FlopAnalyserPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-plum px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
               The video that flopped
@@ -161,7 +161,7 @@ function FlopAnalyserPage() {
             <p className="mt-2 text-base leading-relaxed">{m.data.verdict}</p>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <h3 className="font-display text-lg font-black">Scorecard</h3>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               {Object.entries(m.data.scores).map(([key, value]) => (
@@ -215,7 +215,7 @@ function ScoreBar({ label, score }: { label: string; score: number }) {
 function RewriteCard({ title, body }: { title: string; body: string }) {
   const [copied, setCopied] = useState(false);
   return (
-    <Card className="rounded-3xl p-5">
+    <Card glow className="rounded-3xl p-5">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-display text-lg font-black">{title}</h3>
         <button

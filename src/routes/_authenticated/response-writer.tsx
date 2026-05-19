@@ -72,7 +72,7 @@ function ResponseWriterPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
               The brand's message
@@ -165,7 +165,7 @@ function ResponseWriterPage() {
             )}
           </Card>
 
-          <Card className="overflow-hidden rounded-3xl p-0">
+          <Card glow className="overflow-hidden rounded-3xl p-0">
             <div className="flex flex-wrap gap-1 border-b border-border/40 bg-secondary/40 p-2">
               {TABS.map((t) => {
                 const isActive = tab === t.id;

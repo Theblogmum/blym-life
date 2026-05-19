@@ -60,7 +60,7 @@ function BioOptimiserPage() {
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
-        <Card className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
+        <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Your bio</p>
           </div>
@@ -145,7 +145,7 @@ function BioOptimiserPage() {
             </div>
           </Card>
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <h3 className="font-display text-lg font-black">What's missing</h3>
             <ul className="mt-3 space-y-2 text-sm">
               {m.data.missing.map((it, i) => (
@@ -170,7 +170,7 @@ function BioOptimiserPage() {
             <BioOption key={i} style={o.style} bio={o.bio} limit={limit} />
           ))}
 
-          <Card className="rounded-3xl p-5">
+          <Card glow className="rounded-3xl p-5">
             <h3 className="font-display text-lg font-black">Searchable name field</h3>
             <p className="text-xs text-foreground/60">The IG/TikTok name field is searchable — load it with keywords.</p>
             <ul className="mt-3 space-y-2 text-sm">
@@ -206,7 +206,7 @@ function BioOption({ style, bio, limit }: { style: string; bio: string; limit: n
   const [copied, setCopied] = useState(false);
   const overLimit = bio.length > limit;
   return (
-    <Card className="rounded-3xl p-5">
+    <Card glow className="rounded-3xl p-5">
       <div className="flex items-start justify-between gap-3">
         <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider ${STYLE_TONE[style] ?? STYLE_TONE.clear}`}>
           {style}
