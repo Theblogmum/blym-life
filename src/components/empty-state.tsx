@@ -34,27 +34,36 @@ export function EmptyState({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl border border-dashed border-border/70 bg-card p-8 text-center",
+        "relative overflow-hidden rounded-3xl border border-dashed border-border/70 bg-card p-9 text-center shadow-[var(--shadow-soft)]",
         className,
       )}
     >
+      {/* Warm aspirational backing — keeps even an empty state feeling like an opportunity */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          background:
+            "radial-gradient(60% 70% at 50% 0%, color-mix(in oklab, var(--surface-blush) 40%, transparent), transparent 65%), radial-gradient(60% 70% at 100% 100%, color-mix(in oklab, var(--surface-butter) 30%, transparent), transparent 60%)",
+        }}
+      />
       <div
         aria-hidden
         className={cn(
-          "mx-auto grid h-14 w-14 place-items-center rounded-2xl ring-4 ring-offset-2 ring-offset-card",
+          "relative mx-auto grid h-14 w-14 place-items-center rounded-2xl ring-4 ring-offset-2 ring-offset-card breathe",
           t.chip,
           t.ring,
         )}
       >
         <Icon className="h-6 w-6 text-foreground/75" />
       </div>
-      <p className="mt-4 font-display text-lg font-black leading-tight">{title}</p>
+      <p className="relative mt-4 font-display text-lg font-black leading-tight">{title}</p>
       {description && (
-        <p className="mx-auto mt-1.5 max-w-sm text-sm text-muted-foreground">{description}</p>
+        <p className="relative mx-auto mt-1.5 max-w-sm text-sm text-muted-foreground">{description}</p>
       )}
-      {action && <div className="mt-5 flex justify-center">{action}</div>}
+      {action && <div className="relative mt-5 flex justify-center">{action}</div>}
       {hint && (
-        <p className="mt-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/80">
+        <p className="relative mt-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/80">
           {hint}
         </p>
       )}

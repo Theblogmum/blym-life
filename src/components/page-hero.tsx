@@ -34,7 +34,7 @@ export function PageHero({
 }) {
   const v = VARIANT_ACCENT[variant];
   return (
-    <section className="relative border-b border-border/30 bg-background">
+    <section className="page-enter relative border-b border-border/30 bg-background">
       {/* Slim accent bar */}
       <div aria-hidden className={cn("absolute inset-x-0 top-0 h-[3px] opacity-90", v.strip)} />
       {/* Whisper of pastel haze */}
