@@ -131,10 +131,6 @@ function HomePage() {
     ? Math.round(((xp.xp - xp.prevLevelXp) / Math.max(1, xp.nextLevelXp - xp.prevLevelXp)) * 100)
     : 0;
 
-  // Earned vs locked badges
-  const earned = useMemo(() => BADGES.filter((b) => b.check(d)).map((b) => b.id), [d]);
-  const locked = BADGES.filter((b) => !earned.includes(b.id));
-
   // Vibe-aware opener
   const opener =
     streak >= 3 ? `🔥 ${streak} days in a row, ${name}. you're cooked (in a good way).`
