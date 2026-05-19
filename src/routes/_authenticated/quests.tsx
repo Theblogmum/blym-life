@@ -104,9 +104,9 @@ function QuestsPage() {
         description="tick them off as you go. low energy? freeze your streak — no guilt allowed."
         variant="sunrise"
       />
-      <div className="mx-auto max-w-3xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
+      <div className="mx-auto max-w-3xl px-5 pt-4 pb-10 sm:px-8 sm:pt-5">
         {/* Progress shelf */}
-        <div className="soft-card mb-10 overflow-hidden p-5 sm:p-6">
+        <div className="soft-card mb-5 overflow-hidden p-4 sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-surface-butter text-base">⚡</span>
@@ -122,7 +122,7 @@ function QuestsPage() {
               <Snowflake className="h-3.5 w-3.5 transition-transform group-hover:rotate-45" /> freeze · {freezes} left
             </button>
           </div>
-          <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-foreground/[0.06]">
+          <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-foreground/[0.06]">
             <div
               className="h-full rounded-full transition-[width] duration-700 ease-out"
               style={{
@@ -132,37 +132,37 @@ function QuestsPage() {
             />
           </div>
           {pct === 100 && (
-            <p className="mt-3 text-[12px] font-medium text-[oklch(0.45_0.14_140)]">all 5 today — soft applause for you 🌿</p>
+            <p className="mt-2 text-[12px] font-medium text-[oklch(0.45_0.14_140)]">all 5 today — soft applause for you 🌿</p>
           )}
         </div>
 
-        <div className="section-block">
-          <div className="mb-4 flex items-baseline justify-between">
+        <div className="mb-5">
+          <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="eyebrow">daily</p>
               <h2 className="section-heading flex items-center gap-2"><Flame className="h-5 w-5 text-primary" /> today's quests</h2>
             </div>
             <span className="chip-soft">{DAILY.filter((q) => done[q.id]).length}/{DAILY.length}</span>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {DAILY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
           </div>
         </div>
 
-        <div className="section-block">
-          <div className="mb-4 flex items-baseline justify-between">
+        <div className="mb-5">
+          <div className="mb-3 flex items-baseline justify-between">
             <div>
               <p className="eyebrow">weekly</p>
               <h2 className="section-heading flex items-center gap-2"><Sparkles className="h-5 w-5 text-primary" /> this week</h2>
             </div>
             <span className="chip-soft">{WEEKLY.filter((q) => done[q.id]).length}/{WEEKLY.length}</span>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {WEEKLY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
           </div>
         </div>
 
-        <div className="mt-2">
+        <div className="mt-4">
           <NotifyOptIn />
         </div>
       </div>
@@ -191,7 +191,7 @@ function QuestRow({ q, done, onToggle }: { q: Quest; done: boolean; onToggle: ()
   return (
     <div
       className={cn(
-        "group relative flex items-center gap-3 overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
+        "group relative flex items-center gap-3 overflow-hidden rounded-xl border px-3.5 py-2.5 transition-all duration-300 sm:px-4 sm:py-3",
         done
           ? "border-[oklch(0.78_0.1_155)]/50 bg-[oklch(0.97_0.04_155)]/70"
           : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]",
