@@ -39,7 +39,6 @@ import { Route as AuthenticatedProfileAuditRouteImport } from './routes/_authent
 import { Route as AuthenticatedPostTimingRouteImport } from './routes/_authenticated/post-timing'
 import { Route as AuthenticatedPortfolioRouteImport } from './routes/_authenticated/portfolio'
 import { Route as AuthenticatedPlannerRouteImport } from './routes/_authenticated/planner'
-import { Route as AuthenticatedPinOptimiserRouteImport } from './routes/_authenticated/pin-optimiser'
 import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authenticated/passive-ideas'
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
 import { Route as AuthenticatedMilestonesRouteImport } from './routes/_authenticated/milestones'
@@ -235,12 +234,6 @@ const AuthenticatedPlannerRoute = AuthenticatedPlannerRouteImport.update({
   path: '/planner',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedPinOptimiserRoute =
-  AuthenticatedPinOptimiserRouteImport.update({
-    id: '/pin-optimiser',
-    path: '/pin-optimiser',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedPassiveIdeasRoute =
   AuthenticatedPassiveIdeasRouteImport.update({
     id: '/passive-ideas',
@@ -494,7 +487,6 @@ export interface FileRoutesByFullPath {
   '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
-  '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/portfolio': typeof AuthenticatedPortfolioRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -565,7 +557,6 @@ export interface FileRoutesByTo {
   '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
   '/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
-  '/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/planner': typeof AuthenticatedPlannerRoute
   '/portfolio': typeof AuthenticatedPortfolioRoute
   '/post-timing': typeof AuthenticatedPostTimingRoute
@@ -638,7 +629,6 @@ export interface FileRoutesById {
   '/_authenticated/milestones': typeof AuthenticatedMilestonesRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
   '/_authenticated/passive-ideas': typeof AuthenticatedPassiveIdeasRoute
-  '/_authenticated/pin-optimiser': typeof AuthenticatedPinOptimiserRoute
   '/_authenticated/planner': typeof AuthenticatedPlannerRoute
   '/_authenticated/portfolio': typeof AuthenticatedPortfolioRoute
   '/_authenticated/post-timing': typeof AuthenticatedPostTimingRoute
@@ -711,7 +701,6 @@ export interface FileRouteTypes {
     | '/milestones'
     | '/motivation'
     | '/passive-ideas'
-    | '/pin-optimiser'
     | '/planner'
     | '/portfolio'
     | '/post-timing'
@@ -782,7 +771,6 @@ export interface FileRouteTypes {
     | '/milestones'
     | '/motivation'
     | '/passive-ideas'
-    | '/pin-optimiser'
     | '/planner'
     | '/portfolio'
     | '/post-timing'
@@ -854,7 +842,6 @@ export interface FileRouteTypes {
     | '/_authenticated/milestones'
     | '/_authenticated/motivation'
     | '/_authenticated/passive-ideas'
-    | '/_authenticated/pin-optimiser'
     | '/_authenticated/planner'
     | '/_authenticated/portfolio'
     | '/_authenticated/post-timing'
@@ -1124,13 +1111,6 @@ declare module '@tanstack/react-router' {
       path: '/planner'
       fullPath: '/planner'
       preLoaderRoute: typeof AuthenticatedPlannerRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/pin-optimiser': {
-      id: '/_authenticated/pin-optimiser'
-      path: '/pin-optimiser'
-      fullPath: '/pin-optimiser'
-      preLoaderRoute: typeof AuthenticatedPinOptimiserRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/passive-ideas': {
@@ -1438,7 +1418,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedMilestonesRoute: typeof AuthenticatedMilestonesRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
   AuthenticatedPassiveIdeasRoute: typeof AuthenticatedPassiveIdeasRoute
-  AuthenticatedPinOptimiserRoute: typeof AuthenticatedPinOptimiserRoute
   AuthenticatedPlannerRoute: typeof AuthenticatedPlannerRoute
   AuthenticatedPortfolioRoute: typeof AuthenticatedPortfolioRoute
   AuthenticatedPostTimingRoute: typeof AuthenticatedPostTimingRoute
@@ -1487,7 +1466,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedMilestonesRoute: AuthenticatedMilestonesRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,
   AuthenticatedPassiveIdeasRoute: AuthenticatedPassiveIdeasRoute,
-  AuthenticatedPinOptimiserRoute: AuthenticatedPinOptimiserRoute,
   AuthenticatedPlannerRoute: AuthenticatedPlannerRoute,
   AuthenticatedPortfolioRoute: AuthenticatedPortfolioRoute,
   AuthenticatedPostTimingRoute: AuthenticatedPostTimingRoute,

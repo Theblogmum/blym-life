@@ -30,7 +30,7 @@ export const Route = createFileRoute("/_authenticated/series-builder")({
   component: SeriesBuilderPage,
 });
 
-const PLATFORMS = ["instagram", "tiktok", "youtube", "pinterest", "other"] as const;
+const PLATFORMS = ["instagram", "tiktok", "youtube", "other"] as const;
 const STORAGE_KEY = "blym:series-builder:last";
 
 type SeriesData = Awaited<ReturnType<typeof buildSeries>>;

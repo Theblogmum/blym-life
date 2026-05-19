@@ -8,7 +8,7 @@ import { TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import { saveGrowthSnapshot, listGrowthSnapshots } from "@/lib/growth-report.functions";
 
-const PLATFORMS = ["instagram", "tiktok", "youtube", "pinterest"] as const;
+const PLATFORMS = ["instagram", "tiktok", "youtube"] as const;
 
 export function GrowthSnapshotForm() {
   const save = useServerFn(saveGrowthSnapshot);

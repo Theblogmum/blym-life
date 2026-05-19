@@ -14,7 +14,6 @@ const TOOLS: Record<string, Tool> = {
   "/seo-keywords":         { emoji: "🔎", title: "SEO keywords",         sub: "be findable not invisible",              xp: 10, tint: "var(--surface-mint)" },
   "/bio-optimiser":        { emoji: "🪞", title: "fix my bio",           sub: "first impression > everything",          xp: 10, tint: "var(--surface-butter)" },
   "/post-timing":          { emoji: "⏰", title: "when to post",         sub: "stop guessing bestie",                   xp: 5,  tint: "var(--surface-sky)" },
-  "/pin-optimiser":        { emoji: "📌", title: "pinterest pin",        sub: "the long-tail traffic glow up",          xp: 10, tint: "var(--surface-blush)" },
   "/insights":             { emoji: "📊", title: "what worked",          sub: "your top hits, no math required",        xp: 5,  tint: "var(--surface-mint)" },
   "/brand-hub":            { emoji: "💼", title: "brands to pitch",      sub: "sliding in professionally",              xp: 25, tint: "var(--surface-plum)" },
   "/profile-audit":        { emoji: "🔍", title: "audit my profile",     sub: "soft truth, no roast",                   xp: 10, tint: "var(--surface-rose)" },

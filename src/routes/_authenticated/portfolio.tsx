@@ -36,7 +36,7 @@ function Page() {
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5"><Label>Title</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
             <div className="space-y-1.5"><Label>Brand</Label><Input value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>Platform</Label><Input value={form.platform} onChange={(e) => setForm({ ...form, platform: e.target.value })} className="rounded-xl bg-secondary/40" placeholder="Instagram / TikTok / Pinterest" /></div>
+            <div className="space-y-1.5"><Label>Platform</Label><Input value={form.platform} onChange={(e) => setForm({ ...form, platform: e.target.value })} className="rounded-xl bg-secondary/40" placeholder="Instagram / TikTok / YouTube" /></div>
             <div className="space-y-1.5"><Label>Posted</Label><Input type="date" value={form.posted_on} onChange={(e) => setForm({ ...form, posted_on: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
             <div className="space-y-1.5 sm:col-span-2"><Label>Link</Label><Input value={form.link} onChange={(e) => setForm({ ...form, link: e.target.value })} className="rounded-xl bg-secondary/40" placeholder="https://" /></div>
             <div className="space-y-1.5 sm:col-span-2"><Label>Image URL</Label><Input value={form.image_url} onChange={(e) => setForm({ ...form, image_url: e.target.value })} className="rounded-xl bg-secondary/40" placeholder="https://" /></div>

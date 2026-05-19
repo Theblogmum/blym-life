@@ -18,7 +18,6 @@ import {
   Lightbulb,
   Music2,
   CircleDot,
-  Image as ImageIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { generateSeoKeywords } from "@/lib/generator.functions";
@@ -29,12 +28,11 @@ export const Route = createFileRoute("/_authenticated/seo-keywords")({
   component: SeoKeywordsPage,
 });
 
-type Platform = "tiktok" | "instagram" | "pinterest";
+type Platform = "tiktok" | "instagram";
 
 const PLATFORMS: { id: Platform; label: string; icon: typeof Music2 }[] = [
   { id: "tiktok", label: "TikTok", icon: Music2 },
   { id: "instagram", label: "Instagram", icon: CircleDot },
-  { id: "pinterest", label: "Pinterest", icon: ImageIcon },
 ];
 
 const SIZE_TONE: Record<string, string> = {

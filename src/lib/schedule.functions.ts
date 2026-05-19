@@ -3,7 +3,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 import { getUserTier } from "@/lib/generator-helpers.server";
 
-const PLATFORMS = ["instagram", "tiktok", "youtube", "pinterest", "other"] as const;
+const PLATFORMS = ["instagram", "tiktok", "youtube", "other"] as const;
 
 const ScheduledPostInput = z.object({
   platform: z.enum(PLATFORMS),
@@ -11,7 +11,6 @@ const ScheduledPostInput = z.object({
   hook: z.string().max(500).optional().nullable(),
   media_url: z.string().url().max(2000).optional().nullable().or(z.literal("")),
   link_url: z.string().url().max(2000).optional().nullable().or(z.literal("")),
-  pinterest_board_id: z.string().max(100).optional().nullable(),
   scheduled_for: z.string().datetime(),
 });
 
@@ -56,7 +55,6 @@ export const createScheduledPost = createServerFn({ method: "POST" })
         hook: data.hook || null,
         media_url: data.media_url || null,
         link_url: data.link_url || null,
-        pinterest_board_id: data.pinterest_board_id || null,
         scheduled_for: data.scheduled_for,
       })
       .select()
@@ -99,15 +97,13 @@ export const markPosted = createServerFn({ method: "POST" })
       .eq("id", data.id).eq("user_id", userId);
 
     // Auto-create posts_logged row
-    if (post.platform !== "pinterest") {
-      await supabase.from("posts_logged").insert({
-        user_id: userId,
-        platform: post.platform,
-        hook: post.hook,
-        description: post.caption?.slice(0, 200) || post.hook || "Scheduled post",
-        posted_at: new Date().toISOString().slice(0, 10),
-      });
-    }
+    await supabase.from("posts_logged").insert({
+      user_id: userId,
+      platform: post.platform,
+      hook: post.hook,
+      description: post.caption?.slice(0, 200) || post.hook || "Scheduled post",
+      posted_at: new Date().toISOString().slice(0, 10),
+    });
     return { ok: true };
   });
 

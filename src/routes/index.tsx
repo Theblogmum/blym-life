@@ -291,7 +291,6 @@ function Landing() {
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">TikTok</span>
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">Instagram</span>
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">YouTube Shorts</span>
-            <span className="font-display text-base normal-case tracking-tight text-foreground/80">Pinterest</span>
           </div>
         </div>
       </section>

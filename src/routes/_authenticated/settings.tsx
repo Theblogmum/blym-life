@@ -11,7 +11,6 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { createPortalSession } from "@/utils/payments.functions";
 import { useState } from "react";
-import { PinterestConnectCard } from "@/components/pinterest-connect-card";
 import { PageHero } from "@/components/page-hero";
 
 export const Route = createFileRoute("/_authenticated/settings")({
@@ -94,8 +93,6 @@ function SettingsPage() {
           <p className="mt-1 font-medium">You have permanent Premium access. Thank you 💛</p>
         </Card>
       )}
-
-      <PinterestConnectCard />
 
       {!isActive && (
         <Card className="rounded-[1.6rem] border-0 bg-[image:var(--gradient-warm)] p-[2px] shadow-[var(--shadow-elegant)]">

@@ -23,7 +23,7 @@ const TYPES: Record<string, { emoji: string; title: string; power: string }> = {
   storyteller: { emoji: "📖", title: "The Storyteller", power: "+10% on carousel & blog ideas" },
   entertainer: { emoji: "🎬", title: "The Entertainer", power: "+10% on hook lab & viral lab" },
   teacher:     { emoji: "🧠", title: "The Teacher",     power: "+10% on SEO & series builder" },
-  aesthete:    { emoji: "🌸", title: "The Aesthete",    power: "+10% on Pinterest & b-roll" },
+  aesthete:    { emoji: "🌸", title: "The Aesthete",    power: "+10% on moodboards & b-roll" },
   hustler:     { emoji: "💼", title: "The Hustler",     power: "+10% on pitches & income" },
   softie:      { emoji: "🫶", title: "The Soft Mum Era", power: "+10% on motivation & pep talks" },
 };
