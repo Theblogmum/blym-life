@@ -374,6 +374,49 @@ function HomePage() {
           </div>
         </section>
 
+        {/* ============ FILM THIS NOW (compact, same shape) ============ */}
+        <section className="mb-6 sm:mb-9">
+          <Link
+            to="/film-this"
+            className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
+            style={{
+              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 18px 36px -20px oklch(0.66 0.24 350 / 0.5), 0 36px 72px -36px oklch(0.42 0.18 295 / 0.45)",
+            }}
+          >
+            <div aria-hidden className="absolute -right-16 -top-20 h-60 w-60 rounded-full bg-white/35 blur-[70px]" />
+            <div aria-hidden className="absolute -bottom-20 -left-12 h-48 w-48 rounded-full bg-white/20 blur-[70px]" />
+            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
+
+            <div className="relative grid gap-5 p-5 sm:p-7 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-8 lg:p-10">
+              <div className="min-w-0">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
+                  <Sparkles className="h-2.5 w-2.5" /> today's instant idea
+                </span>
+                <h2 className="mt-3 font-display text-[28px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[40px] lg:text-[48px]">
+                  Film this.
+                  <span className="italic font-serif font-normal"> Now.</span>
+                </h2>
+                <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-white/85 sm:text-[13.5px]">
+                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3 sm:justify-end">
+                <div className="hidden lg:block max-w-[160px] text-right text-[11px] leading-relaxed text-white/75">
+                  the antidote to <span className="italic">"i'll post tomorrow"</span>
+                </div>
+                <div className="relative">
+                  <div aria-hidden className="absolute inset-0 -m-2 rounded-full bg-white/20 blur-lg opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-white text-foreground shadow-[0_12px_28px_-10px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-14 sm:w-14">
+                    <Camera className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </section>
+
         {/* ============ DAILY IDEA ============ */}
         <section className="mb-6 sm:mb-9">
           <div
@@ -487,49 +530,6 @@ function HomePage() {
               </Link>
             ))}
           </div>
-        </section>
-
-        {/* ============ FILM THIS NOW (compact, same shape) ============ */}
-        <section className="mb-6 sm:mb-9">
-          <Link
-            to="/film-this"
-            className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
-            style={{
-              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
-              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 18px 36px -20px oklch(0.66 0.24 350 / 0.5), 0 36px 72px -36px oklch(0.42 0.18 295 / 0.45)",
-            }}
-          >
-            <div aria-hidden className="absolute -right-16 -top-20 h-60 w-60 rounded-full bg-white/35 blur-[70px]" />
-            <div aria-hidden className="absolute -bottom-20 -left-12 h-48 w-48 rounded-full bg-white/20 blur-[70px]" />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
-
-            <div className="relative grid gap-5 p-5 sm:p-7 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-8 lg:p-10">
-              <div className="min-w-0">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
-                  <Sparkles className="h-2.5 w-2.5" /> today's instant idea
-                </span>
-                <h2 className="mt-3 font-display text-[28px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[40px] lg:text-[48px]">
-                  Film this.
-                  <span className="italic font-serif font-normal"> Now.</span>
-                </h2>
-                <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-white/85 sm:text-[13.5px]">
-                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 sm:justify-end">
-                <div className="hidden lg:block max-w-[160px] text-right text-[11px] leading-relaxed text-white/75">
-                  the antidote to <span className="italic">"i'll post tomorrow"</span>
-                </div>
-                <div className="relative">
-                  <div aria-hidden className="absolute inset-0 -m-2 rounded-full bg-white/20 blur-lg opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-white text-foreground shadow-[0_12px_28px_-10px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-14 sm:w-14">
-                    <Camera className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
         </section>
 
         {/* ============ THIS WEEK ============ */}
