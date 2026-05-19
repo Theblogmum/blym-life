@@ -114,8 +114,8 @@ function Page() {
             <EmptyState
               icon={Receipt}
               tone="warm"
-              title="No invoices yet"
-              description="Fill the form on the left and hit Save. Your invoice will be ready to print or email in seconds."
+              title="your paid era starts here ✨"
+              description="fill the form on the left, hit save, and your first invoice is ready to email or print. tiny step, real money."
               hint="+10 XP per invoice"
             />
           )}
