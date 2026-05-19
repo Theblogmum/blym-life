@@ -81,10 +81,20 @@ function BusinessPage() {
 
 function Stat({ icon: Icon, label, value, sub }: any) {
   return (
-    <div className="soft-card soft-card-hover p-4 sm:p-5">
-      <div className="flex items-center gap-1.5 text-foreground/55"><Icon className="h-3.5 w-3.5" /><p className="text-[10px] font-bold uppercase tracking-[0.18em]">{label}</p></div>
-      <p className="mt-1.5 font-display text-[22px] font-bold leading-none tracking-[-0.015em] tabular-nums">{value}</p>
-      <p className="mt-1 text-[11.5px] text-muted-foreground/90">{sub}</p>
+    <div className="soft-card soft-card-hover relative overflow-hidden p-4 sm:p-5">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-90"
+        style={{
+          background:
+            "radial-gradient(120% 90% at 0% 0%, color-mix(in oklab, var(--surface-blush) 55%, transparent), transparent 60%), radial-gradient(90% 70% at 100% 100%, color-mix(in oklab, var(--surface-peach) 28%, transparent), transparent 65%)",
+        }}
+      />
+      <div className="relative">
+        <div className="flex items-center gap-1.5 text-foreground/55"><Icon className="h-3.5 w-3.5" /><p className="text-[10px] font-bold uppercase tracking-[0.18em]">{label}</p></div>
+        <p className="mt-1.5 font-display text-[22px] font-bold leading-none tracking-[-0.015em] tabular-nums">{value}</p>
+        <p className="mt-1 text-[11.5px] text-muted-foreground/90">{sub}</p>
+      </div>
     </div>
   );
 }
