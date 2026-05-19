@@ -215,7 +215,7 @@ function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; 
           toast.success("Copied to clipboard");
           setTimeout(() => setCopied(false), 1200);
         }}
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-foreground/[0.05] text-foreground/65 transition-all duration-300 hover:bg-foreground hover:text-background active:scale-90"
+        className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-foreground/[0.05] text-foreground/65 transition-all duration-300 hover:bg-primary/15 hover:text-primary active:scale-90"
         aria-label="Copy"
       >
         {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}

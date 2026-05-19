@@ -341,7 +341,7 @@ function HomePage() {
                           "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
                           isDone
                             ? "bg-[oklch(0.6_0.16_155)] text-white scale-105 shadow-[0_4px_14px_-4px_oklch(0.6_0.16_155/0.5)]"
-                            : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-foreground group-hover:text-background group-hover:scale-105",
+                            : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-105",
                         )}
                       >
                         {isDone ? <Check className="h-4 w-4" strokeWidth={3} /> : <m.icon className="h-4 w-4" strokeWidth={2.25} />}
@@ -464,7 +464,7 @@ function HomePage() {
                 </div>
                 <div className="mt-5">
                   <Link to="/generator">
-                    <Button size="sm" className="h-10 rounded-full bg-foreground px-4 text-[13px] text-background transition-all duration-200 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-[var(--shadow-soft)]">
+                    <Button size="sm" className="h-10 rounded-full bg-foreground px-4 text-[13px] text-background transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/85 hover:shadow-[var(--shadow-soft)]">
                       <Wand2 className="mr-1.5 h-3.5 w-3.5" /> make it a script
                     </Button>
                   </Link>

@@ -160,7 +160,7 @@ function ProductPage() {
               onClick={buy}
               disabled={loading}
               size="lg"
-              className="mt-6 h-12 w-full rounded-full bg-foreground text-background shadow-lg shadow-foreground/10 hover:bg-foreground/90"
+              className="mt-6 h-12 w-full rounded-full bg-foreground text-background shadow-lg shadow-foreground/10 hover:bg-primary/85"
             >
               {loading ? "Opening checkout…" : `Buy now · ${fmt(p.price_cents, p.currency)}`}
             </Button>

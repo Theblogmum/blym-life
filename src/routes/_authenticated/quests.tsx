@@ -207,7 +207,7 @@ function QuestRow({ q, done, onToggle }: { q: Quest; done: boolean; onToggle: ()
           "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
           done
             ? "bg-[oklch(0.6_0.16_155)] text-white scale-105 shadow-[0_4px_14px_-4px_oklch(0.6_0.16_155/0.5)]"
-            : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-foreground group-hover:text-background group-hover:scale-105",
+            : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-105",
         )}
       >
         <Check className="h-4 w-4" strokeWidth={3} />
