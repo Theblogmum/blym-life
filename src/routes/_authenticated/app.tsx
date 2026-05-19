@@ -163,10 +163,14 @@ function HomePage() {
                 </h1>
                 <TrialPill />
               </div>
-              {/* magic moment — floating encouragement sticker (mobile/tablet, under headline) */}
+              {/* one encouraging sentence — always visible, emotional anchor */}
+              <p className="mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-foreground/65 sm:text-[16px]">
+                you're closer than you think. one tiny thing today still counts.
+              </p>
+              {/* magic moment — floating encouragement sticker (mobile/tablet) */}
               <div
                 aria-hidden
-                className="sticker-bob mt-5 inline-flex select-none lg:hidden"
+                className="sticker-bob mt-4 inline-flex select-none lg:hidden"
                 style={{ ["--sticker-rot" as any]: "-6deg" }}
               >
                 <div className="rounded-full bg-white/70 px-3.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-[0_10px_30px_-12px_oklch(0.66_0.24_350/0.35)] ring-1 ring-white/60 backdrop-blur">
