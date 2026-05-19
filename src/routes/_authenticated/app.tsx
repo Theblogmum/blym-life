@@ -363,115 +363,18 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ============ FILM THIS NOW (compact, same shape) ============ */}
+        {/* ============ SMALL WIN — "you showed up" reward ============ */}
         <section className="mb-6 sm:mb-9">
-          <Link
-            to="/film-this"
-            className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
-            style={{
-              background: "linear-gradient(135deg, oklch(0.84 0.13 35) 0%, oklch(0.78 0.14 12) 28%, oklch(0.74 0.15 350) 58%, oklch(0.68 0.16 295) 100%)",
-              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.04), 0 18px 36px -20px oklch(0.66 0.24 350 / 0.5), 0 36px 72px -36px oklch(0.42 0.18 295 / 0.45)",
-            }}
-          >
-            <div aria-hidden className="absolute -right-16 -top-20 h-60 w-60 rounded-full bg-white/35 blur-[70px]" />
-            <div aria-hidden className="absolute -bottom-20 -left-12 h-48 w-48 rounded-full bg-white/20 blur-[70px]" />
-            <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,oklch(0.96_0.06_70/0.3),transparent_55%)]" />
-
-            <div className="relative grid gap-5 p-5 sm:p-7 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-8 lg:p-10">
-              <div className="min-w-0">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/22 px-2.5 py-1 text-[9.5px] font-semibold uppercase tracking-[0.22em] text-white backdrop-blur-md ring-1 ring-white/25">
-                  <Sparkles className="h-2.5 w-2.5" /> today's instant idea
-                </span>
-                <h2 className="mt-3 font-display text-[28px] font-bold leading-[0.95] tracking-[-0.028em] text-white text-balance sm:text-[40px] lg:text-[48px]">
-                  Film this.
-                  <span className="italic font-serif font-normal"> Now.</span>
-                </h2>
-                <p className="mt-3 max-w-md text-[12.5px] leading-relaxed text-white/85 sm:text-[13.5px]">
-                  one tap. a hook, a shot list, a caption — ready before you have time to overthink it.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3 sm:justify-end">
-                <div className="hidden lg:block max-w-[160px] text-right text-[11px] leading-relaxed text-white/75">
-                  the antidote to <span className="italic">"i'll post tomorrow"</span>
-                </div>
-                <div className="relative">
-                  <div aria-hidden className="absolute inset-0 -m-2 rounded-full bg-white/20 blur-lg opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
-                  <div className="relative grid h-12 w-12 place-items-center rounded-2xl bg-white text-foreground shadow-[0_12px_28px_-10px_oklch(0.2_0.01_20/0.35)] transition-all duration-500 group-hover:scale-[1.1] group-hover:-rotate-[6deg] sm:h-14 sm:w-14">
-                    <Camera className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </section>
-
-        {/* ============ DAILY IDEA ============ */}
-        <section className="mb-6 sm:mb-9">
-          <div
-            className="relative overflow-hidden rounded-[2rem] p-6 sm:p-8"
-            style={{
-              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.05 60 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.95 0.07 340 / 0.55), transparent 55%), color-mix(in oklab, var(--card) 92%, transparent)",
-              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.03), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.2)",
-            }}
-          >
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
-                  <Sparkles className="h-3 w-3" />
-                </span>
-                <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-foreground/65">
-                  today's idea
-                </p>
-              </div>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-8 w-8 rounded-full p-0 text-foreground/60 hover:text-foreground"
-                onClick={() => idea.refetch()}
-                aria-label="New idea"
-              >
-                <RefreshCw className="h-3.5 w-3.5" />
-              </Button>
-            </div>
-
-            {idea.isLoading ? (
-              <div className="mt-5 space-y-2">
-                <Skeleton className="h-6 w-3/4" />
-                <Skeleton className="h-4 w-1/3" />
-              </div>
-            ) : idea.data ? (
-              <div className="mt-4">
-                <p className="max-w-[28ch] font-display text-[22px] font-semibold leading-snug tracking-[-0.012em] text-balance sm:max-w-[32ch] sm:text-[28px]">
-                  "{idea.data.idea.hook}"
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-2.5">
-                  <span className="rounded-full bg-foreground/[0.08] px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
-                    {idea.data.idea.format}
-                  </span>
-                  <span className="max-w-[44ch] text-[12.5px] text-muted-foreground">{idea.data.idea.why}</span>
-                </div>
-                <div className="mt-5">
-                  <Link to="/generator">
-                    <Button size="sm" className="h-10 rounded-full bg-foreground px-4 text-[13px] text-background transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/85 hover:shadow-[var(--shadow-soft)]">
-                      <Wand2 className="mr-1.5 h-3.5 w-3.5" /> make it a script
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <p className="mt-4 text-sm text-muted-foreground">hiding today — tap refresh.</p>
-            )}
-          </div>
+          <ConsistencyWidget postsWeek={postsWeek} streak={streak} />
         </section>
 
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section className="mb-6 sm:mb-9">
+        <section>
           <div className="mb-4 flex items-end justify-between gap-3">
             <h2 className="font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[24px]">
-              your toolkit
+              your quick access
             </h2>
-            <p className="text-[11.5px] text-foreground/50">quiet shortcuts</p>
+            <p className="text-[11.5px] text-foreground/50">only the best</p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {QUICK_TOOLS.map((t) => (
@@ -519,11 +422,6 @@ function HomePage() {
               </Link>
             ))}
           </div>
-        </section>
-
-        {/* ============ THIS WEEK ============ */}
-        <section>
-          <ConsistencyWidget postsWeek={postsWeek} streak={streak} />
         </section>
       </div>
     </div>
