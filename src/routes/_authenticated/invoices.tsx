@@ -52,18 +52,35 @@ function Page() {
             <h2 className="font-display text-2xl font-black">{editing ? "Edit invoice" : "New invoice"}</h2>
             <Button variant="outline" size="sm" className="rounded-full" onClick={() => window.print()}><Printer className="mr-1.5 h-4 w-4" />Print/PDF</Button>
           </div>
+          {/* basics first — everything else is hidden until you ask for it */}
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div className="space-y-1.5"><Label>Number</Label><Input value={form.number} onChange={(e) => setForm({ ...form, number: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>Status</Label><Input value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} className="rounded-xl bg-secondary/40" placeholder="draft / sent / paid" /></div>
+            <div className="space-y-1.5"><Label>Invoice #</Label><Input value={form.number} onChange={(e) => setForm({ ...form, number: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
+            <div className="space-y-1.5"><Label>Brand name</Label><Input value={form.brand_name} onChange={(e) => setForm({ ...form, brand_name: e.target.value })} placeholder="who's paying you?" className="rounded-xl bg-secondary/40" /></div>
+            <div className="space-y-1.5"><Label>Brand email</Label><Input value={form.brand_email} onChange={(e) => setForm({ ...form, brand_email: e.target.value })} placeholder="where to send it" className="rounded-xl bg-secondary/40" /></div>
             <div className="space-y-1.5"><Label>Issue date</Label><Input type="date" value={form.issue_date} onChange={(e) => setForm({ ...form, issue_date: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>Due date</Label><Input type="date" value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>From (your name)</Label><Input value={form.from_name} onChange={(e) => setForm({ ...form, from_name: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>From email</Label><Input value={form.from_email} onChange={(e) => setForm({ ...form, from_email: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5 sm:col-span-2"><Label>From address</Label><Textarea rows={2} value={form.from_address} onChange={(e) => setForm({ ...form, from_address: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>Brand</Label><Input value={form.brand_name} onChange={(e) => setForm({ ...form, brand_name: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>Brand email</Label><Input value={form.brand_email} onChange={(e) => setForm({ ...form, brand_email: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5 sm:col-span-2"><Label>Brand address</Label><Textarea rows={2} value={form.brand_address} onChange={(e) => setForm({ ...form, brand_address: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
           </div>
+
+          <details className="group mt-4 rounded-2xl border border-border/60 bg-secondary/30 transition-colors open:bg-secondary/40">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors hover:bg-secondary/60">
+              <span>+ your details <span className="ml-1 text-xs font-normal text-muted-foreground">(name, email, address)</span></span>
+              <span className="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div className="grid gap-4 px-4 pb-4 sm:grid-cols-2">
+              <div className="space-y-1.5"><Label>From (your name)</Label><Input value={form.from_name} onChange={(e) => setForm({ ...form, from_name: e.target.value })} className="rounded-xl bg-card" /></div>
+              <div className="space-y-1.5"><Label>From email</Label><Input value={form.from_email} onChange={(e) => setForm({ ...form, from_email: e.target.value })} className="rounded-xl bg-card" /></div>
+              <div className="space-y-1.5 sm:col-span-2"><Label>From address</Label><Textarea rows={2} value={form.from_address} onChange={(e) => setForm({ ...form, from_address: e.target.value })} className="rounded-xl bg-card" /></div>
+            </div>
+          </details>
+
+          <details className="group mt-3 rounded-2xl border border-border/60 bg-secondary/30 transition-colors open:bg-secondary/40">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors hover:bg-secondary/60">
+              <span>+ brand address</span>
+              <span className="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div className="px-4 pb-4">
+              <Textarea rows={2} value={form.brand_address} onChange={(e) => setForm({ ...form, brand_address: e.target.value })} className="rounded-xl bg-card" placeholder="billing address" />
+            </div>
+          </details>
           <div className="mt-6">
             <Label>Items</Label>
             <div className="mt-2 space-y-2">
@@ -78,11 +95,37 @@ function Page() {
             </div>
             <Button variant="outline" size="sm" className="mt-2 rounded-full" onClick={() => setForm({ ...form, items: [...form.items, { description: "", quantity: 1, unit_price: 0 }] })}><Plus className="mr-1.5 h-4 w-4" />Add line</Button>
           </div>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div className="space-y-1.5"><Label>Currency</Label><Input value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })} className="rounded-xl bg-secondary/40" /></div>
-            <div className="space-y-1.5"><Label>Tax rate %</Label><Input type="number" value={form.tax_rate} onChange={(e) => setForm({ ...form, tax_rate: Number(e.target.value) })} className="rounded-xl bg-secondary/40" /></div>
-          </div>
-          <div className="mt-4 space-y-1.5"><Label>Notes</Label><Textarea rows={3} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="rounded-xl bg-secondary/40" placeholder="e.g. Bank details, payment terms" /></div>
+          <details className="group mt-4 rounded-2xl border border-border/60 bg-secondary/30 transition-colors open:bg-secondary/40">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors hover:bg-secondary/60">
+              <span>+ tax, currency & due date</span>
+              <span className="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div className="grid gap-4 px-4 pb-4 sm:grid-cols-3">
+              <div className="space-y-1.5"><Label>Currency</Label><Input value={form.currency} onChange={(e) => setForm({ ...form, currency: e.target.value })} className="rounded-xl bg-card" /></div>
+              <div className="space-y-1.5"><Label>Tax rate %</Label><Input type="number" value={form.tax_rate} onChange={(e) => setForm({ ...form, tax_rate: Number(e.target.value) })} className="rounded-xl bg-card" /></div>
+              <div className="space-y-1.5"><Label>Due date</Label><Input type="date" value={form.due_date} onChange={(e) => setForm({ ...form, due_date: e.target.value })} className="rounded-xl bg-card" /></div>
+            </div>
+          </details>
+
+          <details className="group mt-3 rounded-2xl border border-border/60 bg-secondary/30 transition-colors open:bg-secondary/40">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors hover:bg-secondary/60">
+              <span>+ notes & payment terms</span>
+              <span className="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div className="px-4 pb-4 space-y-1.5">
+              <Textarea rows={3} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="rounded-xl bg-card" placeholder="e.g. bank details, payment terms, thank-you note" />
+            </div>
+          </details>
+
+          <details className="group mt-3 rounded-2xl border border-border/60 bg-secondary/30 transition-colors open:bg-secondary/40">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors hover:bg-secondary/60">
+              <span>+ mark status</span>
+              <span className="text-muted-foreground transition-transform group-open:rotate-180">⌄</span>
+            </summary>
+            <div className="px-4 pb-4">
+              <Input value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} className="rounded-xl bg-card" placeholder="draft / sent / paid" />
+            </div>
+          </details>
           <div className="mt-4 rounded-2xl bg-secondary/40 p-4 text-right text-sm">
             <p>Subtotal: <strong>{form.currency} {subtotal.toFixed(2)}</strong></p>
             <p>Tax: <strong>{form.currency} {tax.toFixed(2)}</strong></p>
