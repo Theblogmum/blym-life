@@ -447,8 +447,8 @@ function OutreachTable({ pitches, onChanged }: { pitches: Pitch[]; onChanged: ()
       <EmptyState
         icon={Mail}
         tone="bloom"
-        title="No pitches yet"
-        description="Head to Discover, pick a brand and send your first pitch. Drafts, sends and follow-ups all land here."
+        title="your first yes is closer than you think"
+        description="head to discover, pick a brand, send the pitch. drafts, sends and follow-ups all land here."
         hint="+15 XP per pitch sent"
       />
     );
