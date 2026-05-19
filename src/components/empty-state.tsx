@@ -50,12 +50,19 @@ export function EmptyState({
       <div
         aria-hidden
         className={cn(
-          "relative mx-auto grid h-14 w-14 place-items-center rounded-2xl ring-4 ring-offset-2 ring-offset-card breathe",
+          "relative mx-auto grid h-14 w-14 place-items-center rounded-2xl ring-4 ring-offset-2 ring-offset-card breathe sparkle-pop",
           t.chip,
           t.ring,
         )}
       >
         <Icon className="h-6 w-6 text-foreground/75" />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -top-1 -right-1 text-[11px] leading-none opacity-80"
+          style={{ filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--primary) 40%, transparent))" }}
+        >
+          ✨
+        </span>
       </div>
       <p className="relative mt-4 font-display text-lg font-black leading-tight">{title}</p>
       {description && (
