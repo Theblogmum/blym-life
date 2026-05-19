@@ -19,7 +19,7 @@ const TYPES: Type[] = [
   { id: "storyteller", emoji: "📖", title: "The Storyteller", vibe: "long captions, soft voice, deep dives", power: "+10% on carousel & blog ideas", tint: "var(--surface-rose)" },
   { id: "entertainer", emoji: "🎬", title: "The Entertainer", vibe: "skits, trends, chaotic edits", power: "+10% on hook lab & viral lab", tint: "var(--surface-butter)" },
   { id: "teacher", emoji: "🧠", title: "The Teacher", vibe: "tips, how-tos, value bombs", power: "+10% on SEO & series builder", tint: "var(--surface-mint)" },
-  { id: "aesthete", emoji: "🌸", title: "The Aesthete", vibe: "moodboards, soft lifestyle, vibes", power: "+10% on Pinterest & b-roll", tint: "var(--surface-blush)" },
+  { id: "aesthete", emoji: "🌸", title: "The Aesthete", vibe: "moodboards, soft lifestyle, vibes", power: "+10% on moodboards & b-roll", tint: "var(--surface-blush)" },
   { id: "hustler", emoji: "💼", title: "The Hustler", vibe: "money talk, brand deals, business", power: "+10% on pitches & income", tint: "var(--surface-plum)" },
   { id: "softie", emoji: "🫶", title: "The Soft Mum Era", vibe: "real life, slow days, honesty", power: "+10% on motivation & pep talks", tint: "var(--surface-sky)" },
 ];

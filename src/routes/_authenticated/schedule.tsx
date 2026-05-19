@@ -13,7 +13,7 @@ import {
 } from "@/lib/schedule.functions";
 import { PageHero } from "@/components/page-hero";
 
-const PLATFORMS = ["instagram", "tiktok", "youtube", "pinterest", "other"] as const;
+const PLATFORMS = ["instagram", "tiktok", "youtube", "other"] as const;
 
 export const Route = createFileRoute("/_authenticated/schedule")({
   component: SchedulePage,

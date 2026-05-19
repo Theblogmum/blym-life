@@ -17,11 +17,10 @@ export const Route = createFileRoute("/_authenticated/bio-optimiser")({
   component: BioOptimiserPage,
 });
 
-type Platform = "instagram" | "tiktok" | "pinterest";
+type Platform = "instagram" | "tiktok";
 const PLATFORMS: { id: Platform; label: string; limit: number }[] = [
   { id: "instagram", label: "Instagram", limit: 150 },
   { id: "tiktok", label: "TikTok", limit: 80 },
-  { id: "pinterest", label: "Pinterest", limit: 160 },
 ];
 const STYLE_TONE: Record<string, string> = {
   clear: "bg-primary text-primary-foreground",

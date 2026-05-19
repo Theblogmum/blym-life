@@ -17,11 +17,10 @@ export const Route = createFileRoute("/_authenticated/post-timing")({
   component: PostTimingPage,
 });
 
-type Platform = "instagram" | "tiktok" | "pinterest" | "facebook";
+type Platform = "instagram" | "tiktok" | "facebook";
 const PLATFORMS: { id: Platform; label: string }[] = [
   { id: "instagram", label: "Instagram" },
   { id: "tiktok", label: "TikTok" },
-  { id: "pinterest", label: "Pinterest" },
   { id: "facebook", label: "Facebook" },
 ];
 

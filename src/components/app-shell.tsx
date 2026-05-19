@@ -76,7 +76,6 @@ const SECTIONS: Section[] = [
           { to: "/seo-keywords", label: "SEO keywords" },
           { to: "/bio-optimiser", label: "Fix my bio" },
           { to: "/post-timing", label: "When to post" },
-          { to: "/pin-optimiser", label: "Pinterest pin" },
         ],
       },
       {

@@ -3,7 +3,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { z } from "zod";
 
 const SnapshotInput = z.object({
-  platform: z.enum(["instagram", "tiktok", "youtube", "pinterest", "other"]),
+  platform: z.enum(["instagram", "tiktok", "youtube", "other"]),
   followers: z.number().int().min(0).max(100_000_000),
   notes: z.string().max(500).optional().nullable(),
 });
