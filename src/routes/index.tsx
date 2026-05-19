@@ -539,13 +539,14 @@ function PricingPlans() {
         <PriceCard
           name="Free"
           price="£0"
-          tagline="Free forever — no card needed."
+          tagline="Get a real taste. Forever. No card."
           features={[
-            "20 content ideas + scripts / month",
-            "10 caption + hook generations / month",
-            "Basic weekly content planner",
-            "Unlimited saves & favourites",
-            "Light trend inspiration feed",
+            "Daily home + 3 tiny missions a day",
+            "Levels 1–3 of your creator journey",
+            "5 AI content ideas + 3 hook lab uses / month",
+            "Browse 1,000 brands (preview of 100k+)",
+            "Daily quests, streaks & basic XP",
+            "Saved stuff library (lifetime access)",
           ]}
           cta={
             isActive
@@ -557,14 +558,15 @@ function PricingPlans() {
           name="Creator"
           price="£14.99"
           priceSuffix="/mo"
-          tagline="The sweet spot for serious creators."
+          tagline="Show up daily without the burnout."
           features={[
-            "Unlimited content ideas + scripts",
-            "Unlimited captions, hooks & CTAs",
-            "Full TikTok / Reel script studio",
-            "Weekly + monthly content calendar",
-            "Smart saves: folders + tags",
-            "Trend breakdowns + niche mode",
+            "Everything in Free, unlocked",
+            "Unlimited ideas, hooks, captions & CTAs",
+            "Film This briefs + B-roll + post timing",
+            "Full 100k+ brand directory with emails",
+            "5 brand pitches / month + rejection recovery",
+            "Weekly planner + recycler + series builder",
+            "Levels 1–7 + leagues, achievements & rewards",
           ]}
           cta={
             isActive
@@ -577,16 +579,16 @@ function PricingPlans() {
           name="Pro"
           price="£27.99"
           priceSuffix="/mo"
-          tagline="Your always-on AI growth coach."
+          tagline="Everything. Forever. The booked & busy package."
           features={[
-            "Everything in Creator",
-            "Full Viral Growth Strategy generator",
-            "Advanced AI: viral rewrites + SEO captions",
-            "Viral breakdown library + performance scoring",
-            "1-click 7-day content batching",
-            "Niche domination + repurposing engine",
-            "Personal AI growth coach (chat + critique)",
-            "Brand pitch generator + media kit + invoices",
+            "Everything in Creator — fully uncapped",
+            "Unlimited brand pitches + AI personalised outreach",
+            "Flop analyser + insights AI + viral hook lab pro",
+            "Media kit, portfolio, deliverables & usage rights",
+            "Business mode: invoices, income tracker, affiliates",
+            "Daily AI growth coach + pep talks + comeback nudges",
+            "Levels 1–10 unlocked + premium era themes",
+            "Priority access to every new feature (forever)",
           ]}
           cta={
             isActive
