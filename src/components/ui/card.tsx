@@ -3,13 +3,15 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
+  ({ className, style, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
-        "rounded-2xl border border-border/60 bg-card text-card-foreground shadow-[var(--shadow-soft)] transition-[box-shadow,transform,border-color] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] hover:shadow-[var(--shadow-elegant)] hover:border-border/80",
+        "relative rounded-2xl border border-border/60 bg-card text-card-foreground shadow-[var(--shadow-soft)] transition-[box-shadow,transform,border-color] duration-300 ease-[cubic-bezier(0.2,0.7,0.2,1)] hover:-translate-y-[1px] hover:shadow-[var(--shadow-elegant)] hover:border-border/80",
+        "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:opacity-70 before:[background:radial-gradient(120%_90%_at_0%_0%,color-mix(in_oklab,var(--surface-blush)_28%,transparent),transparent_60%),radial-gradient(90%_70%_at_100%_100%,color-mix(in_oklab,var(--surface-peach)_18%,transparent),transparent_65%)] [&>*]:relative",
         className,
       )}
+      style={style}
       {...props}
     />
   ),
