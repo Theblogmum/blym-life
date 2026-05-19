@@ -18,7 +18,6 @@ import {
   Lightbulb,
   Music2,
   CircleDot,
-  Image as ImageIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { generateSeoKeywords } from "@/lib/generator.functions";
