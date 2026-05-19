@@ -117,7 +117,7 @@ function IncomeGoalCard({ current, target, pct, onSaved }: { current: number; ta
       {target > 0 && <ProgressBar pct={pct} />}
       <div className="mt-5 flex items-end gap-2">
         <div className="flex-1"><Label className="text-xs text-muted-foreground/80">Set goal (£)</Label><Input type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="2000" className="soft-input mt-1" /></div>
-        <Button className="rounded-full" onClick={() => m.mutate()} disabled={m.isPending}>Save</Button>
+        <Button className="rounded-full bg-primary/85 hover:bg-primary/90" onClick={() => m.mutate()} disabled={m.isPending}>Save</Button>
       </div>
       <Link to="/income-tracker" className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-primary transition hover:gap-1.5">Open income tracker <ArrowRight className="h-3 w-3" /></Link>
     </div>
@@ -138,7 +138,7 @@ function OutreachGoalCard({ done, target, pct, onSaved }: { done: number; target
       {target > 0 && <ProgressBar pct={pct} />}
       <div className="mt-5 flex items-end gap-2">
         <div className="flex-1"><Label className="text-xs text-muted-foreground/80">Pitches per month</Label><Input type="number" value={val} onChange={e => setVal(e.target.value)} placeholder="20" className="soft-input mt-1" /></div>
-        <Button className="rounded-full" onClick={() => m.mutate()} disabled={m.isPending}>Save</Button>
+        <Button className="rounded-full bg-primary/85 hover:bg-primary/90" onClick={() => m.mutate()} disabled={m.isPending}>Save</Button>
       </div>
       <p className="mt-3 text-xs text-muted-foreground/80">Counts completed follow-ups. Add new ones from your Home dashboard.</p>
     </div>
@@ -192,14 +192,19 @@ function TaxCard({ rate, reminders, onChanged }: { rate: number; reminders: any[
       <span className="editorial-label"><Calculator className="h-3 w-3" /> Tax reminders</span>
       <div className="mt-4 flex items-end gap-2">
         <div className="w-32"><Label className="text-xs text-muted-foreground/80">Set-aside %</Label><Input type="number" value={r} onChange={e => setR(e.target.value)} placeholder="20" className="soft-input mt-1" /></div>
-        <Button variant="outline" className="rounded-full" onClick={() => rateMut.mutate()} disabled={rateMut.isPending}>Save rate</Button>
+        <Button
+          variant="outline"
+          className="relative rounded-full border-primary/40 bg-[image:radial-gradient(120%_140%_at_0%_0%,color-mix(in_oklab,var(--surface-blush)_70%,transparent),transparent_60%),radial-gradient(120%_140%_at_100%_100%,color-mix(in_oklab,var(--surface-peach)_55%,transparent),transparent_65%)] text-foreground shadow-[0_6px_24px_-10px_color-mix(in_oklab,var(--primary)_45%,transparent)] hover:border-primary/55"
+          onClick={() => rateMut.mutate()}
+          disabled={rateMut.isPending}
+        >Save rate</Button>
       </div>
 
       <div className="mt-4 grid gap-2 sm:grid-cols-[1fr_140px_120px_auto]">
         <Input placeholder="Title (e.g. Self assessment)" value={title} onChange={e => setTitle(e.target.value)} className="soft-input" />
         <Input type="date" value={due} onChange={e => setDue(e.target.value)} className="soft-input" />
         <Input type="number" placeholder="£ amount" value={amount} onChange={e => setAmount(e.target.value)} className="soft-input" />
-        <Button className="rounded-full" onClick={() => addMut.mutate()} disabled={!title || !due || addMut.isPending}><Plus className="h-4 w-4" /></Button>
+        <Button className="rounded-full bg-primary/85 hover:bg-primary/90" onClick={() => addMut.mutate()} disabled={!title || !due || addMut.isPending}><Plus className="h-4 w-4" /></Button>
       </div>
 
       {reminders.length > 0 && (
@@ -242,7 +247,7 @@ function ClientsCard({ clients, onChanged }: { clients: any[]; onChanged: () => 
     <div className="premium-card mt-6 p-5 sm:p-6">
       <div className="flex items-center justify-between">
         <span className="editorial-label"><Users className="h-3 w-3" /> Clients</span>
-        <Button size="sm" className="rounded-full" onClick={() => setOpen(o => !o)}>{open ? "Cancel" : <><Plus className="mr-1 h-4 w-4" /> Add client</>}</Button>
+        <Button size="sm" className="rounded-full bg-primary/85 hover:bg-primary/90" onClick={() => setOpen(o => !o)}>{open ? "Cancel" : <><Plus className="mr-1 h-4 w-4" /> Add client</>}</Button>
       </div>
 
       {open && (
@@ -254,7 +259,7 @@ function ClientsCard({ clients, onChanged }: { clients: any[]; onChanged: () => 
             <option value="lead">Lead</option><option value="active">Active</option><option value="past">Past</option>
           </select>
           <Textarea className="soft-input sm:col-span-2" placeholder="Notes (rates, contact rhythm, gifting…)" rows={2} value={notes} onChange={e => setNotes(e.target.value)} />
-          <Button className="rounded-full sm:col-span-2" onClick={() => m.mutate()} disabled={!name || m.isPending}>Save client</Button>
+          <Button className="rounded-full bg-primary/85 hover:bg-primary/90 sm:col-span-2" onClick={() => m.mutate()} disabled={!name || m.isPending}>Save client</Button>
         </div>
       )}
 
