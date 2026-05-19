@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress";
 import {
   Sparkles, Flame, Wand2, Calendar, Heart, ArrowRight,
   MessageSquare, TrendingUp, DollarSign, Trophy, Check,
-  Camera, Send, PenLine, Rocket,
+  Camera, Send, PenLine, Rocket, RefreshCw,
 } from "lucide-react";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
@@ -55,18 +55,6 @@ const QUICK_TOOLS = [
   { to: "/motivation", label: "Pep talk",     hint: "a gentle hand",    icon: Heart,         glow: "oklch(0.74 0.18 15)"  },
   { to: "/insights",   label: "What worked",  hint: "follow the wins",  icon: TrendingUp,    glow: "oklch(0.7 0.18 285)"  },
   { to: "/business",   label: "Get paid",     hint: "the receipts",     icon: DollarSign,    glow: "oklch(0.68 0.16 145)" },
-];
-
-// Badge catalog — identity-driven, collectible
-const BADGES = [
-  { id: "first_post", label: "First Post", emoji: "🎬", glow: "oklch(0.75 0.16 30)", check: (d: any) => (d?.posts_last_7 ?? 0) > 0 || (d?.portfolio_recent?.length ?? 0) > 0 },
-  { id: "streak_3", label: "3-Day Streak", emoji: "🔥", glow: "oklch(0.7 0.2 45)", check: (d: any) => (d?.streak ?? 0) >= 3 },
-  { id: "streak_7", label: "Week Strong", emoji: "⚡", glow: "oklch(0.78 0.18 85)", check: (d: any) => (d?.streak ?? 0) >= 7 },
-  { id: "posted_thru_fear", label: "Posted Thru Fear", emoji: "🦋", glow: "oklch(0.72 0.15 220)", check: (d: any) => (d?.posts_last_7 ?? 0) >= 1 },
-  { id: "consistent", label: "Chaotic but Consistent", emoji: "💫", glow: "oklch(0.72 0.16 295)", check: (d: any) => (d?.posts_last_7 ?? 0) >= 3 },
-  { id: "first_pitch", label: "First Pitch", emoji: "💌", glow: "oklch(0.75 0.14 350)", check: () => false },
-  { id: "paid", label: "Got Paid", emoji: "💸", glow: "oklch(0.7 0.16 155)", check: (d: any) => (d?.income_this_month ?? 0) > 0 },
-  { id: "nap_hustler", label: "Nap-Time Hustler", emoji: "☕", glow: "oklch(0.7 0.12 60)", check: () => false },
 ];
 
 function HomePage() {
@@ -143,10 +131,6 @@ function HomePage() {
     ? Math.round(((xp.xp - xp.prevLevelXp) / Math.max(1, xp.nextLevelXp - xp.prevLevelXp)) * 100)
     : 0;
 
-  // Earned vs locked badges
-  const earned = useMemo(() => BADGES.filter((b) => b.check(d)).map((b) => b.id), [d]);
-  const locked = BADGES.filter((b) => !earned.includes(b.id));
-
   // Vibe-aware opener
   const opener =
     streak >= 3 ? `🔥 ${streak} days in a row, ${name}. you're cooked (in a good way).`
@@ -179,11 +163,11 @@ function HomePage() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(180deg, transparent, var(--background))" }}
         />
-        <div className="relative mx-auto max-w-[1200px] px-5 pb-8 pt-8 sm:px-8 lg:px-12 lg:pb-14 lg:pt-12">
-          <div className="mb-5">
+        <div className="relative mx-auto max-w-[1200px] px-5 pb-6 pt-7 sm:px-8 lg:px-12 lg:pb-10 lg:pt-10">
+          <div className="mb-4">
             <EraRibbon />
           </div>
-          <div className="grid items-start gap-6 lg:grid-cols-[1fr_460px] lg:gap-10">
+          <div className="grid items-start gap-5 lg:grid-cols-[1fr_460px] lg:gap-8">
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-4">
                 <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[48px]">
@@ -252,76 +236,10 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pb-24 pt-4 sm:px-8 lg:px-12">
-
-        {/* ============ BADGES SHELF (compact, directly under greeting) ============ */}
-        <section className="mb-6 sm:mb-9">
-          <div className="mb-4 flex items-end justify-between">
-            <div>
-              <p className="eyebrow">badges</p>
-              <h2 className="mt-1.5 font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[25px]">
-                you, collected.
-              </h2>
-              <p className="mt-1 text-[11.5px] text-foreground/55">little proofs of who you're becoming.</p>
-            </div>
-            <span className="text-[11px] font-medium tabular-nums text-foreground/60">
-              {earned.length}/{BADGES.length}
-            </span>
-          </div>
-          <div className="-mx-5 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8">
-            <ul className="flex gap-3">
-              {BADGES.map((b) => {
-                const got = earned.includes(b.id);
-                return (
-                  <li key={b.id} className="shrink-0">
-                    <div
-                      className={cn(
-                        "group/badge relative flex h-[135px] w-[114px] flex-col items-center justify-center gap-2 overflow-hidden rounded-[1.3rem] p-2.5 text-center transition-all duration-500",
-                        got
-                          ? "shimmer-soft bg-white/75 backdrop-blur-sm shadow-[0_1px_2px_oklch(0.13_0.012_20/0.05),0_12px_26px_-14px_var(--badge-glow,oklch(0.7_0.15_280/0.45))] ring-1 ring-white/60 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_oklch(0.13_0.012_20/0.06),0_24px_48px_-16px_var(--badge-glow,oklch(0.7_0.15_280/0.75))]"
-                          : "bg-foreground/[0.025] ring-1 ring-foreground/[0.06] hover:bg-foreground/[0.04]",
-                      )}
-                      style={got ? ({ ["--badge-glow" as any]: b.glow, ["--shimmer-delay" as any]: `${(b.id.length % 5) * 0.6}s` } as React.CSSProperties) : undefined}
-                    >
-                      {got && (
-                        <>
-                          <div
-                            aria-hidden
-                            className="pointer-events-none absolute inset-0 opacity-70 transition-opacity duration-500 group-hover/badge:opacity-100"
-                            style={{ background: `radial-gradient(circle at 50% 30%, color-mix(in oklab, ${b.glow} 32%, transparent), transparent 68%)` }}
-                          />
-                          <div
-                            aria-hidden
-                            className="pointer-events-none absolute -top-7 left-1/2 h-14 w-14 -translate-x-1/2 rounded-full opacity-30 blur-2xl transition-all duration-700 group-hover/badge:opacity-95 group-hover/badge:scale-110"
-                            style={{ background: b.glow }}
-                          />
-                        </>
-                      )}
-                      <span className={cn(
-                        "relative text-[36px] leading-none transition-transform duration-500",
-                        got ? "drop-shadow-[0_2px_7px_color-mix(in_oklab,var(--badge-glow,transparent)_50%,transparent)] group-hover/badge:scale-[1.15] group-hover/badge:-rotate-[6deg]" : "opacity-35 saturate-0 grayscale",
-                      )}>
-                        {b.emoji}
-                      </span>
-                      <span className={cn(
-                        "relative px-0.5 text-[13px] font-semibold leading-tight tracking-[-0.005em]",
-                        got ? "text-foreground" : "text-foreground/45",
-                      )}>
-                        {b.label}
-                      </span>
-                      {!got && (
-                        <span className="relative text-[10px] font-medium uppercase tracking-[0.18em] text-foreground/30">soon</span>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </section>
+      <div className="relative mx-auto max-w-[1200px] px-5 pb-16 pt-2 sm:px-8 lg:px-12">
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
-        <section className="mb-8 sm:mb-12 lg:hidden">
+        <section className="mb-6 sm:mb-9 lg:hidden">
           <div className="grid gap-4">
             <div
               className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
@@ -370,9 +288,9 @@ function HomePage() {
         </section>
 
         {/* ============ TODAY'S MISSIONS ============ */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-9">
           <div
-            className="relative overflow-hidden rounded-[1.75rem] p-5 sm:p-7"
+            className="relative overflow-hidden rounded-[1.75rem] p-4 sm:p-6"
             style={{
               background:
                 "radial-gradient(120% 100% at 0% 0%, oklch(0.95 0.07 350 / 0.55), transparent 60%), radial-gradient(120% 100% at 100% 100%, oklch(0.94 0.06 20 / 0.45), transparent 60%), oklch(0.99 0.012 350 / 0.6)",
@@ -383,10 +301,10 @@ function HomePage() {
             <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-50 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.88 0.13 350 / 0.55), transparent 65%)" }} />
             <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-12 h-52 w-52 rounded-full opacity-40 blur-3xl" style={{ background: "radial-gradient(circle, oklch(0.9 0.1 20 / 0.5), transparent 65%)" }} />
 
-          <div className="relative mb-5 flex items-end justify-between gap-3">
+          <div className="relative mb-4 flex items-end justify-between gap-3">
             <div>
               <p className="eyebrow">today's missions</p>
-              <h2 className="mt-2 font-display text-[24px] font-bold leading-tight tracking-[-0.015em] sm:text-[30px]">
+              <h2 className="mt-1.5 font-display text-[22px] font-bold leading-tight tracking-[-0.015em] sm:text-[27px]">
                 3 tiny wins. pick any.
               </h2>
             </div>
@@ -456,123 +374,8 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ============ DAILY IDEA ============ */}
-        <section className="mb-8 sm:mb-12">
-          <div
-            className="relative overflow-hidden rounded-[2rem] p-7 sm:p-10"
-            style={{
-              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.05 60 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.95 0.07 340 / 0.55), transparent 55%), color-mix(in oklab, var(--card) 92%, transparent)",
-              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.03), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.2)",
-            }}
-          >
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5">
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
-                  <Sparkles className="h-3 w-3" />
-                </span>
-                <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-foreground/65">
-                  another idea on the house
-                </p>
-              </div>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="h-8 rounded-full px-3 text-[11.5px] text-foreground/70 hover:text-foreground"
-                onClick={() => idea.refetch()}
-              >
-                another
-              </Button>
-            </div>
-
-            {idea.isLoading ? (
-              <div className="mt-5 space-y-2">
-                <Skeleton className="h-6 w-3/4" />
-                <Skeleton className="h-4 w-1/3" />
-              </div>
-            ) : idea.data ? (
-              <div className="mt-5">
-                <p className="font-display text-[22px] font-semibold leading-snug tracking-[-0.012em] text-balance sm:text-[28px]">
-                  "{idea.data.idea.hook}"
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-2.5">
-                  <span className="rounded-full bg-foreground/[0.08] px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
-                    {idea.data.idea.format}
-                  </span>
-                  <span className="text-[12.5px] text-muted-foreground">{idea.data.idea.why}</span>
-                </div>
-                <div className="mt-6">
-                  <Link to="/generator">
-                    <Button size="sm" className="h-10 rounded-full bg-foreground px-4 text-[13px] text-background transition-all duration-200 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-[var(--shadow-soft)]">
-                      <Wand2 className="mr-1.5 h-3.5 w-3.5" /> make it a script
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <p className="mt-5 text-sm text-muted-foreground">hiding today — tap "another".</p>
-            )}
-          </div>
-        </section>
-
-        {/* ============ QUICK TOOLS — premium glass grid ============ */}
-        <section className="mb-8 sm:mb-12">
-          <div className="mb-6">
-            <p className="eyebrow">need a hand?</p>
-            <h2 className="mt-2 font-display text-[28px] font-bold leading-tight tracking-[-0.018em] sm:text-[36px]">
-              your toolkit.
-            </h2>
-            <p className="mt-1.5 text-[13px] text-foreground/55">eight quiet shortcuts. pick the one that feels right.</p>
-          </div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-            {QUICK_TOOLS.map((t) => (
-              <Link
-                key={t.label + t.to}
-                to={t.to}
-                className="group relative flex h-[152px] flex-col justify-between overflow-hidden rounded-[1.4rem] p-4 transition-all duration-500 ease-out hover:-translate-y-[4px] sm:p-5"
-                style={{
-                  background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
-                  backdropFilter: "blur(8px)",
-                  boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 12px 28px -16px oklch(0.13 0.012 20 / 0.18)",
-                  ["--tool-glow" as any]: t.glow,
-                }}
-              >
-                {/* hover wash in the tool's signature color */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-12 left-1/2 h-32 w-40 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
-                  style={{ background: t.glow }}
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 rounded-[1.4rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${t.glow} 35%, transparent)` }}
-                />
-
-                <span
-                  className="relative grid h-11 w-11 place-items-center rounded-2xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
-                  style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
-                >
-                  <t.icon className="h-[18px] w-[18px]" strokeWidth={2.25} />
-                </span>
-
-                <div className="relative">
-                  <p className="text-[14px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
-                    {t.label}
-                  </p>
-                  <p className="mt-1 text-[11.5px] leading-snug text-foreground/55">{t.hint}</p>
-                </div>
-
-                <ArrowRight
-                  aria-hidden
-                  className="absolute right-4 top-4 h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
-                />
-              </Link>
-            ))}
-          </div>
-        </section>
-
         {/* ============ FILM THIS NOW (compact, same shape) ============ */}
-        <section className="mb-8 sm:mb-12">
+        <section className="mb-6 sm:mb-9">
           <Link
             to="/film-this"
             className="group relative block overflow-hidden rounded-[1.75rem] transition-all duration-500 hover:-translate-y-1"
@@ -612,6 +415,121 @@ function HomePage() {
               </div>
             </div>
           </Link>
+        </section>
+
+        {/* ============ DAILY IDEA ============ */}
+        <section className="mb-6 sm:mb-9">
+          <div
+            className="relative overflow-hidden rounded-[2rem] p-6 sm:p-8"
+            style={{
+              background: "radial-gradient(120% 80% at 0% 0%, oklch(0.97 0.05 60 / 0.7), transparent 55%), radial-gradient(120% 80% at 100% 100%, oklch(0.95 0.07 340 / 0.55), transparent 55%), color-mix(in oklab, var(--card) 92%, transparent)",
+              boxShadow: "0 1px 1px oklch(0.13 0.012 20 / 0.03), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.2)",
+            }}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2.5">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-[image:var(--gradient-warm)] text-primary-foreground shadow-[var(--shadow-soft)]">
+                  <Sparkles className="h-3 w-3" />
+                </span>
+                <p className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-foreground/65">
+                  today's idea
+                </p>
+              </div>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="h-8 w-8 rounded-full p-0 text-foreground/60 hover:text-foreground"
+                onClick={() => idea.refetch()}
+                aria-label="New idea"
+              >
+                <RefreshCw className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+
+            {idea.isLoading ? (
+              <div className="mt-5 space-y-2">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/3" />
+              </div>
+            ) : idea.data ? (
+              <div className="mt-4">
+                <p className="max-w-[28ch] font-display text-[22px] font-semibold leading-snug tracking-[-0.012em] text-balance sm:max-w-[32ch] sm:text-[28px]">
+                  "{idea.data.idea.hook}"
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-2.5">
+                  <span className="rounded-full bg-foreground/[0.08] px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.14em] text-foreground/70">
+                    {idea.data.idea.format}
+                  </span>
+                  <span className="max-w-[44ch] text-[12.5px] text-muted-foreground">{idea.data.idea.why}</span>
+                </div>
+                <div className="mt-5">
+                  <Link to="/generator">
+                    <Button size="sm" className="h-10 rounded-full bg-foreground px-4 text-[13px] text-background transition-all duration-200 hover:-translate-y-0.5 hover:bg-foreground/90 hover:shadow-[var(--shadow-soft)]">
+                      <Wand2 className="mr-1.5 h-3.5 w-3.5" /> make it a script
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-4 text-sm text-muted-foreground">hiding today — tap refresh.</p>
+            )}
+          </div>
+        </section>
+
+        {/* ============ QUICK TOOLS — premium glass grid ============ */}
+        <section className="mb-6 sm:mb-9">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <h2 className="font-display text-[20px] font-bold leading-tight tracking-[-0.018em] sm:text-[24px]">
+              your toolkit
+            </h2>
+            <p className="text-[11.5px] text-foreground/50">quiet shortcuts</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {QUICK_TOOLS.map((t) => (
+              <Link
+                key={t.label + t.to}
+                to={t.to}
+                className="group relative flex h-[116px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-3.5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-4"
+                style={{
+                  background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
+                  backdropFilter: "blur(8px)",
+                  boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 12px 28px -16px oklch(0.13 0.012 20 / 0.18)",
+                  ["--tool-glow" as any]: t.glow,
+                }}
+              >
+                {/* hover wash in the tool's signature color */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-12 left-1/2 h-32 w-40 -translate-x-1/2 rounded-full opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-70"
+                  style={{ background: t.glow }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 rounded-[1.25rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{ boxShadow: `inset 0 0 0 1px color-mix(in oklab, ${t.glow} 35%, transparent)` }}
+                />
+
+                <span
+                  className="relative grid h-9 w-9 place-items-center rounded-xl text-white shadow-[0_6px_16px_-6px_var(--tool-glow)] transition-all duration-500 ease-out group-hover:scale-110 group-hover:-rotate-[6deg]"
+                  style={{ background: `linear-gradient(140deg, ${t.glow}, color-mix(in oklab, ${t.glow} 70%, oklch(0.4 0.18 295)))` }}
+                >
+                  <t.icon className="h-4 w-4" strokeWidth={2.25} />
+                </span>
+
+                <div className="relative">
+                  <p className="text-[13px] font-semibold leading-tight tracking-[-0.008em] text-foreground/90">
+                    {t.label}
+                  </p>
+                  <p className="mt-0.5 text-[11px] leading-snug text-foreground/55">{t.hint}</p>
+                </div>
+
+                <ArrowRight
+                  aria-hidden
+                  className="absolute right-3 top-3 h-3 w-3 -translate-x-1 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-60"
+                />
+              </Link>
+            ))}
+          </div>
         </section>
 
         {/* ============ THIS WEEK ============ */}
