@@ -170,7 +170,7 @@ function QuestsPage() {
   );
 }
 
-function QuestRow({ q, done, onToggle }: { q: Quest; done: boolean; onToggle: () => void }) {
+function QuestRow({ q, done, glow, onToggle }: { q: Quest; done: boolean; glow?: boolean; onToggle: () => void }) {
   const Inner = (
     <div className="flex items-center gap-3.5 flex-1 min-w-0">
       <div className={cn(
