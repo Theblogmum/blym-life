@@ -752,8 +752,7 @@
 
   /* Page route transition — soft fade-up between pages */
   @keyframes page-enter {
-    0% { opacity: 0; transform: translateY(8px); filter: blur(2px); }
-    60% { filter: blur(0); }
+    0% { opacity: 0; transform: translateY(6px); }
     100% { opacity: 1; transform: translateY(0); }
   }
   .page-enter { animation: page-enter var(--duration-page) var(--ease-soft) both; }
