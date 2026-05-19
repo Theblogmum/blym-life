@@ -366,11 +366,6 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ============ SMALL WIN — "you showed up" reward ============ */}
-        <section className="mb-6 sm:mb-9">
-          <ConsistencyWidget postsWeek={postsWeek} streak={streak} />
-        </section>
-
         {/* ============ QUICK TOOLS — premium glass grid ============ */}
         <section>
           <div className="mb-4 flex items-end justify-between gap-3">
@@ -425,6 +420,11 @@ function HomePage() {
               </Link>
             ))}
           </div>
+        </section>
+
+        {/* ============ SMALL WIN — "you showed up" reward (moved to bottom) ============ */}
+        <section className="mt-6 sm:mt-9">
+          <ConsistencyWidget postsWeek={postsWeek} streak={streak} />
         </section>
       </div>
     </div>
