@@ -106,7 +106,7 @@ function QuestsPage() {
       />
       <div className="mx-auto max-w-3xl px-5 pt-4 pb-10 sm:px-8 sm:pt-5">
         {/* Progress shelf */}
-        <div className="soft-card card-glow-blush mb-5 overflow-hidden p-4 sm:p-5">
+        <div className="soft-card mb-5 overflow-hidden p-4 sm:p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-surface-butter text-base">⚡</span>
@@ -145,7 +145,7 @@ function QuestsPage() {
             <span className="chip-soft">{DAILY.filter((q) => done[q.id]).length}/{DAILY.length}</span>
           </div>
           <div className="space-y-1.5">
-            {DAILY.map((q, i) => <QuestRow key={q.id} q={q} done={!!done[q.id]} glow={i % 2 === 0} onToggle={() => toggle(q)} />)}
+            {DAILY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
           </div>
         </div>
 
@@ -158,7 +158,7 @@ function QuestsPage() {
             <span className="chip-soft">{WEEKLY.filter((q) => done[q.id]).length}/{WEEKLY.length}</span>
           </div>
           <div className="space-y-1.5">
-            {WEEKLY.map((q, i) => <QuestRow key={q.id} q={q} done={!!done[q.id]} glow={i === 1} onToggle={() => toggle(q)} />)}
+            {WEEKLY.map((q) => <QuestRow key={q.id} q={q} done={!!done[q.id]} onToggle={() => toggle(q)} />)}
           </div>
         </div>
 
@@ -170,7 +170,7 @@ function QuestsPage() {
   );
 }
 
-function QuestRow({ q, done, glow, onToggle }: { q: Quest; done: boolean; glow?: boolean; onToggle: () => void }) {
+function QuestRow({ q, done, onToggle }: { q: Quest; done: boolean; onToggle: () => void }) {
   const Inner = (
     <div className="flex items-center gap-3.5 flex-1 min-w-0">
       <div className={cn(
@@ -195,7 +195,6 @@ function QuestRow({ q, done, glow, onToggle }: { q: Quest; done: boolean; glow?:
         done
           ? "border-[oklch(0.78_0.1_155)]/50 bg-[oklch(0.97_0.04_155)]/70"
           : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]",
-        glow && "card-glow-blush",
       )}
       style={done ? { background: `color-mix(in oklab, ${q.tint} 35%, var(--card))` } : undefined}
     >
