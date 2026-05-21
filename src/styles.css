@@ -70,104 +70,101 @@
 
 :root {
   --radius: 1.5rem;
-  /* Soft warm cream — feels like a sticker book */
-  --background: oklch(0.985 0.012 70);
-  --foreground: oklch(0.18 0.02 280);
-  /* Warm translucent cream — replaces sterile white for cohesion with landing */
-  --card: oklch(0.992 0.008 75);
-  --card-foreground: oklch(0.13 0.012 20);
+  /* BLYM — soft blush page surface */
+  --background: oklch(0.985 0.008 340);
+  --foreground: oklch(0.17 0.07 285);
+  --card: oklch(0.995 0.004 340);
+  --card-foreground: oklch(0.17 0.07 285);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.012 20);
-  /* Bold playful magenta — Blym's signature gamified pop */
-  --primary: oklch(0.66 0.24 350);
+  --popover-foreground: oklch(0.17 0.07 285);
+  /* BLYM hot pink */
+  --primary: oklch(0.65 0.27 358);
   --primary-foreground: oklch(1 0 0);
-  /* Hot coral accent */
-  --accent: oklch(0.7 0.22 30);
+  /* BLYM electric purple */
+  --accent: oklch(0.55 0.28 295);
   --accent-foreground: oklch(1 0 0);
-  /* Duolingo-style victory green */
-  --success: oklch(0.74 0.19 145);
+  --success: oklch(0.74 0.19 155);
   --success-foreground: oklch(1 0 0);
-  /* Anchor — chunky purple-ink for primary CTAs */
-  --anchor: oklch(0.42 0.18 295);
+  /* Anchor — deep navy for primary CTAs */
+  --anchor: oklch(0.22 0.08 285);
   --anchor-foreground: oklch(1 0 0);
-  /* Sidebar active pill — same chunky purple as anchor */
-  --sidebar-active: linear-gradient(135deg, oklch(0.5 0.2 320), oklch(0.42 0.18 295));
+  --sidebar-active: linear-gradient(135deg, oklch(0.65 0.27 358), oklch(0.55 0.28 295));
   --sidebar-active-foreground: oklch(1 0 0);
-  --sidebar-active-glow: 0 10px 24px -12px oklch(0.5 0.22 320 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.18);
-  /* Sunny butter surfaces */
-  --secondary: oklch(0.96 0.05 90);
-  --secondary-foreground: oklch(0.18 0.01 20);
-  --muted: oklch(0.955 0.018 60);
-  --muted-foreground: oklch(0.30 0.014 25);
+  --sidebar-active-glow: 0 10px 24px -12px oklch(0.65 0.27 358 / 0.55), inset 0 1px 0 oklch(1 0 0 / 0.22);
+  /* Lavender soft surfaces */
+  --secondary: oklch(0.95 0.04 320);
+  --secondary-foreground: oklch(0.17 0.07 285);
+  --muted: oklch(0.96 0.018 340);
+  --muted-foreground: oklch(0.36 0.06 285);
   --destructive: oklch(0.62 0.18 22);
   --destructive-foreground: oklch(0.99 0.004 30);
-  --border: oklch(0.86 0.02 60);
-  --input: oklch(0.88 0.018 60);
-  --ring: oklch(0.66 0.24 350);
-  --chart-1: oklch(0.66 0.24 350);   /* magenta */
-  --chart-2: oklch(0.74 0.19 145);   /* green */
-  --chart-3: oklch(0.72 0.18 230);   /* sky */
-  --chart-4: oklch(0.83 0.18 85);    /* sun */
-  --chart-5: oklch(0.7 0.22 30);     /* coral */
-  --sidebar: oklch(0.985 0.012 70);
-  --sidebar-foreground: oklch(0.18 0.01 20);
-  --sidebar-primary: oklch(0.78 0.06 12);
-  --sidebar-primary-foreground: oklch(0.18 0.01 20);
-  --sidebar-accent: oklch(0.965 0.005 30);
-  --sidebar-accent-foreground: oklch(0.18 0.01 20);
-  --sidebar-border: oklch(0.93 0.006 25);
-  --sidebar-ring: oklch(0.78 0.06 12);
+  --border: oklch(0.9 0.025 320);
+  --input: oklch(0.92 0.02 320);
+  --ring: oklch(0.65 0.27 358);
+  --chart-1: oklch(0.65 0.27 358);   /* hot pink */
+  --chart-2: oklch(0.55 0.28 295);   /* electric purple */
+  --chart-3: oklch(0.72 0.24 350);   /* neon pink */
+  --chart-4: oklch(0.83 0.10 300);   /* soft lavender */
+  --chart-5: oklch(0.22 0.08 285);   /* deep navy */
+  --sidebar: oklch(0.985 0.008 340);
+  --sidebar-foreground: oklch(0.17 0.07 285);
+  --sidebar-primary: oklch(0.65 0.27 358);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.96 0.018 340);
+  --sidebar-accent-foreground: oklch(0.17 0.07 285);
+  --sidebar-border: oklch(0.92 0.018 320);
+  --sidebar-ring: oklch(0.65 0.27 358);
 
-  /* Sticker-pop surface tints — saturated but soft */
-  --surface-peach: oklch(0.92 0.07 40);
-  --surface-mint: oklch(0.91 0.09 150);
-  --surface-plum: oklch(0.91 0.08 320);
-  --surface-butter: oklch(0.94 0.1 90);
-  --surface-sky: oklch(0.91 0.07 225);
-  --surface-blush: oklch(0.92 0.08 350);
-  --surface-rose: oklch(0.9 0.1 10);
-  --surface-stone: oklch(0.96 0.02 70);
-  --surface-grape: oklch(0.9 0.08 290);
+  /* BLYM surface tints — all blush/lavender family */
+  --surface-peach: oklch(0.93 0.05 350);
+  --surface-mint: oklch(0.91 0.07 295);
+  --surface-plum: oklch(0.9 0.08 310);
+  --surface-butter: oklch(0.94 0.05 340);
+  --surface-sky: oklch(0.91 0.07 285);
+  --surface-blush: oklch(0.93 0.07 350);
+  --surface-rose: oklch(0.9 0.09 358);
+  --surface-stone: oklch(0.97 0.012 340);
+  --surface-grape: oklch(0.88 0.09 295);
 
-  /* Gradients — playful, saturated, gamified */
-  --gradient-warm: linear-gradient(135deg, oklch(0.78 0.2 25), oklch(0.66 0.24 350));
-  --gradient-sunrise: linear-gradient(160deg, oklch(0.94 0.1 90), oklch(0.88 0.13 30));
-  --gradient-bloom: linear-gradient(135deg, oklch(0.72 0.22 320), oklch(0.66 0.24 350));
-  --gradient-mint: linear-gradient(135deg, oklch(0.92 0.09 150), oklch(0.78 0.17 150));
-  --gradient-stone: linear-gradient(180deg, oklch(0.99 0.012 70), oklch(0.95 0.022 70));
-  --gradient-ink: linear-gradient(135deg, oklch(0.42 0.18 295), oklch(0.22 0.1 295));
-  --gradient-hero: linear-gradient(135deg, oklch(0.94 0.1 90) 0%, oklch(0.91 0.12 30) 45%, oklch(0.9 0.13 350) 100%);
-  --gradient-mesh: radial-gradient(70% 55% at 5% 0%, oklch(0.66 0.24 350 / 0.28), transparent 60%),
-                   radial-gradient(70% 55% at 100% 10%, oklch(0.83 0.18 85 / 0.32), transparent 55%),
-                   radial-gradient(80% 60% at 50% 100%, oklch(0.74 0.19 145 / 0.22), transparent 60%),
-                   linear-gradient(180deg, oklch(0.99 0.012 70), oklch(0.96 0.018 70));
-  --gradient-aurora: radial-gradient(120% 80% at 0% 0%, oklch(0.9 0.13 350 / 0.55), transparent 60%),
-                     radial-gradient(120% 80% at 100% 0%, oklch(0.94 0.1 90 / 0.6), transparent 55%),
-                     radial-gradient(100% 80% at 50% 100%, oklch(0.88 0.1 150 / 0.4), transparent 55%),
-                     linear-gradient(180deg, oklch(0.99 0.012 70), oklch(0.97 0.018 70));
-  --gradient-game: linear-gradient(135deg, oklch(0.66 0.24 350), oklch(0.7 0.22 30), oklch(0.83 0.18 85));
+  /* BLYM signature gradient — hot pink → neon pink → violet → electric purple */
+  --gradient-bloom: linear-gradient(135deg, oklch(0.65 0.27 358) 0%, oklch(0.72 0.24 350) 35%, oklch(0.58 0.27 295) 70%, oklch(0.52 0.30 290) 100%);
+  --gradient-warm: linear-gradient(135deg, oklch(0.72 0.24 350), oklch(0.55 0.28 295));
+  --gradient-game: linear-gradient(135deg, oklch(0.65 0.27 358), oklch(0.58 0.27 295), oklch(0.83 0.10 300));
+  --gradient-sunrise: linear-gradient(160deg, oklch(0.97 0.012 340), oklch(0.93 0.07 350));
+  --gradient-mint: linear-gradient(135deg, oklch(0.91 0.07 295), oklch(0.58 0.27 295));
+  --gradient-stone: linear-gradient(180deg, oklch(0.99 0.005 340), oklch(0.96 0.018 340));
+  --gradient-ink: linear-gradient(135deg, oklch(0.22 0.08 285), oklch(0.13 0.06 285));
+  --gradient-hero: linear-gradient(180deg, oklch(0.99 0.005 340) 0%, oklch(0.97 0.018 340) 45%, oklch(0.95 0.04 295) 100%);
+  --gradient-mesh: radial-gradient(70% 55% at 5% 0%, oklch(0.65 0.27 358 / 0.28), transparent 60%),
+                   radial-gradient(70% 55% at 100% 10%, oklch(0.55 0.28 295 / 0.30), transparent 55%),
+                   radial-gradient(80% 60% at 50% 100%, oklch(0.83 0.10 300 / 0.28), transparent 60%),
+                   linear-gradient(180deg, oklch(0.99 0.005 340), oklch(0.97 0.018 340));
+  --gradient-aurora: radial-gradient(120% 80% at 0% 0%, oklch(0.9 0.09 358 / 0.55), transparent 60%),
+                     radial-gradient(120% 80% at 100% 0%, oklch(0.88 0.09 295 / 0.55), transparent 55%),
+                     radial-gradient(100% 80% at 50% 100%, oklch(0.93 0.07 350 / 0.45), transparent 55%),
+                     linear-gradient(180deg, oklch(0.99 0.005 340), oklch(0.97 0.018 340));
 
-  /* Era theming — defaults to soft */
-  --era-grad: linear-gradient(135deg, oklch(0.94 0.08 350), oklch(0.92 0.09 30));
-  --era-tint: oklch(0.98 0.015 350);
-  --era-accent: oklch(0.72 0.16 350);
+  /* Era theming — defaults to blush */
+  --era-grad: linear-gradient(135deg, oklch(0.93 0.07 350), oklch(0.88 0.09 295));
+  --era-tint: oklch(0.97 0.018 340);
+  --era-accent: oklch(0.65 0.27 358);
 
   /* Shadows — diffuse, layered, premium */
   --shadow-xs: 0 1px 2px oklch(0.2 0.01 20 / 0.04);
   --shadow-soft:
-    0 1px 1px oklch(0.2 0.01 20 / 0.04),
-    0 2px 4px -2px oklch(0.2 0.01 20 / 0.05),
-    0 12px 28px -14px oklch(0.66 0.18 350 / 0.08);
+    0 1px 1px oklch(0.17 0.07 285 / 0.05),
+    0 2px 4px -2px oklch(0.17 0.07 285 / 0.06),
+    0 12px 28px -14px oklch(0.65 0.27 358 / 0.12);
   --shadow-elegant:
-    0 1px 2px oklch(0.2 0.01 20 / 0.04),
-    0 6px 14px -6px oklch(0.2 0.01 20 / 0.06),
-    0 28px 64px -28px oklch(0.66 0.2 350 / 0.18);
-  --shadow-glow: 0 30px 80px -30px oklch(0.66 0.24 350 / 0.5);
-  /* Signature chunky "press-down" shadow — Duolingo style */
-  --shadow-pop: 0 4px 0 0 oklch(0.42 0.18 295);
-  --shadow-pop-coral: 0 4px 0 0 oklch(0.55 0.22 30);
-  --shadow-pop-green: 0 4px 0 0 oklch(0.55 0.18 145);
-  --shadow-pop-sky: 0 4px 0 0 oklch(0.5 0.16 235);
+    0 1px 2px oklch(0.17 0.07 285 / 0.05),
+    0 6px 14px -6px oklch(0.17 0.07 285 / 0.08),
+    0 28px 64px -28px oklch(0.58 0.27 295 / 0.22);
+  --shadow-glow: 0 30px 80px -30px oklch(0.65 0.27 358 / 0.55);
+  /* Signature chunky "press-down" shadow */
+  --shadow-pop: 0 4px 0 0 oklch(0.22 0.08 285);
+  --shadow-pop-coral: 0 4px 0 0 oklch(0.55 0.27 358);
+  --shadow-pop-green: 0 4px 0 0 oklch(0.55 0.18 155);
+  --shadow-pop-sky: 0 4px 0 0 oklch(0.52 0.30 290);
   --shadow-ring: 0 0 0 1px oklch(0.86 0.012 25);
   --shadow-bold: 0 2px 4px oklch(0.13 0.012 20 / 0.06), 0 24px 48px -16px oklch(0.13 0.012 20 / 0.18);
   /* Layered ambient depth — multiple stacked shadows for premium lift without borders */
