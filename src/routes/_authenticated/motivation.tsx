@@ -54,7 +54,7 @@ function Page() {
       <PageHero icon={Sunrise} eyebrow="Daily motivation" title="A small lift, every day." description="One affirmation, one truth, one tiny action, one journal prompt, one permission slip — refreshed for today." variant="sunrise">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} freeAllowed />
       </PageHero>
-      <section className="mx-auto max-w-3xl space-y-4 px-5 py-6 sm:px-8 sm:py-8">
+      <section className="mx-auto max-w-3xl space-y-4 px-5 py-10 sm:px-8 sm:py-12">
         <div className="flex items-center justify-between gap-3">
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground/70">
             {new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}

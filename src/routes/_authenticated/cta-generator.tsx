@@ -59,7 +59,7 @@ function CtaGeneratorPage() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} />
       </PageHero>
 
-      <section className="mx-auto max-w-5xl px-5 py-6">
+      <section className="mx-auto max-w-5xl px-5 py-10">
         <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
@@ -142,7 +142,7 @@ function CtaGeneratorPage() {
       </section>
 
       {m.data && (
-        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-8">
+        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-12">
           <CtaList icon={Heart} title="Engagement CTAs" subtitle="Likes, follows, warmth" items={m.data.engagement} />
           <CtaList icon={ShoppingBag} title="Sales CTAs" subtitle="Move them towards a product or service" items={m.data.sales} />
           <CtaList icon={Bookmark} title="Save & share" subtitle="The algorithm-loving signals" items={m.data.save_share} />

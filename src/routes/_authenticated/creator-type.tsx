@@ -37,7 +37,7 @@ function CreatorTypePage() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:py-8">
+    <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12">
       <div className="sticker mb-8 p-6 sm:p-7" style={{ background: "var(--gradient-sunrise)" }}>
         <p className="eyebrow">choose your character</p>
         <h1 className="mt-2 font-display text-3xl sm:text-4xl">what kind of creator are you? 🎮</h1>

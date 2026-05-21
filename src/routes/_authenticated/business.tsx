@@ -47,7 +47,7 @@ function BusinessPage() {
         description="income, clients, outreach and tax — in one soft view."
         variant="mint"
       />
-      <div className="mx-auto max-w-6xl px-5 pt-8 pb-8 sm:px-8 sm:pt-10">
+      <div className="mx-auto max-w-6xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
         <div className="stagger grid gap-3 sm:grid-cols-2 sm:gap-3.5 lg:grid-cols-4">
           <div className="card-pop" style={{ ["--i" as string]: 0 }}><Stat icon={Wallet} label="Income · this month" value={`£${(d?.incomeThisMonth ?? 0).toLocaleString()}`} sub={`£${(d?.incomeThisYear ?? 0).toLocaleString()} YTD`} /></div>
           <div className="card-pop" style={{ ["--i" as string]: 1 }}><Stat icon={Receipt} label="Invoices outstanding" value={`£${(d?.outstanding ?? 0).toLocaleString()}`} sub={`£${(d?.paidThisMonth ?? 0).toLocaleString()} paid this month`} /></div>

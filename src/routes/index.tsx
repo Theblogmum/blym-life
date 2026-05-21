@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
   Heart, Star, ArrowRight, Quote, Zap, CalendarDays, MessageSquareText, Recycle, LineChart, Trophy, Flame, Crown, Gift, BadgeCheck,
-  Rocket, TrendingUp,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -69,8 +68,6 @@ function Landing() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
-      {/* ============ BRAND BANNER (above nav) ============ */}
-      <BrandBanner />
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
@@ -91,10 +88,16 @@ function Landing() {
       )}>
         <Link
           to="/"
-          className="group flex items-center"
-          aria-label="Blym home"
+          className="group flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em] text-foreground"
         >
           <span className="sr-only">Blym</span>
+          <span
+            aria-hidden
+            className="relative bg-[image:var(--gradient-bloom)] bg-clip-text text-transparent transition-all duration-300 group-hover:tracking-tight"
+          >
+            Blym
+          </span>
+          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[image:var(--gradient-warm)] shadow-[0_0_0_3px_oklch(1_0_0/0.6),0_0_12px_2px_color-mix(in_oklab,var(--surface-blush)_60%,transparent)] transition-transform duration-300 group-hover:scale-125" />
         </Link>
         {/* Centred nav with refined link treatment */}
         <nav className="hidden items-center gap-0.5 text-sm sm:flex">
@@ -200,7 +203,7 @@ function Landing() {
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-8 pb-10 sm:px-8 sm:pt-[120px] sm:pb-[120px] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-20 pb-16 sm:px-8 sm:pt-[120px] sm:pb-[120px] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
@@ -251,7 +254,7 @@ function Landing() {
       <CreatorJourney />
 
       {/* ============ HOW IT HELPS ============ */}
-      <section id="features" className="relative bg-background py-9 sm:py-[78px]">
+      <section id="features" className="relative bg-background py-14 sm:py-[78px]">
         {/* Floating decorative chips */}
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> New brief daily
@@ -270,7 +273,7 @@ function Landing() {
         </div>
 
         {/* Swipeable horizontal carousel */}
-        <div className="mt-8 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-12 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex gap-5 px-5 sm:px-8 snap-x snap-mandatory">
             {[
               { icon: Zap, title: "Viral Hooks", body: "Hooks that sound like you on a good day — never \"Are you tired of…\" again.", tint: "var(--surface-peach)", to: "/generator" as const },
@@ -305,7 +308,7 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-6 sm:py-[90px]">
+      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-16 sm:py-[90px]">
         <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -342,7 +345,7 @@ function Landing() {
             ))}
           </div>
           {/* As-seen-on style strip */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
             <span>As loved by creators on</span>
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">TikTok</span>
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">Instagram</span>
@@ -351,7 +354,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-6 sm:py-[90px]">
+      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-16 sm:py-[90px]">
         {/* Wavy top divider */}
         <svg
           aria-hidden
@@ -375,7 +378,7 @@ function Landing() {
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             From overwhelmed to filmed in three calm steps.
           </h2>
-          <div className="mt-9 grid gap-10 sm:grid-cols-3 sm:gap-8">
+          <div className="mt-14 grid gap-10 sm:grid-cols-3 sm:gap-8">
             {[
               { icon: Heart, t: "Tell us your vibe", b: "2-minute setup.", tint: "var(--surface-blush)" },
               { icon: Wand2, t: "Get today's brief", b: "One idea, built for you.", tint: "var(--surface-peach)" },
@@ -400,7 +403,7 @@ function Landing() {
       </section>
 
       {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
-      <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-6 sm:py-[90px]">
+      <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-16 sm:py-[90px]">
         <div aria-hidden className="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[image:var(--gradient-aurora)] opacity-40 blur-3xl gradient-drift" />
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute left-[6%] top-16" style={{ ['--drift-rot' as any]: '-6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> Free forever plan
@@ -417,7 +420,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-2xl px-5 py-6 sm:px-8 sm:py-[90px]">
+      <section id="faq" className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-[90px]">
         <p className="eyebrow text-center">FAQ</p>
         <h2 className="mx-auto mt-2 text-center font-display text-[26px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[36px]">
           Things mums ask us
@@ -440,7 +443,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-4xl px-5 pb-10 sm:px-8 sm:pb-[90px]">
+      <section id="contact" className="mx-auto max-w-4xl px-5 pb-16 sm:px-8 sm:pb-[90px]">
         <div className="grid gap-5 md:grid-cols-2 md:items-stretch">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-anchor p-6 text-center text-white shadow-[var(--shadow-elegant)] sm:p-7 flex flex-col">
             <div className="absolute -top-24 -right-16 h-60 w-60 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
@@ -489,7 +492,7 @@ function Landing() {
       </section>
       </main>
 
-      <footer className="py-6 text-center text-xs text-muted-foreground">
+      <footer className="py-10 text-center text-xs text-muted-foreground">
         <p>Made with care for mum creators · @blym.life</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <Link to="/terms" className="hover:text-foreground">Terms</Link>
@@ -502,72 +505,6 @@ function Landing() {
         </p>
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
-    </div>
-  );
-}
-
-/* ============ Brand Banner — slim, responsive, full-bleed ============ */
-function BrandBanner() {
-  const features = [
-    { icon: Wand2, label: "Daily Briefs" },
-    { icon: CalendarDays, label: "Smart Planner" },
-    { icon: Sparkles, label: "AI Studio" },
-    { icon: Trophy, label: "Growth Quests" },
-  ];
-  return (
-    <div
-      role="banner"
-      aria-label="BLYM — where creators level up"
-      className="relative w-full border-b border-white/10 bg-[image:var(--gradient-bloom)] text-white shadow-[0_8px_24px_-16px_oklch(0.13_0.08_285/0.5)]"
-    >
-      {/* subtle glow overlay */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-70"
-        style={{
-          background:
-            "radial-gradient(60% 120% at 10% 50%, oklch(1 0 0 / 0.18), transparent 60%), radial-gradient(50% 120% at 90% 50%, oklch(1 0 0 / 0.14), transparent 60%)",
-        }}
-      />
-      <div className="relative mx-auto flex h-[64px] w-full max-w-[1440px] items-center justify-between gap-4 px-6 sm:h-[70px] sm:px-8 md:h-[80px] md:px-10">
-        {/* LEFT — logo + slogan */}
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white/15 backdrop-blur-md shadow-[inset_0_1px_0_oklch(1_0_0/0.4)] sm:h-9 sm:w-9">
-            <Sparkles className="h-4 w-4 text-white sm:h-[18px] sm:w-[18px]" />
-          </span>
-          <div className="min-w-0 leading-tight">
-            <p className="font-display text-[15px] font-bold tracking-tight sm:text-[17px]">BLYM</p>
-            <p className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-white/75 sm:block">
-              Where creators level up
-            </p>
-          </div>
-        </div>
-
-        {/* CENTER — feature pills (hidden on mobile) */}
-        <nav aria-label="Banner features" className="hidden items-center gap-1.5 md:flex">
-          {features.map(({ icon: Icon, label }) => (
-            <span
-              key={label}
-              className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1 text-[11px] font-semibold text-white/95 backdrop-blur-md ring-1 ring-inset ring-white/20 transition-colors duration-200 hover:bg-white/20"
-            >
-              <Icon className="h-3.5 w-3.5" />
-              {label}
-            </span>
-          ))}
-        </nav>
-
-        {/* RIGHT — creator growth stat */}
-        <div className="flex shrink-0 items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-white ring-1 ring-inset ring-white/25 backdrop-blur-md sm:px-3.5">
-          <span className="relative grid h-6 w-6 place-items-center rounded-full bg-white/20">
-            <TrendingUp className="h-3.5 w-3.5" />
-            <span aria-hidden className="absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_8px_oklch(0.85_0.18_155)]" />
-          </span>
-          <div className="leading-tight">
-            <p className="text-[11px] font-bold tracking-tight sm:text-[12px]">1,000+ creators</p>
-            <p className="hidden text-[9px] font-medium uppercase tracking-[0.14em] text-white/75 sm:block">growing daily</p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -598,7 +535,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mx-auto mt-8 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3 sm:gap-6">
+      <div className="mx-auto mt-8 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3">
         <PriceCard
           name="Free"
           price="£0"
@@ -670,14 +607,11 @@ function PriceCard({
 }) {
   return (
     <div className={highlighted
-      ? "group relative h-full rounded-[1.75rem] bg-[image:var(--gradient-bloom)] p-[2.5px] shadow-[0_40px_90px_-24px_color-mix(in_oklab,var(--primary)_55%,transparent)] transition-all duration-300 sm:-translate-y-2 sm:scale-[1.04] hover:-translate-y-3 hover:scale-[1.05] hover:shadow-[0_50px_110px_-22px_color-mix(in_oklab,var(--primary)_65%,transparent)] z-10"
+      ? "group relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_30px_80px_-20px_color-mix(in_oklab,var(--primary)_45%,transparent)]"
       : "group card-elegant h-full p-5 text-left flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"}>
-      {highlighted && (
-        <span aria-hidden className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-[image:var(--gradient-warm)] opacity-40 blur-3xl" />
-      )}
-      <div className={highlighted ? "relative h-full rounded-[calc(1.75rem-2.5px)] bg-card/95 backdrop-blur-xl p-4 sm:p-5 text-left flex flex-col shadow-[inset_0_1px_0_oklch(1_0_0/0.7)]" : "flex flex-1 flex-col"}>
+      <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-4 sm:p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
         {highlighted && (
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[image:var(--gradient-warm)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_8px_24px_-8px_color-mix(in_oklab,var(--primary)_60%,transparent)]">★ Most loved</span>
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-background">Most loved</span>
         )}
         <p className="eyebrow">{name}</p>
         <p className="mt-2 font-display text-2xl font-normal tracking-tight sm:text-3xl">

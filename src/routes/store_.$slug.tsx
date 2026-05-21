@@ -92,7 +92,7 @@ function ProductPage() {
               "radial-gradient(60% 80% at 20% 0%, var(--surface-blush) 0%, transparent 60%), radial-gradient(50% 70% at 90% 0%, var(--surface-butter) 0%, transparent 65%)",
           }}
         />
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-8 md:grid-cols-[1.1fr_1fr] md:py-6">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-[1.1fr_1fr] md:py-16">
           {/* Image */}
           <div className="relative">
             <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/20 via-transparent to-accent/15 blur-2xl" />

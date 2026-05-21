@@ -32,7 +32,7 @@ function Page() {
       <PageHero icon={Lightbulb} eyebrow="Passive income" title="Digital products, while you sleep." description="8–10 product ideas with format, buyer, price, effort and a first-post hook." variant="mint">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
-      <section className="mx-auto max-w-3xl px-5 py-6">
+      <section className="mx-auto max-w-3xl px-5 py-10">
         <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="space-y-1.5"><Label>Audience</Label><Textarea rows={2} value={audience} onChange={(e) => setAudience(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. UK first-time mums in maternity leave" /></div>
           <div className="space-y-1.5"><Label>Existing skills</Label><Textarea rows={2} value={skills} onChange={(e) => setSkills(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. weaning, batch cooking, video editing" /></div>
@@ -43,7 +43,7 @@ function Page() {
         </Card>
       </section>
       {m.data && (
-        <section className="mx-auto max-w-3xl space-y-4 px-5 pb-8">
+        <section className="mx-auto max-w-3xl space-y-4 px-5 pb-12">
           <div className="grid gap-3 sm:grid-cols-2">
             {m.data.ideas.map((i, idx) => (
               <Card key={idx} className="rounded-3xl p-5">

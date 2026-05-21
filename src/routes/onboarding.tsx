@@ -97,7 +97,7 @@ function OnboardingPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-5 py-6">
+    <div className="mx-auto flex min-h-screen max-w-2xl flex-col px-5 py-10">
       <div className="mb-8 flex items-center gap-2">
         {[1, 2, 3, 4].map((s) => (
           <div
@@ -250,7 +250,7 @@ function OnboardingPage() {
         </div>
       )}
 
-      <div className="mt-6 flex items-center justify-between">
+      <div className="mt-10 flex items-center justify-between">
         <Button variant="ghost" onClick={() => setStep((s) => Math.max(1, s - 1))} disabled={step === 1}>
           Back
         </Button>

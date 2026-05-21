@@ -31,7 +31,7 @@ function Page() {
       <PageHero icon={Package} eyebrow="Brand deals" title="3 packages, ready in seconds." description="Pitch tiered packages with deliverables, usage rights, exclusivity and add-ons." variant="bloom">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
-      <section className="mx-auto max-w-5xl px-5 py-6">
+      <section className="mx-auto max-w-5xl px-5 py-10">
         <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="space-y-1.5"><Label>Brand</Label><Input value={brand} onChange={(e) => setBrand(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. Aldi" /></div>
           <div className="space-y-1.5"><Label>Their budget (optional)</Label><Input value={budget} onChange={(e) => setBudget(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. £1500" /></div>
@@ -43,7 +43,7 @@ function Page() {
         </Card>
       </section>
       {m.data && (
-        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-8">
+        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-12">
           <Card className="rounded-3xl p-5"><p className="text-sm">{m.data.summary}</p></Card>
           <div className="grid gap-4 md:grid-cols-3">
             {m.data.packages.map((p, i) => (

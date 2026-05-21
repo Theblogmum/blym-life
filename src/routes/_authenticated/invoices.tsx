@@ -46,7 +46,7 @@ function Page() {
   return (
     <div>
       <PageHero icon={Receipt} eyebrow="Get paid" title="Invoices, sent in minutes." description="Build branded invoices, save them, print to PDF and chase what you're owed." variant="warm" />
-      <section className="mx-auto grid max-w-5xl gap-6 px-5 py-6 lg:grid-cols-[1fr_360px] print:grid-cols-1">
+      <section className="mx-auto grid max-w-5xl gap-6 px-5 py-10 lg:grid-cols-[1fr_360px] print:grid-cols-1">
         <Card className="rounded-3xl p-6 print:shadow-none print:border-0">
           <div className="flex items-center justify-between gap-2 print:hidden">
             <h2 className="font-display text-2xl font-black">{editing ? "Edit invoice" : "New invoice"}</h2>

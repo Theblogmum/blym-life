@@ -40,7 +40,7 @@ function Page() {
   return (
     <div>
       <PageHero icon={Wallet} eyebrow="Money" title="Income tracker." description="Log every brand deal, UGC payment and affiliate cheque. See the bigger picture monthly." variant="mint" />
-      <section className="mx-auto grid max-w-5xl gap-6 px-5 py-6 lg:grid-cols-[1fr_360px]">
+      <section className="mx-auto grid max-w-5xl gap-6 px-5 py-10 lg:grid-cols-[1fr_360px]">
         <Card className="rounded-3xl p-6">
           <h2 className="font-display text-xl font-black">Log income</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">

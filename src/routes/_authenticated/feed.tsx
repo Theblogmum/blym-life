@@ -47,7 +47,7 @@ function FeedPage() {
         description="no metrics. no flexing. just real little wins from other women doing the scary thing."
         variant="sunrise"
       />
-      <section className="mx-auto max-w-2xl px-5 py-8 sm:py-6">
+      <section className="mx-auto max-w-2xl px-5 py-8 sm:py-10">
         <div className="space-y-4">
           {SEED.map((p) => {
             const did = !!cheered[p.id];

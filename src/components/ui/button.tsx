@@ -16,12 +16,6 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-[0_3px_0_0_oklch(0.7_0.1_85)] hover:-translate-y-0.5 hover:shadow-[0_5px_0_0_oklch(0.7_0.1_85)] active:shadow-[0_1px_0_0_oklch(0.7_0.1_85)]",
         ghost: "hover:bg-accent/15 hover:text-accent active:translate-y-0",
         link: "text-primary underline-offset-4 hover:underline",
-        /* Brand: primary pink→purple gradient pill — the global CTA look. */
-        bloom:
-          "relative overflow-hidden bg-[image:var(--gradient-bloom)] text-primary-foreground shadow-[0_6px_20px_-6px_color-mix(in_oklab,var(--surface-blush)_80%,transparent),0_1px_0_0_oklch(1_0_0/0.4)_inset] hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-6px_color-mix(in_oklab,var(--surface-blush)_90%,transparent),0_1px_0_0_oklch(1_0_0/0.5)_inset]",
-        /* Brand: dark anchor pill for secondary CTAs */
-        anchor:
-          "bg-anchor text-anchor-foreground shadow-[0_6px_20px_-6px_oklch(0.2_0.04_280/0.45),0_1px_0_0_oklch(1_0_0/0.18)_inset] hover:-translate-y-0.5 hover:bg-anchor hover:shadow-[0_12px_28px_-6px_oklch(0.2_0.04_280/0.55),0_1px_0_0_oklch(1_0_0/0.22)_inset]",
       },
       size: {
         default: "h-10 px-5 py-2",

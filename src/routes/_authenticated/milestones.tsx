@@ -57,7 +57,7 @@ function MilestonesPage() {
       >
         <span className="chip-soft">✨ {count} / {MILESTONES.length} unlocked</span>
       </PageHero>
-      <section className="mx-auto max-w-3xl px-5 py-8 sm:py-6">
+      <section className="mx-auto max-w-3xl px-5 py-8 sm:py-10">
         <div className="space-y-3">
           {MILESTONES.map((m) => {
             const did = !!done[m.id];

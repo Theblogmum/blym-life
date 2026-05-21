@@ -228,7 +228,7 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pb-10 pt-2 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-[1200px] px-5 pb-16 pt-2 sm:px-8 lg:px-12">
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
         <section className="mb-6 sm:mb-9 lg:hidden">

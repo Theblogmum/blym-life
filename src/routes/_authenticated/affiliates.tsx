@@ -29,7 +29,7 @@ function Page() {
   return (
     <div>
       <PageHero icon={Link2} eyebrow="Money" title="Affiliate links, organised." description="One home for every brand link, code, commission and category. Stop digging through DMs." variant="bloom" />
-      <section className="mx-auto grid max-w-5xl gap-6 px-5 py-6 lg:grid-cols-[1fr_360px]">
+      <section className="mx-auto grid max-w-5xl gap-6 px-5 py-10 lg:grid-cols-[1fr_360px]">
         <Card className="rounded-3xl p-6">
           <h2 className="font-display text-xl font-black">Add link</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">

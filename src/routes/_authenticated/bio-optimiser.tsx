@@ -59,7 +59,7 @@ function BioOptimiserPage() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} />
       </PageHero>
 
-      <section className="mx-auto max-w-5xl px-5 py-6">
+      <section className="mx-auto max-w-5xl px-5 py-10">
         <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">Your bio</p>
@@ -129,7 +129,7 @@ function BioOptimiserPage() {
       </section>
 
       {m.data && (
-        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-8">
+        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-12">
           <Card className="rounded-3xl p-5">
             <div className="flex items-start justify-between gap-3">
               <div>

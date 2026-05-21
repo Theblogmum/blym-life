@@ -17,7 +17,7 @@ export const Route = createFileRoute("/terms")({
 
 function TermsPage() {
   return (
-    <article className="mx-auto max-w-3xl px-6 py-8 text-sm leading-relaxed text-foreground">
+    <article className="mx-auto max-w-3xl px-6 py-12 text-sm leading-relaxed text-foreground">
       <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">← Back to home</Link>
       <h1 className="mt-4 font-display text-3xl font-black">Terms & Conditions</h1>
       <p className="mt-2 text-xs text-muted-foreground">Last updated: 8 May 2026</p>

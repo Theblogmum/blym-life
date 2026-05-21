@@ -26,7 +26,7 @@ function Page() {
       <PageHero icon={HeartHandshake} eyebrow="Rejection recovery" title="Tell me what happened — I've got you." description="Paste the brand no, the ghosting, the harsh comment, the flop. I'll meet you with a kind reframe, a reply you could send, and 3 tiny next steps 💛" variant="bloom">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
-      <section className="mx-auto max-w-3xl px-5 py-6">
+      <section className="mx-auto max-w-3xl px-5 py-10">
         <div className="premium-card grid gap-4 p-6 sm:p-7">
           <div className="space-y-1.5">
             <Label htmlFor="sit" className="text-[13px] font-semibold text-foreground/80">What happened? Take your time.</Label>
@@ -44,7 +44,7 @@ function Page() {
         </div>
       </section>
       {m.data && (
-        <section className="stagger mx-auto max-w-3xl space-y-4 px-5 pb-9">
+        <section className="stagger mx-auto max-w-3xl space-y-4 px-5 pb-14">
           <div className="card-pop relative overflow-hidden rounded-3xl border-0 bg-[image:var(--gradient-warm)] p-7 text-white shadow-[var(--shadow-elegant)]" style={{ ["--i" as string]: 0 }}>
             <div aria-hidden className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-white/25 blur-3xl" />
             <div aria-hidden className="pointer-events-none absolute -bottom-12 -left-12 h-36 w-36 rounded-full bg-white/15 blur-3xl" />
