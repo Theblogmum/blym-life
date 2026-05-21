@@ -15,9 +15,17 @@ export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
       { title: "Sign up for Blym — Daily filming briefs for mum creators" },
-      { name: "description", content: "Create your free Blym account and start getting a personalised daily filming brief — hook, caption, shot list and best time to post." },
+      {
+        name: "description",
+        content:
+          "Create your free Blym account and start getting a personalised daily filming brief — hook, caption, shot list and best time to post.",
+      },
       { property: "og:title", content: "Sign up for Blym — Daily filming briefs for mum creators" },
-      { property: "og:description", content: "Create your free Blym account and start getting a personalised daily filming brief — hook, caption, shot list and best time to post." },
+      {
+        property: "og:description",
+        content:
+          "Create your free Blym account and start getting a personalised daily filming brief — hook, caption, shot list and best time to post.",
+      },
       { property: "og:url", content: "https://www.blym.life/signup" },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -75,11 +83,20 @@ function SignupPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
-        <Link to="/" className="text-sm text-muted-foreground">← back</Link>
+        <Link to="/" className="text-sm text-muted-foreground">
+          ← back
+        </Link>
         <h1 className="mt-2 font-display text-3xl font-black">Create account</h1>
-        <p className="mt-1 text-sm text-muted-foreground">2 minutes. Then you'll know what to film.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          2 minutes. Then you'll know what to film.
+        </p>
 
-        <Button onClick={handleGoogle} disabled={googleLoading || loading} variant="outline" className="mt-6 w-full rounded-full">
+        <Button
+          onClick={handleGoogle}
+          disabled={googleLoading || loading}
+          variant="outline"
+          className="mt-6 w-full rounded-full"
+        >
           {googleLoading ? "Opening Google…" : "Continue with Google"}
         </Button>
         <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
@@ -92,18 +109,37 @@ function SignupPage() {
           </div>
           <div>
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input
+              id="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div>
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              id="password"
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <Button type="submit" disabled={loading} className="w-full rounded-full">
             {loading ? "Creating…" : "Create account"}
           </Button>
         </form>
         <p className="mt-4 text-center text-sm text-muted-foreground">
-          Already have one? <Link to="/login" className="font-semibold text-foreground underline-offset-4 hover:underline">Log in</Link>
+          Already have one?{" "}
+          <Link
+            to="/login"
+            className="font-semibold text-foreground underline-offset-4 hover:underline"
+          >
+            Log in
+          </Link>
         </p>
       </div>
     </div>
