@@ -284,12 +284,12 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius-3xl);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-layered);
     transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
   }
   .card-elegant:hover {
-    box-shadow: var(--shadow-elegant);
-    border-color: oklch(0.88 0.012 25);
+    box-shadow: var(--shadow-elegant), 0 36px 80px -28px color-mix(in oklab, var(--primary) 30%, transparent);
+    border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
   }
 
   /* ===== Game-style chunky components ===== */
