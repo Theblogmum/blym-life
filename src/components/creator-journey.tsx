@@ -21,7 +21,7 @@ const POSITIONS = [
 
 export function CreatorJourney() {
   return (
-    <section className="relative overflow-hidden bg-[image:var(--gradient-aurora)] py-14 sm:py-[78px]">
+    <section className="relative overflow-hidden bg-[image:var(--gradient-aurora)] py-9 sm:py-[78px]">
       {/* Drifting backdrop blobs */}
       <div aria-hidden className="absolute -top-32 left-1/4 h-80 w-80 rounded-full bg-[image:var(--gradient-bloom)] opacity-40 blur-3xl gradient-drift" />
       <div aria-hidden className="absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-[image:var(--gradient-mint)] opacity-35 blur-3xl gradient-drift" style={{ animationDelay: "5s" }} />
@@ -37,7 +37,7 @@ export function CreatorJourney() {
       </div>
 
       {/* Journey path */}
-      <div className="relative mx-auto mt-10 max-w-6xl px-3 sm:mt-16 sm:px-8">
+      <div className="relative mx-auto mt-6 max-w-6xl px-3 sm:mt-6 sm:px-8">
         <div className="relative aspect-[3/4] sm:aspect-[2/1]">
           {/* Mobile: vertical dashed spine */}
           <div aria-hidden className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-[repeating-linear-gradient(to_bottom,color-mix(in_oklab,var(--foreground)_18%,transparent)_0_6px,transparent_6px_14px)] sm:hidden" />
@@ -116,7 +116,7 @@ export function CreatorJourney() {
       </div>
 
       {/* Emotional closing line */}
-      <p className="relative mx-auto mt-12 max-w-md px-5 text-center font-display text-[20px] leading-snug text-foreground sm:text-[24px]">
+      <p className="relative mx-auto mt-8 max-w-md px-5 text-center font-display text-[20px] leading-snug text-foreground sm:text-[24px]">
         You're closer than you think. 💛
       </p>
     </section>

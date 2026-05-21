@@ -213,7 +213,7 @@ function Landing() {
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-20 pb-16 sm:px-8 sm:pt-[120px] sm:pb-[120px] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-8 pb-10 sm:px-8 sm:pt-[120px] sm:pb-[120px] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-14">
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
@@ -264,7 +264,7 @@ function Landing() {
       <CreatorJourney />
 
       {/* ============ HOW IT HELPS ============ */}
-      <section id="features" className="relative bg-background py-14 sm:py-[78px]">
+      <section id="features" className="relative bg-background py-9 sm:py-[78px]">
         {/* Floating decorative chips */}
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute right-[8%] top-16" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> New brief daily
@@ -283,7 +283,7 @@ function Landing() {
         </div>
 
         {/* Swipeable horizontal carousel */}
-        <div className="mt-12 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mt-8 overflow-x-auto pb-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex gap-5 px-5 sm:px-8 snap-x snap-mandatory">
             {[
               { icon: Zap, title: "Viral Hooks", body: "Hooks that sound like you on a good day — never \"Are you tired of…\" again.", tint: "var(--surface-peach)", to: "/generator" as const },
@@ -318,7 +318,7 @@ function Landing() {
       </section>
 
       {/* ============ SOCIAL PROOF + TESTIMONIALS ============ */}
-      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-16 sm:py-[90px]">
+      <section id="testimonials" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-6 sm:py-[90px]">
         <div aria-hidden className="absolute -top-24 right-10 h-56 w-56 rounded-full bg-[image:var(--gradient-bloom)] opacity-25 blur-3xl" />
         <div aria-hidden className="absolute -bottom-24 left-10 h-56 w-56 rounded-full bg-[image:var(--gradient-mint)] opacity-25 blur-3xl" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -355,7 +355,7 @@ function Landing() {
             ))}
           </div>
           {/* As-seen-on style strip */}
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
             <span>As loved by creators on</span>
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">TikTok</span>
             <span className="font-display text-base normal-case tracking-tight text-foreground/80">Instagram</span>
@@ -364,7 +364,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-16 sm:py-[90px]">
+      <section id="how" className="relative overflow-hidden bg-[image:var(--gradient-sunrise)] py-6 sm:py-[90px]">
         {/* Wavy top divider */}
         <svg
           aria-hidden
@@ -388,7 +388,7 @@ function Landing() {
           <h2 className="mx-auto mt-4 max-w-3xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
             From overwhelmed to filmed in three calm steps.
           </h2>
-          <div className="mt-14 grid gap-10 sm:grid-cols-3 sm:gap-8">
+          <div className="mt-9 grid gap-10 sm:grid-cols-3 sm:gap-8">
             {[
               { icon: Heart, t: "Tell us your vibe", b: "2-minute setup.", tint: "var(--surface-blush)" },
               { icon: Wand2, t: "Get today's brief", b: "One idea, built for you.", tint: "var(--surface-peach)" },
@@ -413,7 +413,7 @@ function Landing() {
       </section>
 
       {/* Editorial "more inside" — minimal pill row, no template-y card grid */}
-      <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-16 sm:py-[90px]">
+      <section id="pricing" className="relative overflow-hidden bg-[image:var(--gradient-stone)] py-6 sm:py-[90px]">
         <div aria-hidden className="absolute -top-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[image:var(--gradient-aurora)] opacity-40 blur-3xl gradient-drift" />
         <span aria-hidden className="chip-sticker drift hidden md:inline-flex absolute left-[6%] top-16" style={{ ['--drift-rot' as any]: '-6deg', background: 'var(--surface-mint)' }}>
           <Gift className="h-3.5 w-3.5" /> Free forever plan
@@ -430,7 +430,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto max-w-2xl px-5 py-16 sm:px-8 sm:py-[90px]">
+      <section id="faq" className="mx-auto max-w-2xl px-5 py-6 sm:px-8 sm:py-[90px]">
         <p className="eyebrow text-center">FAQ</p>
         <h2 className="mx-auto mt-2 text-center font-display text-[26px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[36px]">
           Things mums ask us
@@ -453,7 +453,7 @@ function Landing() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto max-w-4xl px-5 pb-16 sm:px-8 sm:pb-[90px]">
+      <section id="contact" className="mx-auto max-w-4xl px-5 pb-10 sm:px-8 sm:pb-[90px]">
         <div className="grid gap-5 md:grid-cols-2 md:items-stretch">
           <div className="relative overflow-hidden rounded-[1.5rem] bg-anchor p-6 text-center text-white shadow-[var(--shadow-elegant)] sm:p-7 flex flex-col">
             <div className="absolute -top-24 -right-16 h-60 w-60 rounded-full bg-[image:var(--gradient-warm)] opacity-25 blur-3xl" aria-hidden />
@@ -502,7 +502,7 @@ function Landing() {
       </section>
       </main>
 
-      <footer className="py-10 text-center text-xs text-muted-foreground">
+      <footer className="py-6 text-center text-xs text-muted-foreground">
         <p>Made with care for mum creators · @blym.life</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
           <Link to="/terms" className="hover:text-foreground">Terms</Link>

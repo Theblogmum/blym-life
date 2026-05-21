@@ -43,7 +43,7 @@ export function PageHero({
         className="pointer-events-none absolute inset-0 opacity-60"
         style={{ background: "radial-gradient(60% 80% at 0% 0%, color-mix(in oklab, var(--surface-blush) 40%, transparent), transparent 60%), radial-gradient(40% 70% at 100% 0%, color-mix(in oklab, var(--surface-mint) 32%, transparent), transparent 60%)" }}
       />
-      <div className="relative mx-auto max-w-5xl px-5 py-7 sm:px-8 sm:py-10">
+      <div className="relative mx-auto max-w-5xl px-5 py-7 sm:px-8 sm:py-6">
         <div className="flex items-start gap-3.5 sm:gap-4">
           <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-foreground/80 shadow-[var(--shadow-soft)] ring-1 ring-white/40", v.chip)}>
             <Icon className="h-5 w-5" strokeWidth={2} />

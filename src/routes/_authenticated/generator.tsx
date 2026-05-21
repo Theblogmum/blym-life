@@ -68,7 +68,7 @@ function GeneratorPage() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
       </PageHero>
 
-      <section className="mx-auto max-w-3xl space-y-7 px-5 py-10 sm:px-8">
+      <section className="mx-auto max-w-3xl space-y-7 px-5 py-6 sm:px-8">
         <PersonaBubble tone="peach">
           Hey lovely — pick what you need, drop the topic, and I'll write 5 options you can post tonight.
         </PersonaBubble>
@@ -149,7 +149,7 @@ function GeneratorPage() {
       </section>
 
       {options.length > 0 && (
-        <section className="mx-auto max-w-5xl px-5 pb-12 sm:px-8">
+        <section className="mx-auto max-w-5xl px-5 pb-8 sm:px-8">
           <div className="mb-5 flex items-center gap-3">
             <h2 className="section-heading">Here's what I'd post 👇</h2>
             <IdeaGeneratedBadge />
@@ -166,7 +166,7 @@ function GeneratorPage() {
       )}
 
       {options.length === 0 && (
-        <section className="mx-auto max-w-5xl px-5 pb-16 sm:px-8">
+        <section className="mx-auto max-w-5xl px-5 pb-10 sm:px-8">
           <p className="eyebrow">while you think</p>
           <h2 className="section-heading mb-5">Tips that actually work</h2>
           <div className="grid gap-3 sm:gap-3.5 md:grid-cols-3">

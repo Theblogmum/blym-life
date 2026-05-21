@@ -51,7 +51,7 @@ function InsightsPage() {
         description="log what you post — we'll spot the patterns. small wins compound."
         variant="mint"
       />
-      <div className="mx-auto max-w-3xl px-5 pt-8 pb-20 sm:px-8 sm:pt-10">
+      <div className="mx-auto max-w-3xl px-5 pt-8 pb-8 sm:px-8 sm:pt-10">
         <div className="mb-6 flex justify-end">
           <Button onClick={() => setOpen((o) => !o)} className="group rounded-full transition hover:-translate-y-[1px] hover:shadow-[var(--shadow-soft)]">
             <Plus className="mr-1 h-4 w-4 transition-transform group-hover:rotate-90" />Log post

@@ -55,7 +55,7 @@ function RewardsPage() {
           <span className="chip-soft">🎁 {Object.values(claimed).filter(Boolean).length} claimed</span>
         </div>
       </PageHero>
-      <section className="mx-auto max-w-3xl px-5 py-8 sm:py-10">
+      <section className="mx-auto max-w-3xl px-5 py-8 sm:py-6">
         <div className="grid gap-4 sm:grid-cols-2">
           {CHESTS.map((c) => {
             const unlocked = xp >= c.xp;

@@ -70,7 +70,7 @@ function SeoKeywordsPage() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} />
       </PageHero>
 
-      <section className="mx-auto max-w-5xl px-5 py-10">
+      <section className="mx-auto max-w-5xl px-5 py-6">
         <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-mint px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
@@ -134,7 +134,7 @@ function SeoKeywordsPage() {
       </section>
 
       {m.data && (
-        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-12">
+        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-8">
           <ChipList icon={Search} title="Primary keywords" subtitle="The core terms" items={m.data.primary} />
           <ChipList
             icon={Sparkles}
