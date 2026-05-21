@@ -14,7 +14,10 @@ function safeRedirectPath(path?: string) {
   return path;
 }
 
-export async function signInWithGoogle(redirectPath = "/app", extraParams?: Record<string, string>) {
+export async function signInWithGoogle(
+  redirectPath = "/app",
+  extraParams?: Record<string, string>,
+) {
   const authOrigin = getAuthOrigin();
   const redirectTo = safeRedirectPath(redirectPath);
   const auth = createLovableAuth({ oauthBrokerUrl: `${authOrigin}/~oauth/initiate` });
