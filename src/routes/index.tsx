@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
   Heart, Star, ArrowRight, Quote, Zap, CalendarDays, MessageSquareText, Recycle, LineChart, Trophy, Flame, Crown, Gift, BadgeCheck,
+  Rocket, TrendingUp,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -12,7 +13,6 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
-import blymBanner from "@/assets/blym-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
