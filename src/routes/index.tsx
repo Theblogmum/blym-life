@@ -12,7 +12,6 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
-import blymLogo from "@/assets/logo-blym.png";
 import blymBanner from "@/assets/blym-banner.png";
 
 export const Route = createFileRoute("/")({
@@ -73,15 +72,15 @@ function Landing() {
       {/* ============ BRAND BANNER (above nav) ============ */}
       <div
         aria-label="BLYM — where creators level up"
-        className="relative w-full overflow-hidden bg-transparent"
-        style={{ aspectRatio: "1451 / 155" }}
+        className="relative w-full bg-transparent"
+        style={{ aspectRatio: "1731 / 333" }}
       >
         <img
           src={blymBanner}
           alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
-          width={1451}
-          height={310}
-          className="absolute left-0 top-1/2 w-full h-auto -translate-y-1/2"
+          width={1731}
+          height={333}
+          className="block w-full h-auto"
           loading="eager"
           decoding="async"
         />
@@ -106,14 +105,10 @@ function Landing() {
       )}>
         <Link
           to="/"
-          className="group flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em] text-foreground"
+          className="group flex items-center"
+          aria-label="Blym home"
         >
           <span className="sr-only">Blym</span>
-          <img
-            src={blymLogo}
-            alt="Blym — where creators level up"
-            className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03] sm:h-10"
-          />
         </Link>
         {/* Centred nav with refined link treatment */}
         <nav className="hidden items-center gap-0.5 text-sm sm:flex">
