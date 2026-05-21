@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
@@ -9,7 +9,6 @@ import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
-import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
 
@@ -53,14 +52,6 @@ function Landing() {
   // Note: signed-in users still see the homepage. They can click "Open studio" to enter the app.
   void loading;
   void navigate;
-
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const ctaPrimary = user ? { to: "/app" as const, label: "Create my content" } : { to: "/signup" as const, label: "Create my content — free" };
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
