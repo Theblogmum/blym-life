@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
 import blymLogo from "@/assets/logo-blym.png";
+import blymBanner from "@/assets/blym-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -179,6 +180,17 @@ function Landing() {
       </header>
 
       <main>
+      {/* ============ BRAND BANNER ============ */}
+      <section aria-label="BLYM — where creators level up" className="relative w-full overflow-hidden bg-[#090511]">
+        <img
+          src={blymBanner}
+          alt="BLYM — Create. Level Up. Repeat. Join 10,000+ creators leveling up every day."
+          className="block h-20 w-full object-cover object-center sm:h-24 md:h-28 lg:h-32"
+          loading="eager"
+          decoding="async"
+        />
+      </section>
+
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-background">
         {/* Soft, faded backdrop — single subtle wash, no decorative blobs */}
