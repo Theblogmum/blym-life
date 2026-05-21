@@ -12,6 +12,7 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
+import blymLogo from "@/assets/logo-blym.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -91,13 +92,11 @@ function Landing() {
           className="group flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em] text-foreground"
         >
           <span className="sr-only">Blym</span>
-          <span
-            aria-hidden
-            className="relative bg-[image:var(--gradient-bloom)] bg-clip-text text-transparent transition-all duration-300 group-hover:tracking-tight"
-          >
-            Blym
-          </span>
-          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[image:var(--gradient-warm)] shadow-[0_0_0_3px_oklch(1_0_0/0.6),0_0_12px_2px_color-mix(in_oklab,var(--surface-blush)_60%,transparent)] transition-transform duration-300 group-hover:scale-125" />
+          <img
+            src={blymLogo}
+            alt="Blym — where creators level up"
+            className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03] sm:h-10"
+          />
         </Link>
         {/* Centred nav with refined link treatment */}
         <nav className="hidden items-center gap-0.5 text-sm sm:flex">
