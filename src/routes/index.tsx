@@ -221,7 +221,7 @@ function Landing() {
               <Link
                 key={c.title}
                 to={c.to}
-                className="group relative shrink-0 snap-start w-[78vw] max-w-[320px] sm:w-[320px] rounded-[2rem] border border-border/60 bg-card p-6 shadow-[var(--shadow-soft)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]"
+                className="group relative shrink-0 snap-start w-[78vw] max-w-[320px] sm:w-[320px] rounded-[2rem] border border-border/60 bg-card p-6 shadow-[var(--shadow-soft),0_8px_32px_-12px_oklch(0.72_0.18_350/0.18)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant),0_12px_40px_-12px_oklch(0.72_0.18_350/0.30)]"
                 style={{ animation: `fade-in 0.5s ease-out ${i * 0.08}s both` }}
               >
                 <div
