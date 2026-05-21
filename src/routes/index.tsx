@@ -78,10 +78,10 @@ function Landing() {
         <img
           src={blymBanner}
           alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
-          width={1409}
-          height={240}
+          width={1451}
+          height={310}
           className="block w-full h-auto object-contain"
-          style={{ aspectRatio: "1409 / 240" }}
+          style={{ aspectRatio: "1451 / 310" }}
           loading="eager"
           decoding="async"
         />
