@@ -73,15 +73,15 @@ function Landing() {
       {/* ============ BRAND BANNER (above nav) ============ */}
       <div
         aria-label="BLYM — where creators level up"
-        className="w-full border-b border-border/40 bg-[image:var(--gradient-aurora)]"
+        className="w-full bg-transparent"
       >
         <img
           src={blymBanner}
           alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
-          width={1920}
-          height={420}
+          width={1409}
+          height={240}
           className="block w-full h-auto object-contain"
-          style={{ aspectRatio: "1920 / 420" }}
+          style={{ aspectRatio: "1409 / 240" }}
           loading="eager"
           decoding="async"
         />
