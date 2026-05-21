@@ -131,6 +131,7 @@
 
   /* Gradients — playful, saturated, gamified */
   --gradient-warm: linear-gradient(135deg, oklch(0.78 0.2 25), oklch(0.66 0.24 350));
+  --gradient-warm-soft: linear-gradient(135deg, oklch(0.78 0.1 25), oklch(0.66 0.12 350));
   --gradient-sunrise: linear-gradient(160deg, oklch(0.94 0.1 90), oklch(0.88 0.13 30));
   --gradient-bloom: linear-gradient(135deg, oklch(0.72 0.22 320), oklch(0.66 0.24 350));
   --gradient-mint: linear-gradient(135deg, oklch(0.92 0.09 150), oklch(0.78 0.17 150));
