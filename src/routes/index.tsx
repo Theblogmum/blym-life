@@ -12,6 +12,7 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
+import blymHeaderBanner from "@/assets/blym-header-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
