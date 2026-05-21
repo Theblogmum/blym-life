@@ -1,20 +1,24 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
 import { AppShell } from "@/components/app-shell";
 import { ComebackDetector } from "@/components/comeback-detector";
 
 export const Route = createFileRoute("/_authenticated")({
+  beforeLoad: async ({ location }) => {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data.user) {
+      throw redirect({
+        to: "/login",
+        search: { redirect: location.href },
+      });
+    }
+  },
   component: AuthGate,
 });
 
 function AuthGate() {
   const { user, loading } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
-  }, [loading, user, navigate]);
 
   if (loading || !user) {
     return (

@@ -70,8 +70,19 @@ export const claimDailyXp = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { supabase, userId } = context;
-    const { data, error } = await supabase.rpc("claim_daily_xp", { _user_id: userId });
-    if (error) { console.error("[db error] claim_daily_xp", error); throw new Error("Couldn't claim daily XP"); }
-    const row = Array.isArray(data) ? data[0] : data;
-    return { awarded: !!row?.awarded, xp: row?.xp ?? 0 };
+    const today = new Date().toISOString().slice(0, 10);
+    const { data: existing, error: readError } = await supabase
+      .from("creator_xp")
+      .select("xp,last_claim_date")
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (readError) { console.error("[db error] read creator_xp", readError); throw new Error("Couldn't claim daily XP"); }
+    if (existing?.last_claim_date === today) return { awarded: false, xp: existing.xp ?? 0 };
+
+    const xp = (existing?.xp ?? 0) + 5;
+    const { error: upsertError } = await supabase
+      .from("creator_xp")
+      .upsert({ user_id: userId, xp, last_claim_date: today, updated_at: new Date().toISOString() });
+    if (upsertError) { console.error("[db error] claim daily xp", upsertError); throw new Error("Couldn't claim daily XP"); }
+    return { awarded: true, xp };
   });

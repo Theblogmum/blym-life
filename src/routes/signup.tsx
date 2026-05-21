@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { sendTransactionalEmail } from "@/lib/email/send";
@@ -8,6 +8,10 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/signup")({
+  beforeLoad: async () => {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) throw redirect({ to: "/app" });
+  },
   head: () => ({
     meta: [
       { title: "Sign up for Blym — Daily filming briefs for mum creators" },
@@ -57,7 +61,8 @@ function SignupPage() {
   const handleGoogle = async () => {
     const { lovable } = await import("@/integrations/lovable/index");
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/onboarding",
+      redirect_uri: `${window.location.origin}/onboarding`,
+      extraParams: { prompt: "select_account" },
     });
     if (result.error) return toast.error("Google sign in failed");
     if (result.redirected) return;

@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,13 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/login")({
+  validateSearch: (search) => ({
+    redirect: typeof search.redirect === "string" ? search.redirect : "/app",
+  }),
+  beforeLoad: async ({ search }) => {
+    const { data } = await supabase.auth.getUser();
+    if (data.user) throw redirect({ to: "/app" });
+  },
   head: () => ({
     meta: [
       { title: "Log in to Blym — Get today's filming brief" },
@@ -39,7 +46,7 @@ function LoginPage() {
   const handleGoogle = async () => {
     const { lovable } = await import("@/integrations/lovable/index");
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin + "/app",
+      redirect_uri: `${window.location.origin}/app`,
     });
     if (result.error) return toast.error("Google sign in failed");
     if (result.redirected) return;
