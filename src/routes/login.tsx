@@ -17,9 +17,17 @@ export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Log in to Blym — Get today's filming brief" },
-      { name: "description", content: "Log in to your Blym account to view today's personalised filming brief, captions, planner and creator tools." },
+      {
+        name: "description",
+        content:
+          "Log in to your Blym account to view today's personalised filming brief, captions, planner and creator tools.",
+      },
       { property: "og:title", content: "Log in to Blym — Get today's filming brief" },
-      { property: "og:description", content: "Log in to your Blym account to view today's personalised filming brief, captions, planner and creator tools." },
+      {
+        property: "og:description",
+        content:
+          "Log in to your Blym account to view today's personalised filming brief, captions, planner and creator tools.",
+      },
       { property: "og:url", content: "https://www.blym.life/login" },
       { name: "robots", content: "noindex, nofollow" },
     ],
@@ -30,9 +38,11 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const search = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,28 +50,37 @@ function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return toast.error(error.message);
-    navigate({ to: "/app" });
+    navigate({ to: search.redirect || "/app" });
   };
 
   const handleGoogle = async () => {
+    setGoogleLoading(true);
     const { lovable } = await import("@/integrations/lovable/index");
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/app`,
+      redirect_uri: `${window.location.origin}${search.redirect || "/app"}`,
     });
-    if (result.error) return toast.error("Google sign in failed");
+    setGoogleLoading(false);
+    if (result.error) return toast.error(result.error.message || "Google sign in failed");
     if (result.redirected) return;
-    navigate({ to: "/app" });
+    navigate({ to: search.redirect || "/app" });
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
-        <Link to="/" className="text-sm text-muted-foreground">← back</Link>
+        <Link to="/" className="text-sm text-muted-foreground">
+          ← back
+        </Link>
         <h1 className="mt-2 font-display text-3xl font-black">Welcome back</h1>
         <p className="mt-1 text-sm text-muted-foreground">Let's get your brief.</p>
 
-        <Button onClick={handleGoogle} variant="outline" className="mt-6 w-full rounded-full">
-          Continue with Google
+        <Button
+          onClick={handleGoogle}
+          disabled={googleLoading || loading}
+          variant="outline"
+          className="mt-6 w-full rounded-full"
+        >
+          {googleLoading ? "Opening Google…" : "Continue with Google"}
         </Button>
         <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
           <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
@@ -69,18 +88,36 @@ function LoginPage() {
         <form onSubmit={handleEmailLogin} className="space-y-3">
           <div>
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <Input
+              id="email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div>
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <Button type="submit" disabled={loading} className="w-full rounded-full">
             {loading ? "Signing in…" : "Log in"}
           </Button>
         </form>
         <p className="mt-4 text-center text-sm text-muted-foreground">
-          New here? <Link to="/signup" className="font-semibold text-foreground underline-offset-4 hover:underline">Create account</Link>
+          New here?{" "}
+          <Link
+            to="/signup"
+            className="font-semibold text-foreground underline-offset-4 hover:underline"
+          >
+            Create account
+          </Link>
         </p>
       </div>
     </div>
