@@ -33,7 +33,7 @@ function Page() {
       <PageHero icon={Calculator} eyebrow="Pricing" title="Get paid fairly for usage rights." description="Calculator + breakdown + a negotiation script you can paste straight into email." variant="warm">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
-      <section className="mx-auto max-w-5xl px-5 py-10">
+      <section className="mx-auto max-w-5xl px-5 py-6">
         <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1.5"><Label>Base content fee (£)</Label><Input type="number" value={base} onChange={(e) => setBase(parseInt(e.target.value || "0"))} className="rounded-xl bg-secondary/40" /></div>
@@ -54,7 +54,7 @@ function Page() {
         </Card>
       </section>
       {m.data && (
-        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-12">
+        <section className="mx-auto max-w-5xl space-y-4 px-5 pb-8">
           <Card className="rounded-3xl p-5">
             <div className="grid grid-cols-3 gap-3 text-center">
               <div className="rounded-2xl bg-secondary/40 p-3"><div className="text-3xl font-black">{m.data.multiplier}×</div><div className="text-[10px] font-bold uppercase tracking-wider">Multiplier</div></div>

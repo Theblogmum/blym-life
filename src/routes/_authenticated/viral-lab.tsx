@@ -51,7 +51,7 @@ function ViralLab() {
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
       </PageHero>
 
-      <section className="mx-auto max-w-5xl px-5 py-10">
+      <section className="mx-auto max-w-5xl px-5 py-6">
         <Card glow className="overflow-hidden rounded-3xl border-0 p-0 shadow-[var(--shadow-glow)]">
           <div className="border-b border-border/40 surface-plum px-6 py-4">
             <p className="text-[11px] font-bold uppercase tracking-widest text-foreground/60">
@@ -145,7 +145,7 @@ function ViralLab() {
       )}
 
       {!m.data && (
-        <section className="mx-auto max-w-5xl px-5 pb-16">
+        <section className="mx-auto max-w-5xl px-5 pb-10">
           <h2 className="mb-4 font-display text-2xl font-black">What you'll get</h2>
           <div className="grid gap-3 md:grid-cols-3">
             <Section emoji="🎣" title="Hook breakdown" surface="surface-mint">

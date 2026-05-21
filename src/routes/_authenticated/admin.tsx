@@ -111,9 +111,9 @@ function AdminPage() {
             </thead>
             <tbody>
               {usersQ.isLoading ? (
-                <tr><td colSpan={6} className="px-5 py-10 text-center text-muted-foreground">Loading users…</td></tr>
+                <tr><td colSpan={6} className="px-5 py-6 text-center text-muted-foreground">Loading users…</td></tr>
               ) : filtered.length === 0 ? (
-                <tr><td colSpan={6} className="px-5 py-10 text-center text-muted-foreground">No users found.</td></tr>
+                <tr><td colSpan={6} className="px-5 py-6 text-center text-muted-foreground">No users found.</td></tr>
               ) : (
                 filtered.map((u: any) => (
                   <tr key={u.id} className="border-t border-border/50">

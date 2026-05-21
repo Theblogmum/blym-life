@@ -26,7 +26,7 @@ function LeaguesPage() {
         description="every Monday resets. earn XP this week → climb tiers → flex 🌟"
         variant="bloom"
       />
-      <section className="mx-auto max-w-[900px] px-5 py-8 sm:py-10">
+      <section className="mx-auto max-w-[900px] px-5 py-8 sm:py-6">
       {q.isLoading || !d ? (
         <div className="space-y-3">
           <Skeleton className="h-32 w-full rounded-3xl" />
@@ -78,7 +78,7 @@ function LeaguesPage() {
           </div>
 
           {/* Leaderboard */}
-          <section className="mt-10">
+          <section className="mt-6">
             <div className="mb-4 flex items-end justify-between">
               <h2 className="font-display text-[22px] font-bold tracking-[-0.015em]">this week's rankings</h2>
               <span className="text-[11px] font-semibold text-muted-foreground">{d.tierLabel} league</span>

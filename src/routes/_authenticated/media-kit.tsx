@@ -31,7 +31,7 @@ function Page() {
       <PageHero icon={FileText} eyebrow="Brand deals" title="Media kit, written for you." description="All the copy, structure and design brief for a one-pager that sells you." variant="sunrise">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
-      <section className="mx-auto max-w-3xl px-5 py-10">
+      <section className="mx-auto max-w-3xl px-5 py-6">
         <Card glow className="rounded-3xl p-6 grid gap-4">
           <div className="space-y-1.5"><Label>Goal of media kit</Label><Input value={goal} onChange={(e) => setGoal(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. Land paid Aldi-style brand deals" /></div>
           <div className="space-y-1.5"><Label>Stats</Label><Textarea rows={3} value={stats} onChange={(e) => setStats(e.target.value)} className="rounded-xl bg-secondary/40" placeholder="e.g. IG 18k followers, 45k avg reel views, 6% engagement" /></div>
@@ -43,7 +43,7 @@ function Page() {
         </Card>
       </section>
       {m.data && (
-        <section className="mx-auto max-w-3xl space-y-4 px-5 pb-12">
+        <section className="mx-auto max-w-3xl space-y-4 px-5 pb-8">
           <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Tagline</p><p className="mt-1 font-display text-2xl font-black">{m.data.tagline}</p></Card>
           <Card glow className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">About</p><p className="mt-2 text-sm leading-relaxed">{m.data.about}</p></Card>
           <Card className="rounded-3xl p-5"><p className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Audience</p><p className="mt-2 text-sm leading-relaxed">{m.data.audience_summary}</p></Card>

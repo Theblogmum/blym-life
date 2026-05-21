@@ -385,8 +385,8 @@
   }
 
   /* Vertical rhythm between sections */
-  .section-block { margin-bottom: 3rem; }
-  @media (min-width: 640px) { .section-block { margin-bottom: 3.5rem; } }
+  .section-block { margin-bottom: 2rem; }
+  @media (min-width: 640px) { .section-block { margin-bottom: 2.25rem; } }
 
   /* Section header — small eyebrow + display heading */
   .section-heading {

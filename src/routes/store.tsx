@@ -54,7 +54,7 @@ function StorePage() {
               "radial-gradient(60% 60% at 15% 20%, var(--surface-blush) 0%, transparent 60%), radial-gradient(50% 50% at 85% 0%, var(--surface-butter) 0%, transparent 65%), radial-gradient(60% 60% at 100% 100%, var(--surface-rose) 0%, transparent 55%)",
           }}
         />
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-16 md:grid-cols-[1.4fr_1fr] md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-6 md:grid-cols-[1.4fr_1fr] md:py-24">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-card/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-foreground/70 ring-1 ring-border backdrop-blur">
               <Sparkles className="h-3 w-3 text-primary" /> The Blym Shop
@@ -81,7 +81,7 @@ function StorePage() {
       </section>
 
       {/* Catalog */}
-      <section className="mx-auto max-w-6xl px-6 py-14">
+      <section className="mx-auto max-w-6xl px-6 py-9">
         <div className="mb-8 flex items-end justify-between">
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">Catalog</p>
@@ -179,7 +179,7 @@ function StorePage() {
 
       {/* Trust strip */}
       <section className="border-t border-border/60 bg-secondary/40">
-        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-10 sm:grid-cols-3">
+        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-6 sm:grid-cols-3">
           {[
             { icon: Zap, title: "Instant delivery", body: "Download links sent the moment your payment clears." },
             { icon: Download, title: "Yours forever", body: "Re-download anytime from your personal library." },
