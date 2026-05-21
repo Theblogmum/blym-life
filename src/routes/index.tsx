@@ -207,8 +207,8 @@ function Landing() {
           {/* LEFT — single focal point: headline + subtext + CTA */}
           <div className="text-left">
             <span className="eyebrow">a creator journey, not a dashboard</span>
-            <h1 className="mt-3 font-display text-[34px] font-bold leading-[1.05] tracking-[-0.02em] text-foreground text-balance sm:text-[52px] lg:text-[60px] xl:text-[68px]">
-              From nervous beginner to <span className="text-gradient-game">booked &amp; busy</span>.
+            <h1 className="mt-3 font-display font-bold leading-[1.05] tracking-[-0.02em] text-foreground text-balance sm:text-[52px] lg:text-[60px] xl:text-[68px] text-left font-sans text-5xl text-[#454545]">
+              the creator app that helps you show up, <span className="text-gradient-game">GROW &amp; LEVEL UP</span>.
             </h1>
             <p className="mt-4 max-w-lg text-[16px] leading-[1.5] text-muted-foreground text-pretty sm:text-[20px]">
               The creator app making showing up easier.
