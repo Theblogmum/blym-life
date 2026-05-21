@@ -1,0 +1,1 @@
+GRANT SELECT ON TABLE public.digital_products TO anon, authenticated;

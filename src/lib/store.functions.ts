@@ -19,8 +19,24 @@ function admin() {
   );
 }
 
+function publicStoreClient() {
+  const supabaseUrl = process.env.SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL;
+  const publishableKey =
+    process.env.SUPABASE_PUBLISHABLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+  if (!supabaseUrl || !publishableKey) {
+    throw new Error("Store backend is not configured");
+  }
+
+  return createClient(supabaseUrl, publishableKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
+
 export const listProducts = createServerFn({ method: "GET" }).handler(async () => {
-  const { data, error } = await admin()
+  const { data, error } = await publicStoreClient()
     .from("digital_products")
     .select("id, slug, title, description, price_cents, currency, cover_url, thumbnail_url, sort_order, created_at")
     .eq("active", true)
@@ -33,7 +49,7 @@ export const listProducts = createServerFn({ method: "GET" }).handler(async () =
 export const getProductBySlug = createServerFn({ method: "POST" })
   .inputValidator((d: { slug: string }) => d)
   .handler(async ({ data }) => {
-    const { data: p } = await admin()
+    const { data: p } = await publicStoreClient()
       .from("digital_products")
       .select("id, slug, title, description, price_cents, currency, cover_url, active")
       .eq("slug", data.slug)
