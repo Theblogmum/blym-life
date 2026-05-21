@@ -88,7 +88,8 @@ function Landing() {
           <img
             src={blymHeaderBanner}
             alt="BLYM — Show up. Create. Grow. Where creators level up. Join 1000+ creators leveling up every day."
-            className="block w-full h-auto m-0 p-0"
+            className="block w-full h-auto m-0 p-0 mx-auto object-contain"
+            style={{ maxHeight: "250px" }}
           />
         </Link>
       </div>
