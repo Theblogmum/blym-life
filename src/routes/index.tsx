@@ -10,6 +10,7 @@ import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
+import blymLogo from "@/assets/logo-blym.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,61 @@ function Landing() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
+      <header className="sticky top-0 z-40 border-b border-white/30 bg-white/55 backdrop-blur-xl backdrop-saturate-150 shadow-[0_1px_0_0_oklch(1_0_0/0.6)_inset,0_8px_28px_-18px_oklch(0.65_0.18_330/0.35)]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-80"
+          style={{
+            background:
+              "radial-gradient(55% 140% at 10% 0%, color-mix(in oklab, oklch(0.85 0.10 350) 28%, transparent), transparent 60%), radial-gradient(45% 130% at 95% 0%, color-mix(in oklab, oklch(0.82 0.12 300) 22%, transparent), transparent 65%)",
+          }}
+        />
+        <nav className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
+          {/* LEFT — logo */}
+          <Link to="/" aria-label="Blym home" className="flex items-center gap-2">
+            <img src={blymLogo} alt="Blym" className="h-7 w-auto" />
+          </Link>
+
+          {/* CENTER — nav links */}
+          <ul className="hidden items-center gap-7 md:flex">
+            {[
+              { href: "#features", label: "Features" },
+              { href: "#how", label: "How It Works" },
+              { href: "#pricing", label: "Pricing" },
+              { href: "#testimonials", label: "Creator Wins" },
+            ].map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="text-[13px] font-medium tracking-tight text-foreground/70 transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {/* RIGHT — auth CTAs */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {!user && (
+              <Link
+                to="/login"
+                className="hidden text-[13px] font-medium text-foreground/70 transition-colors hover:text-foreground sm:inline-flex"
+              >
+                Sign In
+              </Link>
+            )}
+            <Link to={user ? "/app" : "/signup"}>
+              <Button
+                size="sm"
+                className="h-9 rounded-full bg-gradient-to-r from-[oklch(0.72_0.18_350)] to-[oklch(0.68_0.20_310)] px-4 text-[13px] font-semibold text-white shadow-[0_6px_20px_-8px_oklch(0.65_0.22_330/0.55)] transition-all hover:shadow-[0_10px_26px_-8px_oklch(0.65_0.22_330/0.65)]"
+              >
+                {user ? "Open studio" : "Start Free"}
+              </Button>
+            </Link>
+          </div>
+        </nav>
+      </header>
       <main>
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-background">
