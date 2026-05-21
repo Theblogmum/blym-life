@@ -83,16 +83,12 @@ function Landing() {
           className="pointer-events-none absolute inset-0 opacity-70"
           style={{ background: "radial-gradient(60% 120% at 15% 0%, color-mix(in oklab, var(--surface-blush) 28%, transparent), transparent 60%), radial-gradient(45% 100% at 90% 0%, color-mix(in oklab, var(--surface-peach) 22%, transparent), transparent 65%)" }}
         />
-      <div className={cn(
-        "relative w-full flex items-center justify-center px-0 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
-        scrolled ? "py-1" : "py-1.5",
-      )}>
+      <div className="relative w-full flex items-center justify-center px-0 py-1.5">
         <Link to="/" aria-label="Blym home" className="block w-full">
           <img
             src={blymHeaderBanner}
             alt="BLYM — Show up. Create. Grow. Where creators level up. Join 1000+ creators leveling up every day."
-            className="mx-auto w-full object-contain"
-            style={{ maxHeight: scrolled ? "44px" : "52px" }}
+            className="mx-auto block w-full h-auto"
           />
         </Link>
       </div>
