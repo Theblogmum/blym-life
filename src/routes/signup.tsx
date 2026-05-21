@@ -2,6 +2,7 @@ import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-ro
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { sendTransactionalEmail } from "@/lib/email/send";
+import { signInWithGoogle } from "@/lib/oauth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -69,11 +70,7 @@ function SignupPage() {
 
   const handleGoogle = async () => {
     setGoogleLoading(true);
-    const { lovable } = await import("@/integrations/lovable/index");
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/onboarding`,
-      extraParams: { prompt: "select_account" },
-    });
+    const result = await signInWithGoogle("/onboarding", { prompt: "select_account" });
     setGoogleLoading(false);
     if (result.error) return toast.error(result.error.message || "Google sign in failed");
     if (result.redirected) return;
