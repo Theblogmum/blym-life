@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
   Heart, Star, ArrowRight, Quote, Zap, CalendarDays, MessageSquareText, Recycle, LineChart, Trophy, Flame, Crown, Gift, BadgeCheck,
+  Rocket, TrendingUp,
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
@@ -12,7 +13,6 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
-import blymBanner from "@/assets/blym-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,20 +70,7 @@ function Landing() {
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
       {/* ============ BRAND BANNER (above nav) ============ */}
-      <div
-        aria-label="BLYM — where creators level up"
-        className="relative w-full overflow-hidden bg-transparent"
-      >
-        <img
-          src={blymBanner}
-          alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
-          width={1731}
-          height={333}
-          className="block w-full h-auto"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      <BrandBanner />
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
@@ -515,6 +502,72 @@ function Landing() {
         </p>
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
+    </div>
+  );
+}
+
+/* ============ Brand Banner — slim, responsive, full-bleed ============ */
+function BrandBanner() {
+  const features = [
+    { icon: Wand2, label: "Daily Briefs" },
+    { icon: CalendarDays, label: "Smart Planner" },
+    { icon: Sparkles, label: "AI Studio" },
+    { icon: Trophy, label: "Growth Quests" },
+  ];
+  return (
+    <div
+      role="banner"
+      aria-label="BLYM — where creators level up"
+      className="relative w-full border-b border-white/10 bg-[image:var(--gradient-bloom)] text-white shadow-[0_8px_24px_-16px_oklch(0.13_0.08_285/0.5)]"
+    >
+      {/* subtle glow overlay */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          background:
+            "radial-gradient(60% 120% at 10% 50%, oklch(1 0 0 / 0.18), transparent 60%), radial-gradient(50% 120% at 90% 50%, oklch(1 0 0 / 0.14), transparent 60%)",
+        }}
+      />
+      <div className="relative mx-auto flex h-[64px] w-full max-w-[1440px] items-center justify-between gap-4 px-6 sm:h-[70px] sm:px-8 md:h-[80px] md:px-10">
+        {/* LEFT — logo + slogan */}
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-white/15 backdrop-blur-md shadow-[inset_0_1px_0_oklch(1_0_0/0.4)] sm:h-9 sm:w-9">
+            <Sparkles className="h-4 w-4 text-white sm:h-[18px] sm:w-[18px]" />
+          </span>
+          <div className="min-w-0 leading-tight">
+            <p className="font-display text-[15px] font-bold tracking-tight sm:text-[17px]">BLYM</p>
+            <p className="hidden text-[10px] font-medium uppercase tracking-[0.18em] text-white/75 sm:block">
+              Where creators level up
+            </p>
+          </div>
+        </div>
+
+        {/* CENTER — feature pills (hidden on mobile) */}
+        <nav aria-label="Banner features" className="hidden items-center gap-1.5 md:flex">
+          {features.map(({ icon: Icon, label }) => (
+            <span
+              key={label}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1 text-[11px] font-semibold text-white/95 backdrop-blur-md ring-1 ring-inset ring-white/20 transition-colors duration-200 hover:bg-white/20"
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {label}
+            </span>
+          ))}
+        </nav>
+
+        {/* RIGHT — creator growth stat */}
+        <div className="flex shrink-0 items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-white ring-1 ring-inset ring-white/25 backdrop-blur-md sm:px-3.5">
+          <span className="relative grid h-6 w-6 place-items-center rounded-full bg-white/20">
+            <TrendingUp className="h-3.5 w-3.5" />
+            <span aria-hidden className="absolute -right-0.5 -top-0.5 h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_8px_oklch(0.85_0.18_155)]" />
+          </span>
+          <div className="leading-tight">
+            <p className="text-[11px] font-bold tracking-tight sm:text-[12px]">1,000+ creators</p>
+            <p className="hidden text-[9px] font-medium uppercase tracking-[0.14em] text-white/75 sm:block">growing daily</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
