@@ -1,5 +1,4 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Sparkles, Check, Clock, Wand2, Camera,
@@ -9,10 +8,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
-import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
-import blymHeaderBanner from "@/assets/blym-header-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,46 +52,12 @@ function Landing() {
   void loading;
   void navigate;
 
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   const ctaPrimary = user ? { to: "/app" as const, label: "Create my content" } : { to: "/signup" as const, label: "Create my content — free" };
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
-      <header
-        className={cn(
-          "sticky top-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
-          scrolled
-            ? "bg-background/55 backdrop-blur-2xl backdrop-saturate-150 border-b border-border/40 shadow-[0_1px_0_0_oklch(1_0_0/0.6)_inset,0_8px_24px_-12px_oklch(0.3_0.05_20/0.18)]"
-            : "bg-background/30 backdrop-blur-xl border-b border-transparent",
-        )}
-      >
-        {/* Whisper of warm gradient bleeding from hero */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-70"
-          style={{ background: "radial-gradient(60% 120% at 15% 0%, color-mix(in oklab, var(--surface-blush) 28%, transparent), transparent 60%), radial-gradient(45% 100% at 90% 0%, color-mix(in oklab, var(--surface-peach) 22%, transparent), transparent 65%)" }}
-        />
-      <div className="relative w-full p-0 m-0 leading-[0]">
-        <Link to="/" aria-label="Blym home" className="block w-full leading-[0]">
-          <img
-            src={blymHeaderBanner}
-            alt="BLYM — Show up. Create. Grow. Where creators level up. Join 1000+ creators leveling up every day."
-            className="block w-full m-0 p-0"
-            style={{ height: "250px", objectFit: "fill" }}
-          />
-        </Link>
-      </div>
-      </header>
-
       <main>
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-background">
