@@ -75,15 +75,16 @@ function Landing() {
         aria-label="BLYM — where creators level up"
         className="w-full border-b border-border/40 bg-[image:var(--gradient-aurora)]"
       >
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-center px-3 py-2 sm:px-6 sm:py-3">
-          <img
-            src={blymBanner}
-            alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
-            className="block h-auto w-full max-h-16 object-contain sm:max-h-20 md:max-h-24 lg:max-h-28"
-            loading="eager"
-            decoding="async"
-          />
-        </div>
+        <img
+          src={blymBanner}
+          alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
+          width={1920}
+          height={420}
+          className="block w-full h-auto object-contain"
+          style={{ aspectRatio: "1920 / 420" }}
+          loading="eager"
+          decoding="async"
+        />
       </div>
       <header
         className={cn(
