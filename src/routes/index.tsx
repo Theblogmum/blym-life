@@ -83,12 +83,13 @@ function Landing() {
           className="pointer-events-none absolute inset-0 opacity-70"
           style={{ background: "radial-gradient(60% 120% at 15% 0%, color-mix(in oklab, var(--surface-blush) 28%, transparent), transparent 60%), radial-gradient(45% 100% at 90% 0%, color-mix(in oklab, var(--surface-peach) 22%, transparent), transparent 65%)" }}
         />
-      <div className="relative w-full flex items-center justify-center px-0 py-1.5">
+      <div className="relative w-full flex items-center justify-center px-0 py-0.5">
         <Link to="/" aria-label="Blym home" className="block w-full">
           <img
             src={blymHeaderBanner}
             alt="BLYM — Show up. Create. Grow. Where creators level up. Join 1000+ creators leveling up every day."
-            className="mx-auto block w-full h-auto"
+            className="mx-auto block w-auto max-w-full object-contain"
+            style={{ maxHeight: "250px" }}
           />
         </Link>
       </div>
