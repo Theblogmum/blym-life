@@ -70,20 +70,7 @@ function Landing() {
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
       {/* ============ BRAND BANNER (above nav) ============ */}
-      <div
-        aria-label="BLYM — where creators level up"
-        className="relative w-full overflow-hidden bg-transparent"
-      >
-        <img
-          src={blymBanner}
-          alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
-          width={1731}
-          height={333}
-          className="block w-full h-auto"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      <BrandBanner />
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
