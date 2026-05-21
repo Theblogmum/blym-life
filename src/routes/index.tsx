@@ -12,6 +12,7 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { cn } from "@/lib/utils";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
+import blymHeaderBanner from "@/assets/blym-header-banner.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -86,96 +87,16 @@ function Landing() {
         "relative mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-8 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
         scrolled ? "py-2.5" : "py-4",
       )}>
-        <Link
-          to="/"
-          className="group flex items-center gap-2 font-display text-[17px] font-bold tracking-[-0.02em] text-foreground"
-        >
-          <span className="sr-only">Blym</span>
-          <span
-            aria-hidden
-            className="relative bg-[image:var(--gradient-bloom)] bg-clip-text text-transparent transition-all duration-300 group-hover:tracking-tight"
-          >
-            Blym
-          </span>
-          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-[image:var(--gradient-warm)] shadow-[0_0_0_3px_oklch(1_0_0/0.6),0_0_12px_2px_color-mix(in_oklab,var(--surface-blush)_60%,transparent)] transition-transform duration-300 group-hover:scale-125" />
+        <Link to="/" aria-label="Blym home" className="block w-full">
+          <img
+            src={blymHeaderBanner}
+            alt="BLYM — Show up. Create. Grow. Where creators level up. Join 1000+ creators leveling up every day."
+            className={cn(
+              "mx-auto w-full object-contain transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
+              scrolled ? "h-10 sm:h-11" : "h-12 sm:h-14",
+            )}
+          />
         </Link>
-        {/* Centred nav with refined link treatment */}
-        <nav className="hidden items-center gap-0.5 text-sm sm:flex">
-          {[
-            { href: "#features", label: "Features" },
-            { href: "#how", label: "How it works" },
-            { href: "#pricing", label: "Pricing" },
-            { href: "#testimonials", label: "Reviews" },
-          ].map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="group relative rounded-full px-3.5 py-2 text-[13px] font-semibold tracking-tight text-foreground/65 transition-colors duration-300 hover:text-foreground"
-            >
-              <span className="relative">
-                {item.label}
-                <span
-                  aria-hidden
-                  className="absolute -bottom-0.5 left-1/2 h-[1.5px] w-0 -translate-x-1/2 rounded-full bg-[image:var(--gradient-bloom)] transition-[width] duration-300 ease-out group-hover:w-full"
-                />
-              </span>
-            </a>
-          ))}
-          <Link
-            to="/store"
-            className="group relative rounded-full px-3.5 py-2 text-[13px] font-semibold tracking-tight text-foreground/65 transition-colors duration-300 hover:text-foreground"
-          >
-            <span className="relative">
-              Store
-              <span
-                aria-hidden
-                className="absolute -bottom-0.5 left-1/2 h-[1.5px] w-0 -translate-x-1/2 rounded-full bg-[image:var(--gradient-bloom)] transition-[width] duration-300 ease-out group-hover:w-full"
-              />
-            </span>
-          </Link>
-        </nav>
-        <div className="flex items-center gap-2">
-          {user ? (
-            <Link to="/app" className="group">
-              <Button
-                size="lg"
-                className="relative overflow-hidden rounded-full bg-[image:var(--gradient-bloom)] px-5 text-[13px] font-bold text-primary-foreground shadow-[0_6px_20px_-6px_color-mix(in_oklab,var(--surface-blush)_80%,transparent),0_1px_0_0_oklch(1_0_0/0.4)_inset] hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-6px_color-mix(in_oklab,var(--surface-blush)_90%,transparent),0_1px_0_0_oklch(1_0_0/0.5)_inset]"
-              >
-                <span className="relative z-10 inline-flex items-center gap-1.5">
-                  Open studio
-                  <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </span>
-                <span
-                  aria-hidden
-                  className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-                />
-              </Button>
-            </Link>
-          ) : (
-            <>
-              <Link to="/login" className="hidden sm:inline-flex">
-                <Button variant="ghost" size="sm" className="rounded-full px-3.5 text-[13px] font-semibold text-foreground/65 hover:bg-foreground/[0.04] hover:text-foreground">
-                  Sign in
-                </Button>
-              </Link>
-              <Link to="/signup" className="group">
-                <Button
-                  size="lg"
-                  className="relative overflow-hidden rounded-full bg-anchor px-5 text-[13px] font-bold text-anchor-foreground shadow-[0_6px_20px_-6px_oklch(0.2_0.04_280/0.45),0_1px_0_0_oklch(1_0_0/0.18)_inset] hover:-translate-y-0.5 hover:bg-anchor hover:shadow-[0_12px_28px_-6px_oklch(0.2_0.04_280/0.55),0_1px_0_0_oklch(1_0_0/0.22)_inset]"
-                >
-                  <span className="relative z-10 inline-flex items-center gap-1.5">
-                    Start free
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </span>
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"
-                  />
-                </Button>
-              </Link>
-            </>
-          )}
-        </div>
       </div>
       </header>
 
