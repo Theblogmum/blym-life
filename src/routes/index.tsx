@@ -72,14 +72,14 @@ function Landing() {
       {/* ============ BRAND BANNER (above nav) ============ */}
       <div
         aria-label="BLYM — where creators level up"
-        className="relative w-full bg-transparent flex items-center justify-center"
+        className="relative w-full overflow-hidden bg-transparent"
       >
         <img
           src={blymBanner}
           alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
           width={1731}
           height={333}
-          className="block h-[70px] sm:h-[80px] md:h-[90px] w-auto max-w-full object-contain"
+          className="block w-full h-auto"
           loading="eager"
           decoding="async"
         />
@@ -545,7 +545,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mx-auto mt-8 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3">
+      <div className="mx-auto mt-8 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3 sm:gap-6">
         <PriceCard
           name="Free"
           price="£0"
@@ -617,11 +617,14 @@ function PriceCard({
 }) {
   return (
     <div className={highlighted
-      ? "group relative h-full rounded-[1.75rem] bg-[image:var(--gradient-warm)] p-[1.5px] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:shadow-[0_30px_80px_-20px_color-mix(in_oklab,var(--primary)_45%,transparent)]"
+      ? "group relative h-full rounded-[1.75rem] bg-[image:var(--gradient-bloom)] p-[2.5px] shadow-[0_40px_90px_-24px_color-mix(in_oklab,var(--primary)_55%,transparent)] transition-all duration-300 sm:-translate-y-2 sm:scale-[1.04] hover:-translate-y-3 hover:scale-[1.05] hover:shadow-[0_50px_110px_-22px_color-mix(in_oklab,var(--primary)_65%,transparent)] z-10"
       : "group card-elegant h-full p-5 text-left flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.015] hover:border-primary/40 hover:shadow-[var(--shadow-elegant)]"}>
-      <div className={highlighted ? "h-full rounded-[calc(1.75rem-1.5px)] bg-card p-4 sm:p-5 text-left flex flex-col" : "flex flex-1 flex-col"}>
+      {highlighted && (
+        <span aria-hidden className="pointer-events-none absolute -inset-6 -z-10 rounded-[2rem] bg-[image:var(--gradient-warm)] opacity-40 blur-3xl" />
+      )}
+      <div className={highlighted ? "relative h-full rounded-[calc(1.75rem-2.5px)] bg-card/95 backdrop-blur-xl p-4 sm:p-5 text-left flex flex-col shadow-[inset_0_1px_0_oklch(1_0_0/0.7)]" : "flex flex-1 flex-col"}>
         {highlighted && (
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-foreground px-2.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-background">Most loved</span>
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[image:var(--gradient-warm)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white shadow-[0_8px_24px_-8px_color-mix(in_oklab,var(--primary)_60%,transparent)]">★ Most loved</span>
         )}
         <p className="eyebrow">{name}</p>
         <p className="mt-2 font-display text-2xl font-normal tracking-tight sm:text-3xl">
