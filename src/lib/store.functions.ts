@@ -5,9 +5,17 @@ import { getStripe, getStripeEnv } from "@/lib/stripe.server";
 import { findOrCreateCustomerId } from "@/lib/payments-helpers.server";
 
 function admin() {
+  const supabaseUrl = process.env.SUPABASE_URL || import.meta.env.VITE_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error("Store backend is not configured");
+  }
+
   return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    supabaseUrl,
+    serviceRoleKey,
+    { auth: { persistSession: false, autoRefreshToken: false } }
   );
 }
 
