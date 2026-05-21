@@ -32,6 +32,7 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,12 +60,14 @@ function SignupPage() {
   };
 
   const handleGoogle = async () => {
+    setGoogleLoading(true);
     const { lovable } = await import("@/integrations/lovable/index");
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: `${window.location.origin}/onboarding`,
       extraParams: { prompt: "select_account" },
     });
-    if (result.error) return toast.error("Google sign in failed");
+    setGoogleLoading(false);
+    if (result.error) return toast.error(result.error.message || "Google sign in failed");
     if (result.redirected) return;
     navigate({ to: "/onboarding" });
   };
@@ -76,8 +79,8 @@ function SignupPage() {
         <h1 className="mt-2 font-display text-3xl font-black">Create account</h1>
         <p className="mt-1 text-sm text-muted-foreground">2 minutes. Then you'll know what to film.</p>
 
-        <Button onClick={handleGoogle} variant="outline" className="mt-6 w-full rounded-full">
-          Continue with Google
+        <Button onClick={handleGoogle} disabled={googleLoading || loading} variant="outline" className="mt-6 w-full rounded-full">
+          {googleLoading ? "Opening Google…" : "Continue with Google"}
         </Button>
         <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
           <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
