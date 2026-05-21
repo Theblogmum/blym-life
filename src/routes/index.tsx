@@ -71,7 +71,7 @@ function Landing() {
         <nav className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
           {/* LEFT — logo */}
           <Link to="/" aria-label="Blym home" className="flex items-center gap-2">
-            <img src={blymLogo} alt="Blym" className="h-7 w-auto" />
+            <img src={blymLogo} alt="Blym — Show up. Create. Grow." className="h-9 w-auto sm:h-10" />
           </Link>
 
           {/* CENTER — nav links */}
