@@ -1,86 +1,42 @@
+## What I found
 
-# Global Premium Elevation — Blym
+I checked the auth logs, network traffic and the relevant code without modifying anything:
 
-Goal: make the whole internal app feel as premium, emotional, and cohesive as the landing page — without redesigning layouts or breaking functionality.
+- **Lovable Cloud backend is healthy** — database + auth responding normally.
+- **Google login is actually working.** Auth logs show a successful Google login for your account (`theblogmum@gmail.com`) at 13:30 UK today, and the live network requests show your valid session token being attached to backend calls. You are signed in right now.
+- **Wiring is correct**: `attachSupabaseAuth` is registered in `src/start.ts`, `requireSupabaseAuth` is present, `auth-attacher` reads the session and adds the bearer token, and `_authenticated` has a proper `beforeLoad` guard.
+- **The login/signup pages** use the correct `lovable.auth.signInWithOAuth("google", ...)` broker path and clean email/password fallback — no monkey-patched `window.fetch`, no leaked secrets, no broken imports.
 
-Strategy: edit at the **system layer** (tokens + shared components) so improvements cascade across ~80 internal pages automatically. Then polish the two pages explicitly called out.
+## Why login "looks broken" in the preview
 
----
+This is a known preview-only issue, not a code bug:
 
-## Phase 1 — Design System Layer (cascades app-wide)
+> The Lovable preview iframe injects a fetch proxy that can break Supabase auth POST requests. Auth that works on the live site still fails in the preview window. **The fix is to test on the published URL, not to change app code.**
 
-**`src/styles.css`**
-- Soften corner radii globally (`--radius` +2px, premium cards +4px)
-- Layered shadow system: `--shadow-soft`, `--shadow-elegant`, `--shadow-bloom-glow` (warm rose-tinted)
-- New gradient tokens: `--gradient-page-warm` (subtle background wash), `--gradient-card-premium` (faint blush sheen)
-- Tighten typography rhythm: heading line-height, paragraph max-width default
-- Premium motion timing tokens: `--ease-soft`, `--duration-page`
+If I "fix" code based on the preview symptom, I will almost certainly introduce real bugs on the live site (which is what happened during the earlier migration). So the plan below is verification-first, code-changes only if a real bug shows up.
 
-**`src/components/ui/card.tsx`**
-- Default to softer radius + layered shadow
-- Add `premium` variant with gradient sheen + warm border tint
-- Hover lift micro-interaction (translate-y + shadow grow)
+## Plan (credit-light)
 
-**`src/components/ui/button.tsx`**
-- Already has lift — add `soft` variant with blush tint for secondary CTAs
-- Refine focus ring to warm rose
+1. **You test the published site first**, in a normal browser tab (not the Lovable preview):
+   - https://www.blym.life/login
+   - https://blym-life.lovable.app/login
+   Try both Google login and email/password.
 
-**`src/components/ui/input.tsx` + `textarea.tsx`**
-- Softer borders, warm focus glow, premium padding rhythm
+2. **If login works on the published site** → there is nothing to fix. The preview-only failure is expected and harmless. Close the loop here.
 
-**`src/components/empty-state.tsx`**
-- Add subtle animated breathing on icon
-- Add `aspirational` variant (blurred preview ghost behind)
-- Warm gradient backing
+3. **If login fails on the published site**, tell me:
+   - which URL,
+   - which method (Google or email/password),
+   - the exact error message or what happens (redirect loop, blank page, toast text),
+   - ideally a screenshot.
+   I will then look at server function logs + auth logs for that specific failure and patch only what's actually broken — no speculative rewrites.
 
-**`src/components/page-hero.tsx`**
-- Gentle fade-in on mount, layered glow blobs (already partial)
-- Tighter type scale rhythm
-
-## Phase 2 — Motion Layer
-
-- Add `.premium-card` utility (hover lift + shadow morph)
-- Add `.fade-up-in` page-mount animation, applied via root layout
-- Soft loading state: replace bare spinners with breathing blush pulse component
-- Save interactions: subtle scale+glow flash on successful mutations (toast already exists — enhance with rose accent)
-
-## Phase 3 — Targeted Page Lifts
-
-**`src/routes/_authenticated/motivation.tsx` (Daily Pep Talk)**
-- Mood-based gradient hero (rotates by day-of-week affirmation tone)
-- Favourite/save heart on each card (localStorage first, can wire to DB later)
-- Streak chip pulled into hero
-- Smoother card stagger fade-in
-- Premium card elevation
-
-**`src/routes/_authenticated/rejection-recovery.tsx`**
-- Calmer hero gradient (bloom→blush)
-- Result cards reformat as conversation-style bubbles (Bloom speaking)
-- Add "tiny next step" CTA buttons that feel actionable
-- Soft entry animations
-- Comforting microcopy pass
-
-## Phase 4 — Microcopy Pass (high-leverage only)
-
-Touch the most-visited surfaces only (avoid 80-page rewrite):
-- App dashboard empty states & section headers
-- Common button labels in shared components ("Save" → "Save it ✨" where it fits)
-- Toast success messages (warmer, creator-voice)
-
-## What I'm NOT doing
-- Landing page — untouched
-- Brand colors / identity — untouched
-- Layout restructures — untouched
-- Adding new widgets/charts
-- Full 80-page microcopy rewrite (out of scope for one pass — flag follow-ups instead)
-
----
+4. **No code changes in this turn.** This saves credits and avoids breaking anything that currently works (you are signed in right now, per the live network trace).
 
 ## Technical notes
-- All token changes in `src/styles.css` via `oklch()` (matches existing system)
-- Shared component edits use `cn()` + `cva` patterns already in repo
-- No DB / server function changes
-- No new dependencies
-- Estimated files touched: ~10 (system) + 2 (pages) = ~12 files, cascading to 80+ pages visually
 
-Ready to ship Phase 1 → 4 in that order. Approve and I'll start.
+- `src/start.ts` already registers `[attachSupabaseAuth]` as `functionMiddleware`. Bearer tokens are attached to server-fn RPCs.
+- `src/routes/_authenticated.tsx` gates with `supabase.auth.getUser()` before the loader runs, so authenticated server functions get a valid token on first paint.
+- `src/integrations/lovable/index.ts` is the auto-generated Google broker. `login.tsx` and `signup.tsx` call it correctly with `redirect_uri = ${window.location.origin}/app` (or `/onboarding`).
+- The earlier migration's trigger restores and brace fixes (dashboard.functions.ts, business.functions.ts, xp.functions.ts) are still in place — I re-read them.
+- No `.env`, no `supabase/config.toml`, and no auto-generated client file is being touched.
