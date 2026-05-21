@@ -30,9 +30,11 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const navigate = useNavigate();
+  const search = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,17 +42,19 @@ function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return toast.error(error.message);
-    navigate({ to: "/app" });
+    navigate({ to: search.redirect || "/app" });
   };
 
   const handleGoogle = async () => {
+    setGoogleLoading(true);
     const { lovable } = await import("@/integrations/lovable/index");
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}/app`,
+      redirect_uri: `${window.location.origin}${search.redirect || "/app"}`,
     });
-    if (result.error) return toast.error("Google sign in failed");
+    setGoogleLoading(false);
+    if (result.error) return toast.error(result.error.message || "Google sign in failed");
     if (result.redirected) return;
-    navigate({ to: "/app" });
+    navigate({ to: search.redirect || "/app" });
   };
 
   return (
@@ -60,8 +64,8 @@ function LoginPage() {
         <h1 className="mt-2 font-display text-3xl font-black">Welcome back</h1>
         <p className="mt-1 text-sm text-muted-foreground">Let's get your brief.</p>
 
-        <Button onClick={handleGoogle} variant="outline" className="mt-6 w-full rounded-full">
-          Continue with Google
+        <Button onClick={handleGoogle} disabled={googleLoading || loading} variant="outline" className="mt-6 w-full rounded-full">
+          {googleLoading ? "Opening Google…" : "Continue with Google"}
         </Button>
         <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
           <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
