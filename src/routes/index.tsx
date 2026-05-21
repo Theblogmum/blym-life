@@ -70,6 +70,21 @@ function Landing() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
+      {/* ============ BRAND BANNER (above nav) ============ */}
+      <div
+        aria-label="BLYM — where creators level up"
+        className="w-full border-b border-border/40 bg-[image:var(--gradient-aurora)]"
+      >
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-center px-3 py-2 sm:px-6 sm:py-3">
+          <img
+            src={blymBanner}
+            alt="BLYM — Show up. Create. Grow. Join 1,000+ creators leveling up every day."
+            className="block h-auto w-full max-h-16 object-contain sm:max-h-20 md:max-h-24 lg:max-h-28"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+      </div>
       <header
         className={cn(
           "sticky top-0 z-40 transition-all duration-500 ease-[cubic-bezier(0.2,0.7,0.2,1)]",
@@ -180,17 +195,6 @@ function Landing() {
       </header>
 
       <main>
-      {/* ============ BRAND BANNER ============ */}
-      <section aria-label="BLYM — where creators level up" className="relative w-full overflow-hidden bg-[#090511]">
-        <img
-          src={blymBanner}
-          alt="BLYM — Create. Level Up. Repeat. Join 10,000+ creators leveling up every day."
-          className="block h-20 w-full object-cover object-center sm:h-24 md:h-28 lg:h-32"
-          loading="eager"
-          decoding="async"
-        />
-      </section>
-
       {/* ============ HERO ============ */}
       <section className="relative overflow-hidden bg-background">
         {/* Soft, faded backdrop — single subtle wash, no decorative blobs */}
