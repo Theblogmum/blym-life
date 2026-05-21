@@ -12,7 +12,7 @@ export const Route = createFileRoute("/login")({
   }),
   beforeLoad: async ({ search }) => {
     const { data } = await supabase.auth.getUser();
-    if (data.user) throw redirect({ to: search.redirect });
+    if (data.user) throw redirect({ to: "/app" });
   },
   head: () => ({
     meta: [
@@ -31,6 +31,7 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const navigate = useNavigate();
   const search = Route.useSearch();
+  const redirectPath = search.redirect.startsWith("/") ? search.redirect : "/app";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -41,13 +42,13 @@ function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return toast.error(error.message);
-    navigate({ to: search.redirect });
+    navigate({ to: redirectPath });
   };
 
   const handleGoogle = async () => {
     const { lovable } = await import("@/integrations/lovable/index");
     const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: `${window.location.origin}${search.redirect}`,
+      redirect_uri: `${window.location.origin}${redirectPath}`,
     });
     if (result.error) return toast.error("Google sign in failed");
     if (result.redirected) return;
