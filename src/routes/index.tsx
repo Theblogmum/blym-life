@@ -454,12 +454,12 @@ function Landing() {
             <p className="mx-auto mt-2 max-w-md text-[13px] leading-[1.55] text-white/85 text-pretty">
               Questions, partnerships, or just want to share a win? Email the studio and we'll reply personally.
             </p>
-            <a
-              href="mailto:info@blym.life"
+            <Link
+              to="/contact"
               className="mt-auto inline-flex items-center justify-center self-center rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-foreground transition hover:bg-white/90"
             >
               info@blym.life
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -474,7 +474,7 @@ function Landing() {
           <span aria-hidden>·</span>
           <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
           <span aria-hidden>·</span>
-          <a href="mailto:info@blym.life" className="hover:text-foreground underline-offset-2 hover:underline">Contact</a>
+          <Link to="/contact" className="hover:text-foreground underline-offset-2 hover:underline">Contact</Link>
         </p>
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
