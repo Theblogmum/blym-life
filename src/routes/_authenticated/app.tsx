@@ -181,14 +181,14 @@ function HomePage() {
           className="absolute inset-0"
           style={{ background: "linear-gradient(180deg, transparent 55%, var(--background))" }}
         />
-        <div className="relative mx-auto max-w-[1200px] px-5 pb-6 pt-7 sm:px-8 lg:px-12 lg:pb-10 lg:pt-10">
+        <div className="relative mx-auto max-w-[1200px] px-4 pb-5 pt-6 sm:px-8 sm:pt-7 sm:pb-6 lg:px-12 lg:pb-10 lg:pt-10">
           <div className="mb-4">
             <EraRibbon />
           </div>
           <div className="grid items-start gap-5 lg:grid-cols-[1fr_460px] lg:gap-8">
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-4">
-                <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.06] tracking-[-0.02em] text-balance sm:max-w-[20ch] sm:text-[52px]"
+                <h1 className="max-w-[16ch] font-display text-[26px] font-bold leading-[1.08] tracking-[-0.018em] text-balance xs:text-[30px] sm:max-w-[20ch] sm:text-[44px] md:text-[52px]"
                     style={{ textShadow: "0 1px 0 oklch(1 0 0 / 0.5)" }}>
                   {opener}
                 </h1>
