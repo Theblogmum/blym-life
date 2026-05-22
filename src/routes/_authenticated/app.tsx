@@ -289,18 +289,31 @@ function HomePage() {
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
         <section className="mb-6 sm:mb-9 lg:hidden">
           <div className="grid gap-4">
-            <div
-              className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
-              style={{
-                background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
-                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
-              }}
-            >
-              <div aria-hidden className="absolute -right-20 -top-20 h-80 w-80 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
-              <div aria-hidden className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
-              <div className="relative">
+            <div className="relative">
+              <div
+                aria-hidden
+                className="hero-card-halo pointer-events-none absolute -inset-8 rounded-[3rem] opacity-70 blur-[55px]"
+                style={{ background: "radial-gradient(60% 55% at 50% 50%, oklch(0.86 0.14 350 / 0.5), oklch(0.92 0.1 60 / 0.3) 55%, transparent 75%)" }}
+              />
+              <div
+                className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.97 0.035 320) 0%, oklch(0.94 0.07 340) 42%, oklch(0.93 0.08 50) 100%)",
+                  boxShadow:
+                    "inset 0 1px 0 oklch(1 0 0 / 0.85), inset 0 0 0 1px oklch(1 0 0 / 0.55), 0 1px 2px oklch(0.13 0.012 20 / 0.05), 0 28px 60px -28px oklch(0.66 0.24 350 / 0.45), 0 18px 80px -30px oklch(0.85 0.15 60 / 0.4)",
+                }}
+              >
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                  style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.9), transparent)" }}
+                />
+                <div aria-hidden className="absolute -right-20 -top-20 h-80 w-80 rounded-full opacity-60 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
+                <div aria-hidden className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full opacity-35 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
+                <div className="relative">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-foreground/80 shadow-[0_6px_18px_-10px_oklch(0.66_0.24_350/0.4)] backdrop-blur ring-1 ring-white/70">
                     <Rocket className="h-4 w-4" /> Level {xp?.level ?? 1}
                   </span>
                   <span className="text-[14px] font-medium tabular-nums text-foreground/55">
@@ -308,27 +321,37 @@ function HomePage() {
                   </span>
                 </div>
                 <div className="mt-8 flex items-baseline gap-4">
-                  <span className="text-[58px] leading-none">{lvl.emoji}</span>
+                  <span className="text-[60px] leading-none drop-shadow-[0_8px_18px_oklch(0.66_0.24_350/0.35)]">{lvl.emoji}</span>
                   <div>
                     <h2 className="font-display text-[36px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[44px]">
                       {lvl.title}
                     </h2>
-                    <p className="mt-3 text-[16px] leading-snug text-foreground/65">{lvl.blurb}</p>
+                    <p className="mt-3 text-[16px] leading-snug text-foreground/70">{lvl.blurb}</p>
                   </div>
                 </div>
                 <div className="mt-9">
-                  <div className="h-3 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
+                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-white/60 ring-1 ring-white/70 shadow-[inset_0_1px_2px_oklch(0.13_0.012_20/0.08)]">
                     <div
-                      className="h-full rounded-full transition-all duration-700"
+                      className="relative h-full rounded-full transition-all duration-700"
                       style={{
                         width: `${Math.min(100, Math.max(4, xpProgress))}%`,
-                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
+                        background:
+                          "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.78 0.2 25) 50%, oklch(0.72 0.22 350))",
+                        boxShadow:
+                          "0 0 12px oklch(0.78 0.22 350 / 0.55), 0 0 22px oklch(0.82 0.16 60 / 0.35)",
                       }}
-                    />
+                    >
+                      <div
+                        aria-hidden
+                        className="absolute inset-y-0 right-0 w-3 rounded-full opacity-90 blur-[2px]"
+                        style={{ background: "oklch(1 0 0 / 0.6)" }}
+                      />
+                    </div>
                   </div>
-                  <p className="mt-4 text-[15px] text-foreground/55">
-                    next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
+                  <p className="mt-4 text-[15px] text-foreground/60">
+                    next up: <span className="font-semibold text-foreground/90">{nextLvl.title}</span> {nextLvl.emoji}
                   </p>
+                </div>
                 </div>
               </div>
             </div>
