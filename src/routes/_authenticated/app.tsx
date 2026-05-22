@@ -126,7 +126,7 @@ function HomePage() {
     : `good ${greet}, ${name} — let's bank a small win today.`;
 
   return (
-    <div className="relative pb-8">
+    <div className="relative pb-8" data-mobile-shrink>
       {/* ============ AMBIENT PAGE ATMOSPHERE — soft drifting blooms ============ */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="bloom-drift absolute -top-32 -left-24 h-[520px] w-[520px] rounded-full opacity-[0.55] blur-[120px]"
