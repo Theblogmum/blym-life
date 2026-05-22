@@ -1050,3 +1050,88 @@
 .card-glow-blush:hover::after {
   opacity: 1;
 }
+
+/* =====================================================================
+ * BLYM Brand Palette — scoped overrides
+ * Applied only inside .landing-brand wrapper while we validate on the
+ * landing page before rolling site-wide.
+ * Hex values are the canonical brand colors; CSS variables accept hex.
+ * ===================================================================== */
+.landing-brand {
+  /* Core brand */
+  --primary: #ff2f92;              /* Electric Pink */
+  --primary-foreground: #ffffff;
+  --accent: #7a3cff;               /* Electric Purple */
+  --accent-foreground: #ffffff;
+  --ring: #ff2f92;
+
+  /* Ink / contrast */
+  --foreground: #0f1029;           /* Deep Navy */
+  --card-foreground: #0f1029;
+  --popover-foreground: #0f1029;
+  --anchor: #7a3cff;               /* premium purple depth for CTAs */
+  --anchor-foreground: #ffffff;
+
+  /* Surfaces — soft whites & lilacs (the 65% base) */
+  --background: #fff9fc;           /* Soft White */
+  --card: #ffffff;
+  --popover: #ffffff;
+  --secondary: #f6efff;            /* Light Lilac */
+  --secondary-foreground: #1b1338;
+  --muted: #ffe8f4;                /* Blush Pink */
+  --muted-foreground: #4a3a66;
+  --border: color-mix(in oklab, #d7b8ff 55%, #ffffff);
+  --input: color-mix(in oklab, #d7b8ff 60%, #ffffff);
+
+  /* Surface tints — re-tuned to brand */
+  --surface-blush: #ffe8f4;
+  --surface-plum: #f0e0ff;
+  --surface-peach: #ffe8f4;
+  --surface-grape: #e6d2ff;
+  --surface-stone: #fff9fc;
+
+  /* Signature BLYM gradient — THE brand gradient */
+  --gradient-brand: linear-gradient(135deg, #ff2f92 0%, #ff4db8 35%, #8d4dff 70%, #7a3cff 100%);
+  --gradient-warm: linear-gradient(135deg, #ff2f92 0%, #ff4db8 35%, #8d4dff 70%, #7a3cff 100%);
+  --gradient-warm-soft: linear-gradient(135deg, #ffb3d6 0%, #e9c9ff 100%);
+  --gradient-bloom: linear-gradient(135deg, #ff4db8, #7a3cff);
+  --gradient-game: linear-gradient(135deg, #ff2f92, #ff4db8, #8d4dff, #7a3cff);
+  --gradient-ink: linear-gradient(135deg, #1b1338, #0f1029);
+  --gradient-hero: linear-gradient(180deg, #fff9fc 0%, #ffe8f4 45%, #f6efff 100%);
+  --gradient-sunrise: linear-gradient(160deg, #ffe8f4, #f6efff);
+  --gradient-mesh:
+    radial-gradient(70% 55% at 5% 0%, color-mix(in oklab, #ff2f92 22%, transparent), transparent 60%),
+    radial-gradient(70% 55% at 100% 10%, color-mix(in oklab, #7a3cff 22%, transparent), transparent 55%),
+    radial-gradient(80% 60% at 50% 100%, color-mix(in oklab, #ff4db8 18%, transparent), transparent 60%),
+    linear-gradient(180deg, #fff9fc, #f6efff);
+  --gradient-aurora:
+    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, #ff4db8 45%, transparent), transparent 60%),
+    radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, #d7b8ff 55%, transparent), transparent 55%),
+    radial-gradient(100% 80% at 50% 100%, color-mix(in oklab, #8d4dff 35%, transparent), transparent 55%),
+    linear-gradient(180deg, #fff9fc, #f6efff);
+
+  /* Brand-tinted shadows & glows */
+  --shadow-soft:
+    0 1px 1px rgba(15, 16, 41, 0.04),
+    0 2px 4px -2px rgba(15, 16, 41, 0.05),
+    0 12px 28px -14px rgba(255, 47, 146, 0.18);
+  --shadow-elegant:
+    0 1px 2px rgba(15, 16, 41, 0.05),
+    0 6px 14px -6px rgba(122, 60, 255, 0.12),
+    0 28px 64px -28px rgba(255, 47, 146, 0.28);
+  --shadow-glow: 0 30px 80px -30px rgba(255, 47, 146, 0.55);
+  --shadow-pop: 0 4px 0 0 #7a3cff;
+  --shadow-pop-coral: 0 4px 0 0 #ff2f92;
+
+  /* Page background — the brand background gradient */
+  background-image: linear-gradient(180deg, #fff9fc 0%, #ffe8f4 45%, #f6efff 100%);
+  background-attachment: fixed;
+}
+
+/* Brand gradient text helper — use inside .landing-brand */
+.landing-brand .text-gradient-brand {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
