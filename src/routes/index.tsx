@@ -91,7 +91,6 @@ function Landing() {
 
   return (
     <div className="landing-brand landing-page min-h-screen overflow-x-hidden bg-background">
-      <PaymentTestModeBanner />
       <header
         className={`sticky top-0 z-40 border-b border-white/30 backdrop-blur-xl backdrop-saturate-150 transition-[background-color,backdrop-filter,box-shadow] duration-300 ${
           scrolled
