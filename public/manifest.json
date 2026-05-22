@@ -1,0 +1,15 @@
+{
+  "name": "Blym",
+  "short_name": "Blym",
+  "description": "AI content studio for mum creators. A daily filming brief — hook, caption, shot list, post time.",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff7f1",
+  "theme_color": "#fff7f1",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

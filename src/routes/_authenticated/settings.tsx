@@ -3,15 +3,27 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Settings as SettingsIcon, LogOut, Sparkles, ExternalLink } from "lucide-react";
+import { Settings as SettingsIcon, LogOut, Sparkles, ExternalLink, Trash2 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { createPortalSession } from "@/utils/payments.functions";
+import { deleteMyAccount } from "@/lib/account.functions";
 import { useState } from "react";
 import { PageHero } from "@/components/page-hero";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   component: SettingsPage,
@@ -27,6 +39,21 @@ function SettingsPage() {
   const { openCheckout, loading: checkoutLoading } = useStripeCheckout();
   const openPortal = useServerFn(createPortalSession);
   const [portalLoading, setPortalLoading] = useState(false);
+  const deleteAccountFn = useServerFn(deleteMyAccount);
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    try {
+      await deleteAccountFn();
+      toast.success("Your account has been deleted.");
+      await signOut();
+      navigate({ to: "/" });
+    } catch (e: any) {
+      toast.error(e?.message ?? "Couldn't delete account");
+      setDeleting(false);
+    }
+  };
 
   const buy = (priceId: string) => {
     if (!user) return;
@@ -125,6 +152,39 @@ function SettingsPage() {
           </div>
         </Card>
       )}
+
+      <Card className="rounded-[1.6rem] border border-destructive/30 p-6 shadow-[var(--shadow-soft)]">
+        <p className="text-[11px] font-semibold uppercase tracking-wider text-destructive">Danger zone</p>
+        <p className="mt-1 font-medium">Delete your account</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Permanently remove your account and all associated data. This can't be undone.
+        </p>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="outline" className="mt-4 rounded-full border-destructive/40 text-destructive hover:bg-destructive/5 hover:text-destructive">
+              <Trash2 className="mr-2 h-4 w-4" /> Delete account
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Delete your account?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This permanently deletes your account, profile, XP, rewards, and all your saved content. This action cannot be undone. If you have an active paid subscription, please cancel it from "Manage billing" first.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={deleting}>Keep my account</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteAccount}
+                disabled={deleting}
+                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              >
+                {deleting ? "Deleting…" : "Yes, delete forever"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </Card>
       </section>
     </div>
   );

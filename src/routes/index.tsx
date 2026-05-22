@@ -7,7 +7,6 @@ import {
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
-import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
@@ -92,7 +91,6 @@ function Landing() {
 
   return (
     <div className="landing-brand landing-page min-h-screen overflow-x-hidden bg-background">
-      <PaymentTestModeBanner />
       <header
         className={`sticky top-0 z-40 border-b border-white/30 backdrop-blur-xl backdrop-saturate-150 transition-[background-color,backdrop-filter,box-shadow] duration-300 ${
           scrolled
