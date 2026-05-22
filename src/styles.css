@@ -1097,17 +1097,17 @@
   --gradient-bloom: linear-gradient(135deg, #ff4db8, #7a3cff);
   --gradient-game: linear-gradient(135deg, #ff2f92, #ff4db8, #8d4dff, #7a3cff);
   --gradient-ink: linear-gradient(135deg, #1b1338, #0f1029);
-  --gradient-hero: linear-gradient(180deg, #fff9fc 0%, #ffe8f4 45%, #f6efff 100%);
-  --gradient-sunrise: linear-gradient(160deg, #ffe8f4, #f6efff);
+  --gradient-hero: linear-gradient(180deg, #fff9fc 0%, color-mix(in oklab, #ffe8f4 85%, #ffffff) 45%, #f6efff 100%);
+  --gradient-sunrise: linear-gradient(160deg, color-mix(in oklab, #ffe8f4 85%, #ffffff), #f6efff);
   --gradient-mesh:
-    radial-gradient(70% 55% at 5% 0%, color-mix(in oklab, #ff2f92 22%, transparent), transparent 60%),
-    radial-gradient(70% 55% at 100% 10%, color-mix(in oklab, #7a3cff 22%, transparent), transparent 55%),
-    radial-gradient(80% 60% at 50% 100%, color-mix(in oklab, #ff4db8 18%, transparent), transparent 60%),
+    radial-gradient(70% 55% at 5% 0%, color-mix(in oklab, #ff2f92 18%, transparent), transparent 60%),
+    radial-gradient(70% 55% at 100% 10%, color-mix(in oklab, #7a3cff 18%, transparent), transparent 55%),
+    radial-gradient(80% 60% at 50% 100%, color-mix(in oklab, #ff4db8 15%, transparent), transparent 60%),
     linear-gradient(180deg, #fff9fc, #f6efff);
   --gradient-aurora:
-    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, #ff4db8 45%, transparent), transparent 60%),
-    radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, #d7b8ff 55%, transparent), transparent 55%),
-    radial-gradient(100% 80% at 50% 100%, color-mix(in oklab, #8d4dff 35%, transparent), transparent 55%),
+    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, #ff4db8 38%, transparent), transparent 60%),
+    radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, #d7b8ff 48%, transparent), transparent 55%),
+    radial-gradient(100% 80% at 50% 100%, color-mix(in oklab, #8d4dff 30%, transparent), transparent 55%),
     linear-gradient(180deg, #fff9fc, #f6efff);
 
   /* Brand-tinted shadows & glows */
