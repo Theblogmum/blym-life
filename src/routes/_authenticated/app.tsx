@@ -284,7 +284,7 @@ function HomePage() {
         </div>
       </section>
 
-      <div className="relative mx-auto max-w-[1200px] px-5 pb-16 pt-2 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-[1200px] px-4 pb-16 pt-2 sm:px-8 lg:px-12">
 
         {/* ============ LEVEL + STREAK CARDS (second row down — content rookie) ============ */}
         <section className="mb-6 sm:mb-9 lg:hidden">
@@ -296,7 +296,7 @@ function HomePage() {
                 style={{ background: "radial-gradient(60% 55% at 50% 50%, oklch(0.86 0.14 350 / 0.5), oklch(0.92 0.1 60 / 0.3) 55%, transparent 75%)" }}
               />
               <div
-                className="relative overflow-hidden rounded-[2.25rem] p-8 sm:p-10"
+                className="relative overflow-hidden rounded-[2rem] p-5 sm:p-8 md:p-10"
                 style={{
                   background:
                     "linear-gradient(135deg, oklch(0.97 0.035 320) 0%, oklch(0.94 0.07 340) 42%, oklch(0.93 0.08 50) 100%)",
@@ -320,10 +320,10 @@ function HomePage() {
                     {xp ? `${xp.xp - xp.prevLevelXp} / ${xp.nextLevelXp - xp.prevLevelXp} XP` : "—"}
                   </span>
                 </div>
-                <div className="mt-8 flex items-baseline gap-4">
-                  <span className="text-[60px] leading-none drop-shadow-[0_8px_18px_oklch(0.66_0.24_350/0.35)]">{lvl.emoji}</span>
+                <div className="mt-6 flex items-baseline gap-3 sm:mt-8 sm:gap-4">
+                  <span className="text-[44px] leading-none drop-shadow-[0_8px_18px_oklch(0.66_0.24_350/0.35)] sm:text-[60px]">{lvl.emoji}</span>
                   <div>
-                    <h2 className="font-display text-[36px] font-bold leading-none tracking-[-0.012em] text-foreground sm:text-[44px]">
+                    <h2 className="font-display text-[26px] font-bold leading-[1.05] tracking-[-0.012em] text-foreground sm:text-[36px] md:text-[44px]">
                       {lvl.title}
                     </h2>
                     <p className="mt-3 text-[16px] leading-snug text-foreground/70">{lvl.blurb}</p>
