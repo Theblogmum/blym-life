@@ -51,7 +51,6 @@ const SECTIONS: Section[] = [
           { to: "/character", label: "Character sheet" },
           { to: "/achievements", label: "Trophy room" },
           { to: "/milestones", label: "Big firsts" },
-          { to: "/feed", label: "Wins wall" },
           { to: "/creator-type", label: "My creator type" },
           { to: "/rewards", label: "Rewards" },
           { to: "/growth-coach", label: "Pep talk" },
