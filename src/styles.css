@@ -1234,9 +1234,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 77, 184, 0.25) 30%,
-    rgba(122, 60, 255, 0.30) 50%,
-    rgba(255, 77, 184, 0.25) 70%,
+    rgba(255, 77, 184, 0.20) 30%,
+    rgba(122, 60, 255, 0.25) 50%,
+    rgba(255, 77, 184, 0.20) 70%,
     transparent 100%
   );
   pointer-events: none;
