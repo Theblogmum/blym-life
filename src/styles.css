@@ -1521,3 +1521,109 @@ main > section + section,
 :where(a):not([class*="text-"]):not([role="button"]):hover {
   color: var(--primary);
 }
+
+/* ============================================================
+ * BLYM Mobile & Tablet Responsive Optimisation
+ * Desktop untouched — only ≤1024px refinements.
+ * ============================================================ */
+
+/* ---------- Universal safety nets (all viewports) ---------- */
+:where(img, video, svg, canvas) { max-width: 100%; height: auto; }
+:where(pre, code) { overflow-wrap: anywhere; word-break: break-word; }
+:where(p, h1, h2, h3, h4, h5, h6, li, a, span) { overflow-wrap: anywhere; }
+
+/* ---------- Tablet ( ≤1024px ) ---------- */
+@media (max-width: 1024px) {
+  :where(section) {
+    padding-left: max(env(safe-area-inset-left), 1.25rem);
+    padding-right: max(env(safe-area-inset-right), 1.25rem);
+  }
+  :where(.container, [class*="max-w-"]) {
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+  }
+}
+
+/* ---------- Mobile ( ≤640px ) ---------- */
+@media (max-width: 640px) {
+  html { -webkit-text-size-adjust: 100%; }
+  html, body { overflow-x: clip; }
+  body { word-wrap: break-word; }
+
+  /* Readable type floors — never shrink below 15px body / 28px h1 */
+  :where(body, p, li) { font-size: max(15px, 1rem); line-height: 1.55; }
+  :where(h1) { font-size: clamp(28px, 8.5vw, 44px); line-height: 1.1; }
+  :where(h2) { font-size: clamp(22px, 6.5vw, 32px); line-height: 1.15; }
+  :where(h3) { font-size: clamp(18px, 5vw, 24px); line-height: 1.25; }
+
+  /* Section rhythm — tighter on mobile but still premium */
+  :where(section) {
+    padding-top: clamp(2.5rem, 8vw, 4rem);
+    padding-bottom: clamp(2.5rem, 8vw, 4rem);
+  }
+
+  /* Cards — softer corners, consistent padding, never edge-to-edge */
+  :where([data-slot="card"]) {
+    border-radius: 1.25rem;
+  }
+  :where([data-slot="card-content"], [data-slot="card-header"], [data-slot="card-footer"]) {
+    padding-left: clamp(1rem, 4vw, 1.25rem);
+    padding-right: clamp(1rem, 4vw, 1.25rem);
+  }
+
+  /* Buttons — full-width by default when sitting alone in a flex column,
+   * 44px minimum tap target, no awkward text wrap. */
+  :where(button, a[role="button"]) {
+    min-height: 44px;
+  }
+  :where(.flex.flex-col, .grid) > :where(button, a[role="button"]) {
+    width: 100%;
+  }
+  /* Allow long CTA labels to wrap rather than overflow */
+  :where(button, a[role="button"]) {
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Force multi-column grids to single column when content gets too tight */
+  :where([class*="grid-cols-2"], [class*="grid-cols-3"], [class*="grid-cols-4"]) {
+    grid-template-columns: 1fr;
+  }
+  :where([class*="sm:grid-cols-"]) {
+    /* Honour explicit sm: breakpoints — Tailwind sm starts at 640px so this
+     * branch only stacks pre-sm content. No-op kept for clarity. */
+  }
+
+  /* Flex rows that should stack on mobile */
+  :where(.flex):not(.flex-col):not([class*="sm:flex-row"]):not([class*="md:flex-row"]):not([class*="lg:flex-row"]):not([class*="items-center"]):not([class*="justify-center"]) {
+    flex-wrap: wrap;
+  }
+
+  /* Dialog / sheet content fits the screen */
+  :where([role="dialog"], [data-state="open"][class*="fixed"]) {
+    max-width: calc(100vw - 1.5rem);
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+  }
+
+  /* Tables become horizontally scrollable instead of breaking layout */
+  :where(table) { display: block; overflow-x: auto; max-width: 100%; }
+
+  /* Hero glow halos shouldn't push horizontal scroll */
+  :where([class*="absolute"][class*="-left-"], [class*="absolute"][class*="-right-"]) {
+    pointer-events: none;
+  }
+}
+
+/* ---------- Small mobile ( ≤380px ) — extra forgiving ---------- */
+@media (max-width: 380px) {
+  :where(h1) { font-size: clamp(26px, 9vw, 34px); }
+  :where(section) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  :where([data-slot="card-content"], [data-slot="card-header"], [data-slot="card-footer"]) {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+}
