@@ -57,11 +57,11 @@ function WelcomePage() {
       title: "hi bestie, what should we call you?",
       sub: "pick your character. (you can change it anytime, no pressure)",
       content: (
-        <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+        <div className="grid grid-cols-6 gap-2 sm:gap-3">
           {AVATARS.map((a) => (
             <button key={a} onClick={() => setS({ ...s, avatar: a })}
               className={cn(
-                "sticker aspect-square grid place-items-center text-4xl transition-transform hover:-translate-y-1",
+                "sticker aspect-square grid place-items-center text-2xl sm:text-3xl transition-transform hover:-translate-y-1",
                 s.avatar === a && "ring-4 ring-primary",
               )}>
               {a}
@@ -76,18 +76,18 @@ function WelcomePage() {
       title: "what kind of creator are you?",
       sub: "this tunes your tools and ideas. pick the one that feels most you.",
       content: (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-2.5 sm:gap-3 sm:grid-cols-2">
           {TYPES.map((t) => (
             <button key={t.id} onClick={() => setS({ ...s, type: t.id })}
               className={cn(
-                "sticker p-4 text-left flex gap-3 transition-transform hover:-translate-y-1",
+                "sticker p-3 sm:p-4 text-left flex gap-3 transition-transform hover:-translate-y-1",
                 s.type === t.id && "ring-4 ring-primary",
               )}
               style={{ background: t.tint }}>
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border-2 border-foreground bg-card text-2xl shadow-[0_3px_0_0_var(--foreground)]">{t.emoji}</div>
+              <div className="grid h-10 w-10 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-2xl border-2 border-foreground bg-card text-xl sm:text-2xl shadow-[0_3px_0_0_var(--foreground)]">{t.emoji}</div>
               <div className="min-w-0">
-                <p className="font-display text-base">{t.title}</p>
-                <p className="text-xs text-foreground/80">{t.vibe}</p>
+                <p className="font-display text-sm sm:text-base leading-tight">{t.title}</p>
+                <p className="mt-0.5 text-[11px] sm:text-xs text-foreground/80 leading-snug">{t.vibe}</p>
               </div>
             </button>
           ))}
@@ -100,16 +100,16 @@ function WelcomePage() {
       title: "what era are you in rn?",
       sub: "we'll theme your home around it. it's giving lore.",
       content: (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
           {ERAS.map((e) => (
             <button key={e.id} onClick={() => setS({ ...s, era: e.id })}
               className={cn(
-                "sticker p-4 text-left transition-transform hover:-translate-y-1",
+                "sticker p-3 sm:p-4 text-left transition-transform hover:-translate-y-1",
                 s.era === e.id && "ring-4 ring-primary",
               )}
               style={{ background: e.tint }}>
-              <div className="text-3xl">{e.emoji}</div>
-              <p className="mt-2 font-display text-base">{e.title}</p>
+              <div className="text-2xl sm:text-3xl">{e.emoji}</div>
+              <p className="mt-1.5 font-display text-[13px] sm:text-base leading-tight">{e.title}</p>
             </button>
           ))}
         </div>
@@ -121,17 +121,17 @@ function WelcomePage() {
       title: "what's the dream?",
       sub: "pick the one that makes your chest a little tight. that's the one.",
       content: (
-        <div className="space-y-3">
+        <div className="space-y-2.5 sm:space-y-3">
           {GOALS.map((g) => (
             <button key={g.id} onClick={() => setS({ ...s, goal: g.id })}
               className={cn(
-                "sticker p-4 w-full text-left flex items-center gap-3 transition-transform hover:-translate-y-1",
+                "sticker p-3 sm:p-4 w-full text-left flex items-center gap-3 transition-transform hover:-translate-y-1",
                 s.goal === g.id && "ring-4 ring-primary",
               )}>
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border-2 border-foreground bg-card text-2xl shadow-[0_3px_0_0_var(--foreground)]">{g.emoji}</div>
+              <div className="grid h-10 w-10 sm:h-12 sm:w-12 shrink-0 place-items-center rounded-2xl border-2 border-foreground bg-card text-xl sm:text-2xl shadow-[0_3px_0_0_var(--foreground)]">{g.emoji}</div>
               <div className="min-w-0 flex-1">
-                <p className="font-display text-base">{g.title}</p>
-                <p className="text-xs text-foreground/70">{g.sub}</p>
+                <p className="font-display text-sm sm:text-base leading-tight">{g.title}</p>
+                <p className="mt-0.5 text-[11px] sm:text-xs text-foreground/70 leading-snug">{g.sub}</p>
               </div>
               {s.goal === g.id && <Check className="h-5 w-5 text-success" />}
             </button>
@@ -169,20 +169,20 @@ function WelcomePage() {
   const isLast = step === steps.length - 1;
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] flex items-center justify-center px-4 py-8">
+    <div className="min-h-[calc(100vh-3.5rem)] flex items-start sm:items-center justify-center px-3 sm:px-4 py-4 sm:py-8">
       <div className="w-full max-w-2xl">
         <div className="mb-4 h-2 w-full overflow-hidden rounded-full border-2 border-foreground bg-card">
           <div className="h-full bg-primary transition-all" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
         </div>
 
-        <div className="sticker p-6 sm:p-8">
+        <div className="sticker p-4 sm:p-8">
           <p className="eyebrow">{current.eyebrow}</p>
-          <h1 className="mt-2 font-display text-3xl sm:text-4xl leading-tight">{current.title}</h1>
-          <p className="mt-2 text-muted-foreground">{current.sub}</p>
+          <h1 className="mt-2 font-display text-2xl sm:text-4xl leading-tight">{current.title}</h1>
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground">{current.sub}</p>
 
-          <div className="mt-6">{current.content}</div>
+          <div className="mt-5 sm:mt-6">{current.content}</div>
 
-          <div className="mt-7 flex items-center justify-between gap-3">
+          <div className="mt-6 sm:mt-7 flex items-center justify-between gap-3">
             <button
               onClick={() => setStep(Math.max(0, step - 1))}
               disabled={step === 0}
