@@ -1097,17 +1097,17 @@
   --gradient-bloom: linear-gradient(135deg, #ff4db8, #7a3cff);
   --gradient-game: linear-gradient(135deg, #ff2f92, #ff4db8, #8d4dff, #7a3cff);
   --gradient-ink: linear-gradient(135deg, #1b1338, #0f1029);
-  --gradient-hero: linear-gradient(180deg, #fff9fc 0%, #ffe8f4 45%, #f6efff 100%);
-  --gradient-sunrise: linear-gradient(160deg, #ffe8f4, #f6efff);
+  --gradient-hero: linear-gradient(180deg, #fff9fc 0%, color-mix(in oklab, #ffe8f4 85%, #ffffff) 45%, #f6efff 100%);
+  --gradient-sunrise: linear-gradient(160deg, color-mix(in oklab, #ffe8f4 85%, #ffffff), #f6efff);
   --gradient-mesh:
-    radial-gradient(70% 55% at 5% 0%, color-mix(in oklab, #ff2f92 22%, transparent), transparent 60%),
-    radial-gradient(70% 55% at 100% 10%, color-mix(in oklab, #7a3cff 22%, transparent), transparent 55%),
-    radial-gradient(80% 60% at 50% 100%, color-mix(in oklab, #ff4db8 18%, transparent), transparent 60%),
+    radial-gradient(70% 55% at 5% 0%, color-mix(in oklab, #ff2f92 18%, transparent), transparent 60%),
+    radial-gradient(70% 55% at 100% 10%, color-mix(in oklab, #7a3cff 18%, transparent), transparent 55%),
+    radial-gradient(80% 60% at 50% 100%, color-mix(in oklab, #ff4db8 15%, transparent), transparent 60%),
     linear-gradient(180deg, #fff9fc, #f6efff);
   --gradient-aurora:
-    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, #ff4db8 45%, transparent), transparent 60%),
-    radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, #d7b8ff 55%, transparent), transparent 55%),
-    radial-gradient(100% 80% at 50% 100%, color-mix(in oklab, #8d4dff 35%, transparent), transparent 55%),
+    radial-gradient(120% 80% at 0% 0%, color-mix(in oklab, #ff4db8 38%, transparent), transparent 60%),
+    radial-gradient(120% 80% at 100% 0%, color-mix(in oklab, #d7b8ff 48%, transparent), transparent 55%),
+    radial-gradient(100% 80% at 50% 100%, color-mix(in oklab, #8d4dff 30%, transparent), transparent 55%),
     linear-gradient(180deg, #fff9fc, #f6efff);
 
   /* Brand-tinted shadows & glows */
@@ -1124,7 +1124,7 @@
   --shadow-pop-coral: 0 4px 0 0 #ff2f92;
 
   /* Page background — the brand background gradient */
-  background-image: linear-gradient(180deg, #fff9fc 0%, #ffe8f4 45%, #f6efff 100%);
+  background-image: linear-gradient(180deg, #fff9fc 0%, color-mix(in oklab, #ffe8f4 85%, #ffffff) 45%, #f6efff 100%);
   background-attachment: fixed;
 }
 
@@ -1160,8 +1160,8 @@
     0 2px 4px rgba(15, 16, 41, 0.06),
     0 18px 40px -16px rgba(141, 77, 255, 0.30),
     0 44px 90px -30px rgba(255, 47, 146, 0.42);
-  --glow-pink: radial-gradient(60% 60% at 50% 50%, rgba(255, 77, 184, 0.28), transparent 70%);
-  --glow-purple: radial-gradient(60% 60% at 50% 50%, rgba(122, 60, 255, 0.24), transparent 70%);
+  --glow-pink: radial-gradient(60% 60% at 50% 50%, rgba(255, 77, 184, 0.24), transparent 70%);
+  --glow-purple: radial-gradient(60% 60% at 50% 50%, rgba(122, 60, 255, 0.20), transparent 70%);
 }
 
 /* Subtle soft shadow on cards & pricing boxes */
@@ -1234,9 +1234,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 77, 184, 0.25) 30%,
-    rgba(122, 60, 255, 0.30) 50%,
-    rgba(255, 77, 184, 0.25) 70%,
+    rgba(255, 77, 184, 0.20) 30%,
+    rgba(122, 60, 255, 0.25) 50%,
+    rgba(255, 77, 184, 0.20) 70%,
     transparent 100%
   );
   pointer-events: none;
@@ -1251,7 +1251,7 @@
   height: 60px;
   background: radial-gradient(
     50% 100% at 50% 0%,
-    rgba(255, 77, 184, 0.10),
+    rgba(255, 77, 184, 0.08),
     transparent 70%
   );
   pointer-events: none;
@@ -1270,7 +1270,7 @@
   pointer-events: none;
   z-index: 0;
   filter: blur(40px);
-  opacity: 0.7;
+  opacity: 0.6;
 }
 .landing-brand .brand-glow-pink::before { background: var(--glow-pink); }
 .landing-brand .brand-glow-purple::before { background: var(--glow-purple); }
