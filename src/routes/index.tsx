@@ -474,7 +474,7 @@ function Landing() {
           <span aria-hidden>·</span>
           <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
           <span aria-hidden>·</span>
-          <a href="#contact" className="hover:text-foreground">Contact</a>
+          <a href="mailto:info@blym.life" className="hover:text-foreground underline-offset-2 hover:underline">Contact</a>
         </p>
         <p className="mt-2">© {new Date().getFullYear()} Stephanie Trump trading as Blym</p>
       </footer>
