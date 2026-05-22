@@ -1528,9 +1528,27 @@ main > section + section,
  * ============================================================ */
 
 /* ---------- Universal safety nets (all viewports) ---------- */
-:where(img, video, svg, canvas) { max-width: 100%; height: auto; }
+/* Only constrain media that doesn't already declare an explicit size class.
+ * This prevents distorting fixed-size assets like nav logos / icons. */
+:where(img, video, svg, canvas):not([class*="h-"]):not([class*="w-"]):not([class*="size-"]) {
+  max-width: 100%;
+  height: auto;
+}
+/* Sized images: keep their declared size, just preserve aspect ratio + cap width */
+:where(img[class*="h-"], img[class*="w-"], img[class*="size-"]) {
+  max-width: 100%;
+  object-fit: contain;
+}
 :where(pre, code) { overflow-wrap: anywhere; word-break: break-word; }
 :where(p, h1, h2, h3, h4, h5, h6, li, a, span) { overflow-wrap: anywhere; }
+
+/* Navbar logo containment — keep inside header, preserve aspect ratio */
+:where(header) :where(a, [role="link"]) > img {
+  max-height: 100%;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
 
 /* ---------- Tablet ( ≤1024px ) ---------- */
 @media (max-width: 1024px) {
