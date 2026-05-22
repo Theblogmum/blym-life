@@ -44,7 +44,7 @@ const SECTIONS: Section[] = [
       { label: "Daily quests", icon: Target, to: "/quests" },
       { label: "My journey", icon: Trophy, to: "/journey" },
       { label: "Plan my week", icon: Calendar, to: "/planner" },
-      { label: "Saved stuff", icon: ShoppingBag, to: "/library" },
+      { label: "My vault", icon: BookHeart, to: "/vault" },
       { label: "Store", icon: ShoppingBag, to: "/store" },
       {
         label: "Progress", icon: Trophy, items: [
