@@ -21,15 +21,15 @@ export function MobileBottomNav({ onSearch }: Props) {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
       aria-label="Primary mobile navigation"
     >
-      <ul className="grid grid-cols-4">
+      <ul className="flex w-full items-stretch">
         {ITEMS.map((item) => {
           const active = isActive(item.to);
           return (
-            <li key={item.to}>
+            <li key={item.to} className="flex-1 min-w-0">
               <Link
                 to={item.to}
                 className={cn(
-                  "flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors",
+                  "flex w-full flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors",
                   active ? "text-primary" : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -39,7 +39,7 @@ export function MobileBottomNav({ onSearch }: Props) {
             </li>
           );
         })}
-        <li>
+        <li className="flex-1 min-w-0">
           <button
             onClick={onSearch}
             className="flex w-full flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-semibold text-muted-foreground transition-colors hover:text-foreground"
