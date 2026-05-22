@@ -9,11 +9,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow-[0_4px_0_0_oklch(0.42_0.18_295)] hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_oklch(0.42_0.18_295)] active:shadow-[0_1px_0_0_oklch(0.42_0.18_295)]",
+        default: "bg-primary text-primary-foreground shadow-[0_4px_0_0_var(--anchor)] hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--anchor)] active:shadow-[0_1px_0_0_var(--anchor)]",
         destructive: "bg-destructive text-destructive-foreground shadow-[0_4px_0_0_oklch(0.42_0.15_25)] hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_oklch(0.42_0.15_25)] active:shadow-[0_1px_0_0_oklch(0.42_0.15_25)]",
         outline:
-          "border-2 border-foreground/80 bg-card text-foreground shadow-[0_4px_0_0_oklch(0.18_0.02_280)] hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_oklch(0.18_0.02_280)] active:shadow-[0_1px_0_0_oklch(0.18_0.02_280)]",
-        secondary: "bg-secondary text-secondary-foreground shadow-[0_3px_0_0_oklch(0.7_0.1_85)] hover:-translate-y-0.5 hover:shadow-[0_5px_0_0_oklch(0.7_0.1_85)] active:shadow-[0_1px_0_0_oklch(0.7_0.1_85)]",
+          "border-2 border-foreground/80 bg-card text-foreground shadow-[0_4px_0_0_var(--foreground)] hover:-translate-y-0.5 hover:shadow-[0_6px_0_0_var(--foreground)] active:shadow-[0_1px_0_0_var(--foreground)]",
+        secondary: "bg-secondary text-secondary-foreground shadow-[0_3px_0_0_var(--anchor)] hover:-translate-y-0.5 hover:shadow-[0_5px_0_0_var(--anchor)] active:shadow-[0_1px_0_0_var(--anchor)]",
         ghost: "hover:bg-accent/15 hover:text-accent active:translate-y-0",
         link: "text-primary underline-offset-4 hover:underline",
       },

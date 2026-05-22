@@ -1450,3 +1450,74 @@
 .landing-brand section + section {
   position: relative;
 }
+
+/* ============================================================
+ * BLYM Site-Wide Polish Pass
+ * Consistency layer — no layout changes, refinement only.
+ * ============================================================ */
+@layer utilities {
+  /* Standardise focus rings across the site */
+  :where(button, a, [role="button"], input, textarea, select):focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background), 0 0 0 4px color-mix(in oklab, var(--primary) 55%, transparent);
+    border-radius: inherit;
+  }
+
+  /* Soften any leftover hard black shadows into the BLYM token system */
+  :where([class*="shadow-black"], [class*="shadow-neutral"]) {
+    box-shadow: var(--shadow-soft) !important;
+  }
+}
+
+/* Standardise border-radius scale — gently nudge legacy values toward the system.
+ * Only affects elements that don't already declare a rounded-* utility, so layouts
+ * keep their explicit shapes. */
+:where(button, a[role="button"], .card, .panel):not([class*="rounded-"]) {
+  border-radius: var(--radius-lg);
+}
+
+/* Section rhythm — even vertical breathing between adjacent sections without
+ * changing each section's own padding. Scoped to top-level page sections only. */
+main > section + section,
+.page > section + section {
+  margin-top: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* Card padding consistency — only applied to cards that don't set their own padding */
+[data-slot="card-content"]:not([class*="p-"]):not([class*="px-"]):not([class*="py-"]) {
+  padding: clamp(1rem, 1.6vw, 1.5rem);
+}
+
+/* Mobile polish — tighter, more readable, no horizontal scroll */
+@media (max-width: 640px) {
+  html, body { overflow-x: hidden; }
+  :where(h1) { letter-spacing: -0.022em; line-height: 1.08; }
+  :where(h2) { letter-spacing: -0.014em; line-height: 1.15; }
+  /* Ensure tap targets stay ≥40px on mobile */
+  :where(button, a[role="button"]):not([class*="h-8"]):not([class*="h-7"]):not([class*="h-6"]) {
+    min-height: 40px;
+  }
+  /* Prevent oversized cards from kissing the screen edge */
+  :where([data-slot="card"]) {
+    border-radius: 1.25rem;
+  }
+}
+
+/* Reduce shadow heaviness on very dense card grids — softer & more premium */
+:where([class*="grid"]) > [data-slot="card"] {
+  box-shadow: var(--shadow-soft);
+}
+:where([class*="grid"]) > [data-slot="card"]:hover {
+  box-shadow: var(--shadow-elegant);
+}
+
+/* Standardise hover lift to a single subtle elevation across the site */
+:where(button, a[role="button"], [data-slot="card"]):hover {
+  transition-timing-function: var(--ease-soft);
+  transition-duration: var(--duration-base);
+}
+
+/* Hairline visual hierarchy — links inherit BLYM pink on hover */
+:where(a):not([class*="text-"]):not([role="button"]):hover {
+  color: var(--primary);
+}
