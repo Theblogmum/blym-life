@@ -435,8 +435,54 @@ function HomePage() {
                 3 tiny wins. pick any.
               </h2>
             </div>
-            <div className="rounded-full bg-foreground px-3.5 py-1.5 text-[11.5px] font-semibold text-background tabular-nums">
-              {missionsDone}/3 · +{missionsXp} XP
+            <div
+              className={cn(
+                "relative rounded-full px-3.5 py-1.5 text-[11.5px] font-semibold tabular-nums transition-all duration-500",
+                missionsDone === 3
+                  ? "text-white"
+                  : "bg-foreground text-background",
+              )}
+              style={
+                missionsDone === 3
+                  ? {
+                      background:
+                        "linear-gradient(135deg, oklch(0.7 0.2 350), oklch(0.78 0.18 25) 60%, oklch(0.82 0.16 60))",
+                      boxShadow:
+                        "0 0 0 1px oklch(1 0 0 / 0.5) inset, 0 6px 18px -6px oklch(0.7 0.22 350 / 0.7), 0 0 22px oklch(0.82 0.16 60 / 0.45)",
+                    }
+                  : undefined
+              }
+            >
+              {missionsDone === 3 && (
+                <span aria-hidden className="pointer-events-none absolute inset-0 rounded-full opacity-70 blur-[6px]" style={{ background: "linear-gradient(135deg, oklch(0.78 0.2 350 / 0.55), oklch(0.82 0.16 60 / 0.45))" }} />
+              )}
+              <span className="relative">{missionsDone}/3 · +{missionsXp} XP</span>
+            </div>
+          </div>
+
+          {/* Progress shelf — milestone ticks + glowing fill */}
+          <div className="relative mb-4">
+            <div className="relative h-2.5 w-full overflow-hidden rounded-full bg-foreground/[0.06] ring-1 ring-inset ring-foreground/[0.04]">
+              <div
+                className="h-full rounded-full transition-[width] duration-700 ease-out"
+                style={{
+                  width: `${Math.max(missionsDone === 0 ? 0 : 6, (missionsDone / 3) * 100)}%`,
+                  background:
+                    "linear-gradient(90deg, oklch(0.78 0.2 350) 0%, oklch(0.8 0.19 25) 55%, oklch(0.84 0.16 60) 100%)",
+                  boxShadow:
+                    "0 0 10px oklch(0.78 0.22 350 / 0.55), 0 0 22px oklch(0.82 0.16 60 / 0.3)",
+                }}
+              />
+            </div>
+            {/* Milestone notches */}
+            <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center">
+              {[1, 2].map((n) => (
+                <span
+                  key={n}
+                  className="absolute top-1/2 h-3 w-px -translate-y-1/2 bg-foreground/15"
+                  style={{ left: `${(n / 3) * 100}%` }}
+                />
+              ))}
             </div>
           </div>
 
@@ -450,16 +496,22 @@ function HomePage() {
                     className={cn(
                       "group relative overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
                       isDone
-                        ? "border-[oklch(0.78_0.1_155)]/50 bg-[oklch(0.97_0.04_155)]/70"
+                        ? "border-[oklch(0.78_0.1_155)]/55 bg-[oklch(0.97_0.04_155)]/70 shadow-[0_6px_20px_-10px_oklch(0.6_0.16_155/0.55)]"
                         : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:bg-card hover:shadow-[var(--shadow-elegant)]",
                     )}
                   >
+                    {isDone && (
+                      <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full opacity-60 blur-2xl" style={{ background: "radial-gradient(circle, oklch(0.85 0.16 155 / 0.55), transparent 65%)" }} />
+                    )}
                     {isCelebrating && (
                       <div className="pointer-events-none absolute inset-0 grid place-items-center sparkle-pop">
                         <span className="text-[40px]">✨</span>
                       </div>
                     )}
                     <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[3px] origin-top scale-y-0 bg-primary/70 transition-transform duration-300 group-hover:scale-y-100" />
+                    {isDone && (
+                      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-[3px] bg-[oklch(0.65_0.18_155)]" />
+                    )}
                     <div className="flex items-center gap-3.5">
                       <button
                         onClick={() => toggleMission(m.id)}
@@ -467,7 +519,7 @@ function HomePage() {
                         className={cn(
                           "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
                           isDone
-                            ? "bg-[oklch(0.6_0.16_155)] text-white scale-105 shadow-[0_4px_14px_-4px_oklch(0.6_0.16_155/0.5)]"
+                            ? "bg-[oklch(0.6_0.16_155)] text-white scale-105 shadow-[0_4px_16px_-2px_oklch(0.6_0.16_155/0.65),inset_0_1px_0_oklch(1_0_0/0.4)] ring-2 ring-[oklch(0.85_0.16_155)]/40"
                             : "bg-foreground/[0.05] text-foreground/60 group-hover:bg-primary/20 group-hover:text-primary group-hover:scale-105",
                         )}
                       >
@@ -483,7 +535,14 @@ function HomePage() {
                         <p className="mt-0.5 text-[12px] text-muted-foreground/90 line-clamp-1">{m.hint}</p>
                       </div>
                       <div className="flex shrink-0 items-center gap-1.5">
-                        <span className="rounded-full bg-foreground/[0.05] px-2 py-0.5 text-[10.5px] font-semibold tabular-nums text-foreground/65">
+                        <span
+                          className={cn(
+                            "rounded-full px-2 py-0.5 text-[10.5px] font-semibold tabular-nums transition-all duration-300",
+                            isDone
+                              ? "bg-[oklch(0.65_0.18_155)]/15 text-[oklch(0.4_0.14_155)]"
+                              : "bg-foreground/[0.05] text-foreground/65 group-hover:bg-primary/15 group-hover:text-primary",
+                          )}
+                        >
                           +{m.xp} XP
                         </span>
                         <Link to={m.to}>
@@ -498,6 +557,11 @@ function HomePage() {
               );
             })}
           </ul>
+          {missionsDone === 3 && (
+            <p className="relative mt-3 text-center text-[12.5px] font-semibold tracking-[-0.005em]" style={{ color: "oklch(0.45 0.16 350)" }}>
+              ✨ all three — that's a soft win. proud of you.
+            </p>
+          )}
           </div>
         </section>
 
