@@ -256,7 +256,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const sidebarInner = (onClick?: () => void) => (
     <div className="flex h-full flex-col">
       <div className="px-4 pt-5 pb-3">
-        <Link to="/app" onClick={onClick} className="block">
+        <Link to="/" onClick={onClick} className="block">
           <img src={logo} alt="Blym" className="h-8 w-auto object-contain" />
         </Link>
         <div className="mt-3 h-px bg-gradient-to-r from-transparent via-border/40 to-transparent" />
