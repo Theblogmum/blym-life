@@ -49,7 +49,6 @@ const SECTIONS: Section[] = [
       {
         label: "Progress", icon: Trophy, items: [
           { to: "/character", label: "Character sheet" },
-          { to: "/leagues", label: "Leagues" },
           { to: "/achievements", label: "Trophy room" },
           { to: "/milestones", label: "Big firsts" },
           { to: "/feed", label: "Wins wall" },
