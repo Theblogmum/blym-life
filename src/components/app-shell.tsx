@@ -341,7 +341,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div className="min-h-screen w-full bg-background">
+    <div className="landing-brand min-h-screen w-full bg-background">
       <EraTheme />
       <DunningBanner />
 

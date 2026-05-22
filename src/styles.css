@@ -1225,7 +1225,7 @@
 .landing-brand section {
   position: relative;
 }
-.landing-brand section + section::before {
+.landing-brand.landing-page section + section::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1243,7 +1243,7 @@
   pointer-events: none;
   opacity: 0.9;
 }
-.landing-brand section + section::after {
+.landing-brand.landing-page section + section::after {
   content: "";
   position: absolute;
   top: -1px;
