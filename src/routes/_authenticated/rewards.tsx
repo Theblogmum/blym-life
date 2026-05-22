@@ -1,63 +1,77 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getXp } from "@/lib/xp.functions";
-import { Lock, Sparkles, Gift, Check } from "lucide-react";
-import { useEffect, useState } from "react";
+import { getClaimedRewards, claimReward } from "@/lib/rewards.functions";
+import { Lock, Sparkles, Gift, Check, Copy, BookOpen } from "lucide-react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { PageHero } from "@/components/page-hero";
+import { REWARDS, type RewardContent } from "@/lib/rewards-content";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export const Route = createFileRoute("/_authenticated/rewards")({ component: RewardsPage });
 
-type Chest = { id: string; xp: number; emoji: string; title: string; loot: string; glow: string };
-
-const CHESTS: Chest[] = [
-  { id: "starter", xp: 25,   emoji: "🎁", title: "Starter Pack",      loot: "10 scroll-stopping hooks",            glow: "oklch(0.78 0.16 150)" },
-  { id: "caption", xp: 100,  emoji: "💌", title: "Caption Vault",     loot: "25 caption templates",                glow: "oklch(0.82 0.16 80)"  },
-  { id: "viral",   xp: 250,  emoji: "🔥", title: "Viral Hook Box",    loot: "Pro hook formulas",                   glow: "oklch(0.74 0.2 25)"   },
-  { id: "pitch",   xp: 500,  emoji: "💼", title: "Pitch Power-up",    loot: "5 brand pitch templates",             glow: "oklch(0.7 0.18 320)"  },
-  { id: "theme",   xp: 800,  emoji: "✨", title: "Soft Theme Unlock", loot: "Exclusive app theme",                 glow: "oklch(0.74 0.18 350)" },
-  { id: "lesson",  xp: 1250, emoji: "🎓", title: "Creator Lessons",   loot: "3 mini-courses",                      glow: "oklch(0.72 0.16 225)" },
-  { id: "deal",    xp: 2000, emoji: "👑", title: "Brand Deal Bundle", loot: "Media kit + invoice templates",       glow: "oklch(0.7 0.18 290)"  },
-];
-
-const STORAGE = "blym.chests.claimed";
+const THEME_STORAGE = "blym.theme.softSunset";
 
 function RewardsPage() {
+  const qc = useQueryClient();
   const fetchXp = useServerFn(getXp);
+  const fetchClaimed = useServerFn(getClaimedRewards);
+  const doClaim = useServerFn(claimReward);
+
   const { data: xpData } = useQuery({ queryKey: ["xp"], queryFn: () => fetchXp() });
+  const { data: claimedData } = useQuery({
+    queryKey: ["claimed-rewards"],
+    queryFn: () => fetchClaimed(),
+  });
+
   const xp = xpData?.xp ?? 0;
-  const [claimed, setClaimed] = useState<Record<string, boolean>>({});
+  const claimed: Record<string, boolean> = {};
+  for (const row of claimedData?.claimed ?? []) claimed[row.chest_id] = true;
 
-  useEffect(() => {
-    try { setClaimed(JSON.parse(localStorage.getItem(STORAGE) || "{}")); } catch {}
-  }, []);
+  const [openId, setOpenId] = useState<string | null>(null);
 
-  const claim = (c: Chest) => {
-    const next = { ...claimed, [c.id]: true };
-    setClaimed(next);
-    localStorage.setItem(STORAGE, JSON.stringify(next));
-    toast.success(`${c.emoji} ${c.title} claimed!`, { description: c.loot });
-  };
+  const claimMutation = useMutation({
+    mutationFn: (chestId: string) => doClaim({ data: { chestId } }),
+    onSuccess: (_d, chestId) => {
+      qc.invalidateQueries({ queryKey: ["claimed-rewards"] });
+      const c = REWARDS.find((r) => r.id === chestId);
+      if (c) {
+        toast.success(`${c.emoji} ${c.title} unlocked!`, { description: "saved to your vault forever 🤍" });
+        setOpenId(chestId);
+      }
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const openReward = REWARDS.find((r) => r.id === openId) ?? null;
+  const claimedCount = Object.values(claimed).filter(Boolean).length;
 
   return (
     <div>
       <PageHero
         icon={Gift}
         eyebrow="Your rewards"
-        title="unlock chests as you grow ✨"
-        description="every level earns you a little dopamine drop. claim when you're ready."
+        title="your rewards vault ✨"
+        description="unlock chests as you earn XP. everything you unlock is saved here forever — open it anytime."
         variant="sunrise"
       >
         <div className="flex flex-wrap gap-2">
           <span className="chip-soft">⚡ {xp} XP</span>
-          <span className="chip-soft">🎁 {Object.values(claimed).filter(Boolean).length} claimed</span>
+          <span className="chip-soft">🎁 {claimedCount} in vault</span>
         </div>
       </PageHero>
       <section className="mx-auto max-w-3xl px-5 py-8 sm:py-10">
         <div className="grid gap-4 sm:grid-cols-2">
-          {CHESTS.map((c) => {
+          {REWARDS.map((c) => {
             const unlocked = xp >= c.xp;
             const isClaimed = !!claimed[c.id];
             const pct = Math.min(100, Math.round((xp / c.xp) * 100));
@@ -99,7 +113,7 @@ function RewardsPage() {
                   </div>
                   {isClaimed && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-[oklch(0.94_0.07_150)] px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[oklch(0.4_0.14_150)]">
-                      <Check className="h-3 w-3" /> claimed
+                      <Check className="h-3 w-3" /> in vault
                     </span>
                   )}
                 </div>
@@ -122,23 +136,145 @@ function RewardsPage() {
                   )}
                   {unlocked && !isClaimed && (
                     <button
-                      onClick={() => claim(c)}
-                      className="inline-flex w-full items-center justify-center gap-1.5 rounded-2xl bg-foreground px-4 py-2.5 text-[13px] font-semibold text-background transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-8px_oklch(0.13_0.012_20/0.4)]"
+                      onClick={() => claimMutation.mutate(c.id)}
+                      disabled={claimMutation.isPending}
+                      className="inline-flex w-full items-center justify-center gap-1.5 rounded-2xl bg-foreground px-4 py-2.5 text-[13px] font-semibold text-background transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_24px_-8px_oklch(0.13_0.012_20/0.4)] disabled:opacity-60"
                     >
-                      <Gift className="h-3.5 w-3.5" /> claim reward
+                      <Gift className="h-3.5 w-3.5" /> unlock chest
                     </button>
                   )}
                   {isClaimed && (
-                    <p className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-foreground/55">
-                      <Sparkles className="h-3 w-3" /> in your stash forever
-                    </p>
+                    <button
+                      onClick={() => setOpenId(c.id)}
+                      className="inline-flex w-full items-center justify-center gap-1.5 rounded-2xl bg-foreground/[0.06] px-4 py-2.5 text-[13px] font-semibold text-foreground transition-all duration-300 hover:bg-foreground/[0.1] hover:-translate-y-0.5"
+                    >
+                      <BookOpen className="h-3.5 w-3.5" /> open vault
+                    </button>
                   )}
                 </div>
               </div>
             );
           })}
         </div>
+        <p className="mt-6 text-center text-[11.5px] text-foreground/45">
+          <Sparkles className="mr-1 inline h-3 w-3" />
+          everything you unlock stays in your vault forever — open it anytime.
+        </p>
       </section>
+
+      <RewardDialog reward={openReward} open={openId !== null} onOpenChange={(v) => !v && setOpenId(null)} />
     </div>
+  );
+}
+
+function RewardDialog({
+  reward,
+  open,
+  onOpenChange,
+}: {
+  reward: RewardContent | null;
+  open: boolean;
+  onOpenChange: (v: boolean) => void;
+}) {
+  const [themeOn, setThemeOn] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem(THEME_STORAGE) === "1";
+  });
+
+  const copy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`${label} copied 🤍`);
+    } catch {
+      toast.error("Couldn't copy");
+    }
+  };
+
+  const toggleTheme = () => {
+    const next = !themeOn;
+    setThemeOn(next);
+    if (next) {
+      document.documentElement.classList.add("theme-soft-sunset");
+      localStorage.setItem(THEME_STORAGE, "1");
+      toast.success("Soft Sunset theme on ✨");
+    } else {
+      document.documentElement.classList.remove("theme-soft-sunset");
+      localStorage.removeItem(THEME_STORAGE);
+      toast("Theme off");
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
+        {reward && (
+          <>
+            <DialogHeader>
+              <div className="flex items-center gap-3">
+                <div
+                  className="grid h-12 w-12 place-items-center rounded-2xl bg-white text-2xl"
+                  style={{ boxShadow: `0 8px 22px -10px ${reward.glow}` }}
+                >
+                  {reward.emoji}
+                </div>
+                <div>
+                  <DialogTitle className="font-display text-[20px] tracking-[-0.012em]">
+                    {reward.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-[12.5px]">{reward.loot}</DialogDescription>
+                </div>
+              </div>
+            </DialogHeader>
+            <p className="text-[13px] leading-relaxed text-foreground/70">{reward.intro}</p>
+
+            {reward.kind === "theme" ? (
+              <div className="rounded-2xl bg-foreground/[0.04] p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <h4 className="font-display text-[15px] font-semibold">{reward.items[0].title}</h4>
+                    <p className="mt-1 text-[12.5px] text-foreground/65">{reward.items[0].body}</p>
+                  </div>
+                  <button
+                    onClick={toggleTheme}
+                    className={cn(
+                      "shrink-0 rounded-full px-4 py-2 text-[12px] font-semibold transition-all",
+                      themeOn
+                        ? "bg-foreground text-background"
+                        : "bg-white text-foreground ring-1 ring-foreground/10 hover:-translate-y-0.5",
+                    )}
+                  >
+                    {themeOn ? "on ✓" : "turn on"}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {reward.items.map((item, i) => (
+                  <div
+                    key={i}
+                    className="rounded-2xl bg-foreground/[0.035] p-4 ring-1 ring-foreground/[0.06]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <h4 className="font-display text-[14.5px] font-semibold leading-tight">
+                        {item.title}
+                      </h4>
+                      <button
+                        onClick={() => copy(item.body, item.title)}
+                        className="inline-flex shrink-0 items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold ring-1 ring-foreground/10 transition-all hover:-translate-y-0.5"
+                      >
+                        <Copy className="h-3 w-3" /> copy
+                      </button>
+                    </div>
+                    <pre className="mt-2 whitespace-pre-wrap break-words font-sans text-[12.5px] leading-relaxed text-foreground/75">
+                      {item.body}
+                    </pre>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
   );
 }
