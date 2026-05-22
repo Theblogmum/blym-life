@@ -2055,3 +2055,52 @@ main > section + section,
 @media (prefers-reduced-motion: reduce) {
   .hero-card-halo { animation: none; }
 }
+
+/* ============================================================
+   MOBILE HARDENING — app-store ready
+   - prevents horizontal scroll from decorative blooms / blurs
+   - respects iOS safe-area insets (notch + home indicator)
+   - tightens excessive padding & display type on small phones
+   - guards against fixed-size emoji / images bursting their box
+   ============================================================ */
+html, body { overflow-x: clip; }
+body {
+  /* full viewport including dynamic browser chrome on iOS */
+  min-height: 100dvh;
+}
+/* Stop any media from forcing layout wider than its container */
+img, video, svg, canvas { max-width: 100%; }
+
+/* Header / app shell — respect iOS safe area on the top */
+@supports (padding: max(0px)) {
+  header { padding-top: env(safe-area-inset-top, 0); }
+}
+
+/* Tighten oversized display type on very small phones.
+   We deliberately scope to the dashboard hero / level cards only via
+   data-mobile-shrink, so other components keep their intended sizing. */
+@media (max-width: 380px) {
+  [data-mobile-shrink] [class*="text-[60px]"],
+  [data-mobile-shrink] [class*="text-[58px]"] { font-size: 44px !important; line-height: 1 !important; }
+  [data-mobile-shrink] [class*="text-[52px]"] { font-size: 34px !important; }
+  [data-mobile-shrink] [class*="text-[44px]"],
+  [data-mobile-shrink] [class*="text-[38px]"],
+  [data-mobile-shrink] [class*="text-[36px]"] { font-size: 26px !important; line-height: 1.05 !important; }
+  [data-mobile-shrink] [class*="text-[34px]"] { font-size: 26px !important; }
+}
+
+/* Tablets and below — kill any decorative absolute element wider than
+   the viewport that might cause a 1–10px horizontal scroll bar on mobile */
+@media (max-width: 768px) {
+  .bloom-drift, .bloom-drift--slow, .hero-card-halo { will-change: auto; }
+}
+
+/* Bottom nav: ensure main content clears the fixed nav (incl. safe area) */
+@media (max-width: 1023.98px) {
+  main { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0)) !important; }
+}
+
+/* Touch targets — anything that's clearly an action chip should be tappable */
+@media (hover: none) and (pointer: coarse) {
+  button, a[role="button"], .sidebar-link { min-height: 36px; }
+}
