@@ -1160,8 +1160,8 @@
     0 2px 4px rgba(15, 16, 41, 0.06),
     0 18px 40px -16px rgba(141, 77, 255, 0.30),
     0 44px 90px -30px rgba(255, 47, 146, 0.42);
-  --glow-pink: radial-gradient(60% 60% at 50% 50%, rgba(255, 77, 184, 0.28), transparent 70%);
-  --glow-purple: radial-gradient(60% 60% at 50% 50%, rgba(122, 60, 255, 0.24), transparent 70%);
+  --glow-pink: radial-gradient(60% 60% at 50% 50%, rgba(255, 77, 184, 0.24), transparent 70%);
+  --glow-purple: radial-gradient(60% 60% at 50% 50%, rgba(122, 60, 255, 0.20), transparent 70%);
 }
 
 /* Subtle soft shadow on cards & pricing boxes */
