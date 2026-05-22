@@ -58,6 +58,31 @@ function Landing() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Subtle scroll-reveal for sections (premium, calm fade-up)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const targets = document.querySelectorAll<HTMLElement>(".landing-brand section");
+    if (prefersReduced || !("IntersectionObserver" in window)) {
+      targets.forEach((el) => el.classList.add("is-revealed"));
+      return;
+    }
+    targets.forEach((el) => el.classList.add("reveal-on-scroll"));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    targets.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
   // Note: signed-in users still see the homepage. They can click "Open studio" to enter the app.
   void loading;
   void navigate;
