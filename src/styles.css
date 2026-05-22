@@ -1293,3 +1293,92 @@
     transform: none;
   }
 }
+
+/* =====================================================================
+ * BLYM Micro-Animations — scoped to .landing-brand
+ * Calm, premium motion: slow ease, no flashy effects.
+ * ===================================================================== */
+@keyframes blym-reveal-up {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes blym-float-soft {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--blym-rot, 0deg)); }
+  50%      { transform: translate3d(0, -6px, 0) rotate(var(--blym-rot, 0deg)); }
+}
+@keyframes blym-fade-in {
+  from { opacity: 0; transform: translate3d(0, 6px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* Scroll-reveal — applied to sections via IntersectionObserver */
+.landing-brand .reveal-on-scroll {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.landing-brand .reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Decorative badges/stickers — gentle floating + fade-in.
+ * Opt in by tagging the element with `data-decor="badge"`. */
+.landing-brand [data-decor="badge"],
+.landing-brand [data-decor="sticker"] {
+  animation:
+    blym-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both,
+    blym-float-soft 7s ease-in-out 0.9s infinite;
+  will-change: transform, opacity;
+}
+
+/* Buttons — calm hover micro-interaction (no scale jump).
+ * Combines with the depth/glow rules above. */
+.landing-brand button,
+.landing-brand a[role="button"],
+.landing-brand .btn {
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease;
+}
+.landing-brand button:active:not(:disabled),
+.landing-brand a[role="button"]:active,
+.landing-brand .btn:active {
+  transform: translateY(0);
+  transition-duration: 0.12s;
+}
+
+/* Cards — soften the existing hover lift with slower, premium easing */
+.landing-brand [data-slot="card"],
+.landing-brand .card-premium,
+.landing-brand .pricing-card {
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.55s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-brand .reveal-on-scroll,
+  .landing-brand .reveal-on-scroll.is-revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .landing-brand [data-decor="badge"],
+  .landing-brand [data-decor="sticker"] {
+    animation: none;
+  }
+}
+
+/* Mobile — skip the floating loop to preserve battery/perf; keep fade-in */
+@media (max-width: 640px) {
+  .landing-brand [data-decor="badge"],
+  .landing-brand [data-decor="sticker"] {
+    animation: blym-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
