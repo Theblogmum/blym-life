@@ -1825,3 +1825,60 @@ main > section + section,
     transform: none;
   }
 }
+
+/* =====================================================================
+ * BLYM Spacing Rhythm — app-wide standardisation
+ * Establishes a consistent vertical rhythm and gutter system across all
+ * authenticated pages. Scoped so landing page tuning stays intact.
+ * Targets only spacing — no layout, no typography, no colours.
+ * ===================================================================== */
+.landing-brand:not(.landing-page) {
+  --space-section-y: clamp(2rem, 4vw, 3.5rem);
+  --space-block-y:   clamp(1.25rem, 2vw, 1.75rem);
+  --space-gutter-x:  clamp(1rem, 2.5vw, 1.75rem);
+  --gap-stack:       clamp(0.75rem, 1.4vw, 1.25rem);
+  --gap-grid:        clamp(0.875rem, 1.6vw, 1.25rem);
+}
+
+/* Section padding rhythm — only when no explicit py-* utility is set */
+.landing-brand:not(.landing-page) section:not([class*=" py-"]):not([class^="py-"]) {
+  padding-block: var(--space-section-y);
+}
+
+/* Container gutters — apply when no explicit px-* utility is present */
+.landing-brand:not(.landing-page) section > :where(.container, [class*="max-w-"]):not([class*=" px-"]):not([class^="px-"]) {
+  padding-inline: var(--space-gutter-x);
+}
+
+/* Adjacent section breathing — gentle, only between siblings */
+.landing-brand:not(.landing-page) main > section + section,
+.landing-brand:not(.landing-page) .page > section + section {
+  margin-top: var(--space-block-y);
+}
+
+/* Grid / flex gap defaults — only when no gap-* utility is set */
+.landing-brand:not(.landing-page) :where(.grid):not([class*=" gap-"]):not([class^="gap-"]):not([class*=" gap-x-"]):not([class*=" gap-y-"]) {
+  gap: var(--gap-grid);
+}
+.landing-brand:not(.landing-page) :where(.flex.flex-col):not([class*=" gap-"]):not([class^="gap-"]):not([class*=" space-y-"]) {
+  gap: var(--gap-stack);
+}
+
+/* Stack rhythm between major content blocks inside a page */
+.landing-brand:not(.landing-page) main > * + *:not(section):not([class*=" mt-"]):not([class^="mt-"]) {
+  margin-top: var(--space-block-y);
+}
+
+/* PageHero → first section breathing */
+.landing-brand:not(.landing-page) [data-page-hero] + section,
+.landing-brand:not(.landing-page) header + section {
+  padding-top: var(--space-block-y);
+}
+
+@media (max-width: 640px) {
+  .landing-brand:not(.landing-page) {
+    --space-section-y: clamp(1.5rem, 6vw, 2.25rem);
+    --space-block-y:   clamp(1rem, 4vw, 1.5rem);
+    --space-gutter-x:  clamp(1rem, 4vw, 1.25rem);
+  }
+}
