@@ -4,7 +4,7 @@ import {
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
   Gift, Users, Flag, Wand2, Target, Volume2, VolumeX,
-  PanelLeftClose, PanelLeft,
+  PanelLeftClose, PanelLeft, BookHeart,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import {
