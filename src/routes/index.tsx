@@ -164,17 +164,17 @@ function Landing() {
           style={{ background: "var(--gradient-aurora)" }}
         />
         {/* Floating stickers — hero */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-          <span className="chip-sticker drift absolute left-[4%] top-[28%] text-foreground" style={{ ['--drift-rot' as any]: '-8deg', animationDelay: '0.4s' }}>
+        <div aria-hidden className="pointer-events-none absolute inset-0 hidden xl:block">
+          <span className="chip-sticker drift absolute left-[2%] top-[14%] text-foreground" style={{ ['--drift-rot' as any]: '-8deg', animationDelay: '0.4s' }}>
             <Flame className="h-3.5 w-3.5 text-[color:var(--accent)]" /> 7-day streak
           </span>
-          <span className="chip-sticker drift-slow absolute left-[8%] top-[62%]" style={{ ['--drift-rot' as any]: '5deg', background: 'var(--surface-peach)' }}>
+          <span className="chip-sticker drift-slow absolute left-[3%] bottom-[12%]" style={{ ['--drift-rot' as any]: '5deg', background: 'var(--surface-peach)' }}>
             <Sparkles className="h-3.5 w-3.5" /> +120 XP
           </span>
-          <span className="chip-sticker drift absolute right-[2%] top-[18%]" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)', animationDelay: '1.1s' }}>
+          <span className="chip-sticker drift absolute right-[2%] top-[12%]" style={{ ['--drift-rot' as any]: '6deg', background: 'var(--surface-mint)', animationDelay: '1.1s' }}>
             <Crown className="h-3.5 w-3.5" /> Level 4 unlocked
           </span>
-          <span className="chip-sticker drift-slow absolute right-[6%] bottom-[10%]" style={{ ['--drift-rot' as any]: '-4deg', background: 'var(--surface-blush)' }}>
+          <span className="chip-sticker drift-slow absolute right-[3%] bottom-[14%]" style={{ ['--drift-rot' as any]: '-4deg', background: 'var(--surface-blush)' }}>
             <BadgeCheck className="h-3.5 w-3.5 text-primary" /> Quest done
           </span>
         </div>
