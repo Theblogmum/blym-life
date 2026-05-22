@@ -4,6 +4,7 @@ import {
   Sparkles, Check, Clock, Wand2, Camera,
   Heart, Star, ArrowRight, Quote, Zap, CalendarDays, MessageSquareText, Recycle, LineChart, Trophy, Flame, Crown, Gift, BadgeCheck,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { PaymentTestModeBanner } from "@/components/payment-test-mode-banner";
@@ -49,6 +50,14 @@ export const Route = createFileRoute("/")({
 function Landing() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Note: signed-in users still see the homepage. They can click "Open studio" to enter the app.
   void loading;
   void navigate;
@@ -59,7 +68,13 @@ function Landing() {
   return (
     <div className="landing-brand min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
-      <header className="sticky top-0 z-40 border-b border-white/30 bg-white/55 backdrop-blur-xl backdrop-saturate-150 shadow-[0_1px_0_0_oklch(1_0_0/0.6)_inset,0_8px_28px_-18px_oklch(0.65_0.18_330/0.35)]">
+      <header
+        className={`sticky top-0 z-40 border-b border-white/30 backdrop-blur-xl backdrop-saturate-150 transition-[background-color,backdrop-filter,box-shadow] duration-300 ${
+          scrolled
+            ? "bg-white/80 backdrop-blur-2xl shadow-[0_1px_0_0_oklch(1_0_0/0.7)_inset,0_12px_36px_-16px_oklch(0.65_0.18_330/0.45)]"
+            : "bg-white/55 shadow-[0_1px_0_0_oklch(1_0_0/0.6)_inset,0_8px_28px_-18px_oklch(0.65_0.18_330/0.35)]"
+        }`}
+      >
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-80"
@@ -68,14 +83,14 @@ function Landing() {
               "radial-gradient(55% 140% at 10% 0%, color-mix(in oklab, oklch(0.85 0.10 350) 28%, transparent), transparent 60%), radial-gradient(45% 130% at 95% 0%, color-mix(in oklab, oklch(0.82 0.12 300) 22%, transparent), transparent 65%)",
           }}
         />
-        <nav className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
+        <nav className="relative mx-auto flex h-14 max-w-6xl items-center justify-between gap-8 px-6 sm:px-10">
           {/* LEFT — logo */}
           <Link to="/" aria-label="Blym home" className="flex items-center gap-2">
-            <img src={blymLogo} alt="Blym — Show up. Create. Grow." className="h-9 w-auto sm:h-10" />
+            <img src={blymLogo} alt="Blym — Show up. Create. Grow." className="h-10 w-auto sm:h-11" />
           </Link>
 
           {/* CENTER — nav links */}
-          <ul className="hidden items-center gap-7 md:flex">
+          <ul className="hidden items-center gap-9 md:flex">
             {[
               { href: "#features", label: "Features" },
               { href: "#how", label: "How It Works" },
