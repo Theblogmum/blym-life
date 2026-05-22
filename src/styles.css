@@ -1124,7 +1124,7 @@
   --shadow-pop-coral: 0 4px 0 0 #ff2f92;
 
   /* Page background — the brand background gradient */
-  background-image: linear-gradient(180deg, #fff9fc 0%, #ffe8f4 45%, #f6efff 100%);
+  background-image: linear-gradient(180deg, #fff9fc 0%, color-mix(in oklab, #ffe8f4 85%, #ffffff) 45%, #f6efff 100%);
   background-attachment: fixed;
 }
 
