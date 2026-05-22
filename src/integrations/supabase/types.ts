@@ -176,6 +176,27 @@ export type Database = {
         }
         Relationships: []
       }
+      claimed_rewards: {
+        Row: {
+          chest_id: string
+          claimed_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          chest_id: string
+          claimed_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          chest_id?: string
+          claimed_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       clients: {
         Row: {
           contact_name: string | null
