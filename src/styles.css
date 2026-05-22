@@ -1382,3 +1382,70 @@
     animation: blym-fade-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
+
+/* ============================================================
+ * BLYM Conversion Hierarchy — scoped to .landing-brand
+ * Strengthens primary CTAs, secondary contrast, featured pricing
+ * ============================================================ */
+
+/* Primary chunky CTA — brand-tinted glow halo for strong focus */
+.landing-brand .btn-chunky--primary {
+  box-shadow:
+    0 5px 0 0 var(--foreground),
+    0 18px 40px -12px rgba(255, 47, 146, 0.45),
+    0 0 0 0 rgba(255, 77, 184, 0);
+}
+.landing-brand .btn-chunky--primary:hover {
+  box-shadow:
+    0 7px 0 0 var(--foreground),
+    0 26px 56px -10px rgba(255, 47, 146, 0.55),
+    0 0 0 6px rgba(255, 77, 184, 0.14);
+}
+
+/* Secondary ghost CTAs sit visibly lower in hierarchy */
+.landing-brand a[role="button"].variant-ghost,
+.landing-brand .btn-ghost-secondary,
+.landing-brand button[data-variant="ghost"] {
+  opacity: 0.82;
+}
+.landing-brand a[role="button"].variant-ghost:hover,
+.landing-brand .btn-ghost-secondary:hover,
+.landing-brand button[data-variant="ghost"]:hover {
+  opacity: 1;
+}
+
+/* Featured pricing card — subtle scale + brand-tinted ring on desktop */
+@media (min-width: 640px) {
+  .landing-brand .pricing-featured-wrap {
+    transform: scale(1.035);
+    z-index: 2;
+  }
+  .landing-brand .pricing-featured-wrap::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: calc(1.75rem + 8px);
+    background: radial-gradient(60% 60% at 50% 0%,
+      rgba(255, 47, 146, 0.18) 0%,
+      rgba(122, 60, 255, 0.10) 45%,
+      transparent 80%);
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(8px);
+  }
+  .landing-brand .pricing-featured-wrap:hover {
+    transform: scale(1.045) translateY(-6px);
+  }
+}
+
+/* Featured pricing badge — brand gradient instead of flat foreground */
+.landing-brand .pricing-featured-badge {
+  background: linear-gradient(135deg, #ff2f92 0%, #ff4db8 35%, #8d4dff 70%, #7a3cff 100%);
+  box-shadow: 0 6px 18px -6px rgba(255, 47, 146, 0.55);
+}
+
+/* Section flow — a soft downward-pointing accent below each major section
+ * to guide the eye naturally toward the next conversion moment. */
+.landing-brand section + section {
+  position: relative;
+}
