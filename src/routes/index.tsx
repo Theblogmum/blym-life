@@ -57,7 +57,7 @@ function Landing() {
   const ctaSecondary = user ? null : { to: "/login" as const, label: "I have an account" };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background">
+    <div className="landing-brand min-h-screen overflow-x-hidden bg-background">
       <PaymentTestModeBanner />
       <header className="sticky top-0 z-40 border-b border-white/30 bg-white/55 backdrop-blur-xl backdrop-saturate-150 shadow-[0_1px_0_0_oklch(1_0_0/0.6)_inset,0_8px_28px_-18px_oklch(0.65_0.18_330/0.35)]">
         <div
