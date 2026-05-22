@@ -44,7 +44,6 @@ import { Route as AuthenticatedMotivationRouteImport } from './routes/_authentic
 import { Route as AuthenticatedMilestonesRouteImport } from './routes/_authenticated/milestones'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
-import { Route as AuthenticatedLeaguesRouteImport } from './routes/_authenticated/leagues'
 import { Route as AuthenticatedJourneyRouteImport } from './routes/_authenticated/journey'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
@@ -258,11 +257,6 @@ const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
 const AuthenticatedLibraryRoute = AuthenticatedLibraryRouteImport.update({
   id: '/library',
   path: '/library',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedLeaguesRoute = AuthenticatedLeaguesRouteImport.update({
-  id: '/leagues',
-  path: '/leagues',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedJourneyRoute = AuthenticatedJourneyRouteImport.update({
@@ -481,7 +475,6 @@ export interface FileRoutesByFullPath {
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/journey': typeof AuthenticatedJourneyRoute
-  '/leagues': typeof AuthenticatedLeaguesRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/milestones': typeof AuthenticatedMilestonesRoute
@@ -551,7 +544,6 @@ export interface FileRoutesByTo {
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/journey': typeof AuthenticatedJourneyRoute
-  '/leagues': typeof AuthenticatedLeaguesRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/milestones': typeof AuthenticatedMilestonesRoute
@@ -623,7 +615,6 @@ export interface FileRoutesById {
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/journey': typeof AuthenticatedJourneyRoute
-  '/_authenticated/leagues': typeof AuthenticatedLeaguesRoute
   '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
   '/_authenticated/milestones': typeof AuthenticatedMilestonesRoute
@@ -695,7 +686,6 @@ export interface FileRouteTypes {
     | '/insights'
     | '/invoices'
     | '/journey'
-    | '/leagues'
     | '/library'
     | '/media-kit'
     | '/milestones'
@@ -765,7 +755,6 @@ export interface FileRouteTypes {
     | '/insights'
     | '/invoices'
     | '/journey'
-    | '/leagues'
     | '/library'
     | '/media-kit'
     | '/milestones'
@@ -836,7 +825,6 @@ export interface FileRouteTypes {
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
     | '/_authenticated/journey'
-    | '/_authenticated/leagues'
     | '/_authenticated/library'
     | '/_authenticated/media-kit'
     | '/_authenticated/milestones'
@@ -1148,13 +1136,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedLibraryRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/leagues': {
-      id: '/_authenticated/leagues'
-      path: '/leagues'
-      fullPath: '/leagues'
-      preLoaderRoute: typeof AuthenticatedLeaguesRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/journey': {
       id: '/_authenticated/journey'
       path: '/journey'
@@ -1412,7 +1393,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedJourneyRoute: typeof AuthenticatedJourneyRoute
-  AuthenticatedLeaguesRoute: typeof AuthenticatedLeaguesRoute
   AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
   AuthenticatedMilestonesRoute: typeof AuthenticatedMilestonesRoute
@@ -1460,7 +1440,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedJourneyRoute: AuthenticatedJourneyRoute,
-  AuthenticatedLeaguesRoute: AuthenticatedLeaguesRoute,
   AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
   AuthenticatedMilestonesRoute: AuthenticatedMilestonesRoute,
@@ -1518,3 +1497,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
