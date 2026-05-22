@@ -1645,3 +1645,99 @@ main > section + section,
     padding-right: 0.875rem;
   }
 }
+
+/* =====================================================================
+ * BLYM App Hierarchy Polish — scoped to authenticated shell
+ * Anchors important actions, active nav and featured cards with deeper
+ * navy tones + stronger shadow depth. Landing page is excluded.
+ * No layouts / spacing / typography changes.
+ * ===================================================================== */
+.landing-brand:not(.landing-page) {
+  --navy-deep: #0f1029;
+  --navy-mid: #1b1338;
+
+  /* Navy-anchored shadows for important surfaces */
+  --shadow-anchor:
+    0 1px 2px rgba(15, 16, 41, 0.06),
+    0 10px 24px -12px rgba(15, 16, 41, 0.22),
+    0 28px 56px -24px rgba(27, 19, 56, 0.30);
+  --shadow-anchor-strong:
+    0 2px 4px rgba(15, 16, 41, 0.08),
+    0 16px 36px -14px rgba(15, 16, 41, 0.30),
+    0 40px 80px -28px rgba(27, 19, 56, 0.42);
+}
+
+/* Active sidebar pill — deeper navy anchor with brand accent edge */
+.landing-brand:not(.landing-page) .sidebar-active-pill {
+  background: linear-gradient(135deg, #1b1338 0%, #0f1029 100%);
+  color: #ffffff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 10px 24px -10px rgba(15, 16, 41, 0.55),
+    0 18px 40px -20px rgba(122, 60, 255, 0.35);
+}
+.landing-brand:not(.landing-page) .sidebar-active-pill::after {
+  background:
+    radial-gradient(60% 80% at 0% 50%, rgba(255, 77, 184, 0.18), transparent 60%),
+    radial-gradient(60% 80% at 100% 50%, rgba(122, 60, 255, 0.18), transparent 60%);
+}
+
+/* Primary / default buttons get a deeper navy anchor */
+.landing-brand:not(.landing-page) button[data-variant="default"],
+.landing-brand:not(.landing-page) button.bg-primary,
+.landing-brand:not(.landing-page) a[role="button"].bg-primary {
+  --anchor: var(--navy-deep);
+}
+.landing-brand:not(.landing-page) button[data-variant="default"]:hover:not(:disabled),
+.landing-brand:not(.landing-page) button.bg-primary:hover:not(:disabled),
+.landing-brand:not(.landing-page) a[role="button"].bg-primary:hover {
+  box-shadow:
+    0 10px 24px -10px rgba(15, 16, 41, 0.45),
+    0 18px 40px -18px rgba(255, 47, 146, 0.35);
+}
+
+/* Featured / highlighted cards — navy-tinted depth */
+.landing-brand:not(.landing-page) [data-slot="card"][data-featured="true"],
+.landing-brand:not(.landing-page) [data-slot="card"].is-featured,
+.landing-brand:not(.landing-page) .card-featured,
+.landing-brand:not(.landing-page) .pricing-card[data-featured="true"] {
+  box-shadow: var(--shadow-anchor-strong);
+  border-color: color-mix(in oklab, var(--navy-mid) 22%, var(--border));
+}
+.landing-brand:not(.landing-page) [data-slot="card"][data-featured="true"]:hover,
+.landing-brand:not(.landing-page) [data-slot="card"].is-featured:hover,
+.landing-brand:not(.landing-page) .card-featured:hover {
+  box-shadow:
+    0 2px 4px rgba(15, 16, 41, 0.08),
+    0 20px 44px -14px rgba(15, 16, 41, 0.34),
+    0 48px 96px -30px rgba(122, 60, 255, 0.32);
+  border-color: color-mix(in oklab, var(--navy-mid) 32%, var(--border));
+}
+
+/* Cards with the glow modifier already signal importance — anchor them too */
+.landing-brand:not(.landing-page) .card-glow-blush,
+.landing-brand:not(.landing-page) [data-slot="card"].card-glow-blush {
+  box-shadow: var(--shadow-anchor);
+}
+
+/* Top nav / header bar — slightly deeper hairline + soft anchor lift */
+.landing-brand:not(.landing-page) header,
+.landing-brand:not(.landing-page) [role="banner"] {
+  box-shadow:
+    0 1px 0 color-mix(in oklab, var(--navy-deep) 8%, transparent),
+    0 12px 28px -22px rgba(15, 16, 41, 0.25);
+}
+
+/* Mobile bottom nav active item — match anchored treatment */
+.landing-brand:not(.landing-page) [data-mobile-nav] [aria-current="page"],
+.landing-brand:not(.landing-page) [data-mobile-nav] .is-active {
+  color: var(--navy-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-brand:not(.landing-page) .sidebar-active-pill,
+  .landing-brand:not(.landing-page) [data-slot="card"][data-featured="true"],
+  .landing-brand:not(.landing-page) .card-featured {
+    transition: none;
+  }
+}
