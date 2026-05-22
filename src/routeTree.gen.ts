@@ -25,6 +25,7 @@ import { Route as StoreSlugRouteImport } from './routes/store_.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedWelcomeRouteImport } from './routes/_authenticated/welcome'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
+import { Route as AuthenticatedVaultRouteImport } from './routes/_authenticated/vault'
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
@@ -154,6 +155,11 @@ const AuthenticatedWelcomeRoute = AuthenticatedWelcomeRouteImport.update({
 const AuthenticatedViralLabRoute = AuthenticatedViralLabRouteImport.update({
   id: '/viral-lab',
   path: '/viral-lab',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedVaultRoute = AuthenticatedVaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedUsageRightsRoute =
@@ -487,6 +493,7 @@ export interface FileRoutesByFullPath {
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
+  '/vault': typeof AuthenticatedVaultRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/welcome': typeof AuthenticatedWelcomeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
@@ -555,6 +562,7 @@ export interface FileRoutesByTo {
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
+  '/vault': typeof AuthenticatedVaultRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/welcome': typeof AuthenticatedWelcomeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
@@ -625,6 +633,7 @@ export interface FileRoutesById {
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
+  '/_authenticated/vault': typeof AuthenticatedVaultRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
   '/_authenticated/welcome': typeof AuthenticatedWelcomeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
@@ -695,6 +704,7 @@ export interface FileRouteTypes {
     | '/series-builder'
     | '/settings'
     | '/usage-rights'
+    | '/vault'
     | '/viral-lab'
     | '/welcome'
     | '/email/unsubscribe'
@@ -763,6 +773,7 @@ export interface FileRouteTypes {
     | '/series-builder'
     | '/settings'
     | '/usage-rights'
+    | '/vault'
     | '/viral-lab'
     | '/welcome'
     | '/email/unsubscribe'
@@ -832,6 +843,7 @@ export interface FileRouteTypes {
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
     | '/_authenticated/usage-rights'
+    | '/_authenticated/vault'
     | '/_authenticated/viral-lab'
     | '/_authenticated/welcome'
     | '/email/unsubscribe'
@@ -989,6 +1001,13 @@ declare module '@tanstack/react-router' {
       path: '/viral-lab'
       fullPath: '/viral-lab'
       preLoaderRoute: typeof AuthenticatedViralLabRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/vault': {
+      id: '/_authenticated/vault'
+      path: '/vault'
+      fullPath: '/vault'
+      preLoaderRoute: typeof AuthenticatedVaultRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/usage-rights': {
@@ -1392,6 +1411,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
+  AuthenticatedVaultRoute: typeof AuthenticatedVaultRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
   AuthenticatedWelcomeRoute: typeof AuthenticatedWelcomeRoute
   AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRoute
@@ -1438,6 +1458,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
+  AuthenticatedVaultRoute: AuthenticatedVaultRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,
   AuthenticatedWelcomeRoute: AuthenticatedWelcomeRoute,
   AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRoute,
@@ -1476,13 +1497,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

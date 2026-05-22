@@ -4,7 +4,7 @@ import {
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
   Gift, Users, Flag, Wand2, Target, Volume2, VolumeX,
-  PanelLeftClose, PanelLeft,
+  PanelLeftClose, PanelLeft, BookHeart,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
 import {
@@ -44,7 +44,7 @@ const SECTIONS: Section[] = [
       { label: "Daily quests", icon: Target, to: "/quests" },
       { label: "My journey", icon: Trophy, to: "/journey" },
       { label: "Plan my week", icon: Calendar, to: "/planner" },
-      { label: "Saved stuff", icon: ShoppingBag, to: "/library" },
+      { label: "My vault", icon: BookHeart, to: "/vault" },
       { label: "Store", icon: ShoppingBag, to: "/store" },
       {
         label: "Progress", icon: Trophy, items: [
