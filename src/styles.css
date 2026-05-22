@@ -2055,3 +2055,66 @@ main > section + section,
 @media (prefers-reduced-motion: reduce) {
   .hero-card-halo { animation: none; }
 }
+
+/* ============================================================
+   MOBILE HARDENING — app-store ready
+   - prevents horizontal scroll from decorative blooms / blurs
+   - respects iOS safe-area insets (notch + home indicator)
+   - tightens excessive padding & display type on small phones
+   - guards against fixed-size emoji / images bursting their box
+   ============================================================ */
+html, body { overflow-x: clip; }
+body {
+  /* full viewport including dynamic browser chrome on iOS */
+  min-height: 100dvh;
+}
+/* Stop any media from forcing layout wider than its container */
+img, video, svg, canvas { max-width: 100%; }
+
+/* Header / app shell — respect iOS safe area on the top */
+@supports (padding: max(0px)) {
+  header { padding-top: env(safe-area-inset-top, 0); }
+}
+
+/* Slight side-padding bump for in-page containers on tiny phones
+   so cards don't kiss the screen edge */
+@media (max-width: 380px) {
+  .premium-card,
+  .soft-card,
+  .card-elegant { border-radius: 1.25rem; }
+
+  /* Soften huge display headings that were tuned for sm:+ */
+  h1.font-display { letter-spacing: -0.015em; }
+
+  /* Generic clamps for inline-styled hero numbers/emoji on dashboard */
+  [class*="text-[58px]"], [class*="text-[60px]"] { font-size: 44px !important; line-height: 1 !important; }
+  [class*="text-[52px]"] { font-size: 32px !important; }
+  [class*="text-[44px]"] { font-size: 30px !important; }
+  [class*="text-[38px]"] { font-size: 26px !important; }
+  [class*="text-[36px]"] { font-size: 26px !important; }
+  [class*="text-[34px]"] { font-size: 26px !important; }
+
+  /* Cards using arbitrary padding tokens — tighten on tiny phones  */
+  [class*="p-8"], [class*="p-9"], [class*="p-10"], [class*="p-12"] { padding: 1.25rem !important; }
+  [class*="px-8"], [class*="px-9"], [class*="px-10"], [class*="px-12"] { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+  [class*="py-8"], [class*="py-9"], [class*="py-10"], [class*="py-12"] { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
+
+  /* Page hero — friendlier breathing room */
+  [data-page-hero] { padding-top: 1.25rem; padding-bottom: 1.25rem; }
+}
+
+/* Tablets and below — kill any decorative absolute element wider than
+   the viewport that might cause a 1–10px horizontal scroll bar on mobile */
+@media (max-width: 768px) {
+  .bloom-drift, .bloom-drift--slow, .hero-card-halo { will-change: auto; }
+}
+
+/* Bottom nav: ensure main content clears the fixed nav (incl. safe area) */
+@media (max-width: 1023.98px) {
+  main { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0)) !important; }
+}
+
+/* Touch targets — anything that's clearly an action chip should be tappable */
+@media (hover: none) and (pointer: coarse) {
+  button, a[role="button"], .sidebar-link { min-height: 36px; }
+}
