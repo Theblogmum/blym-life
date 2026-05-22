@@ -141,15 +141,45 @@ function HomePage() {
 
       {/* ============ HERO: greeting + level card ============ */}
       <section className="relative overflow-hidden">
+        {/* layer 1 — era tint */}
         <div
           aria-hidden
           className="absolute inset-0"
-          style={{ background: "var(--era-grad)", opacity: 0.28 }}
+          style={{ background: "var(--era-grad)", opacity: 0.32 }}
         />
+        {/* layer 2 — top-left peach aurora */}
+        <div
+          aria-hidden
+          className="absolute -top-40 -left-32 h-[640px] w-[640px] rounded-full opacity-[0.55] blur-[140px]"
+          style={{ background: "radial-gradient(circle, oklch(0.93 0.09 35 / 0.85), transparent 65%)" }}
+        />
+        {/* layer 3 — focused pink halo BEHIND the XP card (right side, desktop) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute right-[-6%] top-[-8%] hidden h-[560px] w-[560px] rounded-full opacity-[0.7] blur-[130px] lg:block"
+          style={{ background: "radial-gradient(circle, oklch(0.86 0.13 350 / 0.9), oklch(0.92 0.08 60 / 0.4) 45%, transparent 70%)" }}
+        />
+        {/* layer 4 — golden warmth at baseline */}
+        <div
+          aria-hidden
+          className="absolute -bottom-32 left-1/3 h-[420px] w-[820px] -translate-x-1/2 rounded-full opacity-[0.42] blur-[140px]"
+          style={{ background: "radial-gradient(circle, oklch(0.93 0.09 70 / 0.7), transparent 70%)" }}
+        />
+        {/* layer 5 — soft grain veil for depth */}
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "radial-gradient(oklch(0.13 0.012 20 / 0.5) 1px, transparent 1px)",
+            backgroundSize: "3px 3px",
+          }}
+        />
+        {/* layer 6 — fade into background */}
         <div
           aria-hidden
           className="absolute inset-0"
-          style={{ background: "linear-gradient(180deg, transparent, var(--background))" }}
+          style={{ background: "linear-gradient(180deg, transparent 55%, var(--background))" }}
         />
         <div className="relative mx-auto max-w-[1200px] px-5 pb-6 pt-7 sm:px-8 lg:px-12 lg:pb-10 lg:pt-10">
           <div className="mb-4">
@@ -158,13 +188,14 @@ function HomePage() {
           <div className="grid items-start gap-5 lg:grid-cols-[1fr_460px] lg:gap-8">
             <div className="min-w-0">
               <div className="flex items-start justify-between gap-4">
-                <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.08] tracking-[-0.018em] text-balance sm:max-w-[20ch] sm:text-[48px]">
+                <h1 className="max-w-[18ch] font-display text-[34px] font-bold leading-[1.06] tracking-[-0.02em] text-balance sm:max-w-[20ch] sm:text-[52px]"
+                    style={{ textShadow: "0 1px 0 oklch(1 0 0 / 0.5)" }}>
                   {opener}
                 </h1>
                 <TrialPill />
               </div>
               {/* one encouraging sentence — always visible, emotional anchor */}
-              <p className="mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-foreground/65 sm:text-[16px]">
+              <p className="mt-5 max-w-[34ch] text-[14.5px] leading-relaxed text-foreground/65 sm:text-[16.5px]">
                 you're closer than you think. one tiny thing today still counts.
               </p>
               {/* magic moment — floating encouragement sticker (mobile/tablet) */}
@@ -180,18 +211,33 @@ function HomePage() {
             </div>
 
             {/* CONTENT ROOKIE — slotted into the hero gap on desktop */}
-            <div
-              className="relative hidden overflow-hidden rounded-[2.25rem] p-9 lg:block"
-              style={{
-                background: "linear-gradient(135deg, oklch(0.96 0.04 320) 0%, oklch(0.94 0.06 340) 45%, oklch(0.93 0.07 50) 100%)",
-                boxShadow: "inset 0 1px 0 oklch(1 0 0 / 0.7), 0 1px 2px oklch(0.13 0.012 20 / 0.04), 0 20px 50px -28px oklch(0.66 0.24 350 / 0.28)",
-              }}
-            >
-              <div aria-hidden className="absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-50 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
-              <div aria-hidden className="absolute -bottom-20 -left-14 h-64 w-64 rounded-full opacity-30 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
-              <div className="relative">
+            <div className="relative hidden lg:block">
+              {/* outer pulsing halo — sits behind the card */}
+              <div
+                aria-hidden
+                className="hero-card-halo pointer-events-none absolute -inset-10 rounded-[3rem] opacity-80 blur-[60px]"
+                style={{ background: "radial-gradient(60% 55% at 50% 50%, oklch(0.86 0.14 350 / 0.55), oklch(0.92 0.1 60 / 0.35) 55%, transparent 75%)" }}
+              />
+              <div
+                className="relative overflow-hidden rounded-[2.25rem] p-9"
+                style={{
+                  background:
+                    "linear-gradient(135deg, oklch(0.97 0.035 320) 0%, oklch(0.94 0.07 340) 42%, oklch(0.93 0.08 50) 100%)",
+                  boxShadow:
+                    "inset 0 1px 0 oklch(1 0 0 / 0.85), inset 0 0 0 1px oklch(1 0 0 / 0.55), 0 1px 2px oklch(0.13 0.012 20 / 0.05), 0 28px 60px -28px oklch(0.66 0.24 350 / 0.45), 0 18px 80px -30px oklch(0.85 0.15 60 / 0.4)",
+                }}
+              >
+                {/* top sheen */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-px"
+                  style={{ background: "linear-gradient(90deg, transparent, oklch(1 0 0 / 0.9), transparent)" }}
+                />
+                <div aria-hidden className="absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-60 blur-3xl" style={{ background: "var(--gradient-bloom)" }} />
+                <div aria-hidden className="absolute -bottom-20 -left-14 h-64 w-64 rounded-full opacity-35 blur-3xl" style={{ background: "var(--gradient-mint)" }} />
+                <div className="relative">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-foreground/75 backdrop-blur ring-1 ring-white/60">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1.5 text-[13px] font-semibold uppercase tracking-[0.18em] text-foreground/80 shadow-[0_6px_18px_-10px_oklch(0.66_0.24_350/0.4)] backdrop-blur ring-1 ring-white/70">
                     <Rocket className="h-4 w-4" /> Level {xp?.level ?? 1}
                   </span>
                   <span className="text-[14px] font-medium tabular-nums text-foreground/55">
@@ -199,27 +245,37 @@ function HomePage() {
                   </span>
                 </div>
                 <div className="mt-6 flex items-baseline gap-4">
-                  <span className="text-[54px] leading-none">{lvl.emoji}</span>
+                  <span className="text-[58px] leading-none drop-shadow-[0_8px_18px_oklch(0.66_0.24_350/0.35)]">{lvl.emoji}</span>
                   <div>
-                    <h2 className="font-display text-[36px] font-bold leading-none tracking-[-0.012em] text-foreground">
+                    <h2 className="font-display text-[38px] font-bold leading-[1] tracking-[-0.014em] text-foreground">
                       {lvl.title}
                     </h2>
-                    <p className="mt-2.5 text-[15px] leading-snug text-foreground/65">{lvl.blurb}</p>
+                    <p className="mt-2.5 text-[15px] leading-snug text-foreground/70">{lvl.blurb}</p>
                   </div>
                 </div>
                 <div className="mt-7">
-                  <div className="h-3 w-full overflow-hidden rounded-full bg-white/55 ring-1 ring-white/60">
+                  <div className="relative h-3 w-full overflow-hidden rounded-full bg-white/60 ring-1 ring-white/70 shadow-[inset_0_1px_2px_oklch(0.13_0.012_20/0.08)]">
                     <div
-                      className="h-full rounded-full transition-all duration-700"
+                      className="relative h-full rounded-full transition-all duration-700"
                       style={{
                         width: `${Math.min(100, Math.max(4, xpProgress))}%`,
-                        background: "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.72 0.22 350))",
+                        background:
+                          "linear-gradient(90deg, oklch(0.82 0.16 60), oklch(0.78 0.2 25) 50%, oklch(0.72 0.22 350))",
+                        boxShadow:
+                          "0 0 12px oklch(0.78 0.22 350 / 0.55), 0 0 22px oklch(0.82 0.16 60 / 0.35)",
                       }}
-                    />
+                    >
+                      <div
+                        aria-hidden
+                        className="absolute inset-y-0 right-0 w-3 rounded-full opacity-90 blur-[2px]"
+                        style={{ background: "oklch(1 0 0 / 0.6)" }}
+                      />
+                    </div>
                   </div>
-                  <p className="mt-3.5 text-[14px] text-foreground/55">
-                    next up: <span className="font-semibold text-foreground/85">{nextLvl.title}</span> {nextLvl.emoji}
+                  <p className="mt-3.5 text-[14px] text-foreground/60">
+                    next up: <span className="font-semibold text-foreground/90">{nextLvl.title}</span> {nextLvl.emoji}
                   </p>
+                </div>
                 </div>
               </div>
             </div>
