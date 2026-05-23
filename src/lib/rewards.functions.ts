@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export const getClaimedRewards = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -25,8 +26,8 @@ export const claimReward = createServerFn({ method: "POST" })
     return input;
   })
   .handler(async ({ context, data }) => {
-    const { supabase, userId } = context;
-    const { error } = await supabase
+    const { userId } = context;
+    const { error } = await supabaseAdmin
       .from("claimed_rewards")
       .upsert(
         { user_id: userId, chest_id: data.chestId },
