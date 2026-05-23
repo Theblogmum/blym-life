@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export const getVaultData = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -7,11 +8,14 @@ export const getVaultData = createServerFn({ method: "GET" })
     const { supabase, userId } = context;
     const email = ((context.claims as any)?.email as string | undefined)?.toLowerCase();
 
+    const purchasesQuery = supabaseAdmin
+      .from("digital_purchases")
+      .select("id, created_at, product:digital_products(id, slug, title, cover_url, file_path)")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+
     const [purchasesRes, claimedRes, savedRes] = await Promise.all([
-      supabase
-        .from("digital_purchases")
-        .select("id, created_at, product:digital_products(id, slug, title, cover_url, file_path)")
-        .order("created_at", { ascending: false }),
+      purchasesQuery,
       supabase
         .from("claimed_rewards")
         .select("chest_id, claimed_at")
