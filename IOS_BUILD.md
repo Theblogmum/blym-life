@@ -26,12 +26,12 @@ npx cap open ios
 
 ## In Xcode
 1. Select the `App` target → **Signing & Capabilities** → pick your Team.
-2. Set Bundle Identifier to `life.blym.app` (already in `capacitor.config.ts`).
+2. Set Bundle Identifier to `com.blym.app` (already in `capacitor.config.ts`).
 3. Add app icons: drag a 1024×1024 PNG into `Assets.xcassets/AppIcon`.
 4. Build → **Any iOS Device** → **Product → Archive** → **Distribute → App Store Connect**.
 
 ## App Store Connect
-1. Create the app at https://appstoreconnect.apple.com (Bundle ID `life.blym.app`).
+1. Create the app at https://appstoreconnect.apple.com (Bundle ID `com.blym.app`).
 2. Fill in: privacy policy (`https://blym.life/privacy`), terms (`https://blym.life/terms`),
    support URL (`https://blym.life/contact`), description, screenshots (6.7" + 6.5" iPhone).
 3. Upload the build from Xcode, attach it to your version, submit for review.
