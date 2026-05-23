@@ -24,7 +24,7 @@ function PrivacyPage() {
 
       <h2 className="mt-8 font-display text-xl font-bold">1. Who we are</h2>
       <p className="mt-2">
-        Blym is operated by Stephanie Trump, a sole trader based in the United Kingdom, trading as "Blym
+        Blym is operated by Stephanie Trump, a sole trader based in Guernsey, Channel Islands, trading as "Blym
         Mum". For privacy matters we are the <strong>data controller</strong> of the personal data described below.
         Contact: <a className="underline" href="mailto:info@blym.life">info@blym.life</a>.
       </p>
