@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { supabaseAdmin } from "@/integrations/supabase/client.server";
 
 export type XpStats = {
   xp: number;
@@ -80,7 +81,7 @@ export const claimDailyXp = createServerFn({ method: "POST" })
     if (existing?.last_claim_date === today) return { awarded: false, xp: existing.xp ?? 0 };
 
     const xp = (existing?.xp ?? 0) + 5;
-    const { error: upsertError } = await supabase
+    const { error: upsertError } = await supabaseAdmin
       .from("creator_xp")
       .upsert({ user_id: userId, xp, last_claim_date: today, updated_at: new Date().toISOString() });
     if (upsertError) { console.error("[db error] claim daily xp", upsertError); throw new Error("Couldn't claim daily XP"); }
