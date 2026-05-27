@@ -60,13 +60,9 @@ export type Feature =
   | "profile_audit"
   | "timing"
   | "faceless"
-  | "pin"
-  | "script_tighten"
   | "deliverables"
   | "usage_rights"
   | "media_kit"
-  | "package_names"
-  | "service_desc"
   | "passive_ideas"
   | "rejection"
   | "wins"
@@ -91,13 +87,9 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   profile_audit: "Profile Audit",
   timing: "Post Timing",
   faceless: "Faceless Content Optimiser",
-  pin: "Pinterest Pin Optimiser",
-  script_tighten: "Script Tightener",
   deliverables: "Deliverables Builder",
   usage_rights: "Usage Rights Calculator",
   media_kit: "Media Kit Generator",
-  package_names: "Package Naming",
-  service_desc: "Service Description",
   passive_ideas: "Passive Product Ideas",
   rejection: "Rejection Recovery",
   wins: "Doing Better Insights",
@@ -147,6 +139,8 @@ export const CREATOR_FEATURES: Feature[] = [
   "response",
   "seo",
   "repurpose",
+  // Profile polish — every creator needs it
+  "bio",
   // Light growth tools
   "engagement",
   "timing",
@@ -160,12 +154,9 @@ export const CREATOR_FEATURES: Feature[] = [
  * Advanced Strategy. Pro/Ultimate (legacy) inherit from Studio.
  */
 export const STUDIO_EXTRA_FEATURES: Feature[] = [
-  // Creator polish (formerly Studio-only)
-  "bio",
+  // Creator polish (Studio-only)
   "series",
   "faceless",
-  "pin",
-  "script_tighten",
   // Growth Lab
   "profile_audit",
   "niche_audit",
@@ -178,8 +169,6 @@ export const STUDIO_EXTRA_FEATURES: Feature[] = [
   "deliverables",
   "usage_rights",
   // Advanced Strategy
-  "package_names",
-  "service_desc",
   "passive_ideas",
   "rejection",
 ];
