@@ -36,7 +36,7 @@ function SettingsPage() {
   const fetchMe = useServerFn(getMe);
   const me = useQuery({ queryKey: ["me"], queryFn: () => fetchMe() });
   const tier = me.data?.profile?.tier ?? "free";
-  const { subscription, hasLifetime, isActive } = useSubscription();
+  const { subscription, isActive } = useSubscription();
   const { openCheckout, loading: checkoutLoading } = useStripeCheckout();
   const iap = useIAP();
   const openPortal = useServerFn(createPortalSession);
@@ -105,7 +105,7 @@ function SettingsPage() {
         </div>
       </Card>
 
-      {isActive && subscription && !hasLifetime && (
+      {isActive && subscription && (
         <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Subscription</p>
           <p className="mt-1 font-medium capitalize">{subscription.status}{subscription.cancel_at_period_end ? " · cancels at period end" : ""}</p>
@@ -131,13 +131,6 @@ function SettingsPage() {
         </Card>
       )}
 
-      {hasLifetime && (
-        <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-primary">Lifetime member</p>
-          <p className="mt-1 font-medium">You have permanent Premium access. Thank you 💛</p>
-        </Card>
-      )}
-
       {!isActive && (
         <Card className="rounded-[1.6rem] border-0 bg-[image:var(--gradient-warm)] p-[2px] shadow-[var(--shadow-elegant)]">
           <div className="rounded-[1.5rem] bg-card p-6">
@@ -146,7 +139,7 @@ function SettingsPage() {
               <p className="text-[11px] font-semibold uppercase tracking-wider">Upgrade your plan</p>
             </div>
             <p className="mt-2 font-display text-[22px] font-bold tracking-[-0.015em]">Pick the plan that fits where you are.</p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-border p-4">
                 <p className="font-display text-lg font-bold">Creator · £6.99/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Unlimited ideas, captions, scripts + smart calendar.</p>
@@ -162,14 +155,8 @@ function SettingsPage() {
                 <p className="mt-0.5 text-xs text-muted-foreground">Viral growth engine, batching, insights + repurposing.</p>
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("pro_monthly")}>Go Pro</Button>
               </div>
-              <div className="rounded-2xl border border-primary/40 bg-secondary/40 p-4">
-                <p className="font-display text-lg font-bold">Ultimate · £44.99/mo</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">AI growth coach, 30-day plans, brand pitch, media kit, invoices.</p>
-                <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("ultimate_monthly")}>Go Ultimate</Button>
-              </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={checkoutLoading || iap.loading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
               {iap.isIOS && (
                 <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={iap.loading} onClick={() => iap.restore()}>
                   Restore purchases

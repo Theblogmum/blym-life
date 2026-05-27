@@ -487,7 +487,7 @@ function PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
-  const { isActive, hasLifetime } = useSubscription();
+  const { isActive } = useSubscription();
   const iap = useIAP();
 
   const buy = async (priceId: string) => {
@@ -511,7 +511,7 @@ function PricingPlans() {
       {isActive && (
         <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-1.5 text-sm font-medium text-secondary-foreground">
           <Check className="h-4 w-4 text-primary" />
-          {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
+          You're on a paid plan 💛
         </div>
       )}
       <div className="mx-auto mt-7 grid max-w-6xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">

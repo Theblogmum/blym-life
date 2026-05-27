@@ -17,6 +17,4 @@ export const IAP_PRODUCT_IDS: Record<string, string> = {
   creator_monthly: "blym_creator_monthly",
   studio_monthly: "blym_studio_monthly",
   pro_monthly: "blym_pro_monthly",
-  ultimate_monthly: "blym_ultimate_monthly",
-  lifetime_oneoff: "blym_lifetime",
 };

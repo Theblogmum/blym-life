@@ -7,11 +7,7 @@ const PRODUCT_ID_TO_INTERNAL: Record<string, string> = {
   blym_creator_monthly: "creator_monthly",
   blym_studio_monthly: "studio_monthly",
   blym_pro_monthly: "pro_monthly",
-  blym_ultimate_monthly: "ultimate_monthly",
-  blym_lifetime: "lifetime_oneoff",
 };
-
-const LIFETIME_PRODUCT_IDS = new Set(["blym_lifetime"]);
 
 type RcEvent = {
   type: string;
@@ -64,37 +60,9 @@ export const Route = createFileRoute("/api/public/revenuecat/webhook")({
         const environment =
           event.environment === "SANDBOX" ? "sandbox" : "live";
 
-        const isLifetime =
-          LIFETIME_PRODUCT_IDS.has(productId) ||
-          event.type === "NON_RENEWING_PURCHASE";
-
         try {
-          if (isLifetime) {
-            // Lifetime / one-off purchase
-            if (
-              event.type === "INITIAL_PURCHASE" ||
-              event.type === "NON_RENEWING_PURCHASE" ||
-              event.type === "UNCANCELLATION"
-            ) {
-              const { error } = await supabaseAdmin
-                .from("lifetime_purchases")
-                .upsert(
-                  {
-                    user_id: userId,
-                    stripe_payment_intent_id:
-                      event.original_transaction_id ??
-                      event.transaction_id ??
-                      `apple_${Date.now()}`,
-                    product_id: productId,
-                    price_id: internalPriceId,
-                    environment,
-                  },
-                  { onConflict: "stripe_payment_intent_id" }
-                );
-              if (error) console.error("[rc-webhook] lifetime upsert", error);
-            }
-          } else {
-            // Recurring subscription
+          {
+            // Recurring subscription (only plan type offered)
             const periodEnd = event.expiration_at_ms
               ? new Date(event.expiration_at_ms).toISOString()
               : null;
