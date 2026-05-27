@@ -13,6 +13,7 @@ import { PageHero, UsageChip } from "@/components/page-hero";
 import { TypingDots, IdeaGeneratedBadge } from "@/components/micro";
 import { PersonaBubble } from "@/components/ai-persona";
 import { AudienceFitPanel } from "@/components/audience-fit-panel";
+import { SaveToVaultButton } from "@/components/save-to-vault-button";
 
 const KINDS = [
   { v: "hook", l: "Hooks", emoji: "🎣", tip: "Stop the scroll in 2 seconds." },
@@ -57,7 +58,7 @@ function GeneratorPage() {
   const freeUsage = usage.data?.freeUsage as
     | Record<string, { used: number; limit: number }>
     | undefined;
-  const bucket = freeUsage?.[bucketKey];
+  const bucket = freeUsage?.[bucketKey] ?? freeUsage?.daily;
   const used = bucket?.used ?? 0;
   const limit = bucket?.limit ?? 0;
   const outOfQuota = !premium && bucket ? used >= limit : false;
@@ -146,7 +147,7 @@ function GeneratorPage() {
           <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/30 bg-surface-plum p-3.5 text-[13px]">
             <p className="flex items-center gap-2 text-foreground/85">
               <Lock className="h-4 w-4 text-foreground/60" />
-              You've used your {limit} free {isCaptionBucket ? "captions + hooks" : "ideas + scripts"} this month. Resets on the 1st — or upgrade for unlimited.
+              You've used all {limit} free AI generations for today. Your 5 refresh tomorrow — or upgrade to Creator for unlimited.
             </p>
             <Link to="/settings">
               <Button size="sm" className="rounded-full transition hover:-translate-y-[1px]">Upgrade</Button>
@@ -163,7 +164,14 @@ function GeneratorPage() {
           </div>
           <div className="grid gap-3 sm:gap-3.5 md:grid-cols-2">
             {options.map((o, i) => (
-              <ResultRow key={`${m.submittedAt}-${i}`} index={i + 1} text={o} delayMs={i * 70} />
+              <ResultRow
+                key={`${m.submittedAt}-${i}`}
+                index={i + 1}
+                text={o}
+                delayMs={i * 70}
+                saveKind={kind}
+                saveTitle={topic}
+              />
             ))}
           </div>
           <div className="mt-6">
@@ -202,7 +210,19 @@ function GeneratorPage() {
   );
 }
 
-function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; delayMs?: number }) {
+function ResultRow({
+  text,
+  index,
+  delayMs = 0,
+  saveKind,
+  saveTitle,
+}: {
+  text: string;
+  index: number;
+  delayMs?: number;
+  saveKind: string;
+  saveTitle?: string;
+}) {
   const [copied, setCopied] = useState(false);
   return (
     <div
@@ -215,18 +235,21 @@ function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; 
         </span>
         <p className="flex-1 whitespace-pre-line text-[14px] leading-relaxed text-foreground/90">{text}</p>
       </div>
-      <button
-        onClick={() => {
-          navigator.clipboard.writeText(text);
-          setCopied(true);
-          toast.success("Copied to clipboard");
-          setTimeout(() => setCopied(false), 1200);
-        }}
-        className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-foreground/[0.05] text-foreground/65 transition-all duration-300 hover:bg-primary/15 hover:text-primary active:scale-90"
-        aria-label="Copy"
-      >
-        {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-      </button>
+      <div className="flex shrink-0 flex-col items-center gap-1.5">
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(text);
+            setCopied(true);
+            toast.success("Copied to clipboard");
+            setTimeout(() => setCopied(false), 1200);
+          }}
+          className="grid h-8 w-8 place-items-center rounded-full bg-foreground/[0.05] text-foreground/65 transition-all duration-300 hover:bg-primary/15 hover:text-primary active:scale-90"
+          aria-label="Copy"
+        >
+          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        </button>
+        <SaveToVaultButton kind={saveKind} body={text} title={saveTitle} />
+      </div>
     </div>
   );
 }
