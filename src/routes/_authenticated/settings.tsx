@@ -9,6 +9,7 @@ import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
+import { useIAP } from "@/hooks/use-iap";
 import { createPortalSession } from "@/utils/payments.functions";
 import { deleteMyAccount } from "@/lib/account.functions";
 import { useState } from "react";

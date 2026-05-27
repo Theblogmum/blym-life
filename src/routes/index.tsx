@@ -506,8 +506,6 @@ function PricingPlans() {
     });
   };
 
-  const busy = loading || iap.loading;
-
   return (
     <>
       {isActive && (
