@@ -519,6 +519,7 @@ function PricingPlans() {
             "Basic weekly content planner",
             "Unlimited saves & favourites",
             "Light trend inspiration feed",
+            "Brand directory access — 500 brands",
           ]}
           cta={
             isActive
@@ -532,12 +533,13 @@ function PricingPlans() {
           priceSuffix="/mo"
           tagline="The sweet spot for serious creators."
           features={[
-            "Unlimited content ideas + scripts",
-            "Unlimited captions, hooks & CTAs",
-            "Full TikTok / Reel script studio",
-            "Weekly + monthly content calendar",
+            "100 content ideas + scripts / month",
+            "100 caption, hook & CTA generations / month",
+            "Full weekly + monthly content calendar",
+            "TikTok / Reel script studio access",
             "Smart saves: folders + tags",
             "Trend breakdowns + niche mode",
+            "Brand directory access — 5,000 brands",
           ]}
           cta={
             isActive
@@ -553,9 +555,11 @@ function PricingPlans() {
           features={[
             "Everything in Creator",
             "Priority generation speeds",
+            "Personal Bloom AI bestie — 50 generations / month",
             "Extended trend + niche library",
             "Advanced caption + hook styles",
             "Bigger saves, folders & tags",
+            "Brand directory access — 50,000 brands",
           ]}
           cta={
             isActive
@@ -570,14 +574,16 @@ function PricingPlans() {
           priceSuffix="/mo"
           tagline="Your always-on AI growth coach."
           features={[
-            "Everything in Creator",
-            "Full Viral Growth Strategy generator",
-            "Advanced AI: viral rewrites + SEO captions",
+            "Everything in Free, Creator + Studio",
+            "Full growth strategy generator",
+            "Advanced AI bestie",
+            "Viral rewrites + SEO captions",
             "Viral breakdown library + performance scoring",
-            "1-click 7-day content batching",
-            "Niche domination + repurposing engine",
-            "Personal AI growth coach (chat + critique)",
-            "Brand pitch generator + media kit + invoices",
+            "Content batching system",
+            "Personal AI growth bestie Bloom — chat + critique",
+            "Brand pitch generator",
+            "Full business studio: media kit, portfolio, invoices + finance / growth tracker",
+            "Full brand directory access — 130,000+ brands",
           ]}
           cta={
             isActive
