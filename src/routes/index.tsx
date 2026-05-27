@@ -539,6 +539,7 @@ function PricingPlans() {
           features={[
             "Unlimited hooks, captions & scripts",
             "CTAs, B-roll ideas, response writer, SEO & repurposing",
+            "Bio optimiser + Film This filming helper",
             "Full weekly + monthly content calendar",
             "Full vault — unlimited saves + smart folders",
             "Viral Lab, engagement booster & post timing",
@@ -558,8 +559,8 @@ function PricingPlans() {
             "Everything in Creator",
             "Growth Lab — profile + niche audits, flop analyser, clip recycler, growth insights & weekly reports",
             "Creator Business — media kit, brand pitch, deliverables, usage rights, invoices, income tracker & brand hub",
-            "Advanced strategy — AI growth suggestions + personalised recommendations",
-            "Bio optimiser, series builder, faceless + Pinterest optimisers, script tightener",
+            "Advanced strategy — passive product ideas, rejection recovery & personalised recommendations",
+            "Series builder, faceless content optimiser & portfolio",
             "Brand directory access — 1,000 curated brands",
           ]}
           cta={
@@ -576,9 +577,9 @@ function PricingPlans() {
           tagline="Top tier — priority AI, full gamification & VIP perks."
           features={[
             "Everything in Studio",
-            "Advanced AI — deep creator analysis, personal growth coaching & strategy engine",
+            "Advanced AI — deep creator analysis, Creator Coach chat & strategy engine",
             "Priority generations + premium AI models",
-            "Full gamification — rewards, chests, advanced quests, milestones & creator journey",
+            "Full gamification — XP, levels, streaks, rewards, chests, quests, milestones & creator journey",
             "Early access to new tools + future AI beta",
             "VIP creator features + full brand directory (all brands, growing weekly)",
           ]}
