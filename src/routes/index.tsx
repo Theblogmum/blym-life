@@ -524,7 +524,6 @@ function PricingPlans() {
             "Weekly planner — next 7 days",
             "Vault — up to 15 saves",
             "Daily idea + daily motivation",
-            "Brand directory access — 500 brands",
           ]}
           cta={
             isActive
@@ -543,7 +542,6 @@ function PricingPlans() {
             "Full weekly + monthly content calendar",
             "Full vault — unlimited saves + smart folders",
             "Viral Lab, engagement booster & post timing",
-            "Brand directory access — 5,000 brands",
           ]}
           cta={
             isActive

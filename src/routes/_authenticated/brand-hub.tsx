@@ -53,12 +53,19 @@ function BrandHubPage() {
   const qc = useQueryClient();
 
   const usage = useQuery({ queryKey: ["usage", "today"], queryFn: () => fetchUsage() });
-  const brandsQ = useQuery({ queryKey: ["brands"], queryFn: () => fetchBrands({ data: {} }) });
-  const pitchesQ = useQuery({ queryKey: ["pitches"], queryFn: () => fetchPitches() });
-
   const premium = !!usage.data?.premium;
   const inTrial = !!usage.data?.inTrial;
+  const tier = (usage.data?.tier ?? "free") as string;
+  // Brand directory is Studio+ only. Skip the fetch for free/creator so we
+  // don't surface a server error — show an upgrade card instead.
+  const directoryAllowed = tier === "studio" || tier === "pro" || tier === "ultimate";
   const locked = !premium && !inTrial;
+  const brandsQ = useQuery({
+    queryKey: ["brands"],
+    queryFn: () => fetchBrands({ data: {} }),
+    enabled: directoryAllowed,
+  });
+  const pitchesQ = useQuery({ queryKey: ["pitches"], queryFn: () => fetchPitches() });
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string>("");
@@ -145,16 +152,20 @@ function BrandHubPage() {
               </Card>
             )}
 
-            {brandsQ.data?.tier && brandsQ.data.tier !== "pro" && brandsQ.data.tier !== "ultimate" && (
+            {!directoryAllowed && (
+              <Card className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-4 text-sm">
+                <p className="flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  The brand directory unlocks on Studio — 50,000+ brands plus the full Brand Hub.
+                </p>
+                <Link to="/settings"><Button size="sm" className="rounded-full">Upgrade to Studio</Button></Link>
+              </Card>
+            )}
+
+            {brandsQ.data?.tier === "studio" && (
               <Card className="flex items-center justify-between gap-3 rounded-2xl surface-mint p-4 text-sm">
                 <p>
-                  <span className="font-semibold">
-                    {brandsQ.data.tier === "free"
-                      ? "Free directory · 500 brands"
-                      : brandsQ.data.tier === "creator"
-                        ? "Creator directory · 5,000 brands"
-                        : "Studio directory · 50,000 brands"}
-                  </span>{" "}
+                  <span className="font-semibold">Studio directory · 50,000 brands</span>{" "}
                   <span className="text-foreground/70">— upgrade for the full 130k+ brand library.</span>
                 </p>
                 <Link to="/settings"><Button size="sm" variant="outline" className="rounded-full">Upgrade</Button></Link>
