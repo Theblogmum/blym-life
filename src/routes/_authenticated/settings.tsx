@@ -151,7 +151,7 @@ function SettingsPage() {
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("studio_monthly")}>Go Studio</Button>
               </div>
               <div className="rounded-2xl border border-border p-4">
-                <p className="font-display text-lg font-bold">Pro · £24.99/mo</p>
+                <p className="font-display text-lg font-bold">Pro · £29.99/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Viral growth engine, batching, insights + repurposing.</p>
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("pro_monthly")}>Go Pro</Button>
               </div>
