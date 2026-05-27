@@ -38,6 +38,7 @@ function SettingsPage() {
   const tier = me.data?.profile?.tier ?? "free";
   const { subscription, hasLifetime, isActive } = useSubscription();
   const { openCheckout, loading: checkoutLoading } = useStripeCheckout();
+  const iap = useIAP();
   const openPortal = useServerFn(createPortalSession);
   const [portalLoading, setPortalLoading] = useState(false);
   const deleteAccountFn = useServerFn(deleteMyAccount);
@@ -58,6 +59,10 @@ function SettingsPage() {
 
   const buy = (priceId: string) => {
     if (!user) return;
+    if (iap.isIOS) {
+      iap.purchase(priceId);
+      return;
+    }
     openCheckout({
       priceId,
       successUrl: `${window.location.origin}/settings?checkout=success`,
