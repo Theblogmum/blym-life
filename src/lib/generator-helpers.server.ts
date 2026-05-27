@@ -105,14 +105,29 @@ export const FEATURE_LABELS: Record<Feature, string> = {
 };
 
 /**
- * Free Forever tier — monthly caps per feature bucket. Calendar month reset.
- * Features NOT listed here are Premium-only (locked for free users).
- * Premium subscribers always bypass these caps.
+ * Free Forever tier — daily shared AI budget. ALL features in
+ * FREE_AI_FEATURES draw from one shared 5/day pool. Resets daily (UTC).
+ * Features NOT listed below are Premium-only and locked for free users.
+ * Premium subscribers (creator/studio/pro/ultimate) always bypass this cap.
  */
+export const FREE_DAILY_AI_LIMIT = 5;
+
+/** Free AI tools — share the FREE_DAILY_AI_LIMIT pool. */
+export const FREE_AI_FEATURES: Feature[] = [
+  "generator",         // Daily Spark / basic scripts
+  "caption_generator", // Captions
+  "viral_lab",         // Hook Studio (hooks)
+];
+
+/** Free unlimited tools — don't count toward the daily AI pool. */
+export const FREE_UNLIMITED_FEATURES: Feature[] = ["motivation"];
+
+/** Legacy export kept for backwards compatibility — no longer drives gating. */
 export const FREE_MONTHLY_LIMITS: Partial<Record<Feature, number>> = {
-  generator: 20,         // content ideas + scripts (rolled together)
-  caption_generator: 10, // caption + hook generator
-  motivation: 9999,      // effectively unlimited (free tool)
+  generator: FREE_DAILY_AI_LIMIT,
+  caption_generator: FREE_DAILY_AI_LIMIT,
+  viral_lab: FREE_DAILY_AI_LIMIT,
+  motivation: 9999,
 };
 
 /**
@@ -158,6 +173,28 @@ function startOfMonthISO(): string {
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
 }
 
+function startOfTodayISO(): string {
+  const d = new Date();
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())).toISOString();
+}
+
+/**
+ * Count today's (UTC) AI generations across the free shared pool.
+ */
+export async function getDailyAiUsage(
+  supabase: SupabaseLike,
+  userId: string,
+): Promise<number> {
+  const since = startOfTodayISO();
+  const { count } = await supabase
+    .from("usage_events")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .in("feature", FREE_AI_FEATURES)
+    .gte("created_at", since);
+  return count ?? 0;
+}
+
 export async function getMonthlyUsage(
   supabase: SupabaseLike,
   userId: string,
@@ -173,15 +210,21 @@ export async function getMonthlyUsage(
   return count ?? 0;
 }
 
+/**
+ * Free-tier usage snapshot. Every FREE_AI_FEATURE reports the SAME shared
+ * daily pool ({ used, limit }) so existing UsageChip lookups keep working.
+ */
 export async function getFreeTierSnapshot(supabase: SupabaseLike, userId: string) {
-  const features = Object.keys(FREE_MONTHLY_LIMITS) as Feature[];
-  const usage: Record<string, { used: number; limit: number }> = {};
-  await Promise.all(
-    features.map(async (f) => {
-      const used = await getMonthlyUsage(supabase, userId, f);
-      usage[f] = { used, limit: FREE_MONTHLY_LIMITS[f] ?? 0 };
-    }),
-  );
+  const dailyUsed = await getDailyAiUsage(supabase, userId);
+  const usage: Record<string, { used: number; limit: number }> = {
+    daily: { used: dailyUsed, limit: FREE_DAILY_AI_LIMIT },
+  };
+  for (const f of FREE_AI_FEATURES) {
+    usage[f] = { used: dailyUsed, limit: FREE_DAILY_AI_LIMIT };
+  }
+  for (const f of FREE_UNLIMITED_FEATURES) {
+    usage[f] = { used: 0, limit: 9999 };
+  }
   return usage;
 }
 
@@ -310,10 +353,10 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
 /**
  * Plan gate. Name kept for backwards compatibility with existing call sites.
  * Behaviour:
- *   - Premium → always allowed, records usage.
- *   - Free + feature in FREE_MONTHLY_LIMITS (or `opts.freeAllowed`) → allowed
- *     up to the monthly cap, then soft-blocked with an upgrade message.
- *   - Free + premium-only feature → blocked immediately with upgrade message.
+ *   - Paid tiers (creator/studio/pro/ultimate) → existing per-tier rules.
+ *   - Free + feature in FREE_AI_FEATURES → allowed up to a SHARED 5/day cap.
+ *   - Free + feature in FREE_UNLIMITED_FEATURES or opts.freeAllowed → allowed.
+ *   - Free + anything else → blocked immediately with upgrade message.
  */
 export async function enforceTrial(
   supabase: SupabaseLike,
@@ -353,27 +396,72 @@ export async function enforceTrial(
     );
   }
 
-  const cap = FREE_MONTHLY_LIMITS[feature];
-  const isFreeFeature = cap !== undefined || opts?.freeAllowed;
+  // Free tier
+  const isUnlimitedFree = FREE_UNLIMITED_FEATURES.includes(feature) || opts?.freeAllowed;
+  const isPooledFree = FREE_AI_FEATURES.includes(feature);
 
-  if (!isFreeFeature) {
+  if (!isUnlimitedFree && !isPooledFree) {
     const tierName = CREATOR_FEATURES.includes(feature)
       ? "Creator (£6.99/mo)"
       : PRO_EXTRA_FEATURES.includes(feature)
         ? "Pro (£29.99/mo)"
         : "Ultimate (£44.99/mo)";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
+      `${FEATURE_LABELS[feature]} is a premium tool — unlocked on ${tierName}. Free includes Hooks, Captions, basic Scripts, the weekly planner, daily ideas and motivation.`,
     );
   }
 
-  if (cap !== undefined && cap < 9999) {
-    const used = await getMonthlyUsage(supabase, userId, feature);
-    if (used >= cap) {
+  if (isPooledFree) {
+    const used = await getDailyAiUsage(supabase, userId);
+    if (used >= FREE_DAILY_AI_LIMIT) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£6.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
+        `You've used all ${FREE_DAILY_AI_LIMIT} free AI generations for today. Upgrade to Creator (£6.99/mo) for unlimited — or come back tomorrow, your free 5 refresh daily.`,
       );
     }
   }
   return recorder;
+}
+
+/**
+ * Planner horizon gate for free users — they can only plan up to 7 days ahead.
+ * Paid tiers bypass.
+ */
+export async function enforceFreePlannerHorizon(
+  supabase: SupabaseLike,
+  userId: string,
+  planDate: string,
+) {
+  const tier = await getUserTier(supabase, userId);
+  if (tier !== "free") return;
+  const today = new Date();
+  const horizon = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 7));
+  const target = new Date(`${planDate}T00:00:00Z`);
+  if (target.getTime() > horizon.getTime()) {
+    throw new Error(
+      "Free plan can only schedule the next 7 days. Upgrade to Creator (£6.99/mo) for the full content calendar.",
+    );
+  }
+}
+
+/**
+ * Vault save cap for free users — max 15 saved items. Paid tiers bypass.
+ * Counts everything in saved_content except daily_idea cache rows.
+ */
+export const FREE_VAULT_LIMIT = 15;
+export async function enforceFreeVaultCapacity(
+  supabase: SupabaseLike,
+  userId: string,
+) {
+  const tier = await getUserTier(supabase, userId);
+  if (tier !== "free") return;
+  const { count } = await supabase
+    .from("saved_content")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .neq("kind", "daily_idea");
+  if ((count ?? 0) >= FREE_VAULT_LIMIT) {
+    throw new Error(
+      `Free plan caps your vault at ${FREE_VAULT_LIMIT} saved items. Delete a few or upgrade to Creator (£6.99/mo) for unlimited saves.`,
+    );
+  }
 }

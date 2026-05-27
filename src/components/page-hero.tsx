@@ -84,7 +84,7 @@ export function UsageChip({
   let label = "";
   if (premium) label = "✨ Premium · unlimited";
   else if (typeof used === "number" && typeof limit === "number")
-    label = `🌸 Free · ${Math.max(0, limit - used)}/${limit} left this month`;
+    label = `🌸 Free · ${Math.max(0, limit - used)}/${limit} AI left today`;
   else if (freeAllowed) label = "🌸 Free forever on this tool";
   else label = "🔒 Premium tool · upgrade to unlock";
   return (
