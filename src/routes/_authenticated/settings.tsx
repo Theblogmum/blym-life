@@ -114,9 +114,20 @@ function SettingsPage() {
               {subscription.cancel_at_period_end ? "Access until" : "Renews"}: {new Date(subscription.current_period_end).toLocaleDateString()}
             </p>
           )}
-          <Button variant="outline" className="mt-4 rounded-full" onClick={handlePortal} disabled={portalLoading}>
-            <ExternalLink className="mr-2 h-4 w-4" /> {portalLoading ? "Opening…" : "Manage billing"}
-          </Button>
+          {iap.isIOS ? (
+            <a
+              href="https://apps.apple.com/account/subscriptions"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium hover:bg-secondary"
+            >
+              <ExternalLink className="h-4 w-4" /> Manage in App Store
+            </a>
+          ) : (
+            <Button variant="outline" className="mt-4 rounded-full" onClick={handlePortal} disabled={portalLoading}>
+              <ExternalLink className="mr-2 h-4 w-4" /> {portalLoading ? "Opening…" : "Manage billing"}
+            </Button>
+          )}
         </Card>
       )}
 
@@ -158,7 +169,12 @@ function SettingsPage() {
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
+              <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={checkoutLoading || iap.loading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
+              {iap.isIOS && (
+                <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={iap.loading} onClick={() => iap.restore()}>
+                  Restore purchases
+                </Button>
+              )}
             </div>
           </div>
         </Card>
