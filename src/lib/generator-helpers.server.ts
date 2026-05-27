@@ -156,31 +156,43 @@ export const CREATOR_FEATURES: Feature[] = [
 
 /**
  * Studio tier — adds extra creator polish tools on top of Creator.
- * Still excludes deep audits, business systems and advanced analytics.
+ * Studio is the top tier: Creator + Growth Lab + Creator Business +
+ * Advanced Strategy. Pro/Ultimate (legacy) inherit from Studio.
  */
 export const STUDIO_EXTRA_FEATURES: Feature[] = [
+  // Creator polish (formerly Studio-only)
   "bio",
   "series",
   "faceless",
   "pin",
   "script_tighten",
+  // Growth Lab
+  "profile_audit",
+  "niche_audit",
+  "flop",
+  "recycler",
+  "wins",
+  // Creator Business
+  "media_kit",
+  "pitch",
+  "deliverables",
+  "usage_rights",
+  // Advanced Strategy
+  "package_names",
+  "service_desc",
+  "passive_ideas",
+  "rejection",
 ];
 
 export const STUDIO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...STUDIO_EXTRA_FEATURES];
 
 /**
- * Pro tier adds advanced growth + insight tooling on top of Creator.
- * Premium-only (business/admin) tools are still gated above Pro.
+ * Pro tier (legacy) — kept for backwards compatibility with existing
+ * subscriptions. Now equivalent to Studio.
  */
-export const PRO_EXTRA_FEATURES: Feature[] = [
-  "recycler",
-  "niche_audit",
-  "profile_audit",
-  "flop",
-  "wins",
-];
+export const PRO_EXTRA_FEATURES: Feature[] = [];
 
-export const PRO_FEATURES: Feature[] = [...STUDIO_FEATURES, ...PRO_EXTRA_FEATURES];
+export const PRO_FEATURES: Feature[] = [...STUDIO_FEATURES];
 
 function startOfMonthISO(): string {
   const d = new Date();
@@ -396,22 +408,15 @@ export async function enforceTrial(
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = STUDIO_EXTRA_FEATURES.includes(feature)
-      ? "Studio (£14.99/mo)"
-      : PRO_EXTRA_FEATURES.includes(feature)
-        ? "Pro (£29.99/mo)"
-        : "Ultimate (£44.99/mo)";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
+      `${FEATURE_LABELS[feature]} is unlocked on Studio (£14.99/mo). Upgrade from Creator to unlock the Growth Lab, Creator Business and advanced strategy tools.`,
     );
   }
 
   if (tier === "studio") {
     if (STUDIO_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
-    throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Studio to use it.`,
-    );
+    // Studio is the top tier — nothing above it.
+    return recorder;
   }
 
   // Free tier
@@ -421,11 +426,7 @@ export async function enforceTrial(
   if (!isUnlimitedFree && !isPooledFree) {
     const tierName = CREATOR_FEATURES.includes(feature)
       ? "Creator (£6.99/mo)"
-      : STUDIO_EXTRA_FEATURES.includes(feature)
-        ? "Studio (£14.99/mo)"
-        : PRO_EXTRA_FEATURES.includes(feature)
-          ? "Pro (£29.99/mo)"
-          : "Ultimate (£44.99/mo)";
+      : "Studio (£14.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is a premium tool — unlocked on ${tierName}. Free includes Hooks, Captions, basic Scripts, the weekly planner, daily ideas and motivation.`,
     );

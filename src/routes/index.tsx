@@ -514,7 +514,7 @@ function PricingPlans() {
           You're on a paid plan 💛
         </div>
       )}
-      <div className="mx-auto mt-7 grid max-w-6xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto mt-7 grid max-w-5xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <PriceCard
           name="Free"
           price="£0"
@@ -552,43 +552,23 @@ function PricingPlans() {
           }
         />
         <PriceCard
+          highlighted
           name="Studio"
           price="£14.99"
           priceSuffix="/mo"
-          tagline="Step up your studio with extra firepower."
+          tagline="Everything. Growth Lab + Creator Business + advanced strategy."
           features={[
             "Everything in Creator",
-            "Bio optimiser",
-            "Content series builder",
-            "Faceless content optimiser",
-            "Pinterest pin optimiser",
-            "Script tightener",
-            "Brand directory access — 50,000 brands",
-          ]}
-          cta={
-            isActive
-              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Go Studio" : "Go Studio", onClick: () => buy("studio_monthly"), disabled: loading }
-          }
-        />
-        <PriceCard
-          highlighted
-          name="Pro"
-          price="£29.99"
-          priceSuffix="/mo"
-          tagline="Deep audits + insights for serious growth."
-          features={[
-            "Everything in Creator + Studio",
-            "Clip recycler — turn old posts into new content",
-            "Niche audit + profile audit",
-            "Flop analyser — find out what went wrong",
-            "Doing-better insights — see what's working",
+            "Growth Lab — profile + niche audits, flop analyser, clip recycler, growth insights & weekly reports",
+            "Creator Business — media kit, brand pitch, deliverables, usage rights, invoices, income tracker & brand hub",
+            "Advanced strategy — AI growth suggestions + personalised recommendations",
+            "Bio optimiser, series builder, faceless + Pinterest optimisers, script tightener",
             "Full brand directory access — 130,000+ brands",
           ]}
           cta={
             isActive
               ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
-              : { label: loading ? "Opening…" : user ? "Upgrade to Pro" : "Start with Pro", onClick: () => buy("pro_monthly"), disabled: loading }
+              : { label: loading ? "Opening…" : user ? "Go Studio" : "Go Studio", onClick: () => buy("studio_monthly"), disabled: loading }
           }
         />
       </div>
