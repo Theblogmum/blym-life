@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CalendarDays, Plus, Check, Trash2 } from "lucide-react";
+import { CalendarDays, Plus, Check, Trash2, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { listWeek, upsertPlan, togglePlanDone, deletePlan } from "@/lib/planner.functions";
+import { getUsageToday } from "@/lib/usage.functions";
 import { PageHero } from "@/components/page-hero";
 import { cn } from "@/lib/utils";
 
@@ -22,23 +24,37 @@ function startOfWeek(d: Date) {
   return x;
 }
 function fmt(d: Date) { return d.toISOString().slice(0, 10); }
+function startOfMonth(d: Date) { const x = new Date(d.getFullYear(), d.getMonth(), 1); x.setHours(0,0,0,0); return x; }
+function endOfMonth(d: Date) { const x = new Date(d.getFullYear(), d.getMonth() + 1, 0); x.setHours(0,0,0,0); return x; }
 
 function PlannerPage() {
   const list = useServerFn(listWeek);
   const upsert = useServerFn(upsertPlan);
   const toggle = useServerFn(togglePlanDone);
   const del = useServerFn(deletePlan);
+  const fetchUsage = useServerFn(getUsageToday);
   const qc = useQueryClient();
 
+  const [view, setView] = useState<"week" | "month">("week");
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date()));
+  const [monthAnchor, setMonthAnchor] = useState(() => startOfMonth(new Date()));
+
+  const usage = useQuery({ queryKey: ["usage", "today"], queryFn: () => fetchUsage() });
+  const tier = (usage.data?.tier ?? "free") as string;
+  const canMonthly = tier !== "free";
+
   const days = useMemo(() => Array.from({ length: 7 }, (_, i) => {
     const d = new Date(weekStart); d.setDate(d.getDate() + i); return d;
   }), [weekStart]);
-  const start = fmt(days[0]);
-  const end = fmt(days[6]);
+
+  const monthStartDate = useMemo(() => startOfMonth(monthAnchor), [monthAnchor]);
+  const monthEndDate = useMemo(() => endOfMonth(monthAnchor), [monthAnchor]);
+
+  const start = view === "week" ? fmt(days[0]) : fmt(monthStartDate);
+  const end = view === "week" ? fmt(days[6]) : fmt(monthEndDate);
 
   const q = useQuery({
-    queryKey: ["week", start],
+    queryKey: [view, start, end],
     queryFn: () => list({ data: { start, end } }),
   });
 
@@ -47,57 +63,100 @@ function PlannerPage() {
 
   const add = useMutation({
     mutationFn: (p: { plan_date: string; idea: string }) => upsert({ data: p }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["week", start] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: [view, start, end] }),
     onError: (e: any) => toast.error(e.message),
   });
   const tog = useMutation({
     mutationFn: (p: { id: string; done: boolean }) => toggle({ data: p }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["week", start] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: [view, start, end] }),
   });
   const remove = useMutation({
     mutationFn: (id: string) => del({ data: { id } }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["week", start] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: [view, start, end] }),
   });
 
   return (
     <div>
       <PageHero
         icon={CalendarDays}
-        eyebrow="this week"
-        title="Weekly planner"
+        eyebrow={view === "week" ? "this week" : "this month"}
+        title={view === "week" ? "Weekly planner" : "Monthly planner"}
         description="Your content week — sorted, soft, and one tap away."
         variant="sky"
       />
       <div className="page-shell">
         <div className="section-block flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="eyebrow">week of</p>
+            <p className="eyebrow">{view === "week" ? "week of" : "month of"}</p>
             <p className="mt-1.5 font-display text-[18px] font-bold tracking-[-0.01em] sm:text-[20px]">
-              {days[0].toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – {days[6].toLocaleDateString("en-GB", { day: "numeric", month: "short" })}
+              {view === "week"
+                ? `${days[0].toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${days[6].toLocaleDateString("en-GB", { day: "numeric", month: "short" })}`
+                : monthAnchor.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
             </p>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="rounded-full" onClick={() => { const d = new Date(weekStart); d.setDate(d.getDate() - 7); setWeekStart(d); }}>← Prev</Button>
-            <Button variant="outline" size="sm" className="rounded-full" onClick={() => { const d = new Date(weekStart); d.setDate(d.getDate() + 7); setWeekStart(d); }}>Next →</Button>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex rounded-full border border-border/60 bg-card p-0.5 shadow-[var(--shadow-xs)]">
+              <button
+                onClick={() => setView("week")}
+                className={cn(
+                  "rounded-full px-3.5 py-1 text-[12px] font-semibold transition",
+                  view === "week" ? "bg-foreground text-background" : "text-foreground/65 hover:text-foreground",
+                )}
+              >Week</button>
+              <button
+                onClick={() => canMonthly ? setView("month") : toast.message("Monthly view is on Creator (£6.99/mo) and up.")}
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-full px-3.5 py-1 text-[12px] font-semibold transition",
+                  view === "month" ? "bg-foreground text-background" : "text-foreground/65 hover:text-foreground",
+                )}
+              >Month{!canMonthly && <Lock className="h-3 w-3" />}</button>
+            </div>
+            {view === "week" ? (
+              <>
+                <Button variant="outline" size="sm" className="rounded-full" onClick={() => { const d = new Date(weekStart); d.setDate(d.getDate() - 7); setWeekStart(d); }}>← Prev</Button>
+                <Button variant="outline" size="sm" className="rounded-full" onClick={() => { const d = new Date(weekStart); d.setDate(d.getDate() + 7); setWeekStart(d); }}>Next →</Button>
+              </>
+            ) : (
+              <>
+                <Button variant="outline" size="sm" className="rounded-full" onClick={() => setMonthAnchor(new Date(monthAnchor.getFullYear(), monthAnchor.getMonth() - 1, 1))}>← Prev</Button>
+                <Button variant="outline" size="sm" className="rounded-full" onClick={() => setMonthAnchor(new Date(monthAnchor.getFullYear(), monthAnchor.getMonth() + 1, 1))}>Next →</Button>
+              </>
+            )}
           </div>
         </div>
 
-        <div className="grid gap-3 sm:gap-3.5 md:grid-cols-2 lg:grid-cols-3">
-        {days.map((d) => {
-          const key = fmt(d);
-          const dayItems = byDay(key);
-          return (
-            <DayCard
-              key={key}
-              date={d}
-              items={dayItems}
-              onAdd={(idea) => add.mutate({ plan_date: key, idea })}
-              onToggle={(id, done) => tog.mutate({ id, done })}
-              onDelete={(id) => remove.mutate(id)}
-            />
-          );
-        })}
-        </div>
+        {view === "week" ? (
+          <div className="grid gap-3 sm:gap-3.5 md:grid-cols-2 lg:grid-cols-3">
+            {days.map((d) => {
+              const key = fmt(d);
+              return (
+                <DayCard
+                  key={key}
+                  date={d}
+                  items={byDay(key)}
+                  onAdd={(idea) => add.mutate({ plan_date: key, idea })}
+                  onToggle={(id, done) => tog.mutate({ id, done })}
+                  onDelete={(id) => remove.mutate(id)}
+                />
+              );
+            })}
+          </div>
+        ) : canMonthly ? (
+          <MonthGrid
+            anchor={monthAnchor}
+            byDay={byDay}
+            onAdd={(date, idea) => add.mutate({ plan_date: date, idea })}
+            onToggle={(id, done) => tog.mutate({ id, done })}
+            onDelete={(id) => remove.mutate(id)}
+          />
+        ) : (
+          <div className="soft-card mx-auto max-w-xl p-8 text-center">
+            <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-foreground/[0.05]"><Lock className="h-5 w-5 text-foreground/60" /></div>
+            <p className="mt-3 font-display text-[18px] font-bold tracking-[-0.005em]">Monthly view is a Creator perk</p>
+            <p className="mt-1.5 text-[13px] text-muted-foreground">Upgrade to Creator (£6.99/mo) to plan your whole month at a glance — weekly view stays free.</p>
+            <Link to="/settings"><Button className="mt-4 rounded-full">Upgrade</Button></Link>
+          </div>
+        )}
       </div>
     </div>
   );
