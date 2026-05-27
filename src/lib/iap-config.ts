@@ -1,9 +1,7 @@
 // RevenueCat configuration for iOS In-App Purchases.
-// Replace the placeholder below with your RevenueCat *public* iOS SDK key.
-// You can find it in RevenueCat dashboard → Project Settings → API keys → "Public SDK key" for the iOS app.
-// This key is safe to ship in the client bundle (it's designed to be public).
+// This key is the RevenueCat *public* iOS SDK key (safe to ship in the client).
 export const REVENUECAT_IOS_API_KEY =
-  import.meta.env.VITE_REVENUECAT_IOS_API_KEY ?? "test_zHRZCLrxOdSEKFUTYgWjSiZfaie";
+  import.meta.env.VITE_REVENUECAT_IOS_API_KEY ?? "appl_nQaoQVVOVzKUSAtBBWBXIbCaYBr";
 
 // RevenueCat entitlement identifier that grants access to paid features.
 // Create this in RevenueCat dashboard → Entitlements → "pro" (or whatever you call it),
