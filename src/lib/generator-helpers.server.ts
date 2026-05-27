@@ -156,31 +156,43 @@ export const CREATOR_FEATURES: Feature[] = [
 
 /**
  * Studio tier — adds extra creator polish tools on top of Creator.
- * Still excludes deep audits, business systems and advanced analytics.
+ * Studio is the top tier: Creator + Growth Lab + Creator Business +
+ * Advanced Strategy. Pro/Ultimate (legacy) inherit from Studio.
  */
 export const STUDIO_EXTRA_FEATURES: Feature[] = [
+  // Creator polish (formerly Studio-only)
   "bio",
   "series",
   "faceless",
   "pin",
   "script_tighten",
+  // Growth Lab
+  "profile_audit",
+  "niche_audit",
+  "flop",
+  "recycler",
+  "wins",
+  // Creator Business
+  "media_kit",
+  "pitch",
+  "deliverables",
+  "usage_rights",
+  // Advanced Strategy
+  "package_names",
+  "service_desc",
+  "passive_ideas",
+  "rejection",
 ];
 
 export const STUDIO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...STUDIO_EXTRA_FEATURES];
 
 /**
- * Pro tier adds advanced growth + insight tooling on top of Creator.
- * Premium-only (business/admin) tools are still gated above Pro.
+ * Pro tier (legacy) — kept for backwards compatibility with existing
+ * subscriptions. Now equivalent to Studio.
  */
-export const PRO_EXTRA_FEATURES: Feature[] = [
-  "recycler",
-  "niche_audit",
-  "profile_audit",
-  "flop",
-  "wins",
-];
+export const PRO_EXTRA_FEATURES: Feature[] = [];
 
-export const PRO_FEATURES: Feature[] = [...STUDIO_FEATURES, ...PRO_EXTRA_FEATURES];
+export const PRO_FEATURES: Feature[] = [...STUDIO_FEATURES];
 
 function startOfMonthISO(): string {
   const d = new Date();
