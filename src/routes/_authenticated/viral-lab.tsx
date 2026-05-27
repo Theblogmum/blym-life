@@ -11,6 +11,7 @@ import { analyseTrend } from "@/lib/generator.functions";
 import { getUsageToday } from "@/lib/usage.functions";
 import { PageHero, UsageChip } from "@/components/page-hero";
 import { cn } from "@/lib/utils";
+import { SaveToVaultButton } from "@/components/save-to-vault-button";
 
 const EXAMPLES = [
   "POV: I'm pretending to enjoy soft play",
@@ -34,10 +35,13 @@ function ViralLab() {
   });
   const remixes = Array.isArray(m.data?.remix_for_you) ? m.data.remix_for_you : [];
   const premium = !!usage.data?.premium;
-  const inTrial = !!usage.data?.inTrial;
-  const daysLeft = usage.data?.daysLeft ?? null;
-  const isCaptionPage = false;
-  const outOfQuota = !premium && !inTrial && !isCaptionPage;
+  const freeUsage = usage.data?.freeUsage as
+    | Record<string, { used: number; limit: number }>
+    | undefined;
+  const bucket = freeUsage?.viral_lab ?? freeUsage?.daily;
+  const used = bucket?.used ?? 0;
+  const limit = bucket?.limit ?? 0;
+  const outOfQuota = !premium && bucket ? used >= limit : false;
 
   return (
     <div>
@@ -48,7 +52,7 @@ function ViralLab() {
         description="Paste a trend, caption, or describe a video. We'll break down WHY it works and remix it for your niche."
         variant="bloom"
       >
-        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={isCaptionPage} />
+        <UsageChip premium={premium} used={used} limit={limit} />
       </PageHero>
 
       <section className="mx-auto max-w-5xl px-5 py-10">
@@ -90,7 +94,7 @@ function ViralLab() {
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-peach p-3 text-sm">
                 <p className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
-                  Your 3-day trial has ended. Upgrade to keep using Viral Lab.
+                  You've used all {limit} free AI generations today. Resets tomorrow — or go unlimited.
                 </p>
                 <Link to="/settings">
                   <Button size="sm" className="rounded-full">
@@ -136,6 +140,7 @@ function ViralLab() {
                       {i + 1}
                     </span>
                     <span className="flex-1">{r}</span>
+                    <SaveToVaultButton kind="hook" body={r} title={input.slice(0, 80)} />
                   </li>
                 ))}
               </ul>
