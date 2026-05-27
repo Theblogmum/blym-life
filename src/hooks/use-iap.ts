@@ -1,0 +1,155 @@
+import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
+import {
+  Purchases,
+  LOG_LEVEL,
+  type PurchasesOfferings,
+  type PurchasesPackage,
+  type CustomerInfo,
+} from "@revenuecat/purchases-capacitor";
+import { isNativeIOS } from "@/lib/platform";
+import { useAuth } from "@/hooks/use-auth";
+import {
+  REVENUECAT_IOS_API_KEY,
+  REVENUECAT_PRO_ENTITLEMENT,
+  IAP_PRODUCT_IDS,
+} from "@/lib/iap-config";
+
+let configured = false;
+let configuredUserId: string | null = null;
+
+async function ensureConfigured(appUserId: string | null) {
+  if (!isNativeIOS()) return;
+  if (!configured) {
+    await Purchases.setLogLevel({ level: LOG_LEVEL.WARN });
+    await Purchases.configure({
+      apiKey: REVENUECAT_IOS_API_KEY,
+      appUserID: appUserId ?? undefined,
+    });
+    configured = true;
+    configuredUserId = appUserId;
+  } else if (appUserId && appUserId !== configuredUserId) {
+    await Purchases.logIn({ appUserID: appUserId });
+    configuredUserId = appUserId;
+  }
+}
+
+export function useIAP() {
+  const { user } = useAuth();
+  const [ready, setReady] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [offerings, setOfferings] = useState<PurchasesOfferings | null>(null);
+  const [hasEntitlement, setHasEntitlement] = useState(false);
+
+  const platformIsIOS = isNativeIOS();
+
+  const refreshCustomerInfo = useCallback(async () => {
+    if (!platformIsIOS) return;
+    try {
+      const { customerInfo } = await Purchases.getCustomerInfo();
+      setHasEntitlement(
+        !!customerInfo.entitlements.active[REVENUECAT_PRO_ENTITLEMENT]
+      );
+    } catch (e) {
+      console.warn("[iap] getCustomerInfo failed", e);
+    }
+  }, [platformIsIOS]);
+
+  useEffect(() => {
+    if (!platformIsIOS) {
+      setReady(true);
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        await ensureConfigured(user?.id ?? null);
+        const offs = await Purchases.getOfferings();
+        if (cancelled) return;
+        setOfferings(offs);
+        await refreshCustomerInfo();
+      } catch (e) {
+        console.warn("[iap] init failed", e);
+      } finally {
+        if (!cancelled) setReady(true);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id, platformIsIOS, refreshCustomerInfo]);
+
+  const findPackage = useCallback(
+    (internalPriceId: string): PurchasesPackage | null => {
+      if (!offerings?.current) return null;
+      const productId = IAP_PRODUCT_IDS[internalPriceId];
+      if (!productId) return null;
+      const pkg = offerings.current.availablePackages.find(
+        (p) => p.product.identifier === productId
+      );
+      return pkg ?? null;
+    },
+    [offerings]
+  );
+
+  const purchase = useCallback(
+    async (internalPriceId: string): Promise<CustomerInfo | null> => {
+      if (!platformIsIOS) return null;
+      const pkg = findPackage(internalPriceId);
+      if (!pkg) {
+        toast.error(
+          "This subscription isn't available on iOS yet. Please try again later."
+        );
+        return null;
+      }
+      setLoading(true);
+      try {
+        const result = await Purchases.purchasePackage({ aPackage: pkg });
+        const info = result.customerInfo;
+        setHasEntitlement(!!info.entitlements.active[REVENUECAT_PRO_ENTITLEMENT]);
+        toast.success("Purchase complete 💛");
+        return info;
+      } catch (e: any) {
+        if (e?.userCancelled || e?.code === "1") {
+          // user cancelled — silent
+        } else {
+          toast.error(e?.message ?? "Purchase failed");
+        }
+        return null;
+      } finally {
+        setLoading(false);
+      }
+    },
+    [platformIsIOS, findPackage]
+  );
+
+  const restore = useCallback(async () => {
+    if (!platformIsIOS) return;
+    setLoading(true);
+    try {
+      const { customerInfo } = await Purchases.restorePurchases();
+      const active = !!customerInfo.entitlements.active[REVENUECAT_PRO_ENTITLEMENT];
+      setHasEntitlement(active);
+      toast.success(active ? "Purchases restored 💛" : "No previous purchases found");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Couldn't restore purchases");
+    } finally {
+      setLoading(false);
+    }
+  }, [platformIsIOS]);
+
+  return {
+    isIOS: platformIsIOS,
+    ready,
+    loading,
+    offerings,
+    hasEntitlement,
+    purchase,
+    restore,
+    refreshCustomerInfo,
+    getPriceString: (internalPriceId: string) => {
+      const pkg = findPackage(internalPriceId);
+      return pkg?.product.priceString ?? null;
+    },
+  };
+}
