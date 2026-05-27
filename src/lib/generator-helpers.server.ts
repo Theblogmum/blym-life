@@ -132,27 +132,41 @@ export const FREE_MONTHLY_LIMITS: Partial<Record<Feature, number>> = {
 
 /**
  * Tier entitlements. A feature is unlocked at the named tier and every tier above.
- * Order: free < creator < premium.
- * Features NOT in CREATOR_FEATURES are Premium-only (advanced / business tools).
+ * Order: free < creator < studio < pro < ultimate.
+ * Creator = Create Studio + light growth. Studio adds extra creator polish
+ * tools. Pro adds deep audits + insights. Ultimate adds business/brand-deal
+ * systems (media kit, pitch, invoices, etc).
  */
 export const CREATOR_FEATURES: Feature[] = [
-  "generator",
-  "caption_generator",
-  "viral_lab",
+  // Full Create Studio
+  "generator",          // unlimited scripts
+  "caption_generator",  // unlimited captions
+  "viral_lab",          // unlimited hooks
   "cta",
   "broll",
-  "series",
-  "repurpose",
   "response",
   "seo",
+  "repurpose",
+  // Light growth tools
   "engagement",
-  "bio",
   "timing",
+  // Always-on
+  "motivation",
+];
+
+/**
+ * Studio tier — adds extra creator polish tools on top of Creator.
+ * Still excludes deep audits, business systems and advanced analytics.
+ */
+export const STUDIO_EXTRA_FEATURES: Feature[] = [
+  "bio",
+  "series",
   "faceless",
   "pin",
   "script_tighten",
-  "motivation",
 ];
+
+export const STUDIO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...STUDIO_EXTRA_FEATURES];
 
 /**
  * Pro tier adds advanced growth + insight tooling on top of Creator.
@@ -166,7 +180,7 @@ export const PRO_EXTRA_FEATURES: Feature[] = [
   "wins",
 ];
 
-export const PRO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...PRO_EXTRA_FEATURES];
+export const PRO_FEATURES: Feature[] = [...STUDIO_FEATURES, ...PRO_EXTRA_FEATURES];
 
 function startOfMonthISO(): string {
   const d = new Date();
@@ -382,14 +396,18 @@ export async function enforceTrial(
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
+    const nextTier = STUDIO_EXTRA_FEATURES.includes(feature)
+      ? "Studio (£14.99/mo)"
+      : PRO_EXTRA_FEATURES.includes(feature)
+        ? "Pro (£29.99/mo)"
+        : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
   }
 
   if (tier === "studio") {
-    if (CREATOR_FEATURES.includes(feature)) return recorder;
+    if (STUDIO_FEATURES.includes(feature)) return recorder;
     const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Studio to use it.`,
@@ -403,9 +421,11 @@ export async function enforceTrial(
   if (!isUnlimitedFree && !isPooledFree) {
     const tierName = CREATOR_FEATURES.includes(feature)
       ? "Creator (£6.99/mo)"
-      : PRO_EXTRA_FEATURES.includes(feature)
-        ? "Pro (£29.99/mo)"
-        : "Ultimate (£44.99/mo)";
+      : STUDIO_EXTRA_FEATURES.includes(feature)
+        ? "Studio (£14.99/mo)"
+        : PRO_EXTRA_FEATURES.includes(feature)
+          ? "Pro (£29.99/mo)"
+          : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is a premium tool — unlocked on ${tierName}. Free includes Hooks, Captions, basic Scripts, the weekly planner, daily ideas and motivation.`,
     );
