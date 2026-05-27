@@ -350,7 +350,7 @@ export async function enforceTrial(
 
   if (!isFreeFeature) {
     const tierName = CREATOR_FEATURES.includes(feature)
-      ? "Creator (£9.99/mo)"
+      ? "Creator (£6.99/mo)"
       : PRO_EXTRA_FEATURES.includes(feature)
         ? "Pro (£24.99/mo)"
         : "Ultimate (£44.99/mo)";
@@ -363,7 +363,7 @@ export async function enforceTrial(
     const used = await getMonthlyUsage(supabase, userId, feature);
     if (used >= cap) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£9.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£6.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
       );
     }
   }
