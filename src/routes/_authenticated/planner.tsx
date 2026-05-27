@@ -218,3 +218,107 @@ function DayCard({ date, items, onAdd, onToggle, onDelete }: { date: Date; items
     </div>
   );
 }
+
+function MonthGrid({
+  anchor,
+  byDay,
+  onAdd,
+  onToggle,
+  onDelete,
+}: {
+  anchor: Date;
+  byDay: (d: string) => any[];
+  onAdd: (date: string, idea: string) => void;
+  onToggle: (id: string, done: boolean) => void;
+  onDelete: (id: string) => void;
+}) {
+  const first = startOfMonth(anchor);
+  const last = endOfMonth(anchor);
+  const leading = (first.getDay() + 6) % 7; // Mon=0
+  const totalCells = Math.ceil((leading + last.getDate()) / 7) * 7;
+  const cells: (Date | null)[] = [];
+  for (let i = 0; i < totalCells; i++) {
+    const dayNum = i - leading + 1;
+    if (dayNum < 1 || dayNum > last.getDate()) cells.push(null);
+    else cells.push(new Date(anchor.getFullYear(), anchor.getMonth(), dayNum));
+  }
+  const todayKey = fmt(new Date());
+  const [openKey, setOpenKey] = useState<string | null>(null);
+  const [val, setVal] = useState("");
+  return (
+    <div className="soft-card overflow-hidden p-3 sm:p-4">
+      <div className="grid grid-cols-7 gap-1.5 text-center text-[10px] font-bold uppercase tracking-[0.14em] text-foreground/55">
+        {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d) => <div key={d} className="py-1.5">{d}</div>)}
+      </div>
+      <div className="mt-1.5 grid grid-cols-7 gap-1.5">
+        {cells.map((d, i) => {
+          if (!d) return <div key={i} className="min-h-[88px] rounded-xl bg-foreground/[0.015]" />;
+          const key = fmt(d);
+          const dayItems = byDay(key);
+          const isToday = key === todayKey;
+          const isOpen = openKey === key;
+          return (
+            <button
+              key={key}
+              onClick={() => { setOpenKey(isOpen ? null : key); setVal(""); }}
+              className={cn(
+                "group relative min-h-[88px] rounded-xl border bg-card p-2 text-left transition hover:-translate-y-[1px] hover:shadow-[var(--shadow-xs)]",
+                isToday ? "border-primary/50" : "border-border/40",
+                isOpen && "ring-2 ring-primary/40",
+              )}
+            >
+              <div className="flex items-center justify-between">
+                <span className={cn("text-[11.5px] font-bold tabular-nums", isToday && "text-primary")}>{d.getDate()}</span>
+                {dayItems.length > 0 && (
+                  <span className="rounded-full bg-foreground/[0.06] px-1.5 py-0.5 text-[9px] font-semibold text-foreground/70">{dayItems.length}</span>
+                )}
+              </div>
+              <div className="mt-1 space-y-0.5">
+                {dayItems.slice(0, 2).map((i) => (
+                  <p key={i.id} className={cn("truncate text-[10.5px] leading-tight text-foreground/75", i.done && "line-through text-foreground/40")}>{i.idea}</p>
+                ))}
+                {dayItems.length > 2 && <p className="text-[9.5px] text-foreground/45">+{dayItems.length - 2} more</p>}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {openKey && (
+        <div className="mt-4 rounded-2xl border border-border/50 bg-card p-4">
+          <div className="flex items-baseline justify-between">
+            <p className="font-display text-[15px] font-bold tracking-[-0.005em]">
+              {new Date(openKey).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
+            </p>
+            <button onClick={() => setOpenKey(null)} className="text-[11px] text-muted-foreground hover:text-foreground">close</button>
+          </div>
+          <div className="mt-2 space-y-1.5">
+            {byDay(openKey).length === 0 && (
+              <p className="rounded-xl bg-foreground/[0.025] px-3 py-2.5 text-[12px] text-foreground/45">nothing planned. one tiny idea is enough.</p>
+            )}
+            {byDay(openKey).map((i) => (
+              <div key={i.id} className="group flex items-start gap-2 rounded-xl bg-foreground/[0.03] px-2.5 py-2 text-[13px] transition hover:bg-foreground/[0.05]">
+                <button
+                  onClick={() => onToggle(i.id, !i.done)}
+                  aria-label={i.done ? "Mark undone" : "Mark done"}
+                  className={cn(
+                    "mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border transition-all duration-300 active:scale-90",
+                    i.done ? "border-[oklch(0.6_0.16_155)] bg-[oklch(0.6_0.16_155)] text-white" : "border-foreground/25 hover:border-foreground/55",
+                  )}
+                >{i.done && <Check className="h-3 w-3" strokeWidth={3} />}</button>
+                <p className={cn("flex-1 leading-snug", i.done && "line-through text-muted-foreground/70")}>{i.idea}</p>
+                <button onClick={() => onDelete(i.id)} aria-label="Delete" className="text-foreground/30 opacity-0 transition group-hover:opacity-100 hover:text-destructive">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
+          <form onSubmit={(e) => { e.preventDefault(); if (val.trim()) { onAdd(openKey, val.trim()); setVal(""); } }} className="mt-3 flex gap-1.5">
+            <Input value={val} onChange={(e) => setVal(e.target.value)} placeholder="Add a tiny idea…" className="h-9 rounded-full border-border/50 bg-background text-[12.5px] placeholder:text-foreground/40" />
+            <Button type="submit" size="sm" variant="ghost" className="h-9 w-9 rounded-full p-0 hover:bg-foreground/[0.06]"><Plus className="h-4 w-4" /></Button>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+}
