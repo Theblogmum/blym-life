@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { ArrowLeft, Check, Download, Mail, Shield, Zap, Sparkles } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
+import { isNativeIOS } from "@/lib/platform";
 
 export const Route = createFileRoute("/store_/$slug")({
   head: ({ params }) => ({
@@ -33,6 +34,7 @@ function ProductPage() {
   const checkout = useServerFn(createProductCheckout);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const iosBlocked = isNativeIOS();
 
   const q = useQuery({ queryKey: ["product", slug], queryFn: () => fetcher({ data: { slug } }) });
   const p = q.data?.product as any;
@@ -156,17 +158,30 @@ function ProductPage() {
               </div>
             )}
 
-            <Button
-              onClick={buy}
-              disabled={loading}
-              size="lg"
-              className="mt-6 h-12 w-full rounded-full bg-foreground text-background shadow-lg shadow-foreground/10 hover:bg-primary/85"
-            >
-              {loading ? "Opening checkout…" : `Buy now · ${fmt(p.price_cents, p.currency)}`}
-            </Button>
-            <p className="mt-3 text-center text-[11px] text-muted-foreground">
-              Secure checkout powered by Stripe · Cards, Apple Pay & Google Pay
-            </p>
+            {iosBlocked ? (
+              <div className="mt-6 rounded-2xl border border-border bg-secondary/40 p-4 text-center">
+                <p className="text-sm font-medium">Available on the web</p>
+                <p className="mt-1 text-[12px] text-muted-foreground">
+                  Digital downloads aren't sold in the iOS app. Visit{" "}
+                  <a href="https://www.blym.life/store" className="underline underline-offset-2">blym.life/store</a>{" "}
+                  on your browser to buy this product.
+                </p>
+              </div>
+            ) : (
+              <>
+                <Button
+                  onClick={buy}
+                  disabled={loading}
+                  size="lg"
+                  className="mt-6 h-12 w-full rounded-full bg-foreground text-background shadow-lg shadow-foreground/10 hover:bg-primary/85"
+                >
+                  {loading ? "Opening checkout…" : `Buy now · ${fmt(p.price_cents, p.currency)}`}
+                </Button>
+                <p className="mt-3 text-center text-[11px] text-muted-foreground">
+                  Secure checkout powered by Stripe · Cards, Apple Pay & Google Pay
+                </p>
+              </>
+            )}
           </div>
         </div>
       </section>

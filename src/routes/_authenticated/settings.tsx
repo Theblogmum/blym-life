@@ -9,6 +9,7 @@ import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
 import { useSubscription } from "@/hooks/use-subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
+import { useIAP } from "@/hooks/use-iap";
 import { createPortalSession } from "@/utils/payments.functions";
 import { deleteMyAccount } from "@/lib/account.functions";
 import { useState } from "react";
@@ -37,6 +38,7 @@ function SettingsPage() {
   const tier = me.data?.profile?.tier ?? "free";
   const { subscription, hasLifetime, isActive } = useSubscription();
   const { openCheckout, loading: checkoutLoading } = useStripeCheckout();
+  const iap = useIAP();
   const openPortal = useServerFn(createPortalSession);
   const [portalLoading, setPortalLoading] = useState(false);
   const deleteAccountFn = useServerFn(deleteMyAccount);
@@ -57,6 +59,10 @@ function SettingsPage() {
 
   const buy = (priceId: string) => {
     if (!user) return;
+    if (iap.isIOS) {
+      iap.purchase(priceId);
+      return;
+    }
     openCheckout({
       priceId,
       successUrl: `${window.location.origin}/settings?checkout=success`,
@@ -108,9 +114,20 @@ function SettingsPage() {
               {subscription.cancel_at_period_end ? "Access until" : "Renews"}: {new Date(subscription.current_period_end).toLocaleDateString()}
             </p>
           )}
-          <Button variant="outline" className="mt-4 rounded-full" onClick={handlePortal} disabled={portalLoading}>
-            <ExternalLink className="mr-2 h-4 w-4" /> {portalLoading ? "Opening…" : "Manage billing"}
-          </Button>
+          {iap.isIOS ? (
+            <a
+              href="https://apps.apple.com/account/subscriptions"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium hover:bg-secondary"
+            >
+              <ExternalLink className="h-4 w-4" /> Manage in App Store
+            </a>
+          ) : (
+            <Button variant="outline" className="mt-4 rounded-full" onClick={handlePortal} disabled={portalLoading}>
+              <ExternalLink className="mr-2 h-4 w-4" /> {portalLoading ? "Opening…" : "Manage billing"}
+            </Button>
+          )}
         </Card>
       )}
 
@@ -152,7 +169,12 @@ function SettingsPage() {
               </div>
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={checkoutLoading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
+              <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={checkoutLoading || iap.loading} onClick={() => buy("lifetime_oneoff")}>£299 lifetime</Button>
+              {iap.isIOS && (
+                <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={iap.loading} onClick={() => iap.restore()}>
+                  Restore purchases
+                </Button>
+              )}
             </div>
           </div>
         </Card>
