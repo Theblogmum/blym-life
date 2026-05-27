@@ -141,29 +141,39 @@ function SettingsPage() {
             <p className="mt-2 font-display text-[22px] font-bold tracking-[-0.015em]">Pick the plan that fits where you are.</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl border border-border p-4">
-                <p className="font-display text-lg font-bold">Creator · £6.99/mo</p>
+                <p className="font-display text-lg font-bold">Creator · {iap.isIOS ? (iap.getPriceString("creator_monthly") ?? "—") : "£6.99"}/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Unlimited ideas, captions, scripts + smart calendar.</p>
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("creator_monthly")}>Go Creator</Button>
               </div>
               <div className="rounded-2xl border border-border p-4">
-                <p className="font-display text-lg font-bold">Studio · £14.99/mo</p>
+                <p className="font-display text-lg font-bold">Studio · {iap.isIOS ? (iap.getPriceString("studio_monthly") ?? "—") : "£14.99"}/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Everything in Creator with extra studio firepower.</p>
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("studio_monthly")}>Go Studio</Button>
               </div>
               <div className="rounded-2xl border border-border p-4">
-                <p className="font-display text-lg font-bold">Pro · £29.99/mo</p>
+                <p className="font-display text-lg font-bold">Pro · {iap.isIOS ? (iap.getPriceString("pro_monthly") ?? "—") : "£29.99"}/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Viral growth engine, batching, insights + repurposing.</p>
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("pro_monthly")}>Go Pro</Button>
               </div>
             </div>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {iap.isIOS && (
-                <Button variant="ghost" className="whitespace-normal break-words text-center px-4 rounded-full" disabled={iap.loading} onClick={() => iap.restore()}>
-                  Restore purchases
-                </Button>
-              )}
-            </div>
+            {iap.isIOS && (
+              <p className="mt-4 text-[11px] leading-relaxed text-muted-foreground">
+                Payment is charged to your Apple ID at confirmation of purchase. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period. Manage or cancel anytime in your App Store account settings.
+              </p>
+            )}
           </div>
+        </Card>
+      )}
+
+      {iap.isIOS && (
+        <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">App Store</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Already paid on another device? Restore your previous purchases below.
+          </p>
+          <Button variant="outline" className="mt-3 rounded-full" disabled={iap.loading} onClick={() => iap.restore()}>
+            Restore purchases
+          </Button>
         </Card>
       )}
 
@@ -183,7 +193,9 @@ function SettingsPage() {
             <AlertDialogHeader>
               <AlertDialogTitle>Delete your account?</AlertDialogTitle>
               <AlertDialogDescription>
-                This permanently deletes your account, profile, XP, rewards, and all your saved content. This action cannot be undone. If you have an active paid subscription, please cancel it from "Manage billing" first.
+                This permanently deletes your account, profile, XP, rewards, and all your saved content. This action cannot be undone. {iap.isIOS
+                  ? "If you have an active subscription, please cancel it in your App Store account settings first."
+                  : "If you have an active paid subscription, please cancel it from \"Manage billing\" first."}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
