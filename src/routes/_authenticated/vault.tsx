@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { getVaultData, deleteSavedItem } from "@/lib/vault.functions";
 import { getDownloadUrl } from "@/lib/store.functions";
+import { getUsageToday } from "@/lib/usage.functions";
 import { REWARDS } from "@/lib/rewards-content";
 import { PageHero } from "@/components/page-hero";
 import { EmptyState } from "@/components/empty-state";
@@ -93,8 +94,10 @@ function VaultPage() {
   const fetchVault = useServerFn(getVaultData);
   const signDownload = useServerFn(getDownloadUrl);
   const deleteSaved = useServerFn(deleteSavedItem);
+  const fetchUsage = useServerFn(getUsageToday);
 
   const { data, isLoading } = useQuery({ queryKey: ["vault"], queryFn: () => fetchVault() });
+  const usage = useQuery({ queryKey: ["usage", "today"], queryFn: () => fetchUsage() });
   const [filter, setFilter] = useState<string>("all");
   const [q, setQ] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
@@ -224,7 +227,10 @@ function VaultPage() {
         <div className="flex flex-wrap gap-2">
           <span className="chip-soft">🛍️ {counts.purchase ?? 0} purchased</span>
           <span className="chip-soft">🎁 {(data?.claimed ?? []).length} rewards</span>
-          <span className="chip-soft">🤍 {(data?.saved ?? []).length} saved</span>
+          <span className="chip-soft">
+            🤍 {(data?.saved ?? []).length}
+            {!usage.data?.premium && " / 15"} saved
+          </span>
         </div>
       </PageHero>
 
