@@ -520,11 +520,10 @@ function PricingPlans() {
           price="£0"
           tagline="Free forever — no card needed."
           features={[
-            "20 content ideas + scripts / month",
-            "10 caption + hook generations / month",
-            "Basic weekly content planner",
-            "Unlimited saves & favourites",
-            "Light trend inspiration feed",
+            "5 AI generations / day (hooks, captions, scripts)",
+            "Weekly planner — next 7 days",
+            "Vault — up to 15 saves",
+            "Daily idea + daily motivation",
             "Brand directory access — 500 brands",
           ]}
           cta={
@@ -539,12 +538,11 @@ function PricingPlans() {
           priceSuffix="/mo"
           tagline="The sweet spot for serious creators."
           features={[
-            "100 content ideas + scripts / month",
-            "100 caption, hook & CTA generations / month",
+            "Unlimited hooks, captions & scripts",
+            "CTAs, B-roll ideas, response writer, SEO & repurposing",
             "Full weekly + monthly content calendar",
-            "TikTok / Reel script studio access",
-            "Smart saves: folders + tags",
-            "Trend breakdowns + niche mode",
+            "Full vault — unlimited saves + smart folders",
+            "Viral Lab, engagement booster & post timing",
             "Brand directory access — 5,000 brands",
           ]}
           cta={
@@ -560,11 +558,11 @@ function PricingPlans() {
           tagline="Step up your studio with extra firepower."
           features={[
             "Everything in Creator",
-            "Priority generation speeds",
-            "Personal Bloom AI bestie — 50 generations / month",
-            "Extended trend + niche library",
-            "Advanced caption + hook styles",
-            "Bigger saves, folders & tags",
+            "Bio optimiser",
+            "Content series builder",
+            "Faceless content optimiser",
+            "Pinterest pin optimiser",
+            "Script tightener",
             "Brand directory access — 50,000 brands",
           ]}
           cta={
@@ -578,17 +576,13 @@ function PricingPlans() {
           name="Pro"
           price="£29.99"
           priceSuffix="/mo"
-          tagline="Your always-on AI growth coach."
+          tagline="Deep audits + insights for serious growth."
           features={[
-            "Everything in Free, Creator + Studio",
-            "Full growth strategy generator",
-            "Advanced AI bestie",
-            "Viral rewrites + SEO captions",
-            "Viral breakdown library + performance scoring",
-            "Content batching system",
-            "Personal AI growth bestie Bloom — chat + critique",
-            "Brand pitch generator",
-            "Full business studio: media kit, portfolio, invoices + finance / growth tracker",
+            "Everything in Creator + Studio",
+            "Clip recycler — turn old posts into new content",
+            "Niche audit + profile audit",
+            "Flop analyser — find out what went wrong",
+            "Doing-better insights — see what's working",
             "Full brand directory access — 130,000+ brands",
           ]}
           cta={
