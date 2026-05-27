@@ -165,8 +165,8 @@ function BrandHubPage() {
             {brandsQ.data?.tier === "studio" && (
               <Card className="flex items-center justify-between gap-3 rounded-2xl surface-mint p-4 text-sm">
                 <p>
-                  <span className="font-semibold">Studio directory · 50,000 brands</span>{" "}
-                  <span className="text-foreground/70">— upgrade for the full 130k+ brand library.</span>
+                  <span className="font-semibold">Studio directory · 1,000 curated brands</span>{" "}
+                  <span className="text-foreground/70">— upgrade to Pro for the full brand library.</span>
                 </p>
                 <Link to="/settings"><Button size="sm" variant="outline" className="rounded-full">Upgrade</Button></Link>
               </Card>
