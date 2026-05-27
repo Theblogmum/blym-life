@@ -7,11 +7,7 @@ const PRODUCT_ID_TO_INTERNAL: Record<string, string> = {
   blym_creator_monthly: "creator_monthly",
   blym_studio_monthly: "studio_monthly",
   blym_pro_monthly: "pro_monthly",
-  blym_ultimate_monthly: "ultimate_monthly",
-  blym_lifetime: "lifetime_oneoff",
 };
-
-const LIFETIME_PRODUCT_IDS = new Set(["blym_lifetime"]);
 
 type RcEvent = {
   type: string;
