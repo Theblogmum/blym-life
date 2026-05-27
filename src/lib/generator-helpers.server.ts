@@ -401,9 +401,8 @@ export async function enforceTrial(
 
   if (tier === "pro") {
     if (PRO_FEATURES.includes(feature)) return recorder;
-    throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on Ultimate (£44.99/mo). Upgrade from Pro to unlock invoices, media kit, pitch generator and elite brand tools.`,
-    );
+    // Pro is the top tier — inherits every feature from Studio.
+    return recorder;
   }
 
   if (tier === "creator") {
@@ -415,8 +414,9 @@ export async function enforceTrial(
 
   if (tier === "studio") {
     if (STUDIO_FEATURES.includes(feature)) return recorder;
-    // Studio is the top tier — nothing above it.
-    return recorder;
+    throw new Error(
+      `${FEATURE_LABELS[feature]} is unlocked on Pro (£29.99/mo) — advanced AI, priority generations, premium models, full gamification and VIP perks.`,
+    );
   }
 
   // Free tier
