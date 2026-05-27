@@ -576,7 +576,7 @@ function PricingPlans() {
         <PriceCard
           highlighted
           name="Pro"
-          price="£27.99"
+          price="£29.99"
           priceSuffix="/mo"
           tagline="Your always-on AI growth coach."
           features={[

@@ -339,7 +339,7 @@ export async function enforceTrial(
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Ultimate (£44.99/mo)";
+    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
@@ -347,7 +347,7 @@ export async function enforceTrial(
 
   if (tier === "studio") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Ultimate (£44.99/mo)";
+    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Studio to use it.`,
     );
@@ -360,7 +360,7 @@ export async function enforceTrial(
     const tierName = CREATOR_FEATURES.includes(feature)
       ? "Creator (£6.99/mo)"
       : PRO_EXTRA_FEATURES.includes(feature)
-        ? "Pro (£24.99/mo)"
+        ? "Pro (£29.99/mo)"
         : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
