@@ -345,6 +345,14 @@ export async function enforceTrial(
     );
   }
 
+  if (tier === "studio") {
+    if (CREATOR_FEATURES.includes(feature)) return recorder;
+    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Ultimate (£44.99/mo)";
+    throw new Error(
+      `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Studio to use it.`,
+    );
+  }
+
   const cap = FREE_MONTHLY_LIMITS[feature];
   const isFreeFeature = cap !== undefined || opts?.freeAllowed;
 
