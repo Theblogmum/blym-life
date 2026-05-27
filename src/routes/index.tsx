@@ -533,7 +533,7 @@ function PricingPlans() {
         />
         <PriceCard
           name="Creator"
-          price="£6.99"
+          price={iap.isIOS ? (iap.getPriceString("creator_monthly") ?? "—") : "£6.99"}
           priceSuffix="/mo"
           tagline="The sweet spot for serious creators."
           features={[
@@ -552,7 +552,7 @@ function PricingPlans() {
         />
         <PriceCard
           name="Studio"
-          price="£14.99"
+          price={iap.isIOS ? (iap.getPriceString("studio_monthly") ?? "—") : "£14.99"}
           priceSuffix="/mo"
           tagline="Growth Lab + Creator Business + advanced strategy."
           features={[
@@ -572,7 +572,7 @@ function PricingPlans() {
         <PriceCard
           highlighted
           name="Pro"
-          price="£29.99"
+          price={iap.isIOS ? (iap.getPriceString("pro_monthly") ?? "—") : "£29.99"}
           priceSuffix="/mo"
           tagline="Top tier — priority AI, full gamification & VIP perks."
           features={[
@@ -590,6 +590,22 @@ function PricingPlans() {
           }
         />
       </div>
+      {iap.isIOS && (
+        <div className="mx-auto mt-6 max-w-3xl space-y-3 text-center">
+          <button
+            type="button"
+            disabled={iap.loading}
+            onClick={() => iap.restore()}
+            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium hover:bg-secondary disabled:opacity-50"
+          >
+            Restore purchases
+          </button>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">
+            Payment is charged to your Apple ID at confirmation of purchase. Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period. Manage or cancel anytime in your App Store account settings.{" "}
+            <a href="/terms" className="underline">Terms</a> · <a href="/privacy" className="underline">Privacy</a>
+          </p>
+        </div>
+      )}
     </>
   );
 }
