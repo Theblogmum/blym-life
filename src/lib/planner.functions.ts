@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { enforceFreePlannerHorizon } from "@/lib/generator-helpers.server";
 
 export const listWeek = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -21,6 +22,7 @@ export const upsertPlan = createServerFn({ method: "POST" })
   .inputValidator((d: { id?: string; plan_date: string; idea: string; hook?: string; caption?: string; slot_label?: string }) => d)
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    await enforceFreePlannerHorizon(supabase, userId, data.plan_date);
     if (data.id) {
       const { error } = await supabase.from("weekly_plans").update({
         plan_date: data.plan_date, idea: data.idea, hook: data.hook, caption: data.caption, slot_label: data.slot_label,
