@@ -53,12 +53,19 @@ function BrandHubPage() {
   const qc = useQueryClient();
 
   const usage = useQuery({ queryKey: ["usage", "today"], queryFn: () => fetchUsage() });
-  const brandsQ = useQuery({ queryKey: ["brands"], queryFn: () => fetchBrands({ data: {} }) });
-  const pitchesQ = useQuery({ queryKey: ["pitches"], queryFn: () => fetchPitches() });
-
   const premium = !!usage.data?.premium;
   const inTrial = !!usage.data?.inTrial;
+  const tier = (usage.data?.tier ?? "free") as string;
+  // Brand directory is Studio+ only. Skip the fetch for free/creator so we
+  // don't surface a server error — show an upgrade card instead.
+  const directoryAllowed = tier === "studio" || tier === "pro" || tier === "ultimate";
   const locked = !premium && !inTrial;
+  const brandsQ = useQuery({
+    queryKey: ["brands"],
+    queryFn: () => fetchBrands({ data: {} }),
+    enabled: directoryAllowed,
+  });
+  const pitchesQ = useQuery({ queryKey: ["pitches"], queryFn: () => fetchPitches() });
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState<string>("");
