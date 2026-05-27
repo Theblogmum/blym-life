@@ -131,7 +131,7 @@ function SettingsPage() {
             <p className="mt-2 font-display text-[22px] font-bold tracking-[-0.015em]">Pick the plan that fits where you are.</p>
             <div className="mt-4 grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-border p-4">
-                <p className="font-display text-lg font-bold">Creator · £9.99/mo</p>
+                <p className="font-display text-lg font-bold">Creator · £6.99/mo</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">Unlimited ideas, captions, scripts + smart calendar.</p>
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("creator_monthly")}>Go Creator</Button>
               </div>
