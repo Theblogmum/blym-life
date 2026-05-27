@@ -23,8 +23,6 @@ export const PRICE_MAP: Record<string, { stripePriceId: string; mode: "subscript
   creator_monthly: { stripePriceId: "price_1TYWwgLG4ux3wieX3NHxVp4A", mode: "subscription" },
   studio_monthly: { stripePriceId: "price_1TbgwfPq1j7CmigdKwlMwaaD", mode: "subscription" },
   pro_monthly:     { stripePriceId: "price_1TYWx5LG4ux3wieX3qXpukNM", mode: "subscription" },
-  ultimate_monthly:{ stripePriceId: "price_1TVHS9LG4ux3wieXFiEN5Met", mode: "subscription" },
-  lifetime_oneoff: { stripePriceId: "price_1TUs4oLG4ux3wieXM0IbSxDW", mode: "payment" },
 };
 
 export const PRODUCT_BY_PRICE: Record<string, string> = {
@@ -34,6 +32,4 @@ export const PRODUCT_BY_PRICE: Record<string, string> = {
   // Legacy prices kept for back-compat with existing subscriptions
   price_1TVH9ELG4ux3wieXEBuL6Ydb: "creator_monthly",
   price_1TVHIDLG4ux3wieXnex53SJN: "pro_monthly",
-  price_1TVHS9LG4ux3wieXFiEN5Met: "ultimate_monthly",
-  price_1TUs4oLG4ux3wieXM0IbSxDW: "lifetime_oneoff",
 };
