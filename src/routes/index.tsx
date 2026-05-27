@@ -514,7 +514,7 @@ function PricingPlans() {
           You're on a paid plan 💛
         </div>
       )}
-      <div className="mx-auto mt-7 grid max-w-5xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto mt-7 grid max-w-6xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <PriceCard
           name="Free"
           price="£0"
@@ -552,23 +552,42 @@ function PricingPlans() {
           }
         />
         <PriceCard
-          highlighted
           name="Studio"
           price="£14.99"
           priceSuffix="/mo"
-          tagline="Everything. Growth Lab + Creator Business + advanced strategy."
+          tagline="Growth Lab + Creator Business + advanced strategy."
           features={[
             "Everything in Creator",
             "Growth Lab — profile + niche audits, flop analyser, clip recycler, growth insights & weekly reports",
             "Creator Business — media kit, brand pitch, deliverables, usage rights, invoices, income tracker & brand hub",
             "Advanced strategy — AI growth suggestions + personalised recommendations",
             "Bio optimiser, series builder, faceless + Pinterest optimisers, script tightener",
-            "Full brand directory access — 130,000+ brands",
+            "Brand directory access — 50,000 brands",
           ]}
           cta={
             isActive
               ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
               : { label: loading ? "Opening…" : user ? "Go Studio" : "Go Studio", onClick: () => buy("studio_monthly"), disabled: loading }
+          }
+        />
+        <PriceCard
+          highlighted
+          name="Pro"
+          price="£29.99"
+          priceSuffix="/mo"
+          tagline="Top tier — priority AI, full gamification & VIP perks."
+          features={[
+            "Everything in Studio",
+            "Advanced AI — deep creator analysis, personal growth coaching & strategy engine",
+            "Priority generations + premium AI models",
+            "Full gamification — rewards, chests, advanced quests, milestones & creator journey",
+            "Early access to new tools + future AI beta",
+            "VIP creator features + full brand directory (130,000+ brands)",
+          ]}
+          cta={
+            isActive
+              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : user ? "Go Pro" : "Go Pro", onClick: () => buy("pro_monthly"), disabled: loading }
           }
         />
       </div>
