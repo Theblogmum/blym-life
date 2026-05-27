@@ -48,12 +48,19 @@ function GeneratorPage() {
   });
   const options = Array.isArray(m.data?.options) ? m.data.options : [];
   const premium = !!usage.data?.premium;
-  const inTrial = !!usage.data?.inTrial;
-  const daysLeft = usage.data?.daysLeft ?? null;
-  // Free users (after trial) can only run captions. Other kinds are locked.
-  const captionsAlwaysFree = true;
-  const isCaption = kind === "caption";
-  const lockedKind = !premium && !inTrial && !isCaption;
+  // Free tier: captions + hooks share one monthly bucket (10/mo);
+  // ideas/scripts/hashtags/shot list share another (20/mo).
+  // The server enforces caps — UI just surfaces remaining usage.
+  const kindLower = kind.toLowerCase();
+  const isCaptionBucket = kindLower.includes("caption") || kindLower.includes("hook");
+  const bucketKey = isCaptionBucket ? "caption_generator" : "generator";
+  const freeUsage = usage.data?.freeUsage as
+    | Record<string, { used: number; limit: number }>
+    | undefined;
+  const bucket = freeUsage?.[bucketKey];
+  const used = bucket?.used ?? 0;
+  const limit = bucket?.limit ?? 0;
+  const outOfQuota = !premium && bucket ? used >= limit : false;
   const activeKind = KINDS.find((k) => k.v === kind);
 
   return (
@@ -65,7 +72,7 @@ function GeneratorPage() {
         description="I'll turn it into hooks, captions, scripts, hashtags or a shot list — in your voice ✨"
         variant="warm"
       >
-        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
+        <UsageChip premium={premium} used={used} limit={limit} />
       </PageHero>
 
       <section className="mx-auto max-w-3xl space-y-7 px-5 py-10 sm:px-8">
@@ -124,7 +131,7 @@ function GeneratorPage() {
         <Button
           size="lg"
           className="group h-12 w-full rounded-2xl text-[15px] font-semibold tracking-[-0.005em] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[var(--shadow-elegant)] sm:w-auto sm:px-7"
-          disabled={!topic.trim() || m.isPending || lockedKind}
+          disabled={!topic.trim() || m.isPending || outOfQuota}
           onClick={() => m.mutate()}
         >
           <Sparkles className={cn("mr-2 h-4 w-4 transition-transform duration-500 group-hover:rotate-12", m.isPending && "animate-spin")} />
@@ -135,11 +142,11 @@ function GeneratorPage() {
           )}
         </Button>
 
-        {lockedKind && (
+        {outOfQuota && (
           <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/30 bg-surface-plum p-3.5 text-[13px]">
             <p className="flex items-center gap-2 text-foreground/85">
               <Lock className="h-4 w-4 text-foreground/60" />
-              Trial ended — captions stay free, but {activeKind?.l.toLowerCase()} are premium.
+              You've used your {limit} free {isCaptionBucket ? "captions + hooks" : "ideas + scripts"} this month. Resets on the 1st — or upgrade for unlimited.
             </p>
             <Link to="/settings">
               <Button size="sm" className="rounded-full transition hover:-translate-y-[1px]">Upgrade</Button>
