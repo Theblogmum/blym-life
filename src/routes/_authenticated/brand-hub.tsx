@@ -152,6 +152,16 @@ function BrandHubPage() {
               </Card>
             )}
 
+            {!directoryAllowed && (
+              <Card className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-4 text-sm">
+                <p className="flex items-center gap-2">
+                  <Lock className="h-4 w-4" />
+                  The brand directory unlocks on Studio — 50,000+ brands plus the full Brand Hub.
+                </p>
+                <Link to="/settings"><Button size="sm" className="rounded-full">Upgrade to Studio</Button></Link>
+              </Card>
+            )}
+
             {brandsQ.data?.tier === "studio" && (
               <Card className="flex items-center justify-between gap-3 rounded-2xl surface-mint p-4 text-sm">
                 <p>
