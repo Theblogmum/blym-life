@@ -487,7 +487,7 @@ function PricingPlans() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
-  const { isActive, hasLifetime } = useSubscription();
+  const { isActive } = useSubscription();
   const iap = useIAP();
 
   const buy = async (priceId: string) => {
