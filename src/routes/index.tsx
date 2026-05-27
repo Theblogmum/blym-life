@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { useSubscription } from "@/hooks/use-subscription";
+import { useIAP } from "@/hooks/use-iap";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
 import blymLogo from "@/assets/logo-blym.png";
@@ -487,10 +488,15 @@ function PricingPlans() {
   const navigate = useNavigate();
   const { openCheckout, loading } = useStripeCheckout();
   const { isActive, hasLifetime } = useSubscription();
+  const iap = useIAP();
 
   const buy = async (priceId: string) => {
     if (!user) {
       navigate({ to: "/signup" });
+      return;
+    }
+    if (iap.isIOS) {
+      await iap.purchase(priceId);
       return;
     }
     await openCheckout({
@@ -499,6 +505,8 @@ function PricingPlans() {
       cancelUrl: window.location.href,
     });
   };
+
+  const busy = loading || iap.loading;
 
   return (
     <>
