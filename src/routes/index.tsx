@@ -560,7 +560,7 @@ function PricingPlans() {
             "Creator Business — media kit, brand pitch, deliverables, usage rights, invoices, income tracker & brand hub",
             "Advanced strategy — AI growth suggestions + personalised recommendations",
             "Bio optimiser, series builder, faceless + Pinterest optimisers, script tightener",
-            "Brand directory access — 50,000 brands",
+            "Brand directory access — 1,000 curated brands",
           ]}
           cta={
             isActive
@@ -580,7 +580,7 @@ function PricingPlans() {
             "Priority generations + premium AI models",
             "Full gamification — rewards, chests, advanced quests, milestones & creator journey",
             "Early access to new tools + future AI beta",
-            "VIP creator features + full brand directory (130,000+ brands)",
+            "VIP creator features + full brand directory (all brands, growing weekly)",
           ]}
           cta={
             isActive

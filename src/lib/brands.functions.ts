@@ -5,7 +5,7 @@ import { getUserTier, type UserTier } from "@/lib/generator-helpers.server";
 const BRAND_DIRECTORY_LIMITS: Record<UserTier, number> = {
   free: 0,
   creator: 0,
-  studio: 50000,
+  studio: 1000,
   pro: 1000000,
   ultimate: 1000000,
 };
