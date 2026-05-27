@@ -508,7 +508,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mx-auto mt-7 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3">
+      <div className="mx-auto mt-7 grid max-w-6xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <PriceCard
           name="Free"
           price="£0"
@@ -543,6 +543,24 @@ function PricingPlans() {
             isActive
               ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
               : { label: loading ? "Opening…" : user ? "Go Creator" : "Go Creator", onClick: () => buy("creator_monthly"), disabled: loading }
+          }
+        />
+        <PriceCard
+          name="Studio"
+          price="£14.99"
+          priceSuffix="/mo"
+          tagline="Step up your studio with extra firepower."
+          features={[
+            "Everything in Creator",
+            "Priority generation speeds",
+            "Extended trend + niche library",
+            "Advanced caption + hook styles",
+            "Bigger saves, folders & tags",
+          ]}
+          cta={
+            isActive
+              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : user ? "Go Studio" : "Go Studio", onClick: () => buy("studio_monthly"), disabled: loading }
           }
         />
         <PriceCard
