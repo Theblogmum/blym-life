@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { getUserTier } from "./generator-helpers.server";
 
 export const getClaimedRewards = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -26,7 +27,14 @@ export const claimReward = createServerFn({ method: "POST" })
     return input;
   })
   .handler(async ({ context, data }) => {
-    const { userId } = context;
+    const { supabase, userId } = context;
+    // Creator rewards + levels are a Pro-tier perk.
+    const tier = await getUserTier(supabase, userId);
+    if (tier !== "pro") {
+      throw new Error(
+        "Creator rewards are unlocked on Pro (£29.99/mo). Keep earning XP — your levels & milestones stay free.",
+      );
+    }
     const { error } = await supabaseAdmin
       .from("claimed_rewards")
       .upsert(
