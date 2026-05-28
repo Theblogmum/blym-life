@@ -105,10 +105,30 @@ export function useIAP() {
   const purchase = useCallback(
     async (internalPriceId: string): Promise<CustomerInfo | null> => {
       if (!platformIsIOS) return null;
+      // Make sure offerings are loaded (race condition: button tapped before init finished)
+      try {
+        await ensureConfigured(user?.id ?? null);
+        if (!offerings?.current) {
+          const { Purchases } = await loadPurchases();
+          const offs = await Purchases.getOfferings();
+          setOfferings(offs);
+        }
+      } catch (e) {
+        console.warn("[iap] late-load offerings failed", e);
+      }
       const pkg = findPackage(internalPriceId);
       if (!pkg) {
+        const productId = IAP_PRODUCT_IDS[internalPriceId] ?? internalPriceId;
+        console.warn(
+          "[iap] no package for",
+          internalPriceId,
+          "expected product id:",
+          productId,
+          "current offering packages:",
+          offerings?.current?.availablePackages?.map((p) => p.product.identifier)
+        );
         toast.error(
-          "This subscription isn't available on iOS yet. Please try again later."
+          "This plan isn't available in the App Store yet — try again in a moment or contact support."
         );
         return null;
       }
@@ -131,7 +151,7 @@ export function useIAP() {
         setLoading(false);
       }
     },
-    [platformIsIOS, findPackage]
+    [platformIsIOS, findPackage, user?.id, offerings]
   );
 
   const restore = useCallback(async () => {
