@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const forbidden = [/https:\/\/blym\.life/i, /server\s*:\s*{[^}]*url\s*:/is, /liveReload/i];
+const forbidden = [/https:\/\/(www\.)?blym\.life/i, /server\s*:\s*{[^}]*url\s*:/is, /liveReload/i];
 const files = ['capacitor.config.ts', 'ios/App/App/capacitor.config.json'];
 
 for (const file of files) {
