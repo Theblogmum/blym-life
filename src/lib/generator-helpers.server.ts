@@ -226,7 +226,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export type UserTier = "free" | "creator" | "pro" | "ultimate";
+export type UserTier = "free" | "creator" | "studio" | "pro" | "ultimate";
 
 async function hasActiveTrial(supabase: SupabaseLike, userId: string): Promise<boolean> {
   const { data } = await supabase
@@ -247,7 +247,7 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
   const tier = (profile?.tier ?? "free") as string;
   // Legacy "premium" tier values are treated as ultimate.
   if (tier === "ultimate" || tier === "premium") return "ultimate";
-  if (tier === "pro" || tier === "creator") return tier as UserTier;
+  if (tier === "pro" || tier === "studio" || tier === "creator") return tier as UserTier;
   // Fallback: lifetime / active sub → ultimate
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
@@ -330,7 +330,7 @@ export async function enforceTrial(
   };
   if (tier === "ultimate") return recorder;
 
-  if (tier === "pro") {
+  if (tier === "pro" || tier === "studio") {
     if (PRO_FEATURES.includes(feature)) return recorder;
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on Ultimate (£44.99/mo). Upgrade from Pro to unlock invoices, media kit, pitch generator and elite brand tools.`,
