@@ -89,7 +89,7 @@ function TermsPage() {
 
       <h2 className="mt-6 font-display text-xl font-bold">7. Plans, payments, and refunds</h2>
       <p className="mt-2">
-        We offer a free tier and paid plans (monthly subscription, yearly subscription, and a one-off lifetime purchase).
+        We offer a free tier and paid monthly subscription plans (Creator, Studio and Pro).
         Payments are processed securely by Stripe; we do not store your card details. Where applicable, prices are shown
         inclusive of VAT or sales tax. For our refund policy see <Link to="/refund" className="underline">our Refund Policy</Link>.
         You can cancel paid subscriptions at any time from the customer portal.
