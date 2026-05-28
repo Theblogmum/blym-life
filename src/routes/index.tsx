@@ -547,7 +547,7 @@ function PricingPlans() {
         />
         <PriceCard
           name="Studio"
-          price="£19.99"
+          price="£14.99"
           priceSuffix="/mo"
           tagline="Everything in Creator + Growth Lab & Creator Business."
           features={[
