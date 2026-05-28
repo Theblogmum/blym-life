@@ -8,6 +8,7 @@ import { toast } from "sonner";
 // runs inside the iOS Capacitor shell.
 type PurchasesOfferings = import("@revenuecat/purchases-capacitor").PurchasesOfferings;
 type PurchasesPackage = import("@revenuecat/purchases-capacitor").PurchasesPackage;
+type PurchasesStoreProduct = import("@revenuecat/purchases-capacitor").PurchasesStoreProduct;
 type CustomerInfo = import("@revenuecat/purchases-capacitor").CustomerInfo;
 import { isNativeIOS } from "@/lib/platform";
 import { useAuth } from "@/hooks/use-auth";
@@ -40,6 +41,17 @@ async function ensureConfigured(appUserId: string | null) {
     await Purchases.logIn({ appUserID: appUserId });
     configuredUserId = appUserId;
   }
+}
+
+function packageForProductId(
+  offerings: PurchasesOfferings | null,
+  productId: string
+): PurchasesPackage | null {
+  return (
+    offerings?.current?.availablePackages.find(
+      (p) => p.product.identifier === productId
+    ) ?? null
+  );
 }
 
 export function useIAP() {
@@ -91,13 +103,9 @@ export function useIAP() {
 
   const findPackage = useCallback(
     (internalPriceId: string): PurchasesPackage | null => {
-      if (!offerings?.current) return null;
       const productId = IAP_PRODUCT_IDS[internalPriceId];
       if (!productId) return null;
-      const pkg = offerings.current.availablePackages.find(
-        (p) => p.product.identifier === productId
-      );
-      return pkg ?? null;
+      return packageForProductId(offerings, productId);
     },
     [offerings]
   );
@@ -105,37 +113,56 @@ export function useIAP() {
   const purchase = useCallback(
     async (internalPriceId: string): Promise<CustomerInfo | null> => {
       if (!platformIsIOS) return null;
+      const productId = IAP_PRODUCT_IDS[internalPriceId] ?? internalPriceId;
+      let currentOfferings = offerings;
       // Make sure offerings are loaded (race condition: button tapped before init finished)
       try {
         await ensureConfigured(user?.id ?? null);
-        if (!offerings?.current) {
+        if (!currentOfferings?.current) {
           const { Purchases } = await loadPurchases();
           const offs = await Purchases.getOfferings();
+          currentOfferings = offs;
           setOfferings(offs);
         }
       } catch (e) {
         console.warn("[iap] late-load offerings failed", e);
       }
-      const pkg = findPackage(internalPriceId);
+
+      const pkg = packageForProductId(currentOfferings, productId);
+      let directProduct: PurchasesStoreProduct | null = null;
+
       if (!pkg) {
-        const productId = IAP_PRODUCT_IDS[internalPriceId] ?? internalPriceId;
+        try {
+          const { Purchases } = await loadPurchases();
+          const { products } = await Purchases.getProducts({
+            productIdentifiers: [productId],
+          });
+          directProduct = products.find((p) => p.identifier === productId) ?? products[0] ?? null;
+        } catch (e) {
+          console.warn("[iap] direct product lookup failed", e);
+        }
+      }
+
+      if (!pkg && !directProduct) {
         console.warn(
-          "[iap] no package for",
+          "[iap] no package or direct store product for",
           internalPriceId,
           "expected product id:",
           productId,
           "current offering packages:",
-          offerings?.current?.availablePackages?.map((p) => p.product.identifier)
+          currentOfferings?.current?.availablePackages?.map((p) => p.product.identifier)
         );
         toast.error(
-          "This plan isn't available in the App Store yet — try again in a moment or contact support."
+          `This plan isn't available in the App Store yet (${productId}).`
         );
         return null;
       }
       setLoading(true);
       try {
         const { Purchases } = await loadPurchases();
-        const result = await Purchases.purchasePackage({ aPackage: pkg });
+        const result = pkg
+          ? await Purchases.purchasePackage({ aPackage: pkg })
+          : await Purchases.purchaseStoreProduct({ product: directProduct! });
         const info = result.customerInfo;
         setHasEntitlement(!!info.entitlements.active[REVENUECAT_PRO_ENTITLEMENT]);
         toast.success("Purchase complete 💛");
@@ -151,7 +178,7 @@ export function useIAP() {
         setLoading(false);
       }
     },
-    [platformIsIOS, findPackage, user?.id, offerings]
+    [platformIsIOS, user?.id, offerings]
   );
 
   const restore = useCallback(async () => {
