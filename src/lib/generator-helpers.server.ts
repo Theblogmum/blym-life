@@ -282,7 +282,7 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const trialActive = !!trialEndsAt && new Date(trialEndsAt).getTime() > Date.now();
   const trialClaimed = !!trialRow;
 
-  if (tier === "ultimate" || tier === "pro" || tier === "creator") {
+  if (tier === "ultimate" || tier === "pro" || tier === "studio" || tier === "creator") {
     return {
       premium: true, // legacy field: any paid tier reads as "premium" for old UI gating
       tier,

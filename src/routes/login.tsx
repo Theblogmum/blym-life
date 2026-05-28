@@ -1,7 +1,7 @@
 import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { signInWithGoogle } from "@/lib/oauth";
+import { signInWithGoogle, signInWithApple } from "@/lib/oauth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -44,6 +44,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [appleLoading, setAppleLoading] = useState(false);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,6 +64,15 @@ function LoginPage() {
     navigate({ to: search.redirect || "/app" });
   };
 
+  const handleApple = async () => {
+    setAppleLoading(true);
+    const result = await signInWithApple(search.redirect || "/app");
+    setAppleLoading(false);
+    if (result.error) return toast.error(result.error.message || "Apple sign in failed");
+    if (result.redirected) return;
+    navigate({ to: search.redirect || "/app" });
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
@@ -74,11 +84,19 @@ function LoginPage() {
 
         <Button
           onClick={handleGoogle}
-          disabled={googleLoading || loading}
+          disabled={googleLoading || appleLoading || loading}
           variant="outline"
           className="mt-6 w-full rounded-full"
         >
           {googleLoading ? "Opening Google…" : "Continue with Google"}
+        </Button>
+        <Button
+          onClick={handleApple}
+          disabled={googleLoading || appleLoading || loading}
+          variant="outline"
+          className="mt-3 w-full rounded-full"
+        >
+          {appleLoading ? "Opening Apple…" : "Continue with Apple"}
         </Button>
         <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
           <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
