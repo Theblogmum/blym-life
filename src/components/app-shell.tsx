@@ -31,6 +31,7 @@ import { getMuted, setMuted, pop } from "@/lib/celebrate";
 import { ComboOverlay } from "@/components/combo-overlay";
 import { StreakRiskBanner } from "@/components/streak-risk-banner";
 import { MomentumPebble } from "@/components/momentum-pebble";
+import { isNativeIOS } from "@/lib/platform";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -162,7 +163,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const allItems = useMemo(() => {
     const items: { to: string; label: string; group: string }[] = [];
-    SECTIONS.forEach((s) =>
+    SECTIONS_FOR_PLATFORM.forEach((s) =>
       s.groups.forEach((g) => {
         if (g.to) items.push({ to: g.to, label: g.label, group: s.eyebrow });
         g.items?.forEach((i) => items.push({ to: i.to, label: i.label, group: g.label }));
