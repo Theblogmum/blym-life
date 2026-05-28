@@ -1,7 +1,7 @@
 # Shipping Blym to the App Store
 
-This project is pre-wired with Capacitor so you can wrap the live web app
-(`https://blym.life`) in a native iOS shell and submit it to App Store Connect.
+This project is pre-wired with Capacitor so you can bundle the web app into a
+native iOS shell and submit it to App Store Connect.
 
 ## What you need
 - A Mac with Xcode 15+
@@ -37,15 +37,5 @@ npx cap open ios
 3. Upload the build from Xcode, attach it to your version, submit for review.
 
 ## How updates work
-Because `capacitor.config.ts` points `server.url` at the live site, **any change
-you publish from Lovable shows up in the iOS app instantly** — no resubmission
-needed for content/UI tweaks. You only need to resubmit when:
-- You change native config (icons, splash, plugins, permissions)
-- Apple requires a metadata update
-
-## If you want a fully offline build later
-1. Remove `server.url` from `capacitor.config.ts`.
-2. Run `npm run build` then `npx cap sync ios`.
-3. The app will ship the bundled `dist/` folder instead of loading from the web.
-   Note: TanStack Start is SSR by default — for a true offline bundle you'd need
-   to switch to static export. The hosted approach above is the recommended path.
+Run `npm run ios:sync-native` before opening Xcode so Capacitor copies the latest
+web build into the iOS project. Content/UI changes require a new iOS build upload.
