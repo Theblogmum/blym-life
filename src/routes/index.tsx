@@ -512,7 +512,7 @@ function PricingPlans() {
         <PriceCard
           name="Free"
           price="£0"
-          tagline="Free forever — no card needed."
+          tagline="Start creating consistently."
           features={[
             "20 content ideas + scripts / month",
             "10 caption + hook generations / month",
@@ -530,7 +530,7 @@ function PricingPlans() {
           name="Creator"
           price="£6.99"
           priceSuffix="/mo"
-          tagline="The sweet spot for serious creators."
+          tagline="Create content faster."
           features={[
             "Unlimited content ideas + scripts",
             "Unlimited captions, hooks & CTAs",
@@ -549,7 +549,7 @@ function PricingPlans() {
           name="Studio"
           price="£14.99"
           priceSuffix="/mo"
-          tagline="Everything in Creator + Growth Lab & Creator Business."
+          tagline="Grow like a serious creator."
           features={[
             "Everything in Creator",
             "Growth Lab — profile + niche audits, flop analyser, clip recycler",
@@ -570,7 +570,7 @@ function PricingPlans() {
           name="Pro"
           price="£27.99"
           priceSuffix="/mo"
-          tagline="Top tier — priority AI, full gamification & VIP perks."
+          tagline="Level up like a pro."
           features={[
             "Everything in Studio",
             "Advanced AI — deep creator analysis & strategy engine",
