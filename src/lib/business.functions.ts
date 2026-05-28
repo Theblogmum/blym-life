@@ -1,5 +1,21 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { getUserTier, type UserTier } from "./generator-helpers.server";
+
+// Creator Business tools (Income Tracker, Invoices, Brand Hub portfolio,
+// affiliate links) are advertised as Studio-tier features.
+const STUDIO_OR_PRO: UserTier[] = ["studio", "pro"];
+async function requireStudio(
+  supabase: Parameters<typeof getUserTier>[0],
+  userId: string,
+) {
+  const tier = await getUserTier(supabase, userId);
+  if (!STUDIO_OR_PRO.includes(tier)) {
+    throw new Error(
+      "Creator Business tools (income, invoices, brand hub) are unlocked on Studio (£14.99/mo). Upgrade to start tracking your creator income.",
+    );
+  }
+}
 
 // ============== Invoices ==============
 export type InvoiceItem = { description: string; quantity: number; unit_price: number };
@@ -23,6 +39,7 @@ export const saveInvoice = createServerFn({ method: "POST" })
     items: InvoiceItem[]; notes?: string; tax_rate?: number; status?: string;
   }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const row = {
       user_id: context.userId,
       number: data.number,
