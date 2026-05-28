@@ -226,7 +226,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
   if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
 }
 
-export type UserTier = "free" | "creator" | "studio" | "pro" | "ultimate";
+export type UserTier = "free" | "creator" | "studio" | "pro";
 
 async function hasActiveTrial(supabase: SupabaseLike, userId: string): Promise<boolean> {
   const { data } = await supabase
@@ -245,25 +245,25 @@ export async function getUserTier(supabase: SupabaseLike, userId: string): Promi
     .eq("id", userId)
     .maybeSingle();
   const tier = (profile?.tier ?? "free") as string;
-  // Legacy "premium" tier values are treated as ultimate.
-  if (tier === "ultimate" || tier === "premium") return "ultimate";
+  // Legacy "ultimate" / "premium" / "lifetime" tier values are folded into Pro.
+  if (tier === "ultimate" || tier === "premium" || tier === "lifetime") return "pro";
   if (tier === "pro" || tier === "studio" || tier === "creator") return tier as UserTier;
-  // Fallback: lifetime / active sub → ultimate
+  // Fallback: any legacy active sub / lifetime purchase → top tier (Pro).
   const env = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live_") ? "live" : "sandbox";
   const { data: hasSub } = await supabase.rpc("has_active_subscription", {
     user_uuid: userId,
     check_env: env,
   });
-  if (hasSub) return "ultimate";
-  // Free 48-hour trial → unlock everything as ultimate while active
-  if (await hasActiveTrial(supabase, userId)) return "ultimate";
+  if (hasSub) return "pro";
+  // Free 48-hour trial → unlock everything as Pro while active
+  if (await hasActiveTrial(supabase, userId)) return "pro";
   return "free";
 }
 
 export async function isPremium(supabase: SupabaseLike, userId: string): Promise<boolean> {
-  // Backwards-compatible: full access = ultimate tier or lifetime.
+  // Full access = Pro tier (top tier).
   const tier = await getUserTier(supabase, userId);
-  return tier === "ultimate";
+  return tier === "pro";
 }
 
 /**
@@ -282,7 +282,7 @@ export async function getTrialInfo(supabase: SupabaseLike, userId: string) {
   const trialActive = !!trialEndsAt && new Date(trialEndsAt).getTime() > Date.now();
   const trialClaimed = !!trialRow;
 
-  if (tier === "ultimate" || tier === "pro" || tier === "studio" || tier === "creator") {
+  if (tier === "pro" || tier === "studio" || tier === "creator") {
     return {
       premium: true, // legacy field: any paid tier reads as "premium" for old UI gating
       tier,
@@ -328,18 +328,19 @@ export async function enforceTrial(
       await admin.from("usage_events").insert({ user_id: userId, feature });
     },
   };
-  if (tier === "ultimate") return recorder;
+  // Pro is the top tier — unlocks every feature.
+  if (tier === "pro") return recorder;
 
-  if (tier === "pro" || tier === "studio") {
+  if (tier === "studio") {
     if (PRO_FEATURES.includes(feature)) return recorder;
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on Ultimate (£44.99/mo). Upgrade from Pro to unlock invoices, media kit, pitch generator and elite brand tools.`,
+      `${FEATURE_LABELS[feature]} is unlocked on Pro (£29.99/mo). Upgrade from Studio to unlock it.`,
     );
   }
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
+    const nextTier = "Pro (£29.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
@@ -351,9 +352,7 @@ export async function enforceTrial(
   if (!isFreeFeature) {
     const tierName = CREATOR_FEATURES.includes(feature)
       ? "Creator (£6.99/mo)"
-      : PRO_EXTRA_FEATURES.includes(feature)
-        ? "Pro (£29.99/mo)"
-        : "Ultimate (£44.99/mo)";
+      : "Pro (£29.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
     );
