@@ -42,67 +42,89 @@ const SECTIONS: Section[] = [
     groups: [
       { label: "Today", icon: Home, to: "/app" },
       { label: "Daily quests", icon: Target, to: "/quests" },
-      { label: "My journey", icon: Trophy, to: "/journey" },
-      { label: "Plan my week", icon: Calendar, to: "/planner" },
-      { label: "My vault", icon: BookHeart, to: "/vault" },
+      { label: "Journey", icon: Trophy, to: "/journey" },
       { label: "Store", icon: ShoppingBag, to: "/store" },
+    ],
+  },
+  {
+    eyebrow: "Plan",
+    groups: [
+      { label: "Smart Planner", icon: Calendar, to: "/planner" },
+      { label: "Content Calendar", icon: Calendar, to: "/schedule" },
+      { label: "Film This", icon: Wand2, to: "/film-this" },
+      { label: "Content Vault", icon: BookHeart, to: "/vault" },
+      { label: "Idea Library", icon: BookHeart, to: "/library" },
+    ],
+  },
+  {
+    eyebrow: "Create",
+    groups: [
       {
-        label: "Progress", icon: Trophy, items: [
-          { to: "/character", label: "Character sheet" },
-          { to: "/achievements", label: "Trophy room" },
-          { to: "/milestones", label: "Big firsts" },
-          { to: "/creator-type", label: "My creator type" },
-          { to: "/rewards", label: "Rewards" },
-          { to: "/growth-coach", label: "Pep talk" },
-          { to: "/schedule", label: "Schedule" },
+        label: "Create Studio", icon: Sparkles, items: [
+          { to: "/generator", label: "Idea Lab" },
+          { to: "/viral-lab", label: "Hook Studio" },
+          { to: "/series-builder", label: "Script Studio" },
+          { to: "/recycler", label: "Remix" },
+          { to: "/cta-generator", label: "Action Lines" },
+          { to: "/broll", label: "B-Roll Ideas" },
+          { to: "/response-writer", label: "DM Replies" },
+          { to: "/seo-keywords", label: "Search Boost" },
+          { to: "/bio-optimiser", label: "Fix My Bio" },
         ],
       },
     ],
   },
   {
-    eyebrow: "Make stuff",
+    eyebrow: "Grow",
     groups: [
       {
-        label: "Create", icon: Sparkles, items: [
-          { to: "/generator", label: "Give me an idea" },
-          { to: "/film-this", label: "Film this now" },
-          { to: "/viral-lab", label: "Hook lab" },
-          { to: "/recycler", label: "Recycle old posts" },
-          { to: "/cta-generator", label: "CTA lines" },
-          { to: "/broll", label: "B-roll ideas" },
-          { to: "/series-builder", label: "Build a series" },
-          { to: "/response-writer", label: "DM replies" },
-          { to: "/seo-keywords", label: "SEO keywords" },
-          { to: "/bio-optimiser", label: "Fix my bio" },
-          { to: "/post-timing", label: "When to post" },
+        label: "Growth Lab", icon: TrendingUp, items: [
+          { to: "/growth-coach", label: "Creator Coach" },
+          { to: "/profile-audit", label: "Profile Glow-Up" },
+          { to: "/flop-analyser", label: "Flop Fixer" },
+          { to: "/insights", label: "Growth Signals" },
+          { to: "/engagement-booster", label: "Engagement Boost" },
+          { to: "/post-timing", label: "When to Post" },
         ],
       },
+    ],
+  },
+  {
+    eyebrow: "Business",
+    groups: [
       {
-        label: "Grow", icon: TrendingUp, items: [
-          { to: "/insights", label: "What worked" },
-          { to: "/brand-hub", label: "Brands to pitch" },
-          { to: "/profile-audit", label: "Audit my profile" },
-          { to: "/flop-analyser", label: "Why it flopped" },
-          { to: "/deliverables-builder", label: "Deliverables" },
-          { to: "/usage-rights", label: "Usage rights" },
-          { to: "/media-kit", label: "Media kit" },
+        label: "Creator Business", icon: DollarSign, items: [
+          { to: "/media-kit", label: "Media Kit" },
+          { to: "/brand-hub", label: "Brand Pitch" },
+          { to: "/deliverables-builder", label: "Deal Builder" },
+          { to: "/usage-rights", label: "Rights Rate" },
+          { to: "/invoices", label: "Creator Pay" },
+          { to: "/income-tracker", label: "Income Hub" },
           { to: "/portfolio", label: "Portfolio" },
-          { to: "/passive-ideas", label: "Passive income" },
-          { to: "/engagement-booster", label: "Boost engagement" },
+          { to: "/business", label: "Business Mode" },
+          { to: "/affiliates", label: "Affiliates" },
+          { to: "/passive-ideas", label: "Passive Ideas" },
         ],
       },
+    ],
+  },
+  {
+    eyebrow: "Mindset",
+    groups: [
+      { label: "Bloom", icon: Heart, to: "/motivation" },
+      { label: "Rejection Recovery", icon: Heart, to: "/rejection-recovery" },
+    ],
+  },
+  {
+    eyebrow: "Progress",
+    groups: [
       {
-        label: "Monetise", icon: DollarSign, items: [
-          { to: "/business", label: "Business mode" },
-          { to: "/invoices", label: "Send an invoice" },
-          { to: "/income-tracker", label: "Track the money" },
-          { to: "/affiliates", label: "Affiliate links" },
-        ],
-      },
-      {
-        label: "Mindset", icon: Heart, items: [
-          { to: "/motivation", label: "Daily pep talk" },
-          { to: "/rejection-recovery", label: "Rejection recovery" },
+        label: "Creator Journey", icon: Trophy, items: [
+          { to: "/character", label: "Levels" },
+          { to: "/achievements", label: "Achievements" },
+          { to: "/milestones", label: "Milestones" },
+          { to: "/rewards", label: "Rewards" },
+          { to: "/creator-type", label: "Creator Type" },
         ],
       },
     ],
