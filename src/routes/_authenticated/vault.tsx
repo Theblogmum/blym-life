@@ -278,9 +278,6 @@ function VaultPage() {
             description="purchases, claimed rewards and saved snippets all land here — a beautiful pinboard of everything that's yours."
             action={
               <div className="flex flex-wrap justify-center gap-2">
-                <Link to="/store" className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background hover:opacity-90">
-                  browse the store →
-                </Link>
                 <Link to="/rewards" className="rounded-full bg-white px-5 py-2 text-sm font-semibold ring-1 ring-foreground/10 hover:-translate-y-0.5">
                   unlock rewards
                 </Link>
