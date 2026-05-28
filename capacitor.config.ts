@@ -19,7 +19,7 @@ const config: CapacitorConfig = {
   ios: {
     contentInset: 'automatic',
     scheme: 'com.blym.app',
-    limitsNavigationsToAppBoundDomains: false,
+    limitsNavigationsToAppBoundDomains: true,
   },
 };
 
