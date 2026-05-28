@@ -19,19 +19,9 @@ function priceKeyFromStripePriceId(stripePriceId: string | undefined | null): st
   return PRODUCT_BY_PRICE[stripePriceId] ?? stripePriceId;
 }
 
-type Tier = "free" | "creator" | "studio" | "pro" | "ultimate";
+type Tier = "free" | "creator" | "studio" | "pro";
 
 async function setProfileTier(userId: string, tier: Tier, env: string) {
-  if (tier === "free") {
-    const { data: lifetime } = await getSupabase()
-      .from("lifetime_purchases")
-      .select("id")
-      .eq("user_id", userId)
-      .eq("environment", env)
-      .limit(1)
-      .maybeSingle();
-    if (lifetime) return;
-  }
   await getSupabase()
     .from("profiles")
     .update({ tier, updated_at: new Date().toISOString() })
@@ -84,9 +74,9 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
       ? "studio"
     : priceKey?.startsWith("pro_")
       ? "pro"
-      : priceKey?.startsWith("ultimate_") || priceKey?.startsWith("premium_")
-        ? "ultimate"
-        : (priceKey ?? stripeProductId ?? "ultimate");
+      : priceKey?.startsWith("ultimate_") || priceKey?.startsWith("premium_") || priceKey?.startsWith("lifetime")
+        ? "pro"
+        : (priceKey ?? stripeProductId ?? "pro");
 
   const periodStart = (sub as any).current_period_start
     ? new Date((sub as any).current_period_start * 1000).toISOString()
@@ -124,9 +114,7 @@ async function upsertSubscription(sub: Stripe.Subscription, env: string) {
         ? "creator"
         : productKey === "studio"
           ? "studio"
-          : productKey === "pro"
-            ? "pro"
-            : "ultimate")
+          : "pro")
     : "free";
   await setProfileTier(userId, targetTier, env);
 }
@@ -199,20 +187,10 @@ async function handleCheckoutCompleted(
       return;
     }
 
-    await getSupabase()
-      .from("lifetime_purchases")
-      .upsert(
-        {
-          user_id: userId,
-          stripe_payment_intent_id: paymentIntentId,
-          stripe_customer_id: customerId,
-          product_id: "lifetime",
-          price_id: priceKey ?? stripePriceId ?? "lifetime",
-          environment: env,
-        },
-        { onConflict: "stripe_payment_intent_id" }
-      );
-    await setProfileTier(userId, "ultimate", env);
+    // Legacy one-off (lifetime) purchases — Lifetime tier is removed.
+    // Fold any straggler one-off payment into Pro entitlement so existing
+    // customers aren't downgraded mid-flow.
+    await setProfileTier(userId, "pro", env);
     await maybeSendWelcomeEmail(userId, requestUrl);
   }
 }
