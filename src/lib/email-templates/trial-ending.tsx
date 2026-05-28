@@ -38,8 +38,8 @@ const TrialEndingEmail = ({ name, hoursLeft = 24 }: TrialEndingProps) => {
           <Heading style={h1}>{headline}</Heading>
           <Text style={text}>{intro}</Text>
           <Text style={text}>
-            Loved it? Lock in your plan and keep every tool unlocked — Creator, Pro
-            or Ultimate — without missing a beat.
+            Loved it? Lock in your plan and keep every tool unlocked — Creator, Studio
+            or Pro — without missing a beat.
           </Text>
           <Section style={{ textAlign: 'center', margin: '28px 0' }}>
             <Button style={button} href={APP_URL}>
