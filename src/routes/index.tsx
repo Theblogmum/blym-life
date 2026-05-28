@@ -568,7 +568,7 @@ function PricingPlans() {
         <PriceCard
           highlighted
           name="Pro"
-          price="£27.99"
+          price="£29.99"
           priceSuffix="/mo"
           tagline="Level up like a pro."
           features={[

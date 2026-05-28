@@ -45,7 +45,7 @@ export const sendCoachMessage = createServerFn({ method: "POST" })
     const tier = await getUserTier(supabase, userId);
     if (tier === "free") {
       throw new Error(
-        "Bloom Growth Coach is unlocked on Pro (£27.99/mo). Upgrade for unlimited chats with your AI strategist.",
+        "Bloom Growth Coach is unlocked on Pro (£29.99/mo). Upgrade for unlimited chats with your AI strategist.",
       );
     }
 
