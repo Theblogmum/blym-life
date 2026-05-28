@@ -48,10 +48,10 @@ const SECTIONS: Section[] = [
   {
     eyebrow: "Plan",
     groups: [
-      { label: "Planner™", icon: Calendar, to: "/planner" },
-      { label: "Calendar", icon: Calendar, to: "/schedule" },
+      { label: "Smart Planner™", icon: Calendar, to: "/planner" },
+      { label: "Content Calendar™", icon: Calendar, to: "/schedule" },
       { label: "Film This™", icon: Wand2, to: "/film-this" },
-      { label: "Vault™", icon: BookHeart, to: "/vault" },
+      { label: "Content Vault™", icon: BookHeart, to: "/vault" },
     ],
   },
   {
@@ -90,6 +90,8 @@ const SECTIONS: Section[] = [
         label: "Creator Business™", icon: DollarSign, items: [
           { to: "/media-kit", label: "Media Kit™" },
           { to: "/brand-hub", label: "Brand Pitch™" },
+          { to: "/deliverables-builder", label: "Deal Builder™" },
+          { to: "/usage-rights", label: "Rights Rate™" },
           { to: "/invoices", label: "Creator Pay™" },
           { to: "/income-tracker", label: "Income Hub™" },
         ],
@@ -109,7 +111,7 @@ const SECTIONS: Section[] = [
     groups: [
       {
         label: "Creator Journey™", icon: Trophy, items: [
-          { to: "/character", label: "Levels™" },
+          { to: "/character", label: "Creator Levels™" },
           { to: "/rewards", label: "Rewards™" },
           { to: "/milestones", label: "Milestones™" },
         ],
