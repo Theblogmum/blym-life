@@ -32,3 +32,22 @@ export async function signInWithGoogle(
 
   return result;
 }
+
+export async function signInWithApple(
+  redirectPath = "/app",
+  extraParams?: Record<string, string>,
+) {
+  const authOrigin = getAuthOrigin();
+  const redirectTo = safeRedirectPath(redirectPath);
+  const auth = createLovableAuth({ oauthBrokerUrl: `${authOrigin}/~oauth/initiate` });
+  const result = await auth.signInWithOAuth("apple", {
+    redirect_uri: `${authOrigin}${redirectTo}`,
+    extraParams,
+  });
+
+  if (!result.redirected && !result.error) {
+    await supabase.auth.setSession(result.tokens);
+  }
+
+  return result;
+}
