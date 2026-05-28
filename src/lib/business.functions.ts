@@ -71,6 +71,7 @@ export const deleteInvoice = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const { error } = await context.supabase.from("invoices").delete().eq("id", data.id).eq("user_id", context.userId);
     if (error) { console.error("[db error]", error); throw new Error("Something went wrong. Please try again."); }
     return { ok: true };
@@ -91,6 +92,7 @@ export const saveIncome = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id?: string; entry_date: string; source: string; brand?: string; amount: number; currency: string; category: string; notes?: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const row = {
       user_id: context.userId,
       entry_date: data.entry_date,
@@ -115,6 +117,7 @@ export const deleteIncome = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const { error } = await context.supabase.from("income_entries").delete().eq("id", data.id).eq("user_id", context.userId);
     if (error) { console.error("[db error]", error); throw new Error("Something went wrong. Please try again."); }
     return { ok: true };
@@ -135,6 +138,7 @@ export const saveAffiliate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id?: string; brand: string; product: string; url: string; code?: string; commission_rate?: string; category?: string; notes?: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const row = {
       user_id: context.userId,
       brand: data.brand, product: data.product, url: data.url,
@@ -155,6 +159,7 @@ export const deleteAffiliate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const { error } = await context.supabase.from("affiliate_links").delete().eq("id", data.id).eq("user_id", context.userId);
     if (error) { console.error("[db error]", error); throw new Error("Something went wrong. Please try again."); }
     return { ok: true };
@@ -175,6 +180,7 @@ export const savePortfolio = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id?: string; title: string; brand?: string; platform?: string; link?: string; image_url?: string; description?: string; metrics?: Record<string, string | number>; posted_on?: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const row = {
       user_id: context.userId,
       title: data.title, brand: data.brand ?? null, platform: data.platform ?? null,
@@ -196,6 +202,7 @@ export const deletePortfolio = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { id: string }) => d)
   .handler(async ({ data, context }) => {
+    await requireStudio(context.supabase, context.userId);
     const { error } = await context.supabase.from("portfolio_items").delete().eq("id", data.id).eq("user_id", context.userId);
     if (error) { console.error("[db error]", error); throw new Error("Something went wrong. Please try again."); }
     return { ok: true };
