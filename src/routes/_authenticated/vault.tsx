@@ -11,6 +11,7 @@ import { EmptyState } from "@/components/empty-state";
 import { Sparkles, Copy, Download, Trash2, BookHeart, Gift, ShoppingBag, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { isNativeIOS } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/vault")({
   head: () => ({ meta: [{ title: "My Vault · Blym" }] }),
@@ -284,9 +285,11 @@ function VaultPage() {
             description="purchases, claimed rewards and saved snippets all land here — a beautiful pinboard of everything that's yours."
             action={
               <div className="flex flex-wrap justify-center gap-2">
-                <Link to="/store" className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background hover:opacity-90">
-                  browse the store →
-                </Link>
+                {!isNativeIOS() && (
+                  <Link to="/store" className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background hover:opacity-90">
+                    browse the store →
+                  </Link>
+                )}
                 <Link to="/rewards" className="rounded-full bg-white px-5 py-2 text-sm font-semibold ring-1 ring-foreground/10 hover:-translate-y-0.5">
                   unlock rewards
                 </Link>
