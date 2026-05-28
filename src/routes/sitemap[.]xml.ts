@@ -17,28 +17,28 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/store", changefreq: "weekly", priority: "0.8" },
           { path: "/terms", changefreq: "yearly", priority: "0.3" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
           { path: "/refund", changefreq: "yearly", priority: "0.3" },
         ];
 
-        try {
-          const { data } = await supabaseAdmin
-            .from("digital_products")
-            .select("slug, updated_at")
-            .eq("active", true);
-          (data ?? []).forEach((p: { slug: string; updated_at: string | null }) => {
-            entries.push({
-              path: `/store/${p.slug}`,
-              lastmod: p.updated_at ?? undefined,
-              changefreq: "monthly",
-              priority: "0.7",
-            });
-          });
-        } catch (e) {
-          console.error("[sitemap] failed to load products", e);
-        }
+        // Store routes removed for now — re-enable when store launches
+        // try {
+        //   const { data } = await supabaseAdmin
+        //     .from("digital_products")
+        //     .select("slug, updated_at")
+        //     .eq("active", true);
+        //   (data ?? []).forEach((p: { slug: string; updated_at: string | null }) => {
+        //     entries.push({
+        //       path: `/store/${p.slug}`,
+        //       lastmod: p.updated_at ?? undefined,
+        //       changefreq: "monthly",
+        //       priority: "0.7",
+        //     });
+        //   });
+        // } catch (e) {
+        //   console.error("[sitemap] failed to load products", e);
+        // }
 
         const urls = entries.map((e) =>
           [
