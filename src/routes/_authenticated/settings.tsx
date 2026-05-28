@@ -72,6 +72,8 @@ function SettingsPage() {
 
   const handlePortal = async () => {
     if (!user) return;
+    // App Store policy: iOS users manage billing in the App Store, not Stripe portal.
+    if (iap.isIOS) return;
     setPortalLoading(true);
     try {
       const { url } = await openPortal({ data: { returnUrl: `${window.location.origin}/settings` } });
