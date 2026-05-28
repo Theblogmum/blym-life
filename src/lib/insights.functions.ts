@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { getUserTier } from "./generator-helpers.server";
 
 export const listPosts = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -20,6 +21,14 @@ export const logPost = createServerFn({ method: "POST" })
   }) => d)
   .handler(async ({ data, context }) => {
     const { supabase, userId } = context;
+    // Personalised growth insights is a Pro-tier feature — logging posts
+    // is what powers the personalised insights engine.
+    const tier = await getUserTier(supabase, userId);
+    if (tier !== "pro") {
+      throw new Error(
+        "Personalised growth insights is unlocked on Pro (£29.99/mo). Upgrade to start logging posts and unlock AI-powered insights on what's working.",
+      );
+    }
     const { error } = await supabase.from("posts_logged").insert({
       user_id: userId, description: data.description, platform: data.platform,
       hook: data.hook ?? null, views: data.views ?? 0, likes: data.likes ?? 0,
