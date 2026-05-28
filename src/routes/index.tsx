@@ -508,7 +508,7 @@ function PricingPlans() {
           {hasLifetime ? "You're a Lifetime member 💛" : "You're on a paid plan 💛"}
         </div>
       )}
-      <div className="mx-auto mt-7 grid max-w-5xl items-stretch gap-5 sm:grid-cols-3">
+      <div className="mx-auto mt-7 grid max-w-6xl items-stretch gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <PriceCard
           name="Free"
           price="£0"
@@ -546,20 +546,39 @@ function PricingPlans() {
           }
         />
         <PriceCard
+          name="Studio"
+          price="£14.99"
+          priceSuffix="/mo"
+          tagline="Everything in Creator + Growth Lab & Creator Business."
+          features={[
+            "Everything in Creator",
+            "Growth Lab — profile + niche audits, flop analyser, clip recycler",
+            "Weekly growth insights + reports",
+            "Creator Business — media kit, brand pitch, deliverables",
+            "Usage rights calculator, invoices, income tracker",
+            "Brand hub + brand directory access",
+            "AI growth suggestions + smarter recommendations",
+          ]}
+          cta={
+            isActive
+              ? { label: "Included", onClick: () => navigate({ to: "/app" }), disabled: true }
+              : { label: loading ? "Opening…" : "Go Studio", onClick: () => buy("studio_monthly"), disabled: loading }
+          }
+        />
+        <PriceCard
           highlighted
           name="Pro"
           price="£27.99"
           priceSuffix="/mo"
-          tagline="Your always-on AI growth coach."
+          tagline="Top tier — priority AI, full gamification & VIP perks."
           features={[
-            "Everything in Creator",
-            "Full Viral Growth Strategy generator",
-            "Advanced AI: viral rewrites + SEO captions",
-            "Viral breakdown library + performance scoring",
-            "1-click 7-day content batching",
-            "Niche domination + repurposing engine",
+            "Everything in Studio",
+            "Advanced AI — deep creator analysis & strategy engine",
             "Personal AI growth coach (chat + critique)",
-            "Brand pitch generator + media kit + invoices",
+            "Priority generations + premium AI models",
+            "Full gamification — rewards, chests, advanced quests, milestones",
+            "Early access to new tools + future AI beta",
+            "VIP creator features + full brand directory access",
           ]}
           cta={
             isActive
