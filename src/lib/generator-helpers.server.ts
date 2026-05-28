@@ -105,13 +105,27 @@ export const FEATURE_LABELS: Record<Feature, string> = {
 };
 
 /**
- * Free Forever tier — monthly caps per feature bucket. Calendar month reset.
- * Features NOT listed here are Premium-only (locked for free users).
- * Premium subscribers always bypass these caps.
+ * Free Forever tier — feature gating.
+ *
+ * Free users get a SHARED daily pool of 5 AI generations across hooks,
+ * captions, and basic scripts (see FREE_DAILY_POOL_FEATURES + FREE_DAILY_POOL).
+ * Daily motivation is always unlimited. Everything else is locked.
+ *
+ * FREE_MONTHLY_LIMITS is kept for back-compat with snapshot/UI code that
+ * iterates feature buckets, but the real enforcement happens via the daily
+ * shared pool below.
  */
+export const FREE_DAILY_POOL = 5;
+export const FREE_DAILY_POOL_FEATURES: Feature[] = [
+  "generator",         // ideas + hooks
+  "caption_generator", // captions
+  "series",            // basic scripts
+];
+
 export const FREE_MONTHLY_LIMITS: Partial<Record<Feature, number>> = {
-  generator: 20,         // content ideas + scripts (rolled together)
-  caption_generator: 10, // caption + hook generator
+  generator: FREE_DAILY_POOL,         // shared daily pool — see FREE_DAILY_POOL
+  caption_generator: FREE_DAILY_POOL, // shared daily pool — see FREE_DAILY_POOL
+  series: FREE_DAILY_POOL,            // shared daily pool — see FREE_DAILY_POOL
   motivation: 9999,      // effectively unlimited (free tool)
 };
 
@@ -174,6 +188,29 @@ function startOfMonthISO(): string {
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString();
 }
 
+function startOfDayISO(): string {
+  const d = new Date();
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())).toISOString();
+}
+
+/**
+ * Total AI generations used today across the free shared pool
+ * (generator + caption_generator + series).
+ */
+export async function getDailyPoolUsage(
+  supabase: SupabaseLike,
+  userId: string,
+): Promise<number> {
+  const since = startOfDayISO();
+  const { count } = await supabase
+    .from("usage_events")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .in("feature", FREE_DAILY_POOL_FEATURES)
+    .gte("created_at", since);
+  return count ?? 0;
+}
+
 export async function getMonthlyUsage(
   supabase: SupabaseLike,
   userId: string,
@@ -190,14 +227,17 @@ export async function getMonthlyUsage(
 }
 
 export async function getFreeTierSnapshot(supabase: SupabaseLike, userId: string) {
-  const features = Object.keys(FREE_MONTHLY_LIMITS) as Feature[];
-  const usage: Record<string, { used: number; limit: number }> = {};
-  await Promise.all(
-    features.map(async (f) => {
-      const used = await getMonthlyUsage(supabase, userId, f);
-      usage[f] = { used, limit: FREE_MONTHLY_LIMITS[f] ?? 0 };
-    }),
-  );
+  // Free tier is now a single shared daily pool. We surface it under every
+  // pool feature so legacy UI code that reads `usage[feature]` keeps working,
+  // plus a synthetic `daily_pool` entry for new UI.
+  const poolUsed = await getDailyPoolUsage(supabase, userId);
+  const usage: Record<string, { used: number; limit: number }> = {
+    daily_pool: { used: poolUsed, limit: FREE_DAILY_POOL },
+    motivation: { used: 0, limit: 9999 },
+  };
+  for (const f of FREE_DAILY_POOL_FEATURES) {
+    usage[f] = { used: poolUsed, limit: FREE_DAILY_POOL };
+  }
   return usage;
 }
 
@@ -377,11 +417,20 @@ export async function enforceTrial(
     );
   }
 
-  if (cap !== undefined && cap < 9999) {
+  // Free shared daily pool: 5 generations/day across hooks, captions, basic scripts.
+  if (FREE_DAILY_POOL_FEATURES.includes(feature)) {
+    const used = await getDailyPoolUsage(supabase, userId);
+    if (used >= FREE_DAILY_POOL) {
+      throw new Error(
+        `You've used all ${FREE_DAILY_POOL} free AI generations for today. Resets at midnight — or upgrade to Creator (£6.99/mo) for unlimited hooks, captions and scripts.`,
+      );
+    }
+  } else if (cap !== undefined && cap < 9999) {
+    // Legacy per-feature monthly cap (e.g. for tools opted into via freeAllowed).
     const used = await getMonthlyUsage(supabase, userId, feature);
     if (used >= cap) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£6.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£6.99/mo) for unlimited.`,
       );
     }
   }
