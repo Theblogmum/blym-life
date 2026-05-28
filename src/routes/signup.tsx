@@ -116,6 +116,11 @@ function SignupPage() {
             Log in
           </Link>
         </p>
+        <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
+          By creating an account you agree to our{" "}
+          <Link to="/terms" className="underline">Terms of Service</Link> and{" "}
+          <Link to="/privacy" className="underline">Privacy Policy</Link>.
+        </p>
       </div>
     </div>
   );

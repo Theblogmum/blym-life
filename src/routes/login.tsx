@@ -95,6 +95,10 @@ function LoginPage() {
             Create account
           </Link>
         </p>
+        <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
+          <Link to="/terms" className="underline">Terms of Service</Link>{" · "}
+          <Link to="/privacy" className="underline">Privacy Policy</Link>
+        </p>
       </div>
     </div>
   );
