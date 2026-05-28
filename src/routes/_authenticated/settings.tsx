@@ -35,7 +35,7 @@ function SettingsPage() {
   const fetchMe = useServerFn(getMe);
   const me = useQuery({ queryKey: ["me"], queryFn: () => fetchMe() });
   const tier = me.data?.profile?.tier ?? "free";
-  const { subscription, hasLifetime, isActive } = useSubscription();
+  const { subscription, isActive } = useSubscription();
   const { openCheckout, loading: checkoutLoading } = useStripeCheckout();
   const openPortal = useServerFn(createPortalSession);
   const [portalLoading, setPortalLoading] = useState(false);
