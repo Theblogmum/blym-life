@@ -33,7 +33,7 @@ function PlannerPage() {
 
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date()));
   const sub = useSubscription();
-  const isFree = !sub.isLoading && !sub.isPremium;
+  const isFree = !sub.loading && !sub.isActive;
   const thisWeekStart = startOfWeek(new Date()).getTime();
   const nextWeekStart = thisWeekStart + 7 * 24 * 60 * 60 * 1000;
   const lockedNext = isFree && weekStart.getTime() >= nextWeekStart;
