@@ -110,6 +110,15 @@ const SECTIONS: Section[] = [
   },
 ];
 
+// On iOS, hide the digital-products Store from the app per App Store guidelines
+// (digital goods must use IAP — we sell those via the web only).
+const SECTIONS_FOR_PLATFORM: Section[] = isNativeIOS()
+  ? SECTIONS.map((s) => ({
+      ...s,
+      groups: s.groups.filter((g) => g.to !== "/store"),
+    }))
+  : SECTIONS;
+
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { signOut, user } = useAuth();
