@@ -12,7 +12,7 @@ async function requireStudio(
   const tier = await getUserTier(supabase, userId);
   if (!STUDIO_OR_PRO.includes(tier)) {
     throw new Error(
-      "Creator Business tools (income, invoices, brand hub) are unlocked on Studio (£14.99/mo). Upgrade to start tracking your creator income.",
+      "Creator Business tools — income, invoices and brand hub — unlock with Studio (£14.99/mo).",
     );
   }
 }

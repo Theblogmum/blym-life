@@ -32,7 +32,7 @@ export const claimReward = createServerFn({ method: "POST" })
     const tier = await getUserTier(supabase, userId);
     if (tier !== "pro") {
       throw new Error(
-        "Creator rewards are unlocked on Pro (£29.99/mo). Keep earning XP — your levels & milestones stay free.",
+        "Creator rewards — unlock with Pro (£29.99/mo). Keep earning XP — your levels and milestones stay free.",
       );
     }
     const { error } = await supabaseAdmin

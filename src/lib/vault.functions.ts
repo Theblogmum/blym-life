@@ -81,7 +81,7 @@ export const saveToVault = createServerFn({ method: "POST" })
         .neq("kind", "daily_idea");
       if ((count ?? 0) >= FREE_VAULT_LIMIT) {
         throw new Error(
-          `Your free vault is full (${FREE_VAULT_LIMIT} items). Delete something or upgrade to Creator (£6.99/mo) for unlimited saves.`,
+          `Your free vault is full (${FREE_VAULT_LIMIT} items) — unlimited saves are included in Creator (£6.99/mo).`,
         );
       }
     }

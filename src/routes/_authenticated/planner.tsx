@@ -89,10 +89,10 @@ function PlannerPage() {
               size="sm"
               className="rounded-full"
               disabled={lockedNext}
-              title={lockedNext ? "Free plan: 1 week ahead. Upgrade to Creator for the full calendar." : undefined}
+              title={lockedNext ? "Free plan: 1 week ahead. Full calendar included in Creator." : undefined}
               onClick={() => {
                 if (lockedNext) {
-                  toast.error("Free plan only plans 1 week ahead. Upgrade to Creator for the full calendar.");
+                  toast.error("Free plan: 1 week ahead. Full calendar included in Creator.");
                   return;
                 }
                 const d = new Date(weekStart); d.setDate(d.getDate() + 7); setWeekStart(d);
