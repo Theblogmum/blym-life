@@ -528,7 +528,7 @@ function PricingPlans() {
         />
         <PriceCard
           name="Creator"
-          price="£14.99"
+          price="£6.99"
           priceSuffix="/mo"
           tagline="The sweet spot for serious creators."
           features={[
@@ -568,7 +568,7 @@ function PricingPlans() {
         <PriceCard
           highlighted
           name="Pro"
-          price="£27.99"
+          price="£29.99"
           priceSuffix="/mo"
           tagline="Top tier — priority AI, full gamification & VIP perks."
           features={[
