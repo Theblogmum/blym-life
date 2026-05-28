@@ -514,11 +514,10 @@ function PricingPlans() {
           price="£0"
           tagline="Start creating consistently."
           features={[
-            "20 content ideas + scripts / month",
-            "10 caption + hook generations / month",
-            "Basic weekly content planner",
-            "Unlimited saves & favourites",
-            "Light trend inspiration feed",
+            "Daily creator tools",
+            "Weekly planning system",
+            "5/day hooks / captions / scripts generations",
+            "Creator quests + streaks",
           ]}
           cta={
             isActive
@@ -530,14 +529,16 @@ function PricingPlans() {
           name="Creator"
           price="£6.99"
           priceSuffix="/mo"
-          tagline="Create content faster."
+          tagline="Your everyday content system."
           features={[
-            "Unlimited content ideas + scripts",
-            "Unlimited captions, hooks & CTAs",
-            "Full TikTok / Reel script studio",
-            "Weekly + monthly content calendar",
-            "Smart saves: folders + tags",
-            "Trend breakdowns + niche mode",
+            "Create Studio",
+            "Hook Studio",
+            "Caption Studio",
+            "Script Studio",
+            "Viral Lab",
+            "Smart Planner",
+            "Content Vault",
+            "Unlimited generations",
           ]}
           cta={
             isActive
@@ -549,15 +550,15 @@ function PricingPlans() {
           name="Studio"
           price="£14.99"
           priceSuffix="/mo"
-          tagline="Grow like a serious creator."
+          tagline="Build your creator business."
           features={[
             "Everything in Creator",
-            "Growth Lab — profile + niche audits, flop analyser, clip recycler",
-            "Weekly growth insights + reports",
-            "Creator Business — media kit, brand pitch, deliverables",
-            "Usage rights calculator, invoices, income tracker",
-            "Brand hub + brand directory access",
-            "AI growth suggestions + smarter recommendations",
+            "Growth Lab",
+            "Profile + niche audits",
+            "Media Kit Builder",
+            "Brand Deal Tools",
+            "Income Tracker",
+            "Content Strategy Systems",
           ]}
           cta={
             isActive
@@ -570,15 +571,15 @@ function PricingPlans() {
           name="Pro"
           price="£29.99"
           priceSuffix="/mo"
-          tagline="Level up like a pro."
+          tagline="Your AI growth coach."
           features={[
             "Everything in Studio",
-            "Advanced AI — deep creator analysis & strategy engine",
-            "Personal AI growth coach (chat + critique)",
-            "Priority generations + premium AI models",
-            "Full gamification — rewards, chests, advanced quests, milestones",
-            "Early access to new tools + future AI beta",
-            "VIP creator features + full brand directory access",
+            "Advanced AI coaching",
+            "Personalised growth insights",
+            "Momentum systems",
+            "Creator rewards + levels",
+            "Early access features",
+            "Premium AI tools",
           ]}
           cta={
             isActive
