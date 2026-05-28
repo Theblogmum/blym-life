@@ -14,12 +14,6 @@ const config: CapacitorConfig = {
       '*.supabase.co',
       '*.lovable.app',
       '*.lovable.dev',
-      'accounts.google.com',
-      '*.google.com',
-      '*.googleusercontent.com',
-      'appleid.apple.com',
-      '*.apple.com',
-      'oauth.lovable.app',
     ],
   },
   ios: {
