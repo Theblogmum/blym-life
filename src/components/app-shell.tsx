@@ -43,17 +43,15 @@ const SECTIONS: Section[] = [
       { label: "Today", icon: Home, to: "/app" },
       { label: "Daily quests", icon: Target, to: "/quests" },
       { label: "Journey", icon: Trophy, to: "/journey" },
-      { label: "Store", icon: ShoppingBag, to: "/store" },
     ],
   },
   {
     eyebrow: "Plan",
     groups: [
-      { label: "Smart Planner", icon: Calendar, to: "/planner" },
-      { label: "Content Calendar", icon: Calendar, to: "/schedule" },
+      { label: "Planner", icon: Calendar, to: "/planner" },
+      { label: "Calendar", icon: Calendar, to: "/schedule" },
       { label: "Film This", icon: Wand2, to: "/film-this" },
-      { label: "Content Vault", icon: BookHeart, to: "/vault" },
-      { label: "Idea Library", icon: BookHeart, to: "/library" },
+      { label: "Vault", icon: BookHeart, to: "/vault" },
     ],
   },
   {
@@ -62,14 +60,11 @@ const SECTIONS: Section[] = [
       {
         label: "Create Studio", icon: Sparkles, items: [
           { to: "/generator", label: "Idea Lab" },
-          { to: "/viral-lab", label: "Hook Studio" },
+          { to: "/generator", label: "Hook Studio" },
+          { to: "/generator", label: "Caption Studio" },
           { to: "/series-builder", label: "Script Studio" },
           { to: "/recycler", label: "Remix" },
-          { to: "/cta-generator", label: "Action Lines" },
-          { to: "/broll", label: "B-Roll Ideas" },
-          { to: "/response-writer", label: "DM Replies" },
-          { to: "/seo-keywords", label: "Search Boost" },
-          { to: "/bio-optimiser", label: "Fix My Bio" },
+          { to: "/viral-lab", label: "Viral Lab" },
         ],
       },
     ],
@@ -81,10 +76,9 @@ const SECTIONS: Section[] = [
         label: "Growth Lab", icon: TrendingUp, items: [
           { to: "/growth-coach", label: "Creator Coach" },
           { to: "/profile-audit", label: "Profile Glow-Up" },
+          { to: "/growth-coach", label: "Niche Radar" },
           { to: "/flop-analyser", label: "Flop Fixer" },
           { to: "/insights", label: "Growth Signals" },
-          { to: "/engagement-booster", label: "Engagement Boost" },
-          { to: "/post-timing", label: "When to Post" },
         ],
       },
     ],
@@ -96,14 +90,8 @@ const SECTIONS: Section[] = [
         label: "Creator Business", icon: DollarSign, items: [
           { to: "/media-kit", label: "Media Kit" },
           { to: "/brand-hub", label: "Brand Pitch" },
-          { to: "/deliverables-builder", label: "Deal Builder" },
-          { to: "/usage-rights", label: "Rights Rate" },
           { to: "/invoices", label: "Creator Pay" },
           { to: "/income-tracker", label: "Income Hub" },
-          { to: "/portfolio", label: "Portfolio" },
-          { to: "/business", label: "Business Mode" },
-          { to: "/affiliates", label: "Affiliates" },
-          { to: "/passive-ideas", label: "Passive Ideas" },
         ],
       },
     ],
@@ -112,7 +100,8 @@ const SECTIONS: Section[] = [
     eyebrow: "Mindset",
     groups: [
       { label: "Bloom", icon: Heart, to: "/motivation" },
-      { label: "Rejection Recovery", icon: Heart, to: "/rejection-recovery" },
+      { label: "Momentum", icon: Heart, to: "/quests" },
+      { label: "Creator Energy", icon: Heart, to: "/rejection-recovery" },
     ],
   },
   {
@@ -121,10 +110,8 @@ const SECTIONS: Section[] = [
       {
         label: "Creator Journey", icon: Trophy, items: [
           { to: "/character", label: "Levels" },
-          { to: "/achievements", label: "Achievements" },
-          { to: "/milestones", label: "Milestones" },
           { to: "/rewards", label: "Rewards" },
-          { to: "/creator-type", label: "Creator Type" },
+          { to: "/milestones", label: "Milestones" },
         ],
       },
     ],
