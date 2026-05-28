@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import {
-  Purchases,
-  LOG_LEVEL,
-  type PurchasesOfferings,
-  type PurchasesPackage,
-  type CustomerInfo,
-} from "@revenuecat/purchases-capacitor";
+// IMPORTANT: We import @revenuecat/purchases-capacitor LAZILY (inside functions)
+// rather than at module scope. The package ships extensionless ESM imports
+// that Node's strict ESM resolver in our SSR/Worker runtime can't resolve,
+// which crashed SSR on first render. Dynamic imports keep it out of the
+// server bundle entirely — it only loads in the browser, and only really
+// runs inside the iOS Capacitor shell.
+type PurchasesOfferings = import("@revenuecat/purchases-capacitor").PurchasesOfferings;
+type PurchasesPackage = import("@revenuecat/purchases-capacitor").PurchasesPackage;
+type CustomerInfo = import("@revenuecat/purchases-capacitor").CustomerInfo;
 import { isNativeIOS } from "@/lib/platform";
 import { useAuth } from "@/hooks/use-auth";
 import {
@@ -18,8 +20,14 @@ import {
 let configured = false;
 let configuredUserId: string | null = null;
 
+async function loadPurchases() {
+  const mod = await import("@revenuecat/purchases-capacitor");
+  return { Purchases: mod.Purchases, LOG_LEVEL: mod.LOG_LEVEL };
+}
+
 async function ensureConfigured(appUserId: string | null) {
   if (!isNativeIOS()) return;
+  const { Purchases, LOG_LEVEL } = await loadPurchases();
   if (!configured) {
     await Purchases.setLogLevel({ level: LOG_LEVEL.WARN });
     await Purchases.configure({
@@ -46,6 +54,7 @@ export function useIAP() {
   const refreshCustomerInfo = useCallback(async () => {
     if (!platformIsIOS) return;
     try {
+      const { Purchases } = await loadPurchases();
       const { customerInfo } = await Purchases.getCustomerInfo();
       setHasEntitlement(
         !!customerInfo.entitlements.active[REVENUECAT_PRO_ENTITLEMENT]
@@ -64,6 +73,7 @@ export function useIAP() {
     (async () => {
       try {
         await ensureConfigured(user?.id ?? null);
+        const { Purchases } = await loadPurchases();
         const offs = await Purchases.getOfferings();
         if (cancelled) return;
         setOfferings(offs);
@@ -104,6 +114,7 @@ export function useIAP() {
       }
       setLoading(true);
       try {
+        const { Purchases } = await loadPurchases();
         const result = await Purchases.purchasePackage({ aPackage: pkg });
         const info = result.customerInfo;
         setHasEntitlement(!!info.entitlements.active[REVENUECAT_PRO_ENTITLEMENT]);
@@ -127,6 +138,7 @@ export function useIAP() {
     if (!platformIsIOS) return;
     setLoading(true);
     try {
+      const { Purchases } = await loadPurchases();
       const { customerInfo } = await Purchases.restorePurchases();
       const active = !!customerInfo.entitlements.active[REVENUECAT_PRO_ENTITLEMENT];
       setHasEntitlement(active);
