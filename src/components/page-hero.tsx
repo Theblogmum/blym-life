@@ -86,7 +86,7 @@ export function UsageChip({
   else if (typeof used === "number" && typeof limit === "number")
     label = `🌸 Free · ${Math.max(0, limit - used)}/${limit} left this month`;
   else if (freeAllowed) label = "🌸 Free forever on this tool";
-  else label = "🔒 Premium tool · upgrade to unlock";
+  else label = "🔒 Unlock with Studio";
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 text-[11px] font-semibold text-foreground/75">
       {label}

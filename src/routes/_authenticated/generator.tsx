@@ -139,7 +139,7 @@ function GeneratorPage() {
           <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/30 bg-surface-plum p-3.5 text-[13px]">
             <p className="flex items-center gap-2 text-foreground/85">
               <Lock className="h-4 w-4 text-foreground/60" />
-              Trial ended — captions stay free, but {activeKind?.l.toLowerCase()} are premium.
+              Captions stay free — {activeKind?.l.toLowerCase()} are included in Creator.
             </p>
             <Link to="/settings">
               <Button size="sm" className="rounded-full transition hover:-translate-y-[1px]">Upgrade</Button>

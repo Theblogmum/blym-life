@@ -26,7 +26,7 @@ export const logPost = createServerFn({ method: "POST" })
     const tier = await getUserTier(supabase, userId);
     if (tier !== "pro") {
       throw new Error(
-        "Personalised growth insights is unlocked on Pro (£29.99/mo). Upgrade to start logging posts and unlock AI-powered insights on what's working.",
+        "Personalised growth insights — unlock with Pro (£29.99/mo). Log posts to power AI insights on what's working.",
       );
     }
     const { error } = await supabase.from("posts_logged").insert({

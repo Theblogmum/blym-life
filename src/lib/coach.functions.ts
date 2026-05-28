@@ -149,7 +149,7 @@ export const scoreAudienceFit = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const tier = await getUserTier(supabase, userId);
     if (tier === "free") {
-      throw new Error("Audience-fit scoring is unlocked on Pro. Upgrade to unlock.");
+      throw new Error("Audience-fit scoring — unlock with Pro (£29.99/mo).");
     }
     const { data: profile } = await supabase
       .from("creator_profile").select("*").eq("user_id", userId).maybeSingle();

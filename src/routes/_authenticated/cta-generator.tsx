@@ -132,7 +132,7 @@ function CtaGeneratorPage() {
             {locked && (
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">
                 <p className="flex items-center gap-2">
-                  <Lock className="h-4 w-4" /> Trial ended. CTA Generator is a Premium tool.
+                  <Lock className="h-4 w-4" /> Included in Creator — unlock CTA Generator.
                 </p>
                 <Link to="/settings"><Button size="sm" className="rounded-full">Upgrade</Button></Link>
               </div>

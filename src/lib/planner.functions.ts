@@ -18,7 +18,7 @@ async function assertFreeWithinPlanningWindow(
   const maxAhead = now + 7 * 24 * 60 * 60 * 1000;
   if (target > maxAhead) {
     throw new Error(
-      "Free plan only lets you plan 1 week ahead. Upgrade to Creator (£6.99/mo) for the full content calendar.",
+      "Free plan plans 1 week ahead — the full calendar is included in Creator (£6.99/mo).",
     );
   }
 }

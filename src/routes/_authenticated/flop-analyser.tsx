@@ -142,7 +142,7 @@ function FlopAnalyserPage() {
             {locked && (
               <div className="sm:col-span-2 flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm">
                 <p className="flex items-center gap-2">
-                  <Lock className="h-4 w-4" /> Trial ended. Flop Analyser is a Premium tool.
+                  <Lock className="h-4 w-4" /> Unlock with Studio — Flop Analyser included.
                 </p>
                 <Link to="/settings"><Button size="sm" className="rounded-full">Upgrade</Button></Link>
               </div>

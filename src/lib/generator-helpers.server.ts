@@ -279,7 +279,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
     });
     entitled = !!hasSub;
   }
-  if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
+  if (!entitled) throw new Error("Included in a paid plan — unlock with Creator, Studio or Pro.");
 }
 
 export type UserTier = "free" | "creator" | "studio" | "pro";
@@ -392,16 +392,15 @@ export async function enforceTrial(
     // Studio already inherits everything that's feature-gated;
     // anything not in STUDIO_FEATURES is treated as Pro-only QoS.
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on Pro (£29.99/mo). Upgrade from Studio to unlock it.`,
+      `${FEATURE_LABELS[feature]} is included in Pro (£29.99/mo).`,
     );
   }
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
     // Anything beyond Creator lives on Studio (Growth Lab + Creator Business).
-    const nextTier = "Studio (£14.99/mo)";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
+      `${FEATURE_LABELS[feature]} — unlock with Studio (£14.99/mo).`,
     );
   }
 
@@ -409,11 +408,11 @@ export async function enforceTrial(
   const isFreeFeature = cap !== undefined || opts?.freeAllowed;
 
   if (!isFreeFeature) {
-    const tierName = CREATOR_FEATURES.includes(feature)
-      ? "Creator (£6.99/mo)"
-      : "Studio (£14.99/mo)";
+    const tierLine = CREATOR_FEATURES.includes(feature)
+      ? "Included in Creator (£6.99/mo)."
+      : "Unlock with Studio (£14.99/mo).";
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
+      `${FEATURE_LABELS[feature]} — ${tierLine} Your free ideas, captions, planner and saves stay free forever.`,
     );
   }
 
@@ -422,7 +421,7 @@ export async function enforceTrial(
     const used = await getDailyPoolUsage(supabase, userId);
     if (used >= FREE_DAILY_POOL) {
       throw new Error(
-        `You've used all ${FREE_DAILY_POOL} free AI generations for today. Resets at midnight — or upgrade to Creator (£6.99/mo) for unlimited hooks, captions and scripts.`,
+        `You've used all ${FREE_DAILY_POOL} free AI generations for today. Resets at midnight — unlimited hooks, captions and scripts are included in Creator (£6.99/mo).`,
       );
     }
   } else if (cap !== undefined && cap < 9999) {
@@ -430,7 +429,7 @@ export async function enforceTrial(
     const used = await getMonthlyUsage(supabase, userId, feature);
     if (used >= cap) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£6.99/mo) for unlimited.`,
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Unlimited is included in Creator (£6.99/mo).`,
       );
     }
   }

@@ -90,7 +90,7 @@ function ViralLab() {
               <div className="flex items-center justify-between gap-3 rounded-2xl surface-peach p-3 text-sm">
                 <p className="flex items-center gap-2">
                   <Lock className="h-4 w-4" />
-                  Your 3-day trial has ended. Upgrade to keep using Viral Lab.
+                  Included in Creator — keep using Viral Lab without limits.
                 </p>
                 <Link to="/settings">
                   <Button size="sm" className="rounded-full">

@@ -44,7 +44,7 @@ export const createScheduledPost = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const tier = await getUserTier(supabase, userId);
     if (tier === "free") {
-      throw new Error("Scheduler is unlocked on Pro. Upgrade to plan ahead.");
+      throw new Error("Content Calendar — unlock with Pro (£29.99/mo).");
     }
     const { data: inserted, error } = await supabase
       .from("scheduled_posts")
@@ -139,7 +139,7 @@ export const bulkScheduleSeries = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const tier = await getUserTier(supabase, userId);
     if (tier === "free") {
-      throw new Error("Scheduler is unlocked on Pro. Upgrade to plan ahead.");
+      throw new Error("Content Calendar — unlock with Pro (£29.99/mo).");
     }
     const start = new Date(data.start_date);
     const [hh, mm] = data.time_of_day.split(":").map(Number);
