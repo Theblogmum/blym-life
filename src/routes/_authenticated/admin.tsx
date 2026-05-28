@@ -129,10 +129,10 @@ function AdminPage() {
                     <Td className="capitalize">{u.provider ?? "email"}</Td>
                     <Td className="capitalize">{u.tier}</Td>
                     <Td>
-                      {u.has_lifetime ? (
-                        <Badge tone="primary">Lifetime</Badge>
-                      ) : u.subscription_status ? (
+                      {u.subscription_status ? (
                         <Badge tone="primary">{u.subscription_status}</Badge>
+                      ) : u.has_lifetime ? (
+                        <Badge tone="primary">Pro</Badge>
                       ) : (
                         <Badge tone="muted">Free</Badge>
                       )}
