@@ -7,7 +7,8 @@ const config: CapacitorConfig = {
   server: {
     // Point at the published Lovable site so the iOS shell loads the live app.
     // Change to a local build path or remove `url` to ship a fully offline bundle.
-    url: 'https://blym.life',
+    url: 'https://www.blym.life',
+    allowNavigation: ['www.blym.life', 'blym.life'],
     cleartext: false,
   },
   ios: {
