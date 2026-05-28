@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { CalendarDays, Plus, Check, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { listWeek, upsertPlan, togglePlanDone, deletePlan } from "@/lib/planner.functions";
+import { useSubscription } from "@/hooks/use-subscription";
 import { PageHero } from "@/components/page-hero";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +32,11 @@ function PlannerPage() {
   const qc = useQueryClient();
 
   const [weekStart, setWeekStart] = useState(() => startOfWeek(new Date()));
+  const sub = useSubscription();
+  const isFree = !sub.loading && !sub.isActive;
+  const thisWeekStart = startOfWeek(new Date()).getTime();
+  const nextWeekStart = thisWeekStart + 7 * 24 * 60 * 60 * 1000;
+  const lockedNext = isFree && weekStart.getTime() >= nextWeekStart;
   const days = useMemo(() => Array.from({ length: 7 }, (_, i) => {
     const d = new Date(weekStart); d.setDate(d.getDate() + i); return d;
   }), [weekStart]);
@@ -78,7 +84,22 @@ function PlannerPage() {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" className="rounded-full" onClick={() => { const d = new Date(weekStart); d.setDate(d.getDate() - 7); setWeekStart(d); }}>← Prev</Button>
-            <Button variant="outline" size="sm" className="rounded-full" onClick={() => { const d = new Date(weekStart); d.setDate(d.getDate() + 7); setWeekStart(d); }}>Next →</Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full"
+              disabled={lockedNext}
+              title={lockedNext ? "Free plan: 1 week ahead. Upgrade to Creator for the full calendar." : undefined}
+              onClick={() => {
+                if (lockedNext) {
+                  toast.error("Free plan only plans 1 week ahead. Upgrade to Creator for the full calendar.");
+                  return;
+                }
+                const d = new Date(weekStart); d.setDate(d.getDate() + 7); setWeekStart(d);
+              }}
+            >
+              Next →
+            </Button>
           </div>
         </div>
 

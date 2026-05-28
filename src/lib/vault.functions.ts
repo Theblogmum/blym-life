@@ -1,6 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
+import { getUserTier } from "@/lib/generator-helpers.server";
+
+/** Free tier: max 15 saved items in the vault. */
+export const FREE_VAULT_LIMIT = 15;
 
 export const getVaultData = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -49,6 +53,45 @@ export const deleteSavedItem = createServerFn({ method: "POST" })
       .delete()
       .eq("id", data.id)
       .eq("user_id", userId);
+    if (error) throw new Error(error.message);
+    return { ok: true };
+  });
+
+/**
+ * Save an item to the vault. Enforces the free-tier 15-item cap (excluding
+ * auto-cached daily ideas). Paid tiers (creator/studio/pro) get unlimited saves.
+ */
+export const saveToVault = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: { kind: string; title?: string; body: string; meta?: Record<string, unknown> }) => {
+    if (!d?.kind || typeof d.kind !== "string") throw new Error("invalid kind");
+    if (!d?.body || typeof d.body !== "string") throw new Error("invalid body");
+    if (d.kind === "daily_idea") throw new Error("daily ideas are cached automatically");
+    if (d.body.length > 20000) throw new Error("item too large");
+    return d;
+  })
+  .handler(async ({ context, data }) => {
+    const { supabase, userId } = context;
+    const tier = await getUserTier(supabase, userId);
+    if (tier === "free") {
+      const { count } = await supabase
+        .from("saved_content")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .neq("kind", "daily_idea");
+      if ((count ?? 0) >= FREE_VAULT_LIMIT) {
+        throw new Error(
+          `Your free vault is full (${FREE_VAULT_LIMIT} items). Delete something or upgrade to Creator (£6.99/mo) for unlimited saves.`,
+        );
+      }
+    }
+    const { error } = await supabase.from("saved_content").insert({
+      user_id: userId,
+      kind: data.kind,
+      title: data.title ?? null,
+      body: data.body,
+      meta: (data.meta ?? null) as never,
+    });
     if (error) throw new Error(error.message);
     return { ok: true };
   });
