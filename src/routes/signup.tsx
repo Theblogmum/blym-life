@@ -40,8 +40,6 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const [appleLoading, setAppleLoading] = useState(false);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,24 +66,6 @@ function SignupPage() {
     navigate({ to: "/onboarding" });
   };
 
-  const handleGoogle = async () => {
-    setGoogleLoading(true);
-    const result = await signInWithGoogle("/onboarding", { prompt: "select_account" });
-    setGoogleLoading(false);
-    if (result.error) return toast.error(result.error.message || "Google sign in failed");
-    if (result.redirected) return;
-    navigate({ to: "/onboarding" });
-  };
-
-  const handleApple = async () => {
-    setAppleLoading(true);
-    const result = await signInWithApple("/onboarding");
-    setAppleLoading(false);
-    if (result.error) return toast.error(result.error.message || "Apple sign in failed");
-    if (result.redirected) return;
-    navigate({ to: "/onboarding" });
-  };
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
@@ -97,26 +77,7 @@ function SignupPage() {
           2 minutes. Then you'll know what to film.
         </p>
 
-        <Button
-          onClick={handleGoogle}
-          disabled={googleLoading || appleLoading || loading}
-          variant="outline"
-          className="mt-6 w-full rounded-full"
-        >
-          {googleLoading ? "Opening Google…" : "Continue with Google"}
-        </Button>
-        <Button
-          onClick={handleApple}
-          disabled={googleLoading || appleLoading || loading}
-          variant="outline"
-          className="mt-3 w-full rounded-full"
-        >
-          {appleLoading ? "Opening Apple…" : "Continue with Apple"}
-        </Button>
-        <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
-          <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
-        </div>
-        <form onSubmit={handleSignup} className="space-y-3">
+        <form onSubmit={handleSignup} className="mt-6 space-y-3">
           <div>
             <Label htmlFor="name">Your name</Label>
             <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} />
