@@ -18,7 +18,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DunningBanner } from "@/components/dunning-banner";
-import logo from "@/assets/logo-blym.png";
+import logo from "@/assets/blym-icon.png";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { checkIsAdmin } from "@/lib/admin.functions";
