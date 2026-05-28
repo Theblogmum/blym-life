@@ -38,7 +38,7 @@ function LibraryPage() {
     <div>
       <PageHero
         icon={BookHeart}
-        eyebrow="Your library"
+        eyebrow="Idea Library™"
         title="Everything you've collected."
         description="Guides, templates and unlockables — yours forever, ready to download whenever you need them."
         variant="butter"

@@ -49,7 +49,7 @@ function EngagementBoosterPage() {
     <div>
       <PageHero
         icon={Heart}
-        eyebrow="Engagement Booster"
+        eyebrow="Engagement Boost™"
         title="Stop posting into the void."
         description="Tell us what you're posting. We'll hand you reply starters, story prompts, polls, DM openers, community rituals and caption tweaks that actually get replies."
         variant="sunrise"

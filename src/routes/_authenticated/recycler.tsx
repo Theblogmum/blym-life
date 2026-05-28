@@ -43,7 +43,7 @@ function RecyclerPage() {
     <div>
       <PageHero
         icon={Folder}
-        eyebrow="Clip Recycler"
+        eyebrow="Remix™"
         title="Tell me what you filmed — I'll find 5 ways to use it."
         description="Describe a clip you already have. I'll spin it into 5 totally different post angles, no re-filming ✨"
         variant="mint"

@@ -43,7 +43,7 @@ function JourneyPage() {
     <div>
       <PageHero
         icon={Compass}
-        eyebrow="your creator journey"
+        eyebrow="Creator Journey™"
         title="From nervous beginner to booked & busy."
         description="every post, hook, pitch and tiny win moves you forward. you're not behind — you're building."
         variant="blush"

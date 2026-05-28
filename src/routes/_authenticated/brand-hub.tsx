@@ -93,7 +93,7 @@ function BrandHubPage() {
     <div>
       <PageHero
         icon={Building2}
-        eyebrow="Brand Hub"
+        eyebrow="Brand Pitch™"
         title="Find brands. Pitch them. Track replies."
         description="A directory of UK mum-friendly brands plus your own outreach inbox — drafts, follow-ups, and replies in one place."
         variant="bloom"

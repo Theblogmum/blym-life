@@ -53,7 +53,7 @@ function ProfileAuditPage() {
     <div>
       <PageHero
         icon={ClipboardCheck}
-        eyebrow="Profile Audit"
+        eyebrow="Profile Glow-Up™"
         title="A proper, honest review of your account."
         description="Tell us your handle, paste your bio, and describe your last 9 posts in a couple of sentences. Get scores, strengths, weaknesses, quick wins and a 30-day plan."
         variant="sunrise"

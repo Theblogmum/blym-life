@@ -62,7 +62,7 @@ function SeoKeywordsPage() {
     <div>
       <PageHero
         icon={Search}
-        eyebrow="SEO Keywords"
+        eyebrow="Search Boost™"
         title="Get found in search — not just the feed."
         description="Pick a platform and a topic. We'll hand you primary keywords, long-tail searches, sized hashtags, real questions mums type, seasonal angles and exactly where to put them."
         variant="sunrise"

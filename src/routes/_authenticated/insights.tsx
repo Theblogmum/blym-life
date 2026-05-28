@@ -46,7 +46,7 @@ function InsightsPage() {
     <div>
       <PageHero
         icon={TrendingUp}
-        eyebrow="growth insights"
+        eyebrow="Growth Signals™"
         title="What's actually working for you."
         description="log what you post — we'll spot the patterns. small wins compound."
         variant="mint"

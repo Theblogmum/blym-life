@@ -69,7 +69,7 @@ function PlannerPage() {
     <div>
       <PageHero
         icon={CalendarDays}
-        eyebrow="this week"
+        eyebrow="Smart Planner™"
         title="Weekly planner"
         description="Your content week — sorted, soft, and one tap away."
         variant="sky"

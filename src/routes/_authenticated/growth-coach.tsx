@@ -79,7 +79,7 @@ function GrowthCoachPage() {
     <div>
       <PageHero
         icon={Sparkles}
-        eyebrow="Growth Coach"
+        eyebrow="Creator Coach™"
         title="Chat with Bloom — your AI strategist"
         description="She knows your niche, your last 14 days of posts, your goals — and gives concrete advice, not generic fluff."
         variant="plum"

@@ -68,7 +68,7 @@ function SchedulePage() {
     <div>
       <PageHero
         icon={Calendar}
-        eyebrow="Schedule"
+        eyebrow="Content Calendar™"
         title="Plan posts. Get reminded. Mark done."
         description="In-app scheduler. We can't auto-post to IG/TikTok (their APIs don't allow it for personal accounts) but we'll keep your week organised and one tap to log when it's live."
         variant="sky"

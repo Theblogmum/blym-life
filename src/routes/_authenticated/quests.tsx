@@ -99,7 +99,7 @@ function QuestsPage() {
     <div>
       <PageHero
         icon={Sparkles}
-        eyebrow="today's missions"
+        eyebrow="Daily Quests™"
         title="5 tiny quests, big momentum"
         description="tick them off as you go. low energy? freeze your streak — no guilt allowed."
         variant="sunrise"

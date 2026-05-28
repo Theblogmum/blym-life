@@ -30,7 +30,7 @@ function Page() {
   const premium = !!usage.data?.premium; const inTrial = !!usage.data?.inTrial; const locked = !premium && !inTrial;
   return (
     <div>
-      <PageHero icon={Calculator} eyebrow="Pricing" title="Get paid fairly for usage rights." description="Calculator + breakdown + a negotiation script you can paste straight into email." variant="warm">
+      <PageHero icon={Calculator} eyebrow="Rights Rate™" title="Get paid fairly for usage rights." description="Calculator + breakdown + a negotiation script you can paste straight into email." variant="warm">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-5xl px-5 py-10">
