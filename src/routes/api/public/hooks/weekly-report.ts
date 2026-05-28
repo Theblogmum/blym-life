@@ -58,9 +58,9 @@ export const Route = createFileRoute('/api/public/hooks/weekly-report')({
         if (!supabaseUrl || !serviceKey) return Response.json({ error: 'Server config' }, { status: 500 })
         const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } })
 
-        // Find Pro+ users only (tier in 'pro','ultimate')
+        // Find Pro users only (Pro is the top tier)
         const { data: profiles } = await supabase
-          .from('profiles').select('id, tier, display_name').in('tier', ['pro', 'ultimate']).limit(500)
+          .from('profiles').select('id, tier, display_name').in('tier', ['pro']).limit(500)
 
         const today = new Date()
         const weekStart = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)

@@ -25,8 +25,7 @@ function RefundPage() {
       <h2 className="mt-8 font-display text-xl font-bold">7-day money-back guarantee</h2>
       <p className="mt-2">
         We want you to feel confident trying Blym. If you're not happy with your purchase, you can request a
-        full refund within <strong>7 days</strong> of the order date — no questions asked. This applies to monthly,
-        yearly, and lifetime purchases.
+        full refund within <strong>7 days</strong> of the order date — no questions asked. This applies to all monthly subscription plans.
       </p>
 
       <h2 className="mt-6 font-display text-xl font-bold">How to request a refund</h2>
