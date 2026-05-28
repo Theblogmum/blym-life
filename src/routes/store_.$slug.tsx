@@ -41,6 +41,8 @@ function ProductPage() {
 
   const buy = async () => {
     if (!p) return;
+    // App Store policy: digital products are not sold inside the iOS app.
+    if (iosBlocked) return;
     if (!user && !email.trim()) {
       toast.error("Enter your email to receive your download");
       return;
