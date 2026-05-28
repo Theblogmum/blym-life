@@ -9,7 +9,9 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "ios:clean-native": "node scripts/clean-ios-native.mjs",
+    "ios:sync-native": "npm run ios:clean-native && npm run build && npx cap sync ios && node scripts/verify-ios-native.mjs"
   },
   "dependencies": {
     "@capacitor/cli": "^8.3.4",
