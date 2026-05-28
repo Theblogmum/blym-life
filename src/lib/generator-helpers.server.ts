@@ -339,7 +339,7 @@ export async function enforceTrial(
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£24.99/mo)" : "Ultimate (£44.99/mo)";
+    const nextTier = PRO_EXTRA_FEATURES.includes(feature) ? "Pro (£29.99/mo)" : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
@@ -350,9 +350,9 @@ export async function enforceTrial(
 
   if (!isFreeFeature) {
     const tierName = CREATOR_FEATURES.includes(feature)
-      ? "Creator (£9.99/mo)"
+      ? "Creator (£6.99/mo)"
       : PRO_EXTRA_FEATURES.includes(feature)
-        ? "Pro (£24.99/mo)"
+        ? "Pro (£29.99/mo)"
         : "Ultimate (£44.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
@@ -363,7 +363,7 @@ export async function enforceTrial(
     const used = await getMonthlyUsage(supabase, userId, feature);
     if (used >= cap) {
       throw new Error(
-        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£9.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
+        `You've used all ${cap} free ${FEATURE_LABELS[feature].toLowerCase()} this month. Upgrade to Creator (£6.99/mo) for unlimited — your monthly free allowance refreshes on the 1st.`,
       );
     }
   }
