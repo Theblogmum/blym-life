@@ -17,6 +17,9 @@ npm install
 
 # 2. Recreate the native iOS project from the current config
 npm run ios:reset
+
+# 3. Open Xcode only after the sync finishes successfully
+npm run ios:open
 ```
 
 ## In Xcode

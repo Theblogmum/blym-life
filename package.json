@@ -11,9 +11,9 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
-    "ios": "npm run ios:sync-native && npm run ios:open",
+    "ios": "npm run ios:sync-native",
     "ios:sync-native": "test -d ios || npx cap add ios; npx cap sync ios",
-    "ios:reset": "rm -rf ios && npx cap add ios && npx cap sync ios && npx cap open ios",
+    "ios:reset": "rm -rf ios && npx cap add ios && npx cap sync ios",
     "ios:open": "npx cap open ios",
     "lint": "eslint .",
     "format": "prettier --write ."
