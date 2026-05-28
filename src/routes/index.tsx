@@ -10,7 +10,7 @@ import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { useSubscription } from "@/hooks/use-subscription";
 import { LandingDemo } from "@/components/landing-demo";
 import { CreatorJourney } from "@/components/creator-journey";
-import blymLogo from "@/assets/logo-blym.png";
+import blymLogo from "@/assets/blym-icon.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
