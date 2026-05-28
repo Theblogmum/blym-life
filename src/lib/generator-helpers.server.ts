@@ -279,7 +279,7 @@ export async function requirePremium(supabase: SupabaseLike, userId: string) {
     });
     entitled = !!hasSub;
   }
-  if (!entitled) throw new Error("Upgrade to Premium to use this feature.");
+  if (!entitled) throw new Error("Included in a paid plan — unlock with Creator, Studio or Pro.");
 }
 
 export type UserTier = "free" | "creator" | "studio" | "pro";
