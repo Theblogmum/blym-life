@@ -1,7 +1,6 @@
 import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { signInWithGoogle, signInWithApple } from "@/lib/oauth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,8 +42,6 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const [appleLoading, setAppleLoading] = useState(false);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,24 +49,6 @@ function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) return toast.error(error.message);
-    navigate({ to: search.redirect || "/app" });
-  };
-
-  const handleGoogle = async () => {
-    setGoogleLoading(true);
-    const result = await signInWithGoogle(search.redirect || "/app");
-    setGoogleLoading(false);
-    if (result.error) return toast.error(result.error.message || "Google sign in failed");
-    if (result.redirected) return;
-    navigate({ to: search.redirect || "/app" });
-  };
-
-  const handleApple = async () => {
-    setAppleLoading(true);
-    const result = await signInWithApple(search.redirect || "/app");
-    setAppleLoading(false);
-    if (result.error) return toast.error(result.error.message || "Apple sign in failed");
-    if (result.redirected) return;
     navigate({ to: search.redirect || "/app" });
   };
 
@@ -82,26 +61,7 @@ function LoginPage() {
         <h1 className="mt-2 font-display text-3xl font-black">Welcome back</h1>
         <p className="mt-1 text-sm text-muted-foreground">Let's get your brief.</p>
 
-        <Button
-          onClick={handleGoogle}
-          disabled={googleLoading || appleLoading || loading}
-          variant="outline"
-          className="mt-6 w-full rounded-full"
-        >
-          {googleLoading ? "Opening Google…" : "Continue with Google"}
-        </Button>
-        <Button
-          onClick={handleApple}
-          disabled={googleLoading || appleLoading || loading}
-          variant="outline"
-          className="mt-3 w-full rounded-full"
-        >
-          {appleLoading ? "Opening Apple…" : "Continue with Apple"}
-        </Button>
-        <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
-          <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
-        </div>
-        <form onSubmit={handleEmailLogin} className="space-y-3">
+        <form onSubmit={handleEmailLogin} className="mt-6 space-y-3">
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
