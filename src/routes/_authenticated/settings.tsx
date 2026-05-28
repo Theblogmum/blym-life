@@ -1,9 +1,9 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Settings as SettingsIcon, LogOut, Sparkles, ExternalLink, Trash2 } from "lucide-react";
+import { Settings as SettingsIcon, LogOut, Sparkles, ExternalLink, Trash2, RotateCcw } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { getMe } from "@/lib/profile.functions";
 import { toast } from "sonner";
@@ -11,6 +11,8 @@ import { useSubscription } from "@/hooks/use-subscription";
 import { useStripeCheckout } from "@/hooks/use-stripe-checkout";
 import { createPortalSession } from "@/utils/payments.functions";
 import { deleteMyAccount } from "@/lib/account.functions";
+import { useIAP } from "@/hooks/use-iap";
+import { isNativeIOS } from "@/lib/platform";
 import { useState } from "react";
 import { PageHero } from "@/components/page-hero";
 import {
@@ -41,6 +43,8 @@ function SettingsPage() {
   const [portalLoading, setPortalLoading] = useState(false);
   const deleteAccountFn = useServerFn(deleteMyAccount);
   const [deleting, setDeleting] = useState(false);
+  const iap = useIAP();
+  const onIOS = isNativeIOS();
 
   const handleDeleteAccount = async () => {
     setDeleting(true);
@@ -99,7 +103,7 @@ function SettingsPage() {
         </div>
       </Card>
 
-      {isActive && subscription && (
+      {isActive && subscription && !onIOS && (
         <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
           <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Subscription</p>
           <p className="mt-1 font-medium capitalize">{subscription.status}{subscription.cancel_at_period_end ? " · cancels at period end" : ""}</p>
@@ -110,6 +114,26 @@ function SettingsPage() {
           )}
           <Button variant="outline" className="mt-4 rounded-full" onClick={handlePortal} disabled={portalLoading}>
             <ExternalLink className="mr-2 h-4 w-4" /> {portalLoading ? "Opening…" : "Manage billing"}
+          </Button>
+        </Card>
+      )}
+
+      {onIOS && isActive && subscription && (
+        <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Subscription</p>
+          <p className="mt-1 font-medium capitalize">{subscription.status}</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Manage or cancel your subscription in iOS Settings → your name → Subscriptions.
+          </p>
+        </Card>
+      )}
+
+      {onIOS && (
+        <Card className="rounded-[1.6rem] border-0 p-6 shadow-[var(--shadow-soft)]">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Purchases</p>
+          <p className="mt-1 text-sm text-muted-foreground">Already subscribed on another device?</p>
+          <Button variant="outline" className="mt-4 rounded-full" onClick={() => iap.restore()} disabled={iap.loading}>
+            <RotateCcw className="mr-2 h-4 w-4" /> {iap.loading ? "Restoring…" : "Restore purchases"}
           </Button>
         </Card>
       )}
@@ -139,6 +163,13 @@ function SettingsPage() {
                 <Button className="mt-3 w-full whitespace-normal break-words text-center px-3 rounded-full" disabled={checkoutLoading} onClick={() => buy("pro_monthly")}>Go Pro</Button>
               </div>
             </div>
+            {onIOS && (
+              <p className="mt-4 text-[11px] leading-snug text-muted-foreground">
+                Subscriptions auto-renew monthly until cancelled. Payment is charged to your Apple ID. Manage or cancel anytime in iOS Settings → your name → Subscriptions. See our{" "}
+                <Link to="/terms" className="underline">Terms</Link> and{" "}
+                <Link to="/privacy" className="underline">Privacy Policy</Link>.
+              </p>
+            )}
           </div>
         </Card>
       )}
@@ -159,7 +190,10 @@ function SettingsPage() {
             <AlertDialogHeader>
               <AlertDialogTitle>Delete your account?</AlertDialogTitle>
               <AlertDialogDescription>
-                This permanently deletes your account, profile, XP, rewards, and all your saved content. This action cannot be undone. If you have an active paid subscription, please cancel it from "Manage billing" first.
+                This permanently deletes your account, profile, XP, rewards, and all your saved content. This action cannot be undone.{" "}
+                {onIOS
+                  ? "If you have an active subscription, cancel it first in iOS Settings → your name → Subscriptions."
+                  : "If you have an active paid subscription, please cancel it from \"Manage billing\" first."}
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -175,6 +209,11 @@ function SettingsPage() {
           </AlertDialogContent>
         </AlertDialog>
       </Card>
+
+      <p className="text-center text-xs text-muted-foreground">
+        <Link to="/privacy" className="underline">Privacy Policy</Link>{" · "}
+        <Link to="/terms" className="underline">Terms of Service</Link>
+      </p>
       </section>
     </div>
   );
