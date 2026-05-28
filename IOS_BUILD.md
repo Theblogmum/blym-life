@@ -1,10 +1,11 @@
 # Shipping Blym to the App Store
 
-This project is pre-wired with Capacitor so you can bundle the web app into a
-native iOS shell and submit it to App Store Connect.
+This project is pre-wired with Capacitor so the iOS app opens inside the native
+shell and submits cleanly to App Store Connect.
 
 ## What you need
 - A Mac with Xcode 15+
+- Node 20 or 22 installed locally
 - An Apple Developer account ($99/year)
 - This project cloned locally (Lovable → GitHub → clone)
 
@@ -14,14 +15,8 @@ native iOS shell and submit it to App Store Connect.
 # 1. Install deps
 npm install
 
-# 2. Add the native iOS project (creates /ios folder)
-npx cap add ios
-
-# 3. Sync the Capacitor config + plugins into Xcode
-npx cap sync ios
-
-# 4. Open in Xcode
-npx cap open ios
+# 2. Recreate the native iOS project from the current config
+npm run ios:reset
 ```
 
 ## In Xcode
@@ -39,3 +34,7 @@ npx cap open ios
 ## How updates work
 Run `npm run ios:sync-native` before opening Xcode so Capacitor copies the latest
 web build into the iOS project. Content/UI changes require a new iOS build upload.
+
+If the app ever opens Safari instead of staying in the iOS shell, delete the old
+local native folder and run `npm run ios:reset` again so Xcode uses the latest
+Capacitor config.
