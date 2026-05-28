@@ -106,6 +106,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Blym" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Blym" },
+      { name: "twitter:title", content: "Blym" },
+      { name: "description", content: "Build My Dream helps creators generate and plan viral content for their blogs and social media." },
+      { property: "og:description", content: "Build My Dream helps creators generate and plan viral content for their blogs and social media." },
+      { name: "twitter:description", content: "Build My Dream helps creators generate and plan viral content for their blogs and social media." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d274f45b-fc65-418b-8642-d9b5742965d9/id-preview-5dbb0e15--26545f8e-09a2-4543-b1c1-65c7c157a44f.lovable.app-1779968676858.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d274f45b-fc65-418b-8642-d9b5742965d9/id-preview-5dbb0e15--26545f8e-09a2-4543-b1c1-65c7c157a44f.lovable.app-1779968676858.png" },
     ],
     links: [
       {
