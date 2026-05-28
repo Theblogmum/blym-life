@@ -43,6 +43,15 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    setLoading(false);
+    if (error) return toast.error(error.message);
+    navigate({ to: search.redirect || "/app" });
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
@@ -52,26 +61,7 @@ function LoginPage() {
         <h1 className="mt-2 font-display text-3xl font-black">Welcome back</h1>
         <p className="mt-1 text-sm text-muted-foreground">Let's get your brief.</p>
 
-        <Button
-          onClick={handleGoogle}
-          disabled={googleLoading || appleLoading || loading}
-          variant="outline"
-          className="mt-6 w-full rounded-full"
-        >
-          {googleLoading ? "Opening Google…" : "Continue with Google"}
-        </Button>
-        <Button
-          onClick={handleApple}
-          disabled={googleLoading || appleLoading || loading}
-          variant="outline"
-          className="mt-3 w-full rounded-full"
-        >
-          {appleLoading ? "Opening Apple…" : "Continue with Apple"}
-        </Button>
-        <div className="my-4 flex items-center gap-3 text-xs text-muted-foreground">
-          <div className="h-px flex-1 bg-border" /> or <div className="h-px flex-1 bg-border" />
-        </div>
-        <form onSubmit={handleEmailLogin} className="space-y-3">
+        <form onSubmit={handleEmailLogin} className="mt-6 space-y-3">
           <div>
             <Label htmlFor="email">Email</Label>
             <Input
