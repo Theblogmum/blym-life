@@ -31,6 +31,7 @@ import { getMuted, setMuted, pop } from "@/lib/celebrate";
 import { ComboOverlay } from "@/components/combo-overlay";
 import { StreakRiskBanner } from "@/components/streak-risk-banner";
 import { MomentumPebble } from "@/components/momentum-pebble";
+import { isNativeIOS } from "@/lib/platform";
 
 type Item = { to: string; label: string };
 type Group = { label: string; icon: typeof Home; to?: string; items?: Item[] };
@@ -109,6 +110,15 @@ const SECTIONS: Section[] = [
   },
 ];
 
+// On iOS, hide the digital-products Store from the app per App Store guidelines
+// (digital goods must use IAP — we sell those via the web only).
+const SECTIONS_FOR_PLATFORM: Section[] = isNativeIOS()
+  ? SECTIONS.map((s) => ({
+      ...s,
+      groups: s.groups.filter((g) => g.to !== "/store"),
+    }))
+  : SECTIONS;
+
 export function AppShell({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { signOut, user } = useAuth();
@@ -162,7 +172,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const allItems = useMemo(() => {
     const items: { to: string; label: string; group: string }[] = [];
-    SECTIONS.forEach((s) =>
+    SECTIONS_FOR_PLATFORM.forEach((s: Section) =>
       s.groups.forEach((g) => {
         if (g.to) items.push({ to: g.to, label: g.label, group: s.eyebrow });
         g.items?.forEach((i) => items.push({ to: i.to, label: i.label, group: g.label }));
@@ -275,7 +285,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </div>
 
       <div className="flex-1 overflow-y-auto px-2.5 pb-6">
-        {SECTIONS.map((s, idx) => (
+        {SECTIONS_FOR_PLATFORM.map((s, idx) => (
           <div key={s.eyebrow} className={cn(idx === 0 ? "mb-8" : "mb-8 mt-2")}>
             <p className="px-3 pb-2 pt-1.5 text-[9px] font-semibold uppercase tracking-[0.28em] text-foreground/30">
               {s.eyebrow}

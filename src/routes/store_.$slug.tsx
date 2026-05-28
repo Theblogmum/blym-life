@@ -160,11 +160,9 @@ function ProductPage() {
 
             {iosBlocked ? (
               <div className="mt-6 rounded-2xl border border-border bg-secondary/40 p-4 text-center">
-                <p className="text-sm font-medium">Available on the web</p>
+                <p className="text-sm font-medium">Not available in this app</p>
                 <p className="mt-1 text-[12px] text-muted-foreground">
-                  Digital downloads aren't sold in the iOS app. Visit{" "}
-                  <a href="https://www.blym.life/store" className="underline underline-offset-2">blym.life/store</a>{" "}
-                  on your browser to buy this product.
+                  This product isn't available for purchase in the iOS app.
                 </p>
               </div>
             ) : (

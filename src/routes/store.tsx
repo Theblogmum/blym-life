@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { listProducts } from "@/lib/store.functions";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ShoppingBag, Sparkles, Download, Shield, Zap } from "lucide-react";
+import { isNativeIOS } from "@/lib/platform";
 
 export const Route = createFileRoute("/store")({
   head: () => ({
@@ -30,6 +31,31 @@ function StorePage() {
   const fetcher = useServerFn(listProducts);
   const q = useQuery({ queryKey: ["store-products"], queryFn: () => fetcher() });
   const products = q.data?.products ?? [];
+
+  // Apple guideline 3.1.1 / 3.1.3: don't expose a web-purchase storefront for
+  // digital goods inside the iOS app, and don't steer to external purchase URLs.
+  if (isNativeIOS()) {
+    return (
+      <main className="min-h-screen bg-background">
+        <section className="mx-auto max-w-md px-6 py-24 text-center">
+          <ShoppingBag className="mx-auto h-8 w-8 text-muted-foreground/60" />
+          <h1 className="mt-4 font-display text-2xl font-semibold tracking-tight">
+            Store not available
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Individual guides and templates aren't sold in the iOS app. All of
+            your saved content and tools stay available in your library.
+          </p>
+          <Link
+            to="/app"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background"
+          >
+            Back to studio
+          </Link>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-background">
