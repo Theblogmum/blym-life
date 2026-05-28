@@ -42,35 +42,6 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [googleLoading, setGoogleLoading] = useState(false);
-  const [appleLoading, setAppleLoading] = useState(false);
-
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (error) return toast.error(error.message);
-    navigate({ to: search.redirect || "/app" });
-  };
-
-  const handleGoogle = async () => {
-    setGoogleLoading(true);
-    const result = await signInWithGoogle(search.redirect || "/app");
-    setGoogleLoading(false);
-    if (result.error) return toast.error(result.error.message || "Google sign in failed");
-    if (result.redirected) return;
-    navigate({ to: search.redirect || "/app" });
-  };
-
-  const handleApple = async () => {
-    setAppleLoading(true);
-    const result = await signInWithApple(search.redirect || "/app");
-    setAppleLoading(false);
-    if (result.error) return toast.error(result.error.message || "Apple sign in failed");
-    if (result.redirected) return;
-    navigate({ to: search.redirect || "/app" });
-  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
