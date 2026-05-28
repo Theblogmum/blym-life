@@ -28,7 +28,7 @@ function Page() {
   const ready = brand.trim().length > 1 && goal.trim().length > 4;
   return (
     <div>
-      <PageHero icon={Package} eyebrow="Brand deals" title="3 packages, ready in seconds." description="Pitch tiered packages with deliverables, usage rights, exclusivity and add-ons." variant="bloom">
+      <PageHero icon={Package} eyebrow="Deal Builder™" title="3 packages, ready in seconds." description="Pitch tiered packages with deliverables, usage rights, exclusivity and add-ons." variant="bloom">
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={usage.data?.daysLeft ?? null} />
       </PageHero>
       <section className="mx-auto max-w-5xl px-5 py-10">

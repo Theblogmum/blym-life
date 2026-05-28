@@ -56,7 +56,7 @@ function BrollPage() {
     <div>
       <PageHero
         icon={Clapperboard}
-        eyebrow="B-Roll Ideas"
+        eyebrow="Film This™"
         title="Stop staring at your camera roll."
         description="Tell us your niche or topic. We'll hand you a ready-to-film shot list with angles, transitions and an aesthetic direction — all doable on a phone, at home."
         variant="sunrise"

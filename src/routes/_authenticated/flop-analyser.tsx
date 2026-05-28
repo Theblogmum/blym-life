@@ -63,7 +63,7 @@ function FlopAnalyserPage() {
     <div>
       <PageHero
         icon={TrendingDown}
-        eyebrow="Flop Analyser"
+        eyebrow="Flop Fixer™"
         title="Why did this video flop?"
         description="Paste in the hook, caption, topic and average watch time. We'll tell you exactly what didn't land — and rewrite it."
         variant="sunrise"

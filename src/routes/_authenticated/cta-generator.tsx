@@ -51,7 +51,7 @@ function CtaGeneratorPage() {
     <div>
       <PageHero
         icon={MessageCircle}
-        eyebrow="CTA Generator"
+        eyebrow="Action Lines™"
         title="The bit that actually gets people to do something."
         description="Tell us your post topic. We'll write engagement CTAs, sales CTAs, save/share lines and comment hooks — all in your voice, all human."
         variant="sunrise"

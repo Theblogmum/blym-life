@@ -59,7 +59,7 @@ function RewardsPage() {
     <div>
       <PageHero
         icon={Gift}
-        eyebrow="Your rewards"
+        eyebrow="Rewards™"
         title="your rewards vault ✨"
         description="unlock chests as you earn XP. everything you unlock is saved here forever — open it anytime."
         variant="sunrise"

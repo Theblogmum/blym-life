@@ -62,7 +62,7 @@ function CharacterSheetPage() {
     <>
       <PageHero
         icon={Sparkles}
-        eyebrow="rpg · character sheet"
+        eyebrow="Creator Levels™"
         title="Your character"
         description="your era, your power, your stats — all the things that make you, you."
         variant="bloom"
