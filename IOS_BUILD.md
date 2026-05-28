@@ -1,7 +1,7 @@
 # Shipping Blym to the App Store
 
-This project is pre-wired with Capacitor so you can wrap the live web app
-(`https://blym.life`) in a native iOS shell and submit it to App Store Connect.
+This project is pre-wired with Capacitor so you can ship the bundled app assets
+inside a native iOS shell and submit it to App Store Connect.
 
 ## What you need
 - A Mac with Xcode 15+
@@ -17,8 +17,8 @@ npm install
 # 2. Add the native iOS project (creates /ios folder)
 npx cap add ios
 
-# 3. Sync the Capacitor config + plugins into Xcode
-npx cap sync ios
+# 3. Build local web assets, remove stale remote config, sync plugins into Xcode
+npm run ios:sync-native
 
 # 4. Open in Xcode
 npx cap open ios
@@ -36,16 +36,20 @@ npx cap open ios
    support URL (`https://blym.life/contact`), description, screenshots (6.7" + 6.5" iPhone).
 3. Upload the build from Xcode, attach it to your version, submit for review.
 
-## How updates work
-Because `capacitor.config.ts` points `server.url` at the live site, **any change
-you publish from Lovable shows up in the iOS app instantly** — no resubmission
-needed for content/UI tweaks. You only need to resubmit when:
-- You change native config (icons, splash, plugins, permissions)
-- Apple requires a metadata update
+## Native iOS launch check
+Before opening Xcode, run:
 
-## If you want a fully offline build later
-1. Remove `server.url` from `capacitor.config.ts`.
-2. Run `npm run build` then `npx cap sync ios`.
-3. The app will ship the bundled `dist/` folder instead of loading from the web.
-   Note: TanStack Start is SSR by default — for a true offline bundle you'd need
-   to switch to static export. The hosted approach above is the recommended path.
+```bash
+npm run ios:sync-native
+```
+
+This deletes stale `ios/App/App/capacitor.config.json` and `ios/App/App/public`,
+rebuilds the local bundle, runs `npx cap sync ios`, then verifies the generated
+iOS config has no `server.url`, live reload URL, or `https://blym.life` launch URL.
+
+If the verify step passes, delete Blym from the iPhone, clean the Xcode build
+folder, then run the app from Xcode again.
+
+## How updates work
+The iOS app now loads bundled local assets from `dist/client`. UI/code changes
+must be rebuilt and re-synced into Xcode before testing or submitting a new build.

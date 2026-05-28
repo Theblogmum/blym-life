@@ -205,6 +205,10 @@ function VaultPage() {
   };
 
   const download = async (id: string) => {
+    if (isNativeIOS()) {
+      toast.info("Downloads are available from your web account.");
+      return;
+    }
     setBusy(id);
     try {
       const { url } = await signDownload({ data: { purchaseId: id } });

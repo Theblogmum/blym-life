@@ -22,6 +22,10 @@ function LibraryPage() {
   const [busy, setBusy] = useState<string | null>(null);
 
   const download = async (id: string) => {
+    if (isNativeIOS()) {
+      toast.info("Downloads are available from your web account.");
+      return;
+    }
     setBusy(id);
     try {
       const { url } = await sign({ data: { purchaseId: id } });
