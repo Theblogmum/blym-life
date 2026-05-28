@@ -140,18 +140,34 @@ export const CREATOR_FEATURES: Feature[] = [
 ];
 
 /**
- * Pro tier adds advanced growth + insight tooling on top of Creator.
- * Premium-only (business/admin) tools are still gated above Pro.
+ * Studio tier adds Growth Lab + Creator Business tooling on top of Creator.
+ * Pro tier inherits every Studio feature — Pro's differentiation is
+ * quality-of-service (priority generations, premium models, full gamification,
+ * beta access, VIP perks), not feature gating.
  */
-export const PRO_EXTRA_FEATURES: Feature[] = [
+export const STUDIO_EXTRA_FEATURES: Feature[] = [
+  // Growth Lab
   "recycler",
   "niche_audit",
   "profile_audit",
   "flop",
   "wins",
+  // Creator Business
+  "media_kit",
+  "pitch",
+  "deliverables",
+  "usage_rights",
+  "package_names",
+  "service_desc",
+  "passive_ideas",
+  "rejection",
 ];
 
-export const PRO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...PRO_EXTRA_FEATURES];
+export const STUDIO_FEATURES: Feature[] = [...CREATOR_FEATURES, ...STUDIO_EXTRA_FEATURES];
+// Pro inherits every Studio feature; differentiation is quality-of-service.
+export const PRO_FEATURES: Feature[] = STUDIO_FEATURES;
+// Back-compat alias (legacy imports).
+export const PRO_EXTRA_FEATURES: Feature[] = STUDIO_EXTRA_FEATURES;
 
 function startOfMonthISO(): string {
   const d = new Date();
@@ -332,7 +348,9 @@ export async function enforceTrial(
   if (tier === "pro") return recorder;
 
   if (tier === "studio") {
-    if (PRO_FEATURES.includes(feature)) return recorder;
+    if (STUDIO_FEATURES.includes(feature)) return recorder;
+    // Studio already inherits everything that's feature-gated;
+    // anything not in STUDIO_FEATURES is treated as Pro-only QoS.
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on Pro (£29.99/mo). Upgrade from Studio to unlock it.`,
     );
@@ -340,7 +358,8 @@ export async function enforceTrial(
 
   if (tier === "creator") {
     if (CREATOR_FEATURES.includes(feature)) return recorder;
-    const nextTier = "Pro (£29.99/mo)";
+    // Anything beyond Creator lives on Studio (Growth Lab + Creator Business).
+    const nextTier = "Studio (£14.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${nextTier}. Upgrade from Creator to use it.`,
     );
@@ -352,7 +371,7 @@ export async function enforceTrial(
   if (!isFreeFeature) {
     const tierName = CREATOR_FEATURES.includes(feature)
       ? "Creator (£6.99/mo)"
-      : "Pro (£29.99/mo)";
+      : "Studio (£14.99/mo)";
     throw new Error(
       `${FEATURE_LABELS[feature]} is unlocked on ${tierName}. Upgrade to use it — your free ideas, captions, planner and saves stay free forever.`,
     );
