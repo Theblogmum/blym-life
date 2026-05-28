@@ -50,7 +50,7 @@ function Page() {
           </div>
           <Button size="lg" className="h-12 w-full rounded-2xl text-base font-bold sm:w-auto" disabled={base < 1 || m.isPending || locked} onClick={() => m.mutate()}>
             <Sparkles className="mr-2 h-4 w-4" /> {m.isPending ? "Calculating…" : "Calculate"}</Button>
-          {locked && (<div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm"><p className="flex items-center gap-2"><Lock className="h-4 w-4" /> Trial ended</p><Link to="/settings"><Button size="sm" className="rounded-full">Upgrade</Button></Link></div>)}
+          {locked && (<div className="flex items-center justify-between gap-3 rounded-2xl surface-plum p-3 text-sm"><p className="flex items-center gap-2"><Lock className="h-4 w-4" /> Unlock with Studio</p><Link to="/settings"><Button size="sm" className="rounded-full">Unlock</Button></Link></div>)}
         </Card>
       </section>
       {m.data && (
