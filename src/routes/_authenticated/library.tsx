@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getMyPurchases, getDownloadUrl } from "@/lib/store.functions";
 import { Button } from "@/components/ui/button";
-import { Download, ShoppingBag, BookHeart } from "lucide-react";
+import { Download, BookHeart } from "lucide-react";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/empty-state";
 import { PageHero } from "@/components/page-hero";

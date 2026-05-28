@@ -7,7 +7,7 @@ import { getDownloadUrl } from "@/lib/store.functions";
 import { REWARDS } from "@/lib/rewards-content";
 import { PageHero } from "@/components/page-hero";
 import { EmptyState } from "@/components/empty-state";
-import { Sparkles, Copy, Download, Trash2, BookHeart, Gift, ShoppingBag, Search, X } from "lucide-react";
+import { Sparkles, Copy, Download, Trash2, BookHeart, Gift, Search, X } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
