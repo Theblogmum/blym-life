@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'life.blym.app',
+  appId: 'com.blym.app',
   appName: 'Blym',
   webDir: 'native-shell',
   server: {
@@ -24,7 +24,7 @@ const config: CapacitorConfig = {
   },
   ios: {
     contentInset: 'automatic',
-    scheme: 'life.blym.app',
+    scheme: 'com.blym.app',
     limitsNavigationsToAppBoundDomains: false,
   },
 };
