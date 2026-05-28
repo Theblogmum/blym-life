@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as StoreRouteImport } from './routes/store'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as RefundRouteImport } from './routes/refund'
@@ -21,8 +20,6 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as StoreSuccessRouteImport } from './routes/store_.success'
-import { Route as StoreSlugRouteImport } from './routes/store_.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedWelcomeRouteImport } from './routes/_authenticated/welcome'
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
@@ -90,11 +87,6 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
-const StoreRoute = StoreRouteImport.update({
-  id: '/store',
-  path: '/store',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -137,16 +129,6 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoreSuccessRoute = StoreSuccessRouteImport.update({
-  id: '/store_/success',
-  path: '/store/success',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoreSlugRoute = StoreSlugRouteImport.update({
-  id: '/store_/$slug',
-  path: '/store/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
@@ -464,7 +446,6 @@ export interface FileRoutesByFullPath {
   '/refund': typeof RefundRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/store': typeof StoreRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/achievements': typeof AuthenticatedAchievementsRoute
@@ -511,8 +492,6 @@ export interface FileRoutesByFullPath {
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/welcome': typeof AuthenticatedWelcomeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/store/$slug': typeof StoreSlugRoute
-  '/store/success': typeof StoreSuccessRoute
   '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/post-reminders': typeof ApiPublicHooksPostRemindersRoute
@@ -535,7 +514,6 @@ export interface FileRoutesByTo {
   '/refund': typeof RefundRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/store': typeof StoreRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/achievements': typeof AuthenticatedAchievementsRoute
@@ -582,8 +560,6 @@ export interface FileRoutesByTo {
   '/viral-lab': typeof AuthenticatedViralLabRoute
   '/welcome': typeof AuthenticatedWelcomeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/store/$slug': typeof StoreSlugRoute
-  '/store/success': typeof StoreSuccessRoute
   '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/post-reminders': typeof ApiPublicHooksPostRemindersRoute
@@ -608,7 +584,6 @@ export interface FileRoutesById {
   '/refund': typeof RefundRoute
   '/signup': typeof SignupRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/store': typeof StoreRoute
   '/terms': typeof TermsRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/achievements': typeof AuthenticatedAchievementsRoute
@@ -655,8 +630,6 @@ export interface FileRoutesById {
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
   '/_authenticated/welcome': typeof AuthenticatedWelcomeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/store_/$slug': typeof StoreSlugRoute
-  '/store_/success': typeof StoreSuccessRoute
   '/_authenticated/admin_/products': typeof AuthenticatedAdminProductsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/post-reminders': typeof ApiPublicHooksPostRemindersRoute
@@ -681,7 +654,6 @@ export interface FileRouteTypes {
     | '/refund'
     | '/signup'
     | '/sitemap.xml'
-    | '/store'
     | '/terms'
     | '/unsubscribe'
     | '/achievements'
@@ -728,8 +700,6 @@ export interface FileRouteTypes {
     | '/viral-lab'
     | '/welcome'
     | '/email/unsubscribe'
-    | '/store/$slug'
-    | '/store/success'
     | '/admin/products'
     | '/lovable/email/suppression'
     | '/api/public/hooks/post-reminders'
@@ -752,7 +722,6 @@ export interface FileRouteTypes {
     | '/refund'
     | '/signup'
     | '/sitemap.xml'
-    | '/store'
     | '/terms'
     | '/unsubscribe'
     | '/achievements'
@@ -799,8 +768,6 @@ export interface FileRouteTypes {
     | '/viral-lab'
     | '/welcome'
     | '/email/unsubscribe'
-    | '/store/$slug'
-    | '/store/success'
     | '/admin/products'
     | '/lovable/email/suppression'
     | '/api/public/hooks/post-reminders'
@@ -824,7 +791,6 @@ export interface FileRouteTypes {
     | '/refund'
     | '/signup'
     | '/sitemap.xml'
-    | '/store'
     | '/terms'
     | '/unsubscribe'
     | '/_authenticated/achievements'
@@ -871,8 +837,6 @@ export interface FileRouteTypes {
     | '/_authenticated/viral-lab'
     | '/_authenticated/welcome'
     | '/email/unsubscribe'
-    | '/store_/$slug'
-    | '/store_/success'
     | '/_authenticated/admin_/products'
     | '/lovable/email/suppression'
     | '/api/public/hooks/post-reminders'
@@ -897,12 +861,9 @@ export interface RootRouteChildren {
   RefundRoute: typeof RefundRoute
   SignupRoute: typeof SignupRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  StoreRoute: typeof StoreRoute
   TermsRoute: typeof TermsRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
-  StoreSlugRoute: typeof StoreSlugRoute
-  StoreSuccessRoute: typeof StoreSuccessRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicHooksPostRemindersRoute: typeof ApiPublicHooksPostRemindersRoute
   ApiPublicHooksTrialRemindersRoute: typeof ApiPublicHooksTrialRemindersRoute
@@ -930,13 +891,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store': {
-      id: '/store'
-      path: '/store'
-      fullPath: '/store'
-      preLoaderRoute: typeof StoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1000,20 +954,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store_/success': {
-      id: '/store_/success'
-      path: '/store/success'
-      fullPath: '/store/success'
-      preLoaderRoute: typeof StoreSuccessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store_/$slug': {
-      id: '/store_/$slug'
-      path: '/store/$slug'
-      fullPath: '/store/$slug'
-      preLoaderRoute: typeof StoreSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
@@ -1519,12 +1459,9 @@ const rootRouteChildren: RootRouteChildren = {
   RefundRoute: RefundRoute,
   SignupRoute: SignupRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  StoreRoute: StoreRoute,
   TermsRoute: TermsRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
-  StoreSlugRoute: StoreSlugRoute,
-  StoreSuccessRoute: StoreSuccessRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicHooksPostRemindersRoute: ApiPublicHooksPostRemindersRoute,
   ApiPublicHooksTrialRemindersRoute: ApiPublicHooksTrialRemindersRoute,
@@ -1540,3 +1477,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
