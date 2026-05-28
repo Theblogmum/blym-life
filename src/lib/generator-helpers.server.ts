@@ -392,7 +392,7 @@ export async function enforceTrial(
     // Studio already inherits everything that's feature-gated;
     // anything not in STUDIO_FEATURES is treated as Pro-only QoS.
     throw new Error(
-      `${FEATURE_LABELS[feature]} is unlocked on Pro (£29.99/mo). Upgrade from Studio to unlock it.`,
+      `${FEATURE_LABELS[feature]} is unlocked on Pro (£27.99/mo). Upgrade from Studio to unlock it.`,
     );
   }
 
