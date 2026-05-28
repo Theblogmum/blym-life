@@ -6,6 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { createPortalSession } from "@/utils/payments.functions";
 import { toast } from "sonner";
 import { isNativeIOS } from "@/lib/platform";
+import { Button } from "@/components/ui/button";
 
 export function DunningBanner() {
   const { user } = useAuth();
@@ -19,8 +20,7 @@ export function DunningBanner() {
 
   const handle = async () => {
     if (onIOS) {
-      // Apple subs are managed in the App Store, not Stripe.
-      window.location.href = "https://apps.apple.com/account/billing";
+      toast.info("Manage your Apple subscription from iOS Settings > Apple ID > Subscriptions.");
       return;
     }
     setLoading(true);
@@ -42,13 +42,16 @@ export function DunningBanner() {
           ? "There's a billing issue with your Apple subscription. Update your payment method in the App Store to keep your Premium access."
           : "We couldn't take your last payment. Update your card to keep your Premium access."}
       </p>
-      <button
+      <Button
+        type="button"
+        size="sm"
+        variant="secondary"
         onClick={handle}
         disabled={loading}
-        className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-900 px-3 py-1 text-xs font-medium text-amber-50 hover:bg-amber-800 disabled:opacity-60"
+        className="h-7 shrink-0 rounded-full px-3 text-xs"
       >
         {loading ? "Opening…" : onIOS ? "Update in App Store" : "Update payment"} <ExternalLink className="h-3 w-3" />
-      </button>
+      </Button>
     </div>
   );
 }
