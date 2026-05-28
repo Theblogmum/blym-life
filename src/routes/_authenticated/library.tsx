@@ -8,6 +8,7 @@ import { Download, ShoppingBag, BookHeart } from "lucide-react";
 import { toast } from "sonner";
 import { EmptyState } from "@/components/empty-state";
 import { PageHero } from "@/components/page-hero";
+import { isNativeIOS } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/library")({
   head: () => ({ meta: [{ title: "My Library · Blym" }] }),
@@ -54,12 +55,14 @@ function LibraryPage() {
               title="your shelf is waiting ✨"
               description="guides and templates you buy land here — yours to download forever, anytime you need a nudge."
               action={
-                <a
-                  href="/store"
-                  className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background hover:opacity-90"
-                >
-                  Browse the store →
-                </a>
+                isNativeIOS() ? undefined : (
+                  <a
+                    href="/store"
+                    className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background hover:opacity-90"
+                  >
+                    Browse the store →
+                  </a>
+                )
               }
             />
           ) : (
