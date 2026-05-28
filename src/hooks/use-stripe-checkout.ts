@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createCheckoutSession } from "@/utils/payments.functions";
 import { toast } from "sonner";
+import { isNativeIOS } from "@/lib/platform";
 
 export function useStripeCheckout() {
   const [loading, setLoading] = useState(false);
@@ -12,6 +13,12 @@ export function useStripeCheckout() {
     successUrl?: string;
     cancelUrl?: string;
   }) => {
+    // App Store policy: never initiate Stripe/web checkout from inside the
+    // native iOS app. All iOS purchases must go through Apple IAP (RevenueCat).
+    if (isNativeIOS()) {
+      toast.error("Purchases on iOS go through the App Store.");
+      return;
+    }
     setLoading(true);
     try {
       const { url } = await create({
