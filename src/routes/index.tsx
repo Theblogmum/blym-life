@@ -579,7 +579,9 @@ function PricingPlans() {
           price="£29.99"
           priceSuffix="/mo"
           tagline="Your AI growth coach."
+          trial
           features={[
+            "3-day free trial — cancel anytime",
             "Everything in Studio",
             "Advanced AI coaching",
             "Personalised growth insights",
