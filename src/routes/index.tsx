@@ -387,8 +387,11 @@ function Landing() {
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
           <h2 className="mx-auto mt-4 max-w-2xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
-            Free to start. Upgrade when you're ready.
+            Try any plan free for 3 days.
           </h2>
+          <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+            No charge until day 3 — cancel anytime before then.
+          </p>
           <PricingPlans />
         </div>
       </section>
@@ -530,7 +533,9 @@ function PricingPlans() {
           price="£6.99"
           priceSuffix="/mo"
           tagline="Your everyday content system."
+          trial
           features={[
+            "3-day free trial — cancel anytime",
             "Create Studio",
             "Hook Studio",
             "Caption Studio",
@@ -551,7 +556,9 @@ function PricingPlans() {
           price="£14.99"
           priceSuffix="/mo"
           tagline="Build your creator business."
+          trial
           features={[
+            "3-day free trial — cancel anytime",
             "Everything in Creator",
             "Growth Lab",
             "Profile + niche audits",
@@ -572,7 +579,9 @@ function PricingPlans() {
           price="£29.99"
           priceSuffix="/mo"
           tagline="Your AI growth coach."
+          trial
           features={[
+            "3-day free trial — cancel anytime",
             "Everything in Studio",
             "Advanced AI coaching",
             "Personalised growth insights",
@@ -593,10 +602,10 @@ function PricingPlans() {
 }
 
 function PriceCard({
-  name, price, priceSuffix, tagline, features, cta, highlighted,
+  name, price, priceSuffix, tagline, features, cta, highlighted, trial,
 }: {
   name: string; price: string; priceSuffix?: string; tagline: string;
-  features: string[]; cta: { label: string; onClick: () => void; disabled?: boolean }; highlighted?: boolean;
+  features: string[]; cta: { label: string; onClick: () => void; disabled?: boolean }; highlighted?: boolean; trial?: boolean;
 }) {
   return (
     <div className={highlighted
@@ -610,6 +619,11 @@ function PriceCard({
         <p className="mt-2 font-display text-2xl font-normal tracking-tight sm:text-3xl">
           {price}<span className="ml-0.5 text-xs font-normal text-muted-foreground">{priceSuffix}</span>
         </p>
+        {trial && (
+          <p className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+            <Gift className="h-3 w-3" /> 3-day free trial
+          </p>
+        )}
         <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{tagline}</p>
         <ul className="mt-3 flex-1 space-y-1.5 text-[12px] leading-[1.4]">
           {features.map((f) => (
