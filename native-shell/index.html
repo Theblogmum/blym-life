@@ -14,22 +14,22 @@
       body {
         min-height: 100vh;
         margin: 0;
+        background: #fff7ed;
+      }
+      .splash {
+        position: fixed;
+        inset: 0;
         display: grid;
         place-items: center;
-        padding: 32px;
-        text-align: center;
+        background: #fff7ed;
+        z-index: 1;
       }
-      main {
-        display: grid;
-        gap: 14px;
-      }
-      h1 {
-        margin: 0;
-        font-size: 28px;
-      }
-      p {
-        margin: 0;
-        color: #5f6b7a;
+      .splash img {
+        width: 96px;
+        height: 96px;
+        object-fit: contain;
+        border-radius: 22px;
+        display: block;
       }
       iframe {
         position: fixed;
@@ -38,14 +38,14 @@
         height: 100%;
         border: 0;
         background: #fff7ed;
+        z-index: 2;
       }
     </style>
   </head>
   <body>
-    <main aria-hidden="true">
-      <h1>Blym</h1>
-      <p>Opening your app…</p>
-    </main>
+    <div class="splash" aria-hidden="true">
+      <img src="./blym-icon.png" alt="" />
+    </div>
     <iframe title="Blym" src="https://www.blym.life/"></iframe>
   </body>
 </html>
