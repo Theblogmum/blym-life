@@ -11,7 +11,6 @@ import {
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMe } from "@/lib/profile.functions";
 import { getXp } from "@/lib/xp.functions";
-import { TrialPill } from "@/components/trial-pill";
 import { EraRibbon } from "@/components/era-theme";
 import { cn } from "@/lib/utils";
 import { celebrate as fxCelebrate, pop as fxPop } from "@/lib/celebrate";
@@ -192,7 +191,6 @@ function HomePage() {
                     style={{ textShadow: "0 1px 0 oklch(1 0 0 / 0.5)" }}>
                   {opener}
                 </h1>
-                <TrialPill />
               </div>
               {/* one encouraging sentence — always visible, emotional anchor */}
               <p className="mt-5 max-w-[34ch] text-[14.5px] leading-relaxed text-foreground/65 sm:text-[16.5px]">
