@@ -387,8 +387,11 @@ function Landing() {
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-8">
           <p className="eyebrow">Pricing</p>
           <h2 className="mx-auto mt-4 max-w-2xl font-display text-[34px] font-normal leading-[1.05] tracking-[-0.02em] text-balance sm:text-[56px]">
-            Free to start. Upgrade when you're ready.
+            Try any plan free for 3 days.
           </h2>
+          <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+            No charge until day 3 — cancel anytime before then.
+          </p>
           <PricingPlans />
         </div>
       </section>
