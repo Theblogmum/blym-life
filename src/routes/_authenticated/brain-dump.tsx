@@ -581,3 +581,38 @@ function ChipBlock({
     </div>
   );
 }
+
+function MediaThumb({ m }: { m: any }) {
+  const isVideo = m?.type?.startsWith("video/");
+  const isImage = m?.type?.startsWith("image/");
+  if (!m?.url) {
+    return (
+      <div className="grid aspect-square w-full place-items-center overflow-hidden rounded-xl bg-secondary">
+        <ImageIcon className="h-5 w-5 text-foreground/40" />
+      </div>
+    );
+  }
+  if (isVideo) {
+    return (
+      <video
+        src={m.url}
+        className="aspect-square w-full rounded-xl bg-black object-cover"
+        controls
+        playsInline
+        preload="metadata"
+      />
+    );
+  }
+  if (isImage) {
+    return (
+      <a href={m.url} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-xl bg-secondary">
+        <img src={m.url} alt={m.name} className="aspect-square w-full object-cover" />
+      </a>
+    );
+  }
+  return (
+    <div className="grid aspect-square w-full place-items-center overflow-hidden rounded-xl bg-secondary">
+      <ImageIcon className="h-5 w-5 text-foreground/40" />
+    </div>
+  );
+}
