@@ -29,7 +29,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       metadata: { userId, priceKey: data.priceId },
       subscription_data:
         mapping.mode === "subscription"
-          ? { metadata: { userId, priceKey: data.priceId } }
+          ? { metadata: { userId, priceKey: data.priceId }, trial_period_days: 3 }
           : undefined,
       payment_intent_data:
         mapping.mode === "payment"
