@@ -56,6 +56,113 @@ export type Database = {
         }
         Relationships: []
       }
+      brain_dump_ideas: {
+        Row: {
+          best_platform: string | null
+          best_time: string | null
+          caption: string | null
+          category: string | null
+          created_at: string
+          dump_id: string
+          format: string | null
+          hashtags: string[]
+          hook: string | null
+          id: string
+          position: number
+          posting_strategy: string | null
+          script: string | null
+          seo_keywords: string[]
+          text_overlay: string | null
+          title: string
+          user_id: string
+          uses_media: string[]
+          voiceover: string | null
+        }
+        Insert: {
+          best_platform?: string | null
+          best_time?: string | null
+          caption?: string | null
+          category?: string | null
+          created_at?: string
+          dump_id: string
+          format?: string | null
+          hashtags?: string[]
+          hook?: string | null
+          id?: string
+          position?: number
+          posting_strategy?: string | null
+          script?: string | null
+          seo_keywords?: string[]
+          text_overlay?: string | null
+          title: string
+          user_id: string
+          uses_media?: string[]
+          voiceover?: string | null
+        }
+        Update: {
+          best_platform?: string | null
+          best_time?: string | null
+          caption?: string | null
+          category?: string | null
+          created_at?: string
+          dump_id?: string
+          format?: string | null
+          hashtags?: string[]
+          hook?: string | null
+          id?: string
+          position?: number
+          posting_strategy?: string | null
+          script?: string | null
+          seo_keywords?: string[]
+          text_overlay?: string | null
+          title?: string
+          user_id?: string
+          uses_media?: string[]
+          voiceover?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brain_dump_ideas_dump_id_fkey"
+            columns: ["dump_id"]
+            isOneToOne: false
+            referencedRelation: "brain_dumps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brain_dumps: {
+        Row: {
+          created_at: string
+          error: string | null
+          id: string
+          media: Json
+          raw_text: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          media?: Json
+          raw_text?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          error?: string | null
+          id?: string
+          media?: Json
+          raw_text?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       brand_pitches: {
         Row: {
           body: string

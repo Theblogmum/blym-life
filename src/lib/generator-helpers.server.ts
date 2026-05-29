@@ -70,7 +70,8 @@ export type Feature =
   | "passive_ideas"
   | "rejection"
   | "wins"
-  | "motivation";
+  | "motivation"
+  | "brain_dump";
 
 export const FEATURE_LABELS: Record<Feature, string> = {
   generator: "Content Generator",
@@ -102,6 +103,7 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   rejection: "Rejection Recovery",
   wins: "Doing Better Insights",
   motivation: "Daily Motivation",
+  brain_dump: "Brain Dump™",
 };
 
 /**
@@ -166,6 +168,8 @@ export const STUDIO_EXTRA_FEATURES: Feature[] = [
   "profile_audit",
   "flop",
   "wins",
+  // Brain Dump
+  "brain_dump",
   // Creator Business
   "media_kit",
   "pitch",
