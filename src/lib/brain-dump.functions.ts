@@ -120,44 +120,32 @@ Return 4-8 ideas. Reference attached media by their id (path) in uses_media when
       properties: {
         ideas: {
           type: "array",
-          minItems: 3,
-          maxItems: 10,
           items: {
             type: "object",
             properties: {
-              title: { type: "string", description: "Short content title" },
-              category: { type: "string", description: "e.g. Beach Day, Sibling Bloopers" },
-              format: {
-                type: "string",
-                enum: ["standalone", "batched"],
-                description: "standalone = single clip; batched = multi-clip edited video",
-              },
-              hook: { type: "string", description: "First 3 seconds — pattern interrupt" },
-              script: { type: "string", description: "Full word-for-word script or shot list" },
-              voiceover: { type: "string", description: "Suggested voiceover line, or empty" },
-              text_overlay: { type: "string", description: "On-screen text copy" },
-              caption: { type: "string", description: "Full caption ready to paste" },
-              hashtags: { type: "array", items: { type: "string" }, minItems: 5, maxItems: 15 },
-              seo_keywords: { type: "array", items: { type: "string" }, minItems: 3, maxItems: 10 },
-              best_platform: { type: "string", description: "TikTok, Instagram Reels, YouTube Shorts, Pinterest" },
-              best_time: { type: "string", description: "Best posting day/time window" },
-              posting_strategy: { type: "string", description: "How to post for best reach" },
-              uses_media: {
-                type: "array",
-                items: { type: "string" },
-                description: "Media path ids referenced, if any",
-              },
+              title: { type: "string" },
+              category: { type: "string" },
+              format: { type: "string" },
+              hook: { type: "string" },
+              script: { type: "string" },
+              voiceover: { type: "string" },
+              text_overlay: { type: "string" },
+              caption: { type: "string" },
+              hashtags: { type: "array", items: { type: "string" } },
+              seo_keywords: { type: "array", items: { type: "string" } },
+              best_platform: { type: "string" },
+              best_time: { type: "string" },
+              posting_strategy: { type: "string" },
+              uses_media: { type: "array", items: { type: "string" } },
             },
             required: [
               "title", "format", "hook", "script", "caption",
               "hashtags", "seo_keywords", "best_platform", "best_time", "posting_strategy",
             ],
-            additionalProperties: false,
           },
         },
       },
       required: ["ideas"],
-      additionalProperties: false,
     };
 
     try {
