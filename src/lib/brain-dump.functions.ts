@@ -168,7 +168,7 @@ Return 4-8 ideas. Reference attached media by their id (path) in uses_media when
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-2.5-flash",
+          model: "google/gemini-2.5-pro",
           messages: [
             {
               role: "system",
@@ -188,6 +188,7 @@ Return 4-8 ideas. Reference attached media by their id (path) in uses_media when
             },
           ],
           tool_choice: { type: "function", function: { name: "content_plan" } },
+          max_tokens: 8000,
         }),
       });
 
@@ -200,9 +201,24 @@ Return 4-8 ideas. Reference attached media by their id (path) in uses_media when
       }
 
       const json = await res.json();
-      const call = json.choices?.[0]?.message?.tool_calls?.[0];
-      if (!call) throw new Error("AI returned no plan");
-      const parsed = JSON.parse(call.function.arguments) as { ideas: any[] };
+      const msg = json.choices?.[0]?.message;
+      const call = msg?.tool_calls?.[0];
+      let parsed: { ideas: any[] } | null = null;
+      if (call?.function?.arguments) {
+        try { parsed = JSON.parse(call.function.arguments); } catch {}
+      }
+      // Fallback: some models return JSON in content instead of using tool_calls
+      if (!parsed && typeof msg?.content === "string" && msg.content.trim()) {
+        const raw = msg.content.trim();
+        const jsonMatch = raw.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          try { parsed = JSON.parse(jsonMatch[0]); } catch {}
+        }
+      }
+      if (!parsed) {
+        console.error("Brain dump: no plan in response", JSON.stringify(json).slice(0, 2000));
+        throw new Error("AI returned no plan — try fewer/smaller attachments or simpler prompt");
+      }
       const ideas = Array.isArray(parsed.ideas) ? parsed.ideas : [];
       if (!ideas.length) throw new Error("AI returned no ideas");
 
