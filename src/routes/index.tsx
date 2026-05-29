@@ -596,10 +596,10 @@ function PricingPlans() {
 }
 
 function PriceCard({
-  name, price, priceSuffix, tagline, features, cta, highlighted,
+  name, price, priceSuffix, tagline, features, cta, highlighted, trial,
 }: {
   name: string; price: string; priceSuffix?: string; tagline: string;
-  features: string[]; cta: { label: string; onClick: () => void; disabled?: boolean }; highlighted?: boolean;
+  features: string[]; cta: { label: string; onClick: () => void; disabled?: boolean }; highlighted?: boolean; trial?: boolean;
 }) {
   return (
     <div className={highlighted
@@ -613,6 +613,11 @@ function PriceCard({
         <p className="mt-2 font-display text-2xl font-normal tracking-tight sm:text-3xl">
           {price}<span className="ml-0.5 text-xs font-normal text-muted-foreground">{priceSuffix}</span>
         </p>
+        {trial && (
+          <p className="mt-1 inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+            <Gift className="h-3 w-3" /> 3-day free trial
+          </p>
+        )}
         <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground">{tagline}</p>
         <ul className="mt-3 flex-1 space-y-1.5 text-[12px] leading-[1.4]">
           {features.map((f) => (
