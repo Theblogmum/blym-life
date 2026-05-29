@@ -556,7 +556,9 @@ function PricingPlans() {
           price="£14.99"
           priceSuffix="/mo"
           tagline="Build your creator business."
+          trial
           features={[
+            "3-day free trial — cancel anytime",
             "Everything in Creator",
             "Growth Lab",
             "Profile + niche audits",
