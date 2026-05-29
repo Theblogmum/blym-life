@@ -22,6 +22,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { PageHero } from "@/components/page-hero";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/_authenticated/brain-dump")({
   component: BrainDumpPage,
@@ -45,6 +46,22 @@ const EXAMPLE = `I have a camera roll full and I don't know what to do with it. 
 
 function BrainDumpPage() {
   const qc = useQueryClient();
+  const { user } = useAuth();
+  const tierQ = useQuery({
+    queryKey: ["my-tier", user?.id],
+    enabled: !!user,
+    queryFn: async () => {
+      const { data } = await supabase
+        .from("profiles")
+        .select("tier")
+        .eq("id", user!.id)
+        .maybeSingle();
+      return (data?.tier ?? "free") as string;
+    },
+  });
+  const tier = tierQ.data ?? "free";
+  const hasAccess = ["studio", "pro", "ultimate", "premium", "lifetime"].includes(tier);
+
   const signFn = useServerFn(getBrainDumpUploadUrl);
   const analyseFn = useServerFn(analyseBrainDump);
   const listFn = useServerFn(listBrainDumps);
@@ -152,6 +169,42 @@ function BrainDumpPage() {
     navigator.clipboard.writeText(s);
     toast.success(label);
   };
+
+  if (tierQ.isLoading) {
+    return (
+      <div className="grid min-h-[60vh] place-items-center text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!hasAccess) {
+    return (
+      <div>
+        <PageHero
+          icon={Brain}
+          eyebrow="Brain Dump™"
+          title="Dump the chaos. Walk away with a full content plan."
+          description="Drop your messy ideas + camera roll. I'll categorise it all and hand you back fully-optimised content — hooks, scripts, captions, hashtags, SEO, the lot."
+          variant="plum"
+        />
+        <section className="mx-auto max-w-2xl px-5 py-12">
+          <Card glow className="rounded-3xl border-0 p-8 text-center shadow-[var(--shadow-glow)] surface-plum">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-background/60">
+              <Lock className="h-6 w-6" />
+            </div>
+            <h2 className="mt-4 font-display text-2xl font-black">Brain Dump™ is a Studio + Pro feature</h2>
+            <p className="mx-auto mt-2 max-w-md text-sm text-foreground/70">
+              Upgrade to Studio (£14.99/mo) or Pro (£29.99/mo) to unlock the Brain Dump™ organiser, plus the full Growth Lab and Creator Business toolkit. Start with a 3-day free trial.
+            </p>
+            <Button asChild size="lg" className="mt-6 h-12 rounded-2xl px-6 font-bold">
+              <Link to="/settings">Upgrade plan</Link>
+            </Button>
+          </Card>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div>
