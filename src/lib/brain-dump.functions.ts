@@ -111,7 +111,10 @@ ${data.rawText}
 ${data.media.length ? `Attached media (${data.media.length}):\n${mediaSummary.join("\n")}\n` : ""}
 Your job: Take this chaos and turn it into an organised content plan. Categorise every distinct idea/scene into its own ready-to-post piece of content. For each one, decide whether it works best as a standalone clip (with text/voice overlay) OR as part of a batched/edited multi-clip video — and explain why. Then give the creator EVERYTHING they need to post it for maximum reach: hook, full word-for-word script, voiceover line, text-overlay copy, caption, hashtags, SEO keywords, best platform, best posting time, and a posting strategy. Be specific, real, and British English. No AI clichés.
 
-Return 4-8 ideas. Reference attached media by their id (path) in uses_media when relevant.`;
+Return 4-8 ideas.
+
+CRITICAL — MEDIA ASSIGNMENT:
+${data.media.length ? `The creator has attached ${data.media.length} files (listed above with their ids). EVERY attached file MUST be assigned to at least one idea in the "uses_media" array using its exact id (the path string). Do not leave any attached file unused — if a clip doesn't obviously fit an idea, INVENT an idea that uses it (e.g. b-roll montage, "day in the life", behind-the-scenes). The whole point of the upload is to turn THESE specific clips/photos into posts.` : `No media attached — leave uses_media as an empty array for every idea.`}`;
 
     userContent.unshift({ type: "text", text: prompt });
 
