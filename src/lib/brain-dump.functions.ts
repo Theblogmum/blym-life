@@ -115,38 +115,26 @@ Return 4-8 ideas. Reference attached media by their id (path) in uses_media when
 
     userContent.unshift({ type: "text", text: prompt });
 
-    const schema = {
-      type: "object",
-      properties: {
-        ideas: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              title: { type: "string" },
-              category: { type: "string" },
-              format: { type: "string" },
-              hook: { type: "string" },
-              script: { type: "string" },
-              voiceover: { type: "string" },
-              text_overlay: { type: "string" },
-              caption: { type: "string" },
-              hashtags: { type: "array", items: { type: "string" } },
-              seo_keywords: { type: "array", items: { type: "string" } },
-              best_platform: { type: "string" },
-              best_time: { type: "string" },
-              posting_strategy: { type: "string" },
-              uses_media: { type: "array", items: { type: "string" } },
-            },
-            required: [
-              "title", "format", "hook", "script", "caption",
-              "hashtags", "seo_keywords", "best_platform", "best_time", "posting_strategy",
-            ],
-          },
-        },
-      },
-      required: ["ideas"],
-    };
+    const jsonShape = `{
+  "ideas": [
+    {
+      "title": "string",
+      "category": "string",
+      "format": "standalone" or "batched",
+      "hook": "string",
+      "script": "string",
+      "voiceover": "string",
+      "text_overlay": "string",
+      "caption": "string",
+      "hashtags": ["string", ...],
+      "seo_keywords": ["string", ...],
+      "best_platform": "string",
+      "best_time": "string",
+      "posting_strategy": "string",
+      "uses_media": ["path id", ...]
+    }
+  ]
+}`;
 
     try {
       const res = await fetch(GATEWAY, {
@@ -161,21 +149,11 @@ Return 4-8 ideas. Reference attached media by their id (path) in uses_media when
             {
               role: "system",
               content:
-                "You are a content strategist for mum creators. You take messy idea dumps and camera-roll footage and turn them into fully-optimised, ready-to-post content plans. Be specific, real, British English, no AI clichés.",
+                `You are a content strategist for mum creators. You take messy idea dumps and camera-roll footage and turn them into fully-optimised, ready-to-post content plans. Be specific, real, British English, no AI clichés.\n\nYou MUST respond with valid JSON only — no markdown, no commentary, no code fences. Use exactly this shape:\n${jsonShape}\n\nReturn 4-8 ideas.`,
             },
             { role: "user", content: userContent },
           ],
-          tools: [
-            {
-              type: "function",
-              function: {
-                name: "content_plan",
-                description: "Categorised content plan for the brain dump",
-                parameters: schema,
-              },
-            },
-          ],
-          tool_choice: { type: "function", function: { name: "content_plan" } },
+          response_format: { type: "json_object" },
           max_tokens: 8000,
         }),
       });
