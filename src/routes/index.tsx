@@ -533,7 +533,9 @@ function PricingPlans() {
           price="£6.99"
           priceSuffix="/mo"
           tagline="Your everyday content system."
+          trial
           features={[
+            "3-day free trial — cancel anytime",
             "Create Studio",
             "Hook Studio",
             "Caption Studio",
