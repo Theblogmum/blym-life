@@ -59,6 +59,7 @@ import { Route as AuthenticatedCharacterRouteImport } from './routes/_authentica
 import { Route as AuthenticatedBusinessRouteImport } from './routes/_authenticated/business'
 import { Route as AuthenticatedBrollRouteImport } from './routes/_authenticated/broll'
 import { Route as AuthenticatedBrandHubRouteImport } from './routes/_authenticated/brand-hub'
+import { Route as AuthenticatedBrainDumpRouteImport } from './routes/_authenticated/brain-dump'
 import { Route as AuthenticatedBioOptimiserRouteImport } from './routes/_authenticated/bio-optimiser'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
 import { Route as AuthenticatedAffiliatesRouteImport } from './routes/_authenticated/affiliates'
@@ -340,6 +341,11 @@ const AuthenticatedBrandHubRoute = AuthenticatedBrandHubRouteImport.update({
   path: '/brand-hub',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedBrainDumpRoute = AuthenticatedBrainDumpRouteImport.update({
+  id: '/brain-dump',
+  path: '/brain-dump',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedBioOptimiserRoute =
   AuthenticatedBioOptimiserRouteImport.update({
     id: '/bio-optimiser',
@@ -453,6 +459,7 @@ export interface FileRoutesByFullPath {
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
+  '/brain-dump': typeof AuthenticatedBrainDumpRoute
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
@@ -521,6 +528,7 @@ export interface FileRoutesByTo {
   '/affiliates': typeof AuthenticatedAffiliatesRoute
   '/app': typeof AuthenticatedAppRoute
   '/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
+  '/brain-dump': typeof AuthenticatedBrainDumpRoute
   '/brand-hub': typeof AuthenticatedBrandHubRoute
   '/broll': typeof AuthenticatedBrollRoute
   '/business': typeof AuthenticatedBusinessRoute
@@ -591,6 +599,7 @@ export interface FileRoutesById {
   '/_authenticated/affiliates': typeof AuthenticatedAffiliatesRoute
   '/_authenticated/app': typeof AuthenticatedAppRoute
   '/_authenticated/bio-optimiser': typeof AuthenticatedBioOptimiserRoute
+  '/_authenticated/brain-dump': typeof AuthenticatedBrainDumpRoute
   '/_authenticated/brand-hub': typeof AuthenticatedBrandHubRoute
   '/_authenticated/broll': typeof AuthenticatedBrollRoute
   '/_authenticated/business': typeof AuthenticatedBusinessRoute
@@ -661,6 +670,7 @@ export interface FileRouteTypes {
     | '/affiliates'
     | '/app'
     | '/bio-optimiser'
+    | '/brain-dump'
     | '/brand-hub'
     | '/broll'
     | '/business'
@@ -729,6 +739,7 @@ export interface FileRouteTypes {
     | '/affiliates'
     | '/app'
     | '/bio-optimiser'
+    | '/brain-dump'
     | '/brand-hub'
     | '/broll'
     | '/business'
@@ -798,6 +809,7 @@ export interface FileRouteTypes {
     | '/_authenticated/affiliates'
     | '/_authenticated/app'
     | '/_authenticated/bio-optimiser'
+    | '/_authenticated/brain-dump'
     | '/_authenticated/brand-hub'
     | '/_authenticated/broll'
     | '/_authenticated/business'
@@ -1229,6 +1241,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedBrandHubRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/brain-dump': {
+      id: '/_authenticated/brain-dump'
+      path: '/brain-dump'
+      fullPath: '/brain-dump'
+      preLoaderRoute: typeof AuthenticatedBrainDumpRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/bio-optimiser': {
       id: '/_authenticated/bio-optimiser'
       path: '/bio-optimiser'
@@ -1357,6 +1376,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAffiliatesRoute: typeof AuthenticatedAffiliatesRoute
   AuthenticatedAppRoute: typeof AuthenticatedAppRoute
   AuthenticatedBioOptimiserRoute: typeof AuthenticatedBioOptimiserRoute
+  AuthenticatedBrainDumpRoute: typeof AuthenticatedBrainDumpRoute
   AuthenticatedBrandHubRoute: typeof AuthenticatedBrandHubRoute
   AuthenticatedBrollRoute: typeof AuthenticatedBrollRoute
   AuthenticatedBusinessRoute: typeof AuthenticatedBusinessRoute
@@ -1404,6 +1424,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAffiliatesRoute: AuthenticatedAffiliatesRoute,
   AuthenticatedAppRoute: AuthenticatedAppRoute,
   AuthenticatedBioOptimiserRoute: AuthenticatedBioOptimiserRoute,
+  AuthenticatedBrainDumpRoute: AuthenticatedBrainDumpRoute,
   AuthenticatedBrandHubRoute: AuthenticatedBrandHubRoute,
   AuthenticatedBrollRoute: AuthenticatedBrollRoute,
   AuthenticatedBusinessRoute: AuthenticatedBusinessRoute,

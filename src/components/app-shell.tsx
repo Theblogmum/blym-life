@@ -59,6 +59,7 @@ const SECTIONS: Section[] = [
     groups: [
       {
         label: "Create Studio™", icon: Sparkles, items: [
+          { to: "/brain-dump", label: "Brain Dump™" },
           { to: "/generator", label: "Idea Lab™" },
           { to: "/generator", label: "Hook Studio™" },
           { to: "/generator", label: "Caption Studio™" },
