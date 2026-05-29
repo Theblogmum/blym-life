@@ -364,17 +364,7 @@ function BrainDumpPage() {
                   </p>
                   <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
                     {detailQ.data.dump.media.map((m: any) => (
-                      <div key={m.path} className="overflow-hidden rounded-xl bg-secondary">
-                        {m.url && m.type?.startsWith("image/") ? (
-                          <img src={m.url} alt={m.name} className="aspect-square w-full object-cover" />
-                        ) : m.url && m.type?.startsWith("video/") ? (
-                          <video src={m.url} className="aspect-square w-full object-cover" muted />
-                        ) : (
-                          <div className="grid aspect-square w-full place-items-center">
-                            <ImageIcon className="h-5 w-5 text-foreground/40" />
-                          </div>
-                        )}
-                      </div>
+                      <MediaThumb key={m.path} m={m} />
                     ))}
                   </div>
                 </Card>
@@ -383,6 +373,12 @@ function BrainDumpPage() {
               <div className="grid gap-4">
                 {detailQ.data.ideas.map((idea: any, idx: number) => {
                   const surface = ["surface-peach", "surface-mint", "surface-sky", "surface-plum", "surface-butter"][idx % 5];
+                  const allMedia: any[] = Array.isArray(detailQ.data.dump.media) ? detailQ.data.dump.media : [];
+                  const linked: any[] = Array.isArray(idea.uses_media)
+                    ? idea.uses_media
+                        .map((p: string) => allMedia.find((m) => m.path === p))
+                        .filter(Boolean)
+                    : [];
                   return (
                     <Card key={idea.id} className={cn("rounded-3xl border-0 p-6 shadow-[var(--shadow-soft)]", surface)}>
                       <div className="flex items-start justify-between gap-3">
@@ -444,6 +440,19 @@ function BrainDumpPage() {
                           </div>
                         )}
                       </div>
+
+                      {linked.length > 0 && (
+                        <div className="mt-4 rounded-2xl bg-background/60 p-3">
+                          <p className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-foreground/60">
+                            <Film className="h-3 w-3" /> Use these clips ({linked.length})
+                          </p>
+                          <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-5">
+                            {linked.map((m: any) => (
+                              <MediaThumb key={m.path} m={m} />
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </Card>
                   );
                 })}
