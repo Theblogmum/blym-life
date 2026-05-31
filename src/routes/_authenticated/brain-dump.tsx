@@ -38,11 +38,15 @@ type StagedFile = {
   note: string;
 };
 
-const EXAMPLE = `I have a camera roll full and I don't know what to do with it. My camera roll contains:
+const EXAMPLE = `My camera roll is full and I want you to turn it into successful content, complete with full SEO optimisation, captions, hashtags and scripts for voiceover options where applicable.
 
-- Beach day with the kids — in the water, on the sand, driving to the beach.
-- Park days — swings, slides, feeding the ducks, picking flowers.
-- Siblings fighting, then noticing the camera and pretending they were being angels all along, giggling.`;
+My content contains the following:
+
+Toddler clips, tantrums, reading, cuddles / quiet time, nap time.
+
+Day out with family, kids eating icecream, walking on the beach, going to the park, on the swings, playing football.
+
+And mini vlog style content, such as get ready with me, mummy make up, cleaning the house, doing meal prep / cooking.`;
 
 function BrainDumpPage() {
   const qc = useQueryClient();
