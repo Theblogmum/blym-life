@@ -3,7 +3,7 @@ import {
   Home, Sparkles, Calendar, TrendingUp, DollarSign, Heart,
   Settings, LogOut, ChevronDown, ShoppingBag, MessageCircle,
   Menu, Bell, Search, Shield, Command as CommandIcon, Trophy,
-  Gift, Users, Flag, Wand2, Target, Volume2, VolumeX,
+  Gift, Users, Flag, Target, Volume2, VolumeX,
   PanelLeftClose, PanelLeft, BookHeart,
 } from "lucide-react";
 import { useState, useMemo, useEffect, type ReactNode } from "react";
