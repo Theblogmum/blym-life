@@ -42,7 +42,6 @@ import { Route as AuthenticatedPassiveIdeasRouteImport } from './routes/_authent
 import { Route as AuthenticatedMotivationRouteImport } from './routes/_authenticated/motivation'
 import { Route as AuthenticatedMilestonesRouteImport } from './routes/_authenticated/milestones'
 import { Route as AuthenticatedMediaKitRouteImport } from './routes/_authenticated/media-kit'
-import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedJourneyRouteImport } from './routes/_authenticated/journey'
 import { Route as AuthenticatedInvoicesRouteImport } from './routes/_authenticated/invoices'
 import { Route as AuthenticatedInsightsRouteImport } from './routes/_authenticated/insights'
@@ -246,11 +245,6 @@ const AuthenticatedMilestonesRoute = AuthenticatedMilestonesRouteImport.update({
 const AuthenticatedMediaKitRoute = AuthenticatedMediaKitRouteImport.update({
   id: '/media-kit',
   path: '/media-kit',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedLibraryRoute = AuthenticatedLibraryRouteImport.update({
-  id: '/library',
-  path: '/library',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedJourneyRoute = AuthenticatedJourneyRouteImport.update({
@@ -469,7 +463,6 @@ export interface FileRoutesByFullPath {
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/journey': typeof AuthenticatedJourneyRoute
-  '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
@@ -537,7 +530,6 @@ export interface FileRoutesByTo {
   '/insights': typeof AuthenticatedInsightsRoute
   '/invoices': typeof AuthenticatedInvoicesRoute
   '/journey': typeof AuthenticatedJourneyRoute
-  '/library': typeof AuthenticatedLibraryRoute
   '/media-kit': typeof AuthenticatedMediaKitRoute
   '/milestones': typeof AuthenticatedMilestonesRoute
   '/motivation': typeof AuthenticatedMotivationRoute
@@ -607,7 +599,6 @@ export interface FileRoutesById {
   '/_authenticated/insights': typeof AuthenticatedInsightsRoute
   '/_authenticated/invoices': typeof AuthenticatedInvoicesRoute
   '/_authenticated/journey': typeof AuthenticatedJourneyRoute
-  '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/media-kit': typeof AuthenticatedMediaKitRoute
   '/_authenticated/milestones': typeof AuthenticatedMilestonesRoute
   '/_authenticated/motivation': typeof AuthenticatedMotivationRoute
@@ -677,7 +668,6 @@ export interface FileRouteTypes {
     | '/insights'
     | '/invoices'
     | '/journey'
-    | '/library'
     | '/media-kit'
     | '/milestones'
     | '/motivation'
@@ -745,7 +735,6 @@ export interface FileRouteTypes {
     | '/insights'
     | '/invoices'
     | '/journey'
-    | '/library'
     | '/media-kit'
     | '/milestones'
     | '/motivation'
@@ -814,7 +803,6 @@ export interface FileRouteTypes {
     | '/_authenticated/insights'
     | '/_authenticated/invoices'
     | '/_authenticated/journey'
-    | '/_authenticated/library'
     | '/_authenticated/media-kit'
     | '/_authenticated/milestones'
     | '/_authenticated/motivation'
@@ -1110,13 +1098,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMediaKitRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/library': {
-      id: '/_authenticated/library'
-      path: '/library'
-      fullPath: '/library'
-      preLoaderRoute: typeof AuthenticatedLibraryRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/journey': {
       id: '/_authenticated/journey'
       path: '/journey'
@@ -1373,7 +1354,6 @@ interface AuthenticatedRouteChildren {
   AuthenticatedInsightsRoute: typeof AuthenticatedInsightsRoute
   AuthenticatedInvoicesRoute: typeof AuthenticatedInvoicesRoute
   AuthenticatedJourneyRoute: typeof AuthenticatedJourneyRoute
-  AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRoute
   AuthenticatedMediaKitRoute: typeof AuthenticatedMediaKitRoute
   AuthenticatedMilestonesRoute: typeof AuthenticatedMilestonesRoute
   AuthenticatedMotivationRoute: typeof AuthenticatedMotivationRoute
@@ -1420,7 +1400,6 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedInsightsRoute: AuthenticatedInsightsRoute,
   AuthenticatedInvoicesRoute: AuthenticatedInvoicesRoute,
   AuthenticatedJourneyRoute: AuthenticatedJourneyRoute,
-  AuthenticatedLibraryRoute: AuthenticatedLibraryRoute,
   AuthenticatedMediaKitRoute: AuthenticatedMediaKitRoute,
   AuthenticatedMilestonesRoute: AuthenticatedMilestonesRoute,
   AuthenticatedMotivationRoute: AuthenticatedMotivationRoute,

@@ -69,7 +69,6 @@ const SECTIONS: Section[] = [
           { to: "/cta-generator", label: "Action Lines™" },
           { to: "/engagement-booster", label: "Engagement Boost™" },
           { to: "/viral-lab", label: "Viral Lab™" },
-          { to: "/library", label: "Idea Library™" },
         ],
       },
     ],
