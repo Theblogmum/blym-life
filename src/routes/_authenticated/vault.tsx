@@ -170,7 +170,7 @@ function VaultPage() {
 
   const filterTabs = useMemo(() => {
     const tabs = [{ id: "all", label: "Everything", emoji: "✨" }];
-    const order = ["purchase", "hook", "caption", "pitch", "script", "audio", "lesson", "theme", "saved"];
+    const order = ["hook", "caption", "pitch", "script", "audio", "lesson", "theme", "saved"];
     for (const k of order) {
       if (counts[k]) tabs.push({ id: k, label: KIND_LABELS[k], emoji: KIND_EMOJI[k] });
     }
