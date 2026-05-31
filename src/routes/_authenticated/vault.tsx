@@ -217,7 +217,7 @@ function VaultPage() {
       <PageHero
         icon={BookHeart}
         eyebrow=""
-        title="Content Vault"
+        title="My Creative Vault™"
         description="rewards, hooks, captions, scripts — all your magic in one beautiful place. yours forever"
         variant="sunrise"
       >
