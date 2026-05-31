@@ -316,9 +316,15 @@ function VaultPage() {
                   )}
                   style={{ ["--stat-glow" as any]: KIND_GLOW[s.id] }}
                 >
+                  {/* Large coloured shadow behind top of card */}
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full opacity-25 blur-2xl transition-opacity duration-300 group-hover:opacity-60"
+                    className="pointer-events-none absolute -right-4 -top-10 h-28 w-28 rounded-full opacity-40 blur-2xl transition-opacity duration-300 group-hover:opacity-75"
+                    style={{ background: KIND_GLOW[s.id] }}
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -left-6 -top-8 h-24 w-24 rounded-full opacity-25 blur-2xl transition-opacity duration-300 group-hover:opacity-60"
                     style={{ background: KIND_GLOW[s.id] }}
                   />
                   <div className="relative flex items-baseline justify-between">
