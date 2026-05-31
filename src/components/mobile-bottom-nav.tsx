@@ -8,7 +8,6 @@ type Props = {
 
 const ITEMS = [
   { to: "/app", label: "Today", icon: Home },
-  { to: "/film-this", label: "Film", icon: Sparkles },
   { to: "/planner", label: "Plan", icon: Calendar },
 ] as const;
 

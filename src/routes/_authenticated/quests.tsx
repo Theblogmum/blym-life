@@ -22,7 +22,7 @@ const DAILY: Quest[] = [
   { id: "open", emoji: "👋", title: "open the app (done bestie)", xp: 5, tint: "var(--surface-rose)" },
   { id: "idea", emoji: "💡", title: "grab 1 content idea", xp: 10, to: "/generator", tint: "var(--surface-butter)" },
   { id: "hook", emoji: "🪝", title: "save a hook you like", xp: 10, to: "/viral-lab", tint: "var(--surface-mint)" },
-  { id: "film", emoji: "🎬", title: "film 1 thing (even 5 sec)", xp: 15, to: "/film-this", tint: "var(--surface-sky)" },
+  { id: "film", emoji: "🎬", title: "film 1 thing (even 5 sec)", xp: 15, to: "/app", tint: "var(--surface-sky)" },
   { id: "pep", emoji: "🫶", title: "read today's pep talk", xp: 5, to: "/motivation", tint: "var(--surface-blush)" },
 ];
 

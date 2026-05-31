@@ -4,7 +4,7 @@ type Tool = { emoji: string; title: string; sub: string; xp: number; tint: strin
 
 const TOOLS: Record<string, Tool> = {
   "/generator":            { emoji: "💡", title: "give me an idea",      sub: "ok let's cook something 🍳",            xp: 10, tint: "var(--surface-butter)" },
-  "/film-this":            { emoji: "🎬", title: "film this now",        sub: "tiny clip > no clip. press record bestie", xp: 15, tint: "var(--surface-rose)" },
+  "/app":            { emoji: "🎬", title: "today's brief",        sub: "tiny clip > no clip. press record bestie", xp: 15, tint: "var(--surface-rose)" },
   "/viral-lab":            { emoji: "🪝", title: "hook lab",             sub: "scroll-stopping in 3, 2, 1…",            xp: 10, tint: "var(--surface-mint)" },
   "/recycler":             { emoji: "♻️", title: "recycle old posts",    sub: "your old wins still slap",               xp: 10, tint: "var(--surface-sky)" },
   "/cta-generator":        { emoji: "📣", title: "CTA lines",            sub: "say the thing. tell them what to do.",   xp: 5,  tint: "var(--surface-blush)" },
