@@ -25,6 +25,7 @@ import { Route as AuthenticatedWelcomeRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedViralLabRouteImport } from './routes/_authenticated/viral-lab'
 import { Route as AuthenticatedVaultRouteImport } from './routes/_authenticated/vault'
 import { Route as AuthenticatedUsageRightsRouteImport } from './routes/_authenticated/usage-rights'
+import { Route as AuthenticatedStudioRouteImport } from './routes/_authenticated/studio'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedSeriesBuilderRouteImport } from './routes/_authenticated/series-builder'
 import { Route as AuthenticatedSeoKeywordsRouteImport } from './routes/_authenticated/seo-keywords'
@@ -156,6 +157,11 @@ const AuthenticatedUsageRightsRoute =
     path: '/usage-rights',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedStudioRoute = AuthenticatedStudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -480,6 +486,7 @@ export interface FileRoutesByFullPath {
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/studio': typeof AuthenticatedStudioRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/vault': typeof AuthenticatedVaultRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
@@ -547,6 +554,7 @@ export interface FileRoutesByTo {
   '/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/settings': typeof AuthenticatedSettingsRoute
+  '/studio': typeof AuthenticatedStudioRoute
   '/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/vault': typeof AuthenticatedVaultRoute
   '/viral-lab': typeof AuthenticatedViralLabRoute
@@ -616,6 +624,7 @@ export interface FileRoutesById {
   '/_authenticated/seo-keywords': typeof AuthenticatedSeoKeywordsRoute
   '/_authenticated/series-builder': typeof AuthenticatedSeriesBuilderRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/studio': typeof AuthenticatedStudioRoute
   '/_authenticated/usage-rights': typeof AuthenticatedUsageRightsRoute
   '/_authenticated/vault': typeof AuthenticatedVaultRoute
   '/_authenticated/viral-lab': typeof AuthenticatedViralLabRoute
@@ -685,6 +694,7 @@ export interface FileRouteTypes {
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
+    | '/studio'
     | '/usage-rights'
     | '/vault'
     | '/viral-lab'
@@ -752,6 +762,7 @@ export interface FileRouteTypes {
     | '/seo-keywords'
     | '/series-builder'
     | '/settings'
+    | '/studio'
     | '/usage-rights'
     | '/vault'
     | '/viral-lab'
@@ -820,6 +831,7 @@ export interface FileRouteTypes {
     | '/_authenticated/seo-keywords'
     | '/_authenticated/series-builder'
     | '/_authenticated/settings'
+    | '/_authenticated/studio'
     | '/_authenticated/usage-rights'
     | '/_authenticated/vault'
     | '/_authenticated/viral-lab'
@@ -977,6 +989,13 @@ declare module '@tanstack/react-router' {
       path: '/usage-rights'
       fullPath: '/usage-rights'
       preLoaderRoute: typeof AuthenticatedUsageRightsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/studio': {
+      id: '/_authenticated/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof AuthenticatedStudioRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/settings': {
@@ -1371,6 +1390,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedSeoKeywordsRoute: typeof AuthenticatedSeoKeywordsRoute
   AuthenticatedSeriesBuilderRoute: typeof AuthenticatedSeriesBuilderRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedStudioRoute: typeof AuthenticatedStudioRoute
   AuthenticatedUsageRightsRoute: typeof AuthenticatedUsageRightsRoute
   AuthenticatedVaultRoute: typeof AuthenticatedVaultRoute
   AuthenticatedViralLabRoute: typeof AuthenticatedViralLabRoute
@@ -1417,6 +1437,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedSeoKeywordsRoute: AuthenticatedSeoKeywordsRoute,
   AuthenticatedSeriesBuilderRoute: AuthenticatedSeriesBuilderRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedStudioRoute: AuthenticatedStudioRoute,
   AuthenticatedUsageRightsRoute: AuthenticatedUsageRightsRoute,
   AuthenticatedVaultRoute: AuthenticatedVaultRoute,
   AuthenticatedViralLabRoute: AuthenticatedViralLabRoute,

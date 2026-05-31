@@ -31,13 +31,18 @@ const EXAMPLE_TOPICS = [
 ];
 
 export const Route = createFileRoute("/_authenticated/generator")({
+  validateSearch: (s: Record<string, unknown>) => ({
+    kind: typeof s.kind === "string" ? s.kind : undefined,
+  }),
   component: GeneratorPage,
 });
 
 function GeneratorPage() {
   const fn = useServerFn(generateContent);
   const fetchUsage = useServerFn(getUsageToday);
-  const [kind, setKind] = useState<string>("hook");
+  const search = Route.useSearch();
+  const initialKind = search.kind && KINDS.some((k) => k.v === search.kind) ? search.kind : "hook";
+  const [kind, setKind] = useState<string>(initialKind);
   const [topic, setTopic] = useState("");
   const usage = useQuery({ queryKey: ["usage", "today"], queryFn: () => fetchUsage() });
 
