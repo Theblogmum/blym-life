@@ -71,7 +71,7 @@ function StudioPage() {
         eyebrow="Create"
         title="My Studio™"
         subtitle="Your creative command centre — hooks, captions, ideas and scripts in one beautiful place."
-        icon={<Sparkles className="h-5 w-5" />}
+        icon={Sparkles}
       />
 
       <div className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
