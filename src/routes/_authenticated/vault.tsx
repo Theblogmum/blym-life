@@ -170,7 +170,7 @@ function VaultPage() {
 
   const filterTabs = useMemo(() => {
     const tabs = [{ id: "all", label: "Everything", emoji: "✨" }];
-    const order = ["purchase", "hook", "caption", "pitch", "script", "audio", "lesson", "theme", "saved"];
+    const order = ["hook", "caption", "pitch", "script", "audio", "lesson", "theme", "saved"];
     for (const k of order) {
       if (counts[k]) tabs.push({ id: k, label: KIND_LABELS[k], emoji: KIND_EMOJI[k] });
     }
@@ -216,13 +216,12 @@ function VaultPage() {
     <div>
       <PageHero
         icon={BookHeart}
-        eyebrow="Content Vault™"
-        title="everything you've saved, in one place ✨"
-        description="purchases, rewards, hooks, captions, scripts — all your magic in one beautiful place. yours forever."
+        eyebrow=""
+        title="Content Vault"
+        description="rewards, hooks, captions, scripts — all your magic in one beautiful place. yours forever"
         variant="sunrise"
       >
         <div className="flex flex-wrap gap-2">
-          <span className="chip-soft">🛍️ {counts.purchase ?? 0} purchased</span>
           <span className="chip-soft">🎁 {(data?.claimed ?? []).length} rewards</span>
           <span className="chip-soft">🤍 {(data?.saved ?? []).length} saved</span>
         </div>
