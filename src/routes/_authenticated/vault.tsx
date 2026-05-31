@@ -1,13 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { getVaultData, deleteSavedItem } from "@/lib/vault.functions";
 import { getDownloadUrl } from "@/lib/store.functions";
 import { REWARDS } from "@/lib/rewards-content";
-import { PageHero } from "@/components/page-hero";
 import { EmptyState } from "@/components/empty-state";
-import { Sparkles, Copy, Download, Trash2, BookHeart, Gift, Search, X } from "lucide-react";
+import {
+  Sparkles, Copy, Download, Trash2, BookHeart, Search, X, Heart,
+  ChevronLeft, ChevronRight,
+} from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -28,6 +30,7 @@ type Pin = {
   purchaseId?: string;
   savedId?: string;
   hasFile?: boolean;
+  createdAt?: string;
 };
 
 const KIND_LABELS: Record<string, string> = {
@@ -88,6 +91,40 @@ function bucketRewardKind(rewardId: string, rewardKind: string): Pin["kind"] {
   return "hook";
 }
 
+const FAV_KEY = "vault:favourites";
+
+function useFavourites() {
+  const [favs, setFavs] = useState<Set<string>>(new Set());
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(FAV_KEY);
+      if (raw) setFavs(new Set(JSON.parse(raw)));
+    } catch {}
+  }, []);
+  const toggle = (id: string) => {
+    setFavs((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      try { localStorage.setItem(FAV_KEY, JSON.stringify([...next])); } catch {}
+      return next;
+    });
+  };
+  return { favs, toggle };
+}
+
+function formatDate(iso?: string) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  const now = Date.now();
+  const diff = (now - d.getTime()) / 1000;
+  if (diff < 60) return "just now";
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  if (diff < 86400 * 7) return `${Math.floor(diff / 86400)}d ago`;
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
 function VaultPage() {
   const qc = useQueryClient();
   const fetchVault = useServerFn(getVaultData);
@@ -98,6 +135,8 @@ function VaultPage() {
   const [filter, setFilter] = useState<string>("all");
   const [q, setQ] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
+  const { favs, toggle: toggleFav } = useFavourites();
+  const railRef = useRef<HTMLDivElement>(null);
 
   const deleteMut = useMutation({
     mutationFn: (id: string) => deleteSaved({ data: { id } }),
@@ -126,6 +165,7 @@ function VaultPage() {
         cover: prod.cover_url ?? undefined,
         purchaseId: p.id,
         hasFile: !!prod.file_path,
+        createdAt: p.created_at,
       });
     }
 
@@ -156,6 +196,7 @@ function VaultPage() {
         glow: KIND_GLOW[pinKind],
         emoji: KIND_EMOJI[pinKind] ?? "🤍",
         savedId: s.id,
+        createdAt: s.created_at,
       });
     }
 
@@ -170,16 +211,18 @@ function VaultPage() {
 
   const filterTabs = useMemo(() => {
     const tabs = [{ id: "all", label: "Everything", emoji: "✨" }];
+    if (favs.size) tabs.push({ id: "favourites", label: "Favourites", emoji: "❤️" });
     const order = ["hook", "caption", "pitch", "script", "audio", "lesson", "theme", "saved"];
     for (const k of order) {
       if (counts[k]) tabs.push({ id: k, label: KIND_LABELS[k], emoji: KIND_EMOJI[k] });
     }
     return tabs;
-  }, [counts]);
+  }, [counts, favs.size]);
 
   const visiblePins = useMemo(() => {
     let list = pins;
-    if (filter !== "all") list = list.filter((p) => p.kind === filter);
+    if (filter === "favourites") list = list.filter((p) => favs.has(p.id));
+    else if (filter !== "all") list = list.filter((p) => p.kind === filter);
     if (q.trim()) {
       const needle = q.trim().toLowerCase();
       list = list.filter(
@@ -189,7 +232,23 @@ function VaultPage() {
       );
     }
     return list;
-  }, [pins, filter, q]);
+  }, [pins, filter, q, favs]);
+
+  const recentPins = useMemo(
+    () => [...pins]
+      .filter((p) => p.createdAt)
+      .sort((a, b) => (b.createdAt! > a.createdAt! ? 1 : -1))
+      .slice(0, 12),
+    [pins],
+  );
+
+  const STAT_KINDS: Array<{ id: Pin["kind"]; label: string; emoji: string }> = [
+    { id: "hook",    label: "Hooks",    emoji: "🪝" },
+    { id: "caption", label: "Captions", emoji: "💌" },
+    { id: "script",  label: "Scripts",  emoji: "🎬" },
+    { id: "saved",   label: "Ideas",    emoji: "💡" },
+    { id: "pitch",   label: "Pitches",  emoji: "💼" },
+  ];
 
   const copy = async (text: string, label: string) => {
     try {
@@ -212,22 +271,123 @@ function VaultPage() {
     }
   };
 
+  const scrollRail = (dir: 1 | -1) => {
+    railRef.current?.scrollBy({ left: dir * 360, behavior: "smooth" });
+  };
+
   return (
     <div>
-      <PageHero
-        icon={BookHeart}
-        eyebrow=""
-        title="My Creative Vault™"
-        description="rewards, hooks, captions, scripts — all your magic in one beautiful place. yours forever"
-        variant="sunrise"
-      >
-        <div className="flex flex-wrap gap-2">
-          <span className="chip-soft">🎁 {(data?.claimed ?? []).length} rewards</span>
-          <span className="chip-soft">🤍 {(data?.saved ?? []).length} saved</span>
-        </div>
-      </PageHero>
+      {/* Compact creator dashboard header */}
+      <section className="relative border-b border-border/30 bg-background">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-70"
+          style={{ background: "radial-gradient(50% 70% at 0% 0%, color-mix(in oklab, var(--surface-blush) 38%, transparent), transparent 60%), radial-gradient(40% 60% at 100% 0%, color-mix(in oklab, var(--surface-mint) 28%, transparent), transparent 60%)" }}
+        />
+        <div className="relative mx-auto max-w-6xl px-5 pt-6 pb-5 sm:px-6">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center rounded-2xl bg-white/80 ring-1 ring-white/60 shadow-[var(--shadow-soft)] backdrop-blur-sm">
+                <BookHeart className="h-4.5 w-4.5 text-foreground/80" />
+              </div>
+              <div>
+                <h1 className="font-display text-[22px] font-bold leading-none tracking-[-0.02em] sm:text-[26px]">
+                  My Creative Vault™
+                </h1>
+                <p className="mt-1 text-[12px] text-foreground/55">
+                  {pins.length} pieces of magic, all yours forever
+                </p>
+              </div>
+            </div>
+          </div>
 
-      <section className="mx-auto max-w-6xl px-5 py-6 sm:py-8">
+          {/* Stat cards */}
+          <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+            {STAT_KINDS.map((s) => {
+              const count = counts[s.id] ?? 0;
+              const active = filter === s.id;
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => setFilter(active ? "all" : s.id)}
+                  className={cn(
+                    "group relative overflow-hidden rounded-2xl bg-white/75 px-3.5 py-3 text-left ring-1 ring-white/60 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_18px_40px_-22px_var(--stat-glow)]",
+                    active && "ring-2 ring-foreground/70 bg-white",
+                  )}
+                  style={{ ["--stat-glow" as any]: KIND_GLOW[s.id] }}
+                >
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -right-6 -top-6 h-16 w-16 rounded-full opacity-25 blur-2xl transition-opacity duration-300 group-hover:opacity-60"
+                    style={{ background: KIND_GLOW[s.id] }}
+                  />
+                  <div className="relative flex items-baseline justify-between">
+                    <span className="text-[20px]">{s.emoji}</span>
+                    <span className="font-display text-[22px] font-bold tracking-tight tabular-nums">{count}</span>
+                  </div>
+                  <div className="relative mt-1 text-[11.5px] font-semibold uppercase tracking-[0.12em] text-foreground/55">
+                    {s.label}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-6 sm:py-7">
+        {/* Recently saved rail */}
+        {recentPins.length > 0 && (
+          <div className="mb-7">
+            <div className="mb-3 flex items-end justify-between">
+              <div>
+                <h2 className="font-display text-[17px] font-bold tracking-[-0.012em]">Recently saved</h2>
+                <p className="text-[11.5px] text-foreground/50">your latest sparks of inspiration</p>
+              </div>
+              <div className="hidden gap-1 sm:flex">
+                <button onClick={() => scrollRail(-1)} className="grid h-8 w-8 place-items-center rounded-full bg-white/80 ring-1 ring-foreground/10 transition hover:bg-white hover:-translate-y-0.5" aria-label="scroll left">
+                  <ChevronLeft className="h-3.5 w-3.5" />
+                </button>
+                <button onClick={() => scrollRail(1)} className="grid h-8 w-8 place-items-center rounded-full bg-white/80 ring-1 ring-foreground/10 transition hover:bg-white hover:-translate-y-0.5" aria-label="scroll right">
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+            <div
+              ref={railRef}
+              className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {recentPins.map((pin) => (
+                <button
+                  key={`rail-${pin.id}`}
+                  onClick={() => copy(pin.body ?? pin.title, pin.title)}
+                  className="group relative w-[240px] shrink-0 snap-start overflow-hidden rounded-2xl bg-white/85 p-3.5 text-left ring-1 ring-white/60 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-22px_var(--pin-glow)]"
+                  style={{ ["--pin-glow" as any]: pin.glow }}
+                >
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -top-8 right-0 h-20 w-20 rounded-full opacity-25 blur-2xl transition-opacity duration-300 group-hover:opacity-60"
+                    style={{ background: pin.glow }}
+                  />
+                  <div className="relative flex items-center gap-2">
+                    <span className="text-[15px]">{pin.emoji}</span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-foreground/45">
+                      {KIND_LABELS[pin.kind] ?? pin.kind}
+                    </span>
+                    <span className="ml-auto text-[10px] text-foreground/40">{formatDate(pin.createdAt)}</span>
+                  </div>
+                  <h3 className="relative mt-2 line-clamp-2 font-display text-[13.5px] font-bold leading-snug tracking-[-0.01em]">
+                    {pin.title}
+                  </h3>
+                  {pin.body && (
+                    <p className="relative mt-1.5 line-clamp-2 text-[11.5px] leading-snug text-foreground/55">{pin.body}</p>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* search + filter */}
         <div className="mb-6 flex flex-col gap-3">
           <div className="relative">
@@ -235,8 +395,8 @@ function VaultPage() {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="search your vault…"
-              className="w-full rounded-full bg-white/80 px-11 py-3 text-[14px] ring-1 ring-foreground/10 backdrop-blur-sm transition-all placeholder:text-foreground/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-foreground/20"
+              placeholder="Search your captions, hooks, scripts and ideas…"
+              className="w-full rounded-2xl bg-white/80 px-11 py-3.5 text-[14px] ring-1 ring-foreground/10 backdrop-blur-sm transition-all placeholder:text-foreground/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-foreground/25"
             />
             {q && (
               <button
@@ -261,7 +421,9 @@ function VaultPage() {
               >
                 <span className="mr-1">{t.emoji}</span>
                 {t.label}
-                <span className="ml-1.5 text-[10.5px] opacity-60">{counts[t.id] ?? counts.all}</span>
+                <span className="ml-1.5 text-[10.5px] opacity-60">
+                  {t.id === "favourites" ? favs.size : counts[t.id] ?? counts.all}
+                </span>
               </button>
             ))}
           </div>
@@ -294,6 +456,8 @@ function VaultPage() {
                 onCopy={() => pin.body && copy(pin.body, pin.title)}
                 onDownload={() => pin.purchaseId && download(pin.purchaseId)}
                 onDelete={() => pin.savedId && deleteMut.mutate(pin.savedId)}
+                isFav={favs.has(pin.id)}
+                onToggleFav={() => toggleFav(pin.id)}
                 busy={busy === pin.purchaseId}
               />
             ))}
@@ -314,12 +478,16 @@ function PinCard({
   onCopy,
   onDownload,
   onDelete,
+  isFav,
+  onToggleFav,
   busy,
 }: {
   pin: Pin;
   onCopy: () => void;
   onDownload: () => void;
   onDelete: () => void;
+  isFav: boolean;
+  onToggleFav: () => void;
   busy: boolean;
 }) {
   return (
@@ -346,21 +514,32 @@ function PinCard({
           >
             {pin.emoji} {KIND_LABELS[pin.kind] ?? pin.kind}
           </span>
+          <button
+            onClick={onToggleFav}
+            aria-label={isFav ? "unfavourite" : "favourite"}
+            className={cn(
+              "ml-auto grid h-7 w-7 place-items-center rounded-full transition-all hover:-translate-y-0.5",
+              isFav ? "bg-foreground text-background" : "bg-white/80 text-foreground/40 ring-1 ring-foreground/10 hover:text-foreground",
+            )}
+          >
+            <Heart className={cn("h-3.5 w-3.5", isFav && "fill-current")} />
+          </button>
         </div>
 
-        <h3 className="font-display text-[15.5px] font-bold leading-snug tracking-[-0.012em]">
+        <h3 className="font-display text-[18px] font-bold leading-[1.2] tracking-[-0.015em]">
           {pin.title}
         </h3>
 
         {pin.body && (
-          <pre className="mt-2 max-h-48 overflow-hidden whitespace-pre-wrap break-words font-sans text-[12.5px] leading-relaxed text-foreground/70">
+          <pre className="mt-2 max-h-36 overflow-hidden whitespace-pre-wrap break-words font-sans text-[12px] leading-relaxed text-foreground/60">
             {pin.body}
           </pre>
         )}
 
-        <p className="mt-3 text-[10.5px] uppercase tracking-[0.14em] text-foreground/40">
-          {pin.source}
-        </p>
+        <div className="mt-3 flex items-center justify-between gap-2 text-[10.5px] uppercase tracking-[0.14em] text-foreground/40">
+          <span className="truncate">{pin.source}</span>
+          {pin.createdAt && <span className="shrink-0 normal-case tracking-normal text-foreground/45">· {formatDate(pin.createdAt)}</span>}
+        </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {pin.kind === "purchase" ? (
