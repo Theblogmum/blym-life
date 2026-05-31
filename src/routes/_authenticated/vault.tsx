@@ -216,13 +216,12 @@ function VaultPage() {
     <div>
       <PageHero
         icon={BookHeart}
-        eyebrow="Content Vault™"
-        title="everything you've saved, in one place ✨"
-        description="purchases, rewards, hooks, captions, scripts — all your magic in one beautiful place. yours forever."
+        eyebrow=""
+        title="Content Vault"
+        description="rewards, hooks, captions, scripts — all your magic in one beautiful place. yours forever"
         variant="sunrise"
       >
         <div className="flex flex-wrap gap-2">
-          <span className="chip-soft">🛍️ {counts.purchase ?? 0} purchased</span>
           <span className="chip-soft">🎁 {(data?.claimed ?? []).length} rewards</span>
           <span className="chip-soft">🤍 {(data?.saved ?? []).length} saved</span>
         </div>
