@@ -32,7 +32,7 @@ const TOOLS: Record<string, Tool> = {
   "/rejection-recovery":   { emoji: "🩹", title: "rejection recovery",   sub: "not for you, on to the next",            xp: 5,  tint: "var(--surface-rose)" },
   "/planner":              { emoji: "🗓️", title: "plan my week",         sub: "future you says thanks",                 xp: 15, tint: "var(--surface-plum)" },
   "/schedule":             { emoji: "📆", title: "schedule",             sub: "post-it but make it digital",            xp: 10, tint: "var(--surface-grape)" },
-  "/library":              { emoji: "🗃️", title: "saved stuff",          sub: "your hoard of good ideas",               xp: 5,  tint: "var(--surface-sky)" },
+  
   "/growth-coach":         { emoji: "🌱", title: "pep talk",             sub: "real coach energy, zero guru vibes",     xp: 5,  tint: "var(--surface-mint)" },
 };
 
