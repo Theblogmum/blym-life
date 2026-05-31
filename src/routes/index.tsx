@@ -405,7 +405,7 @@ function Landing() {
           {[
             { q: "Do I need to be on camera?", a: "Nope. Most briefs work as voiceover, hands-only or text-on-screen." },
             { q: "What platforms is it for?", a: "TikTok and Instagram Reels. Briefs are designed for short-form vertical video." },
-            { q: "How long does setup take?", a: "About 2 minutes. Tell us your niche, kids' ages and goal and you're in." },
+            { q: "How long does setup take?", a: "2 minutes, its super speedy!" },
             { q: "Can I cancel anytime?", a: "Yes — one click in Settings. No awkward emails." },
           ].map((f) => (
             <details key={f.q} className="group px-1 py-3 border-b border-border/50 [&_summary::-webkit-details-marker]:hidden">
