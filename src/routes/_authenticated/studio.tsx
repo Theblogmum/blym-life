@@ -70,7 +70,7 @@ function StudioPage() {
       <PageHero
         eyebrow="Create"
         title="My Studio™"
-        subtitle="Your creative command centre — hooks, captions, ideas and scripts in one beautiful place."
+        description="Your creative command centre — hooks, captions, ideas and scripts in one beautiful place."
         icon={Sparkles}
       />
 
