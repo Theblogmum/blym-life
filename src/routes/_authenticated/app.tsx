@@ -377,6 +377,7 @@ function HomePage() {
               <Link
                 key={t.label + t.to}
                 to={t.to}
+                search={t.search as any}
                 className="group relative flex h-[174px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-6"
                 style={{
                   background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
