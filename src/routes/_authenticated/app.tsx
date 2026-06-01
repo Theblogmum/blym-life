@@ -43,11 +43,19 @@ const MISSIONS = [
 ];
 
 // Only the BEST emotional/value tools — quiet shortcuts, not a tool drawer.
-const QUICK_TOOLS = [
-  { to: "/generator",          label: "Today's brief",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)",  search: undefined as undefined | Record<string, string> },
-  { to: "/generator",          label: "Hook lab",          hint: "scroll-stoppers",   icon: Flame,          glow: "oklch(0.78 0.18 25)",  search: { kind: "hook" } as Record<string, string> | undefined },
+type QuickTool = {
+  to: string;
+  label: string;
+  hint: string;
+  icon: typeof Camera;
+  glow: string;
+  search?: Record<string, string>;
+};
+const QUICK_TOOLS: QuickTool[] = [
+  { to: "/generator",          label: "Today's brief",      hint: "one ready brief",  icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
+  { to: "/generator",          label: "Hook lab",           hint: "scroll-stoppers",  icon: Flame,          glow: "oklch(0.78 0.18 25)", search: { kind: "hook" } },
   { to: "/rejection-recovery", label: "Rejection recovery", hint: "soft reply, sent", icon: HeartHandshake, glow: "oklch(0.72 0.22 340)" },
-  { to: "/business",           label: "Track money",       hint: "the receipts",      icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
+  { to: "/business",           label: "Track money",        hint: "the receipts",     icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
 ];
 
 function HomePage() {
