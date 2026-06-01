@@ -65,9 +65,9 @@ function GeneratorPage() {
     <div>
       <PageHero
         icon={Camera}
-        eyebrow="Content Generator"
-        title="Tell me what you filmed."
-        description="I'll turn it into hooks, captions, scripts, hashtags or a shot list — in your voice ✨"
+        eyebrow="Create"
+        title="My Studio™"
+        description="Hooks, captions, scripts, hashtags and shot lists — all in one place, in your voice ✨"
         variant="warm"
       >
         <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
