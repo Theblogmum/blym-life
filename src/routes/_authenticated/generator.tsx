@@ -4,15 +4,15 @@ import { useServerFn } from "@tanstack/react-start";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Camera, Copy, Check, Sparkles, Lightbulb, Lock } from "lucide-react";
+import { Wand2, Copy, Check, Sparkles, Lightbulb, Lock } from "lucide-react";
 import { toast } from "sonner";
 import { generateContent } from "@/lib/generator.functions";
 import { getUsageToday } from "@/lib/usage.functions";
 import { cn } from "@/lib/utils";
 import { PageHero, UsageChip } from "@/components/page-hero";
 import { TypingDots, IdeaGeneratedBadge } from "@/components/micro";
-import { PersonaBubble } from "@/components/ai-persona";
 import { AudienceFitPanel } from "@/components/audience-fit-panel";
+import { CreatorQuote, DailyNudge } from "@/components/creator-quote";
 
 const KINDS = [
   { v: "hook", l: "Hooks", emoji: "🎣", tip: "Stop the scroll in 2 seconds." },
@@ -64,97 +64,108 @@ function GeneratorPage() {
   return (
     <div>
       <PageHero
-        icon={Camera}
-        eyebrow="Create"
-        title="My Studio™"
-        description="Hooks, captions, scripts, hashtags and shot lists — all in one place, in your voice ✨"
+        icon={Wand2}
+        eyebrow="Welcome to your Studio"
+        title="Let's create something worth posting."
+        description="Hooks, captions, scripts, hashtags & shot lists — all in one place, in your voice."
         variant="warm"
       >
-        <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
+        <div className="flex flex-wrap items-center gap-2">
+          <UsageChip premium={premium} inTrial={inTrial} daysLeft={daysLeft} freeAllowed={captionsAlwaysFree} />
+          <DailyNudge />
+        </div>
       </PageHero>
 
-      <section className="mx-auto max-w-3xl space-y-7 px-5 py-10 sm:px-8">
-        <PersonaBubble tone="peach">
-          Hey lovely — pick what you need, drop the topic, and I'll write 5 options you can post tonight.
-        </PersonaBubble>
-        <div>
-          <p className="eyebrow">first — what should i write?</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {KINDS.map((k) => (
-              <button
-                key={k.v}
-                onClick={() => setKind(k.v)}
-                className={cn(
-                  "rounded-full border px-3.5 py-1.5 text-[13px] font-semibold transition-all duration-300",
-                  kind === k.v
-                    ? "border-foreground bg-foreground text-background shadow-[var(--shadow-soft)]"
-                    : "border-border/50 bg-card text-foreground/70 hover:-translate-y-[1px] hover:border-foreground/40 hover:text-foreground hover:shadow-[var(--shadow-xs)]",
-                )}
-              >
-                <span className="mr-1">{k.emoji}</span>
-                {k.l}
-              </button>
-            ))}
+      {/* Two-column workspace — kills the empty-page feeling */}
+      <section className="mx-auto grid max-w-5xl gap-5 px-4 pt-3 pb-6 sm:px-6 lg:grid-cols-[1fr_280px] lg:gap-6">
+        {/* === LEFT: the creation panel === */}
+        <div className="experience-hero float-card relative space-y-5 p-5 sm:p-6">
+          <div>
+            <p className="eyebrow">1 · pick your magic</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {KINDS.map((k) => (
+                <button
+                  key={k.v}
+                  onClick={() => setKind(k.v)}
+                  className={cn(
+                    "group/chip rounded-full px-3.5 py-1.5 text-[13px] font-semibold transition-all duration-300",
+                    kind === k.v
+                      ? "bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-[0_10px_24px_-8px_oklch(0.65_0.27_350/0.55)] scale-[1.04]"
+                      : "glass-chip text-foreground/75 hover:text-foreground",
+                  )}
+                >
+                  <span className="mr-1 transition-transform group-hover/chip:scale-125 inline-block">{k.emoji}</span>
+                  {k.l}
+                </button>
+              ))}
+            </div>
+            {activeKind && (
+              <p className="mt-3 flex items-start gap-1.5 text-[12px] text-foreground/65">
+                <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+                <span><span className="font-semibold text-foreground/80">{activeKind.l} tip:</span> {activeKind.tip}</span>
+              </p>
+            )}
           </div>
-        </div>
 
-        <div>
-          <label className="eyebrow">now — what's it about?</label>
-          <Input
-            className="mt-3 h-12 rounded-2xl border-border/50 bg-card text-base shadow-[var(--shadow-xs)] focus-visible:border-foreground/40 focus-visible:ring-0"
-            placeholder="Tell me in a sentence — e.g. 'surviving witching hour with a 2-year-old'"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-          />
-          <div className="mt-2.5 flex flex-wrap gap-1.5">
-            {EXAMPLE_TOPICS.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTopic(t)}
-                className="rounded-full bg-foreground/[0.04] px-2.5 py-1 text-[11.5px] text-foreground/65 transition hover:bg-foreground/[0.07] hover:text-foreground"
-              >
-                {t}
-              </button>
-            ))}
+          <div>
+            <p className="eyebrow">2 · what's it about?</p>
+            <Input
+              className="soft-input mt-3 h-12 text-base"
+              placeholder="e.g. 'surviving witching hour with a 2-year-old'"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+            />
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {EXAMPLE_TOPICS.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTopic(t)}
+                  className="rounded-full bg-white/55 px-2.5 py-1 text-[11.5px] font-medium text-foreground/65 ring-1 ring-white/60 backdrop-blur transition hover:-translate-y-[1px] hover:bg-white/80 hover:text-foreground"
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {activeKind && (
-          <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
-            <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-            <span><span className="font-semibold text-foreground/80">{activeKind.l} tip:</span> {activeKind.tip}</span>
-          </p>
-        )}
+          <Button
+            size="lg"
+            className="group h-12 w-full rounded-2xl text-[15px] font-extrabold tracking-[-0.005em] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[var(--shadow-elegant)]"
+            disabled={!topic.trim() || m.isPending || lockedKind}
+            onClick={() => m.mutate()}
+          >
+            <Sparkles className={cn("mr-2 h-4 w-4 transition-transform duration-500 group-hover:rotate-12", m.isPending && "animate-spin")} />
+            {m.isPending ? (
+              <span className="inline-flex items-center gap-2">Bloom is writing <TypingDots /></span>
+            ) : (
+              "Write me 5 options ✨"
+            )}
+          </Button>
 
-        <Button
-          size="lg"
-          className="group h-12 w-full rounded-2xl text-[15px] font-semibold tracking-[-0.005em] shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-[2px] hover:shadow-[var(--shadow-elegant)] sm:w-auto sm:px-7"
-          disabled={!topic.trim() || m.isPending || lockedKind}
-          onClick={() => m.mutate()}
-        >
-          <Sparkles className={cn("mr-2 h-4 w-4 transition-transform duration-500 group-hover:rotate-12", m.isPending && "animate-spin")} />
-          {m.isPending ? (
-            <span className="inline-flex items-center gap-2">Bloom is writing <TypingDots /></span>
-          ) : (
-            "Write me 5 options ✨"
+          {lockedKind && (
+            <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/40 bg-white/55 p-3.5 text-[13px] backdrop-blur">
+              <p className="flex items-center gap-2 text-foreground/85">
+                <Lock className="h-4 w-4 text-foreground/60" />
+                Captions stay free — {activeKind?.l.toLowerCase()} are in Creator.
+              </p>
+              <Link to="/settings">
+                <Button size="sm" className="rounded-full transition hover:-translate-y-[1px]">Upgrade</Button>
+              </Link>
+            </div>
           )}
-        </Button>
+        </div>
 
-        {lockedKind && (
-          <div className="flex items-center justify-between gap-3 rounded-2xl border border-border/30 bg-surface-plum p-3.5 text-[13px]">
-            <p className="flex items-center gap-2 text-foreground/85">
-              <Lock className="h-4 w-4 text-foreground/60" />
-              Captions stay free — {activeKind?.l.toLowerCase()} are included in Creator.
-            </p>
-            <Link to="/settings">
-              <Button size="sm" className="rounded-full transition hover:-translate-y-[1px]">Upgrade</Button>
-            </Link>
-          </div>
-        )}
+        {/* === RIGHT: dopamine sidebar (quote + mini tips). Stacks on mobile. === */}
+        <aside className="space-y-3.5">
+          <CreatorQuote />
+          <MiniTip emoji="⚡" title="First 2s = everything" body="Open mid-action. Skip the intro." />
+          <MiniTip emoji="💛" title="Be the friend" body="Captions like a group-chat text." />
+          <MiniTip emoji="🔁" title="One idea, 3 formats" body="Hook → script → caption from the same topic." />
+        </aside>
       </section>
 
       {options.length > 0 && (
-        <section className="mx-auto max-w-5xl px-5 pb-12 sm:px-8">
+        <section className="mx-auto max-w-5xl px-4 pb-12 sm:px-6">
           <div className="mb-5 flex items-center gap-3">
             <h2 className="section-heading">Here's what I'd post 👇</h2>
             <IdeaGeneratedBadge />
@@ -169,33 +180,6 @@ function GeneratorPage() {
           </div>
         </section>
       )}
-
-      {options.length === 0 && (
-        <section className="mx-auto max-w-5xl px-5 pb-16 sm:px-8">
-          <p className="eyebrow">while you think</p>
-          <h2 className="section-heading mb-5">Tips that actually work</h2>
-          <div className="grid gap-3 sm:gap-3.5 md:grid-cols-3">
-            <TipCard
-              emoji="⚡"
-              title="First 2 seconds = everything"
-              body="Open mid-action or with a question. No 'Hi guys, today we're going to…'"
-              surface="bg-surface-mint"
-            />
-            <TipCard
-              emoji="💛"
-              title="Be the friend, not the expert"
-              body="Write captions like you'd text your group chat. Real beats polished."
-              surface="bg-surface-sky"
-            />
-            <TipCard
-              emoji="🔁"
-              title="One idea, three formats"
-              body="Generate a hook, then a script, then a caption — all from the same topic."
-              surface="bg-surface-plum"
-            />
-          </div>
-        </section>
-      )}
     </div>
   );
 }
@@ -204,7 +188,7 @@ function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; 
   const [copied, setCopied] = useState(false);
   return (
     <div
-      className="card-pop group flex items-start justify-between gap-3 rounded-2xl border border-border/40 bg-card p-5 shadow-[var(--shadow-xs)] transition-all duration-500 ease-out hover:-translate-y-[2px] hover:border-border/60 hover:shadow-[var(--shadow-elegant)]"
+      className="card-pop float-card group flex items-start justify-between gap-3 rounded-2xl border border-border/40 bg-card p-5 shadow-[var(--shadow-xs)]"
       style={{ animationDelay: `${delayMs}ms` }}
     >
       <div className="flex flex-1 gap-3">
@@ -229,22 +213,16 @@ function ResultRow({ text, index, delayMs = 0 }: { text: string; index: number; 
   );
 }
 
-function TipCard({
-  emoji,
-  title,
-  body,
-  surface,
-}: {
-  emoji: string;
-  title: string;
-  body: string;
-  surface: string;
-}) {
+function MiniTip({ emoji, title, body }: { emoji: string; title: string; body: string }) {
   return (
-    <div className={cn("pastel-card p-5", surface)}>
-      <div className="text-[26px] leading-none">{emoji}</div>
-      <p className="mt-3 font-display text-[16px] font-bold leading-tight tracking-[-0.005em]">{title}</p>
-      <p className="mt-1.5 text-[13px] leading-relaxed text-foreground/70">{body}</p>
+    <div className="glass-chip float-card group rounded-2xl px-4 py-3">
+      <div className="flex items-start gap-3">
+        <span className="text-[20px] leading-none transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6">{emoji}</span>
+        <div className="min-w-0">
+          <p className="text-[13px] font-bold leading-tight text-foreground">{title}</p>
+          <p className="mt-0.5 text-[12px] leading-snug text-foreground/65">{body}</p>
+        </div>
+      </div>
     </div>
   );
 }
