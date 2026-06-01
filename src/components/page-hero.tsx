@@ -4,17 +4,19 @@ import { cn } from "@/lib/utils";
 
 type Variant = "warm" | "bloom" | "mint" | "sunrise" | "peach" | "sky" | "plum" | "butter" | "blush";
 
-// Compact accent strip + icon chip per variant. No more giant gradient panels.
-const VARIANT_ACCENT: Record<Variant, { strip: string; chip: string; eyebrow: string }> = {
-  warm:    { strip: "bg-[image:var(--gradient-warm)]",    chip: "surface-peach",  eyebrow: "text-[oklch(0.55_0.15_18)]" },
-  bloom:   { strip: "bg-[image:var(--gradient-bloom)]",   chip: "surface-plum",   eyebrow: "text-[oklch(0.5_0.14_350)]" },
-  mint:    { strip: "bg-[image:var(--gradient-mint)]",    chip: "surface-mint",   eyebrow: "text-[oklch(0.45_0.12_155)]" },
-  sunrise: { strip: "bg-[image:var(--gradient-sunrise)]", chip: "surface-butter", eyebrow: "text-[oklch(0.5_0.13_60)]" },
-  peach:   { strip: "bg-[image:var(--gradient-warm)]",    chip: "surface-peach",  eyebrow: "text-[oklch(0.55_0.15_18)]" },
-  sky:     { strip: "bg-[oklch(0.78_0.09_220)]",          chip: "surface-sky",    eyebrow: "text-[oklch(0.45_0.12_220)]" },
-  plum:    { strip: "bg-[image:var(--gradient-bloom)]",   chip: "surface-plum",   eyebrow: "text-[oklch(0.5_0.14_350)]" },
-  butter:  { strip: "bg-[oklch(0.85_0.09_80)]",           chip: "surface-butter", eyebrow: "text-[oklch(0.5_0.13_60)]" },
-  blush:   { strip: "bg-[image:var(--gradient-bloom)]",   chip: "surface-blush",  eyebrow: "text-[oklch(0.55_0.15_10)]" },
+// Per-variant tints: a halo gradient behind the icon + an accent eyebrow color.
+// The base .experience-hero card already provides the glassy gradient body —
+// these add personality without going back to flat "page header" land.
+const VARIANT_ACCENT: Record<Variant, { halo: string; chip: string; eyebrow: string }> = {
+  warm:    { halo: "var(--gradient-warm)",    chip: "surface-peach",  eyebrow: "text-[oklch(0.5_0.22_350)]" },
+  bloom:   { halo: "var(--gradient-bloom)",   chip: "surface-plum",   eyebrow: "text-[oklch(0.5_0.22_350)]" },
+  mint:    { halo: "var(--gradient-mint)",    chip: "surface-mint",   eyebrow: "text-[oklch(0.45_0.18_295)]" },
+  sunrise: { halo: "var(--gradient-sunrise)", chip: "surface-butter", eyebrow: "text-[oklch(0.5_0.18_60)]" },
+  peach:   { halo: "var(--gradient-warm)",    chip: "surface-peach",  eyebrow: "text-[oklch(0.5_0.22_350)]" },
+  sky:     { halo: "var(--gradient-bloom)",   chip: "surface-sky",    eyebrow: "text-[oklch(0.5_0.22_295)]" },
+  plum:    { halo: "var(--gradient-bloom)",   chip: "surface-plum",   eyebrow: "text-[oklch(0.5_0.22_320)]" },
+  butter:  { halo: "var(--gradient-sunrise)", chip: "surface-butter", eyebrow: "text-[oklch(0.5_0.18_60)]" },
+  blush:   { halo: "var(--gradient-bloom)",   chip: "surface-blush",  eyebrow: "text-[oklch(0.5_0.22_350)]" },
 };
 
 export function PageHero({
@@ -34,33 +36,58 @@ export function PageHero({
 }) {
   const v = VARIANT_ACCENT[variant];
   return (
-    <section className="page-enter relative border-b border-border/30 bg-background">
-      {/* Slim accent bar */}
-      <div aria-hidden className={cn("absolute inset-x-0 top-0 h-[3px] opacity-90", v.strip)} />
-      {/* Whisper of pastel haze */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{ background: "radial-gradient(60% 80% at 0% 0%, color-mix(in oklab, var(--surface-blush) 40%, transparent), transparent 60%), radial-gradient(40% 70% at 100% 0%, color-mix(in oklab, var(--surface-mint) 32%, transparent), transparent 60%)" }}
-      />
-      <div className="relative mx-auto max-w-5xl px-5 py-7 sm:px-8 sm:py-10">
-        <div className="flex items-start gap-3.5 sm:gap-4">
-          <div className={cn("grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-foreground/80 shadow-[var(--shadow-soft)] ring-1 ring-white/40", v.chip)}>
-            <Icon className="h-5 w-5" strokeWidth={2} />
-          </div>
-          <div className="flex-1 min-w-0">
-            {eyebrow && (
-              <p className={cn("text-[10px] font-bold uppercase tracking-[0.2em]", v.eyebrow)}>
-                {eyebrow}
+    <section className="page-enter relative bg-background">
+      <div className="relative mx-auto max-w-5xl px-4 pt-5 pb-3 sm:px-6 sm:pt-7">
+        <div className="experience-hero p-5 sm:p-7">
+          {/* Floating decorative blobs */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full opacity-60 blur-3xl"
+            style={{ background: v.halo }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -bottom-16 -left-10 h-52 w-52 rounded-full opacity-40 blur-3xl"
+            style={{ background: "var(--gradient-mint)" }}
+          />
+
+          <div className="relative flex items-start gap-4 sm:gap-5">
+            {/* Icon tile with pulsing halo */}
+            <div className="relative shrink-0">
+              <div
+                aria-hidden
+                className="hero-halo absolute inset-0 -m-3 rounded-3xl blur-xl"
+                style={{ background: v.halo, opacity: 0.55 }}
+              />
+              <div className={cn(
+                "relative grid h-14 w-14 place-items-center rounded-2xl text-foreground/85 ring-1 ring-white/60",
+                "shadow-[inset_0_1px_0_oklch(1_0_0/0.7),0_10px_24px_-10px_oklch(0.65_0.27_350/0.45)]",
+                v.chip,
+              )}>
+                <Icon className="h-6 w-6" strokeWidth={2.2} />
+              </div>
+            </div>
+
+            <div className="min-w-0 flex-1">
+              {eyebrow && (
+                <p className={cn("text-[10.5px] font-extrabold uppercase tracking-[0.22em]", v.eyebrow)}>
+                  ✨ {eyebrow}
+                </p>
+              )}
+              <h1
+                className="mt-2 font-display text-[28px] font-bold leading-[1.04] tracking-[-0.022em] sm:text-[38px]"
+                style={{
+                  maxWidth: "26ch",
+                  textShadow: "0 1px 0 oklch(1 0 0 / 0.5)",
+                }}
+              >
+                {title}
+              </h1>
+              <p className="mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-foreground/70 sm:text-[15px]">
+                {description}
               </p>
-            )}
-            <h1 className="mt-2 font-display text-[28px] font-bold leading-[1.04] tracking-[-0.022em] sm:text-[36px]" style={{ maxWidth: "26ch" }}>
-              {title}
-            </h1>
-            <p className="mt-2.5 max-w-[60ch] text-[13.5px] leading-relaxed text-muted-foreground/95 sm:text-[15px]">
-              {description}
-            </p>
-            {children && <div className="mt-5">{children}</div>}
+              {children && <div className="mt-4">{children}</div>}
+            </div>
           </div>
         </div>
       </div>
@@ -88,7 +115,7 @@ export function UsageChip({
   else if (freeAllowed) label = "🌸 Free forever on this tool";
   else label = "🔒 Unlock with Studio";
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-secondary/50 px-2.5 py-0.5 text-[11px] font-semibold text-foreground/75">
+    <span className="glass-chip inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold text-foreground/80">
       {label}
     </span>
   );
