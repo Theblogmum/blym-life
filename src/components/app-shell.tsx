@@ -59,7 +59,7 @@ const SECTIONS: Section[] = [
       {
         label: "Create Studio™", icon: Sparkles, items: [
           { to: "/brain-dump", label: "Brain Dump™" },
-          { to: "/studio", label: "My Studio™" },
+          { to: "/generator", label: "My Studio™" },
           { to: "/recycler", label: "Remix™" },
           { to: "/broll", label: "Film This™" },
           { to: "/seo-keywords", label: "Search Boost™" },
