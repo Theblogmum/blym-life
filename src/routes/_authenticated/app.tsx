@@ -44,7 +44,7 @@ const MISSIONS = [
 
 // Only the BEST emotional/value tools — quiet shortcuts, not a tool drawer.
 const QUICK_TOOLS = [
-  { to: "/app",          label: "Today's brief",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
+  { to: "/generator",          label: "Today's brief",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
   { to: "/viral-lab",          label: "Hook lab",          hint: "scroll-stoppers",   icon: Flame,          glow: "oklch(0.78 0.18 25)"  },
   { to: "/rejection-recovery", label: "Rejection recovery", hint: "soft reply, sent", icon: HeartHandshake, glow: "oklch(0.72 0.22 340)" },
   { to: "/business",           label: "Track money",       hint: "the receipts",      icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
