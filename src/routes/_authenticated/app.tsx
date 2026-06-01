@@ -499,9 +499,11 @@ function HomePage() {
               const isCelebrating = celebrate === m.id;
               return (
                 <li key={m.id}>
-                  <div
+                  <Link
+                    to={m.to}
+                    search={("search" in m ? (m as any).search : undefined) as any}
                     className={cn(
-                      "group relative overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
+                      "group relative block overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
                       isDone
                         ? "border-[oklch(0.78_0.1_155)]/55 bg-[oklch(0.97_0.04_155)]/70 shadow-[0_6px_20px_-10px_oklch(0.6_0.16_155/0.55)]"
                         : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:bg-card hover:shadow-[var(--shadow-elegant)]",
@@ -521,7 +523,7 @@ function HomePage() {
                     )}
                     <div className="flex items-center gap-3.5">
                       <button
-                        onClick={() => toggleMission(m.id)}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMission(m.id); }}
                         aria-label={isDone ? "Mark undone" : "Mark done"}
                         className={cn(
                           "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
@@ -552,14 +554,12 @@ function HomePage() {
                         >
                           +{m.xp} XP
                         </span>
-                        <Link to={m.to}>
-                          <Button size="sm" variant="ghost" className="group/btn h-8 rounded-lg px-2 text-[12px] text-foreground/65 hover:bg-foreground/[0.04] hover:text-foreground">
-                            Go <ArrowRight className="ml-0.5 h-3 w-3 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
-                          </Button>
-                        </Link>
+                        <span className="group/btn inline-flex h-8 items-center rounded-lg px-2 text-[12px] font-medium text-foreground/65 transition-colors group-hover:text-foreground">
+                          Go <ArrowRight className="ml-0.5 h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        </span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </li>
               );
             })}
