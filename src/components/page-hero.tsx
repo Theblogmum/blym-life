@@ -37,8 +37,8 @@ export function PageHero({
   const v = VARIANT_ACCENT[variant];
   return (
     <section className="page-enter relative bg-background">
-      <div className="relative mx-auto max-w-5xl px-4 pt-5 pb-3 sm:px-6 sm:pt-7">
-        <div className="experience-hero p-5 sm:p-7">
+      <div className="relative mx-auto w-full max-w-[1200px] px-5 pt-4 pb-3 sm:px-8 sm:pt-6 lg:px-12">
+        <div className="experience-hero p-4 sm:p-7">
           {/* Floating decorative blobs */}
           <div
             aria-hidden
@@ -51,7 +51,7 @@ export function PageHero({
             style={{ background: "var(--gradient-mint)" }}
           />
 
-          <div className="relative flex items-start gap-4 sm:gap-5">
+          <div className="relative flex items-start gap-3.5 sm:gap-5">
             {/* Icon tile with pulsing halo */}
             <div className="relative shrink-0">
               <div
@@ -60,22 +60,22 @@ export function PageHero({
                 style={{ background: v.halo, opacity: 0.55 }}
               />
               <div className={cn(
-                "relative grid h-14 w-14 place-items-center rounded-2xl text-foreground/85 ring-1 ring-white/60",
+                "relative grid h-12 w-12 sm:h-14 sm:w-14 place-items-center rounded-2xl text-foreground/85 ring-1 ring-white/60",
                 "shadow-[inset_0_1px_0_oklch(1_0_0/0.7),0_10px_24px_-10px_oklch(0.65_0.27_350/0.45)]",
                 v.chip,
               )}>
-                <Icon className="h-6 w-6" strokeWidth={2.2} />
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2.2} />
               </div>
             </div>
 
             <div className="min-w-0 flex-1">
               {eyebrow && (
-                <p className={cn("text-[10.5px] font-extrabold uppercase tracking-[0.22em]", v.eyebrow)}>
+                <p className={cn("truncate text-[10px] font-extrabold uppercase tracking-[0.2em] sm:text-[10.5px] sm:tracking-[0.22em]", v.eyebrow)}>
                   ✨ {eyebrow}
                 </p>
               )}
               <h1
-                className="mt-2 font-display text-[28px] font-bold leading-[1.04] tracking-[-0.022em] sm:text-[38px]"
+                className="mt-1.5 font-display text-[22px] font-bold leading-[1.08] tracking-[-0.02em] sm:mt-2 sm:text-[38px] sm:leading-[1.04] sm:tracking-[-0.022em] break-words"
                 style={{
                   maxWidth: "26ch",
                   textShadow: "0 1px 0 oklch(1 0 0 / 0.5)",
@@ -83,7 +83,7 @@ export function PageHero({
               >
                 {title}
               </h1>
-              <p className="mt-2.5 max-w-[58ch] text-[13.5px] leading-relaxed text-foreground/70 sm:text-[15px]">
+              <p className="mt-2 max-w-[58ch] text-[12.5px] leading-relaxed text-foreground/70 sm:mt-2.5 sm:text-[15px]">
                 {description}
               </p>
               {children && <div className="mt-4">{children}</div>}
