@@ -37,15 +37,15 @@ const blymLevel = (n: number) => BLYM_LEVELS[Math.min(Math.max(1, n), 10) - 1];
 
 // Daily missions — small, achievable, dopamine
 const MISSIONS = [
-  { id: "film", label: "Film one tiny clip", hint: "10 seconds counts.", icon: Camera, xp: 15, to: "/app" },
-  { id: "hooks", label: "Write 3 hooks", hint: "Scroll-stoppers in the Lab.", icon: PenLine, xp: 10, to: "/viral-lab" },
+  { id: "film", label: "Film one tiny clip", hint: "10 seconds counts.", icon: Camera, xp: 15, to: "/generator", search: { kind: "shot list" } as const },
+  { id: "hooks", label: "Write 3 hooks", hint: "Scroll-stoppers in the Lab.", icon: PenLine, xp: 10, to: "/generator", search: { kind: "hook" } as const },
   { id: "pitch", label: "Find a brand to pitch", hint: "Just one. We'll help.", icon: Send, xp: 20, to: "/brand-hub" },
 ];
 
 // Only the BEST emotional/value tools — quiet shortcuts, not a tool drawer.
 const QUICK_TOOLS = [
-  { to: "/generator",          label: "Today's brief",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
-  { to: "/viral-lab",          label: "Hook lab",          hint: "scroll-stoppers",   icon: Flame,          glow: "oklch(0.78 0.18 25)"  },
+  { to: "/generator",          label: "Today's brief",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)",  search: undefined as undefined | Record<string, string> },
+  { to: "/generator",          label: "Hook lab",          hint: "scroll-stoppers",   icon: Flame,          glow: "oklch(0.78 0.18 25)",  search: { kind: "hook" } as Record<string, string> | undefined },
   { to: "/rejection-recovery", label: "Rejection recovery", hint: "soft reply, sent", icon: HeartHandshake, glow: "oklch(0.72 0.22 340)" },
   { to: "/business",           label: "Track money",       hint: "the receipts",      icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
 ];
