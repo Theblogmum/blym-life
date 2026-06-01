@@ -2,8 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import {
   Sparkles, Flame, ArrowRight, DollarSign, Check,
   Camera, Send, PenLine, Rocket, HeartHandshake,
@@ -37,17 +35,25 @@ const blymLevel = (n: number) => BLYM_LEVELS[Math.min(Math.max(1, n), 10) - 1];
 
 // Daily missions — small, achievable, dopamine
 const MISSIONS = [
-  { id: "film", label: "Film one tiny clip", hint: "10 seconds counts.", icon: Camera, xp: 15, to: "/app" },
-  { id: "hooks", label: "Write 3 hooks", hint: "Scroll-stoppers in the Lab.", icon: PenLine, xp: 10, to: "/viral-lab" },
+  { id: "film", label: "Film one tiny clip", hint: "10 seconds counts.", icon: Camera, xp: 15, to: "/generator", search: { kind: "shot list" } as const },
+  { id: "hooks", label: "Write 3 hooks", hint: "Scroll-stoppers in the Lab.", icon: PenLine, xp: 10, to: "/generator", search: { kind: "hook" } as const },
   { id: "pitch", label: "Find a brand to pitch", hint: "Just one. We'll help.", icon: Send, xp: 20, to: "/brand-hub" },
 ];
 
 // Only the BEST emotional/value tools — quiet shortcuts, not a tool drawer.
-const QUICK_TOOLS = [
-  { to: "/generator",          label: "Today's brief",     hint: "one ready brief",   icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
-  { to: "/viral-lab",          label: "Hook lab",          hint: "scroll-stoppers",   icon: Flame,          glow: "oklch(0.78 0.18 25)"  },
+type QuickTool = {
+  to: string;
+  label: string;
+  hint: string;
+  icon: typeof Camera;
+  glow: string;
+  search?: Record<string, string>;
+};
+const QUICK_TOOLS: QuickTool[] = [
+  { to: "/generator",          label: "Today's brief",      hint: "one ready brief",  icon: Camera,         glow: "oklch(0.74 0.18 15)"  },
+  { to: "/generator",          label: "Hook lab",           hint: "scroll-stoppers",  icon: Flame,          glow: "oklch(0.78 0.18 25)", search: { kind: "hook" } },
   { to: "/rejection-recovery", label: "Rejection recovery", hint: "soft reply, sent", icon: HeartHandshake, glow: "oklch(0.72 0.22 340)" },
-  { to: "/business",           label: "Track money",       hint: "the receipts",      icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
+  { to: "/business",           label: "Track money",        hint: "the receipts",     icon: DollarSign,     glow: "oklch(0.68 0.16 145)" },
 ];
 
 function HomePage() {
@@ -369,6 +375,7 @@ function HomePage() {
               <Link
                 key={t.label + t.to}
                 to={t.to}
+                search={t.search as any}
                 className="group relative flex h-[174px] flex-col justify-between overflow-hidden rounded-[1.25rem] p-5 transition-all duration-500 ease-out hover:-translate-y-[3px] sm:p-6"
                 style={{
                   background: "linear-gradient(160deg, oklch(1 0 0 / 0.82), oklch(1 0 0 / 0.55))",
@@ -490,9 +497,11 @@ function HomePage() {
               const isCelebrating = celebrate === m.id;
               return (
                 <li key={m.id}>
-                  <div
+                  <Link
+                    to={m.to}
+                    search={("search" in m ? (m as any).search : undefined) as any}
                     className={cn(
-                      "group relative overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
+                      "group relative block overflow-hidden rounded-xl border px-4 py-3 transition-all duration-300 sm:px-5 sm:py-3.5",
                       isDone
                         ? "border-[oklch(0.78_0.1_155)]/55 bg-[oklch(0.97_0.04_155)]/70 shadow-[0_6px_20px_-10px_oklch(0.6_0.16_155/0.55)]"
                         : "border-border/40 bg-card hover:-translate-y-[2px] hover:border-primary/40 hover:bg-card hover:shadow-[var(--shadow-elegant)]",
@@ -512,7 +521,7 @@ function HomePage() {
                     )}
                     <div className="flex items-center gap-3.5">
                       <button
-                        onClick={() => toggleMission(m.id)}
+                        onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleMission(m.id); }}
                         aria-label={isDone ? "Mark undone" : "Mark done"}
                         className={cn(
                           "grid h-9 w-9 shrink-0 place-items-center rounded-lg transition-all duration-300 active:scale-90",
@@ -543,14 +552,12 @@ function HomePage() {
                         >
                           +{m.xp} XP
                         </span>
-                        <Link to={m.to}>
-                          <Button size="sm" variant="ghost" className="group/btn h-8 rounded-lg px-2 text-[12px] text-foreground/65 hover:bg-foreground/[0.04] hover:text-foreground">
-                            Go <ArrowRight className="ml-0.5 h-3 w-3 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
-                          </Button>
-                        </Link>
+                        <span className="group/btn inline-flex h-8 items-center rounded-lg px-2 text-[12px] font-medium text-foreground/65 transition-colors group-hover:text-foreground">
+                          Go <ArrowRight className="ml-0.5 h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+                        </span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </li>
               );
             })}
