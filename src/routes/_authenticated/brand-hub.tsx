@@ -11,7 +11,7 @@ import {
   Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription,
 } from "@/components/ui/sheet";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Building2, Search, Sparkles, Plus, Mail, Copy, Check, Lock, Send, ExternalLink, Trash2 } from "lucide-react";
+import { Building2, Search, Sparkles, Plus, Mail, Copy, Check, Lock, Send, ExternalLink, Trash2, Globe } from "lucide-react";
 import { toast } from "sonner";
 import { listBrands, addUserBrand } from "@/lib/brands.functions";
 import { listPitches, composePitch, savePitchDraft, updatePitchStatus, deletePitch } from "@/lib/pitches.functions";
@@ -64,6 +64,7 @@ function BrandHubPage() {
   const [category, setCategory] = useState<string>("");
   const [composer, setComposer] = useState<{ brand?: Brand; userBrand?: Brand } | null>(null);
   const [showAdd, setShowAdd] = useState(false);
+  const [detail, setDetail] = useState<{ brand?: Brand; userBrand?: Brand } | null>(null);
 
   const filtered = useMemo(() => {
     const all = brandsQ.data?.brands ?? [];
@@ -154,7 +155,7 @@ function BrandHubPage() {
                       key={b.id}
                       brand={{ id: b.id, name: b.name, website: b.website, contact_email: b.contact_email, notes: b.notes }}
                       mine
-                      onPitch={() => setComposer({ userBrand: b })}
+                      onOpen={() => setDetail({ userBrand: b })}
                       disabled={locked}
                     />
                   ))}
@@ -171,7 +172,7 @@ function BrandHubPage() {
               ) : (
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {filtered.map((b: Brand) => (
-                    <BrandCard key={b.id} brand={b} onPitch={() => setComposer({ brand: b })} disabled={locked} />
+                    <BrandCard key={b.id} brand={b} onOpen={() => setDetail({ brand: b })} disabled={locked} />
                   ))}
                 </div>
               )}
@@ -208,6 +209,19 @@ function BrandHubPage() {
           locked={locked}
         />
       )}
+      {detail && (
+        <BrandDetailSheet
+          brand={detail.brand}
+          userBrand={detail.userBrand}
+          onClose={() => setDetail(null)}
+          onPitch={() => {
+            const d = detail;
+            setDetail(null);
+            setComposer({ brand: d.brand, userBrand: d.userBrand });
+          }}
+          disabled={locked}
+        />
+      )}
       {showAdd && <AddBrandDialog onClose={() => setShowAdd(false)} onAdded={() => { refresh(); setShowAdd(false); }} />}
     </div>
   );
@@ -223,10 +237,17 @@ function StatCard({ label, value, variant }: { label: string; value: number; var
 }
 
 function BrandCard({
-  brand, mine, onPitch, disabled,
-}: { brand: Brand; mine?: boolean; onPitch: () => void; disabled?: boolean }) {
+  brand, mine, onOpen, disabled,
+}: { brand: Brand; mine?: boolean; onOpen: () => void; disabled?: boolean }) {
   return (
-    <Card glow className="flex flex-col rounded-3xl p-5">
+    <Card
+      glow
+      role="button"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } }}
+      className="flex cursor-pointer flex-col rounded-3xl p-5 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+    >
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="font-display text-lg font-black leading-tight">{brand.name}</p>
@@ -240,21 +261,124 @@ function BrandCard({
       {brand.notes && <p className="mt-2 text-xs text-foreground/70">{brand.notes}</p>}
       <div className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
         {brand.website && (
-          <a href={brand.website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:text-foreground">
+          <a
+            href={brand.website}
+            target="_blank"
+            rel="noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="inline-flex items-center gap-1 hover:text-foreground"
+          >
             <ExternalLink className="h-3 w-3" /> Website
           </a>
         )}
-        {brand.contact_email && <span className="truncate">{brand.contact_email}</span>}
+        {brand.contact_email && (
+          <span className="inline-flex items-center gap-1 truncate">
+            <Mail className="h-3 w-3" /> {brand.contact_email}
+          </span>
+        )}
       </div>
-      <Button
-        onClick={onPitch}
-        disabled={disabled}
-        size="sm"
-        className="mt-4 w-full rounded-xl"
-      >
-        <Sparkles className="mr-1 h-3.5 w-3.5" /> Pitch this brand
-      </Button>
+      <div className="mt-4 inline-flex items-center justify-center gap-1 rounded-xl bg-secondary/60 px-3 py-2 text-xs font-semibold text-foreground/80">
+        Tap to view & pitch
+      </div>
     </Card>
+  );
+}
+
+function BrandDetailSheet({
+  brand, userBrand, onClose, onPitch, disabled,
+}: {
+  brand?: Brand; userBrand?: Brand; onClose: () => void; onPitch: () => void; disabled?: boolean;
+}) {
+  const target = brand ?? userBrand!;
+  const [copied, setCopied] = useState(false);
+  const domain = (() => {
+    try { return target.website ? new URL(target.website).hostname.replace(/^www\./, "") : ""; }
+    catch { return ""; }
+  })();
+  const searchUrl = domain
+    ? `https://www.google.com/search?q=${encodeURIComponent(`site:${domain} press OR pr OR media email contact`)}`
+    : `https://www.google.com/search?q=${encodeURIComponent(`${target.name} press OR pr OR media email contact UK`)}`;
+
+  const copyEmail = async () => {
+    if (!target.contact_email) return;
+    await navigator.clipboard.writeText(target.contact_email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <Sheet open onOpenChange={(o) => !o && onClose()}>
+      <SheetContent side="right" className="w-full max-w-md overflow-y-auto sm:max-w-md">
+        <SheetHeader>
+          <SheetTitle>{target.name}</SheetTitle>
+          {target.category && (
+            <SheetDescription>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-primary">{target.category}</span>
+            </SheetDescription>
+          )}
+        </SheetHeader>
+
+        <div className="mt-5 space-y-4">
+          {target.description && (
+            <p className="text-sm leading-6 text-muted-foreground">{target.description}</p>
+          )}
+          {target.notes && (
+            <Card className="rounded-2xl p-3 text-xs text-foreground/80">{target.notes}</Card>
+          )}
+
+          {target.website && (
+            <a
+              href={target.website}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-between gap-2 rounded-2xl border border-border bg-secondary/40 p-3 text-sm font-semibold hover:bg-secondary/60"
+            >
+              <span className="inline-flex items-center gap-2 truncate">
+                <Globe className="h-4 w-4" /> {domain || target.website}
+              </span>
+              <ExternalLink className="h-4 w-4 text-muted-foreground" />
+            </a>
+          )}
+
+          <div className="rounded-2xl border border-border bg-card p-4">
+            <p className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Contact email</p>
+            {target.contact_email ? (
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                <a
+                  href={`mailto:${target.contact_email}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  <Mail className="h-4 w-4" /> {target.contact_email}
+                </a>
+                <Button size="sm" variant="outline" className="rounded-xl" onClick={copyEmail}>
+                  {copied ? <Check className="mr-1 h-3.5 w-3.5" /> : <Copy className="mr-1 h-3.5 w-3.5" />}
+                  {copied ? "Copied" : "Copy"}
+                </Button>
+              </div>
+            ) : (
+              <p className="mt-1 text-sm text-muted-foreground">No public email saved for this brand yet.</p>
+            )}
+            <a
+              href={searchUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground"
+            >
+              <Search className="h-3.5 w-3.5" /> Look up press email on Google
+            </a>
+          </div>
+
+          <Button onClick={onPitch} disabled={disabled} className="w-full rounded-xl">
+            <Sparkles className="mr-1 h-4 w-4" /> Draft a pitch email
+          </Button>
+          {disabled && (
+            <p className="rounded-xl surface-plum p-2 text-xs">
+              <Lock className="mr-1 inline h-3 w-3" /> Pitching is Premium — your draft will save here once you upgrade.
+            </p>
+          )}
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }
 
