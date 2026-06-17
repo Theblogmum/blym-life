@@ -19,7 +19,10 @@ const config: CapacitorConfig = {
   ios: {
     contentInset: 'automatic',
     scheme: 'com.blym.app',
-    limitsNavigationsToAppBoundDomains: true,
+    // App-Bound Domains requires a matching WKAppBoundDomains entry in Info.plist.
+    // Leaving this on without that entry causes WKWebView to block navigation and
+    // render a blank white screen on iPad (Apple review rejection).
+    limitsNavigationsToAppBoundDomains: false,
   },
 };
 
