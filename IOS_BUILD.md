@@ -41,3 +41,19 @@ web build into the iOS project. Content/UI changes require a new iOS build uploa
 If the app ever opens Safari instead of staying in the iOS shell, delete the old
 local native folder and run `npm run ios:reset` again so Xcode uses the latest
 Capacitor config.
+
+## Apple review fixes (June 2026)
+
+If Apple rejects with "blank white page on iPad":
+1. We disabled `limitsNavigationsToAppBoundDomains` in `capacitor.config.ts`.
+   That flag requires a matching `WKAppBoundDomains` array in `App/App/Info.plist`;
+   without it WKWebView blocks the initial navigation and renders a blank screen.
+2. Re-run `npm run ios:reset` on your Mac so the new config is written into the
+   native iOS project, then Archive and re-upload.
+
+If Apple rejects with "icon duplicates another app" (Guideline 4.3a):
+1. The new unique icon lives at `public/blym-icon.png` (1024×1024).
+2. In Xcode open `App/App/Assets.xcassets/AppIcon.appiconset`, replace the
+   1024×1024 marketing icon with the new PNG, regenerate the smaller sizes
+   (Xcode auto-fills from the 1024 slot in single-size mode), then Archive
+   and re-upload.
